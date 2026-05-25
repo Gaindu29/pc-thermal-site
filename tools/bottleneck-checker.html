@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PC Bottleneck Checker — CPU & GPU Balance Tool | TempCore</title>
+  <meta name="description" content="Free PC bottleneck checker. Select your CPU and GPU to instantly see if one component is limiting the other — at 1080p, 1440p, and 4K. Covers 100+ CPUs and 80+ GPUs.">
+  <meta name="keywords" content="PC bottleneck checker, CPU GPU bottleneck, is my CPU bottlenecking my GPU, bottleneck calculator, PC build bottleneck test, RTX 4070 bottleneck i5">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* ── Field layout ─────────────────────────────── */
+    .field-label {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8888a0;
+      margin-bottom: 0.5rem;
+    }
+    .field-hint {
+      font-size: 0.72rem;
+      color: #555568;
+      margin-top: 0.35rem;
+      line-height: 1.5;
+    }
+    select option, select optgroup { background: #141418; }
+
+    /* ── Use case chips ───────────────────────────── */
+    .uc-chips {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .uc-chip {
+      flex: 1;
+      min-width: 80px;
+      padding: 0.55rem 0.5rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #8888a0;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .uc-chip:hover { border-color: #3a3a48; color: var(--text); }
+    .uc-chip.selected {
+      border-color: var(--hot);
+      background: rgba(255,100,34,0.1);
+      color: var(--hot);
+    }
+    .uc-chip.selected.blue { border-color: var(--accent); background: rgba(0,200,255,0.08); color: var(--accent); }
+    .uc-chip.selected.warm { border-color: var(--warm); background: rgba(255,170,0,0.08); color: var(--warm); }
+
+    /* ── Info tooltip strip ───────────────────────── */
+    .info-strip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      font-size: 0.8rem;
+      color: #8888a0;
+      line-height: 1.6;
+    }
+
+    /* ── Sticky on desktop ────────────────────────── */
+    @media (min-width: 768px) {
+      .sticky-inputs { position: sticky; top: 80px; }
+    }
+  </style>
+</head>
+<body class="bg-bg">
+
+  <!-- NAV -->
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
+      <div class="flex items-center gap-6">
+        <a href="../tools/gpu-temp-checker.html" class="nav-link">GPU Checker</a>
+        <a href="bottleneck-checker.html" style="color:var(--accent);" class="nav-link">Bottleneck</a>
+        <a href="../articles/overclocking-guide.html" class="nav-link hidden sm:block">OC Guide</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <a href="../index.html" style="font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">&#8592; Back to Home</a>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
+        <div>
+          <div class="section-label">Tool</div>
+          <h1 class="font-display mt-1" style="font-size:clamp(2.5rem,7vw,5rem); line-height:0.92;">
+            PC Bottleneck<br><span style="color:var(--hot);">Checker</span>
+          </h1>
+          <p style="color:#8888a0; margin-top:0.75rem; font-size:0.9rem; line-height:1.6; max-width:480px;">
+            Select your CPU and GPU to see which component is holding the other back — broken down by resolution and use case.
+          </p>
+        </div>
+        <!-- Quick legend -->
+        <div class="temp-strip" style="min-width:260px;">
+          <div class="temp-strip-segment" style="background:rgba(34,212,126,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--safe); font-weight:600;">0&#8211;9%</span>
+            <span style="color:#8888a0; font-size:0.6rem;">MATCHED</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,170,0,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--warm); font-weight:600;">10&#8211;30%</span>
+            <span style="color:#8888a0; font-size:0.6rem;">MINOR</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,100,34,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--hot); font-weight:600;">31&#8211;50%</span>
+            <span style="color:#8888a0; font-size:0.6rem;">MODERATE</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,34,68,0.06);">
+            <span style="color:var(--critical); font-weight:600;">51%+</span>
+            <span style="color:#8888a0; font-size:0.6rem;">SEVERE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+
+      <!-- ── INPUTS ──────────────────────────────────────── -->
+      <div class="md:col-span-2">
+        <div class="sticky-inputs flex flex-col gap-4">
+
+          <div class="card p-5">
+            <div class="section-label mb-4">Your Components</div>
+
+            <!-- CPU -->
+            <div class="mb-4">
+              <label class="field-label" for="bn-cpu">Your CPU</label>
+              <select id="bn-cpu" class="input-field">
+                <option value="">&#8212; Select CPU &#8212;</option>
+
+                <optgroup label="Intel 14th Gen">
+                  <option>Core i9-14900K</option>
+                  <option>Core i9-14900KF</option>
+                  <option>Core i7-14700K</option>
+                  <option>Core i7-14700KF</option>
+                  <option>Core i5-14600K</option>
+                  <option>Core i5-14600KF</option>
+                </optgroup>
+                <optgroup label="Intel 13th Gen">
+                  <option>Core i9-13900K</option>
+                  <option>Core i9-13900KF</option>
+                  <option>Core i7-13700K</option>
+                  <option>Core i7-13700KF</option>
+                  <option>Core i7-13700</option>
+                  <option>Core i5-13600K</option>
+                  <option>Core i5-13600KF</option>
+                  <option>Core i5-13500</option>
+                  <option>Core i5-13400</option>
+                  <option>Core i5-13400F</option>
+                  <option>Core i3-13100</option>
+                  <option>Core i3-13100F</option>
+                </optgroup>
+                <optgroup label="Intel 12th Gen">
+                  <option>Core i9-12900K</option>
+                  <option>Core i9-12900KF</option>
+                  <option>Core i7-12700K</option>
+                  <option>Core i7-12700KF</option>
+                  <option>Core i7-12700</option>
+                  <option>Core i5-12600K</option>
+                  <option>Core i5-12600KF</option>
+                  <option>Core i5-12600</option>
+                  <option>Core i5-12400</option>
+                  <option>Core i5-12400F</option>
+                  <option>Core i3-12100</option>
+                  <option>Core i3-12100F</option>
+                </optgroup>
+                <optgroup label="Intel 11th / 10th Gen">
+                  <option>Core i9-11900K</option>
+                  <option>Core i7-11700K</option>
+                  <option>Core i5-11600K</option>
+                  <option>Core i9-10900K</option>
+                  <option>Core i7-10700K</option>
+                  <option>Core i5-10600K</option>
+                  <option>Core i5-10400</option>
+                  <option>Core i5-10400F</option>
+                </optgroup>
+
+                <optgroup label="AMD Ryzen 7000 (Zen 4)">
+                  <option>Ryzen 9 7950X3D</option>
+                  <option>Ryzen 9 7950X</option>
+                  <option>Ryzen 9 7900X3D</option>
+                  <option>Ryzen 9 7900X</option>
+                  <option>Ryzen 9 7900</option>
+                  <option>Ryzen 7 7800X3D</option>
+                  <option>Ryzen 7 7700X</option>
+                  <option>Ryzen 7 7700</option>
+                  <option>Ryzen 5 7600X</option>
+                  <option>Ryzen 5 7600</option>
+                  <option>Ryzen 5 7500F</option>
+                </optgroup>
+                <optgroup label="AMD Ryzen 5000 (Zen 3)">
+                  <option>Ryzen 9 5950X</option>
+                  <option>Ryzen 9 5900X</option>
+                  <option>Ryzen 7 5800X3D</option>
+                  <option>Ryzen 7 5800X</option>
+                  <option>Ryzen 7 5700X</option>
+                  <option>Ryzen 5 5600X</option>
+                  <option>Ryzen 5 5600</option>
+                  <option>Ryzen 5 5600G</option>
+                  <option>Ryzen 5 5500</option>
+                  <option>Ryzen 3 5300G</option>
+                </optgroup>
+                <optgroup label="AMD Ryzen 3000 (Zen 2)">
+                  <option>Ryzen 9 3900XT</option>
+                  <option>Ryzen 9 3900X</option>
+                  <option>Ryzen 7 3800XT</option>
+                  <option>Ryzen 7 3800X</option>
+                  <option>Ryzen 7 3700X</option>
+                  <option>Ryzen 5 3600XT</option>
+                  <option>Ryzen 5 3600X</option>
+                  <option>Ryzen 5 3600</option>
+                  <option>Ryzen 3 3300X</option>
+                  <option>Ryzen 3 3100</option>
+                </optgroup>
+                <optgroup label="AMD Ryzen 2000 (Zen+)">
+                  <option>Ryzen 7 2700X</option>
+                  <option>Ryzen 7 2700</option>
+                  <option>Ryzen 5 2600X</option>
+                  <option>Ryzen 5 2600</option>
+                </optgroup>
+
+              </select>
+            </div>
+
+            <!-- GPU -->
+            <div class="mb-5">
+              <label class="field-label" for="bn-gpu">Your GPU</label>
+              <select id="bn-gpu" class="input-field">
+                <option value="">&#8212; Select GPU &#8212;</option>
+                <optgroup label="NVIDIA RTX 40 Series">
+                  <option>RTX 4090</option>
+                  <option>RTX 4080 Super</option>
+                  <option>RTX 4080</option>
+                  <option>RTX 4070 Ti Super</option>
+                  <option>RTX 4070 Ti</option>
+                  <option>RTX 4070 Super</option>
+                  <option>RTX 4070</option>
+                  <option>RTX 4060 Ti 16GB</option>
+                  <option>RTX 4060 Ti</option>
+                  <option>RTX 4060</option>
+                </optgroup>
+                <optgroup label="NVIDIA RTX 40 Laptop">
+                  <option>RTX 4090 (Laptop)</option>
+                  <option>RTX 4080 (Laptop)</option>
+                  <option>RTX 4070 (Laptop)</option>
+                  <option>RTX 4060 (Laptop)</option>
+                  <option>RTX 4050 (Laptop)</option>
+                </optgroup>
+                <optgroup label="NVIDIA RTX 30 Series">
+                  <option>RTX 3090 Ti</option>
+                  <option>RTX 3090</option>
+                  <option>RTX 3080 Ti</option>
+                  <option>RTX 3080 12GB</option>
+                  <option>RTX 3080 10GB</option>
+                  <option>RTX 3070 Ti</option>
+                  <option>RTX 3070</option>
+                  <option>RTX 3060 Ti</option>
+                  <option>RTX 3060</option>
+                  <option>RTX 3050</option>
+                </optgroup>
+                <optgroup label="NVIDIA GTX Series">
+                  <option>GTX 1080 Ti</option>
+                  <option>GTX 1080</option>
+                  <option>GTX 1070 Ti</option>
+                  <option>GTX 1070</option>
+                  <option>GTX 1660 Ti</option>
+                  <option>GTX 1660 Super</option>
+                  <option>GTX 1660</option>
+                  <option>GTX 1650 Super</option>
+                  <option>GTX 1650</option>
+                  <option>GTX 1060 6GB</option>
+                  <option>GTX 1060 3GB</option>
+                  <option>GTX 1050 Ti</option>
+                </optgroup>
+                <optgroup label="AMD RX 7000 Series">
+                  <option>RX 7900 XTX</option>
+                  <option>RX 7900 XT</option>
+                  <option>RX 7900 GRE</option>
+                  <option>RX 7800 XT</option>
+                  <option>RX 7700 XT</option>
+                  <option>RX 7600 XT</option>
+                  <option>RX 7600</option>
+                </optgroup>
+                <optgroup label="AMD RX 6000 Series">
+                  <option>RX 6950 XT</option>
+                  <option>RX 6900 XT</option>
+                  <option>RX 6800 XT</option>
+                  <option>RX 6800</option>
+                  <option>RX 6750 XT</option>
+                  <option>RX 6700 XT</option>
+                  <option>RX 6700</option>
+                  <option>RX 6650 XT</option>
+                  <option>RX 6600 XT</option>
+                  <option>RX 6600</option>
+                  <option>RX 6500 XT</option>
+                  <option>RX 6400</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <!-- Use case -->
+            <div class="mb-5">
+              <label class="field-label">Use Case</label>
+              <div class="uc-chips">
+                <button class="uc-chip selected" id="uc-gaming"    onclick="selectUC('gaming')"   >🎮 Gaming</button>
+                <button class="uc-chip"          id="uc-streaming" onclick="selectUC('streaming')">📡 Streaming</button>
+                <button class="uc-chip"          id="uc-editing"   onclick="selectUC('editing')"  >🎬 Editing</button>
+              </div>
+              <input type="hidden" id="bn-usecase" value="gaming">
+              <div class="field-hint">Streaming and editing shift more load to the CPU</div>
+            </div>
+
+            <!-- Error -->
+            <div id="bn-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'IBM Plex Mono',monospace; margin-bottom:0.75rem;"></div>
+
+            <!-- Submit -->
+            <button class="btn-check" onclick="checkBottleneck()" style="width:100%;">
+              Check Bottleneck
+            </button>
+          </div>
+
+          <!-- What this tool measures -->
+          <div class="info-strip">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">How this works</div>
+            Scores are derived from aggregated gaming benchmarks across popular titles. Bottleneck % represents how much one component limits the other. Results are estimates — actual values vary by game, settings, and background load.
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── RESULTS ─────────────────────────────────────── -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+
+        <!-- Default state -->
+        <div id="bn-default" class="card p-10 flex flex-col items-center justify-center text-center" style="min-height:320px;">
+          <div style="font-size:3.5rem; margin-bottom:1rem; filter:grayscale(0.3);">⚡</div>
+          <div class="font-display text-2xl mb-2" style="color:#445566;">Select CPU &amp; GPU</div>
+          <p style="color:#445566; font-size:0.85rem; max-width:300px; line-height:1.6;">
+            Choose your CPU and GPU from the dropdowns to see how well matched they are across 1080p, 1440p, and 4K.
+          </p>
+        </div>
+
+        <!-- Result -->
+        <div id="bn-result" class="result-box"></div>
+
+        <!-- Context cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-2">
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">1080p vs 4K Bottleneck</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">At 1080p, your CPU does more of the work and bottlenecks appear more often. At 4K, the GPU is under heavy load and CPU bottlenecks almost disappear. Moving to a higher resolution is one way to reduce a CPU bottleneck.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">What % Is Acceptable?</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">No system is perfectly balanced. A 10&#8211;15% bottleneck is normal and expected. Only above 25&#8211;30% does it meaningfully impact performance enough to justify an upgrade specifically for balance.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">3D V-Cache CPUs</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">AMD's Ryzen 7 5800X3D and 7800X3D use 3D V-Cache to dramatically increase gaming performance beyond their base clock speeds. They are outliers in the lineup — often the best gaming CPUs despite lower all-core performance.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">GPU Upgrade vs CPU Upgrade</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">If your GPU is the bottleneck, upgrading the GPU directly improves FPS. If your CPU is the bottleneck, upgrading the CPU will reduce the bottleneck but you may still be GPU-limited in many scenes.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related tools -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border);">
+      <div class="section-label">Related Tools</div>
+      <div class="grid sm:grid-cols-3 gap-4 mt-4">
+        <a href="../tools/gpu-temp-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Temperature Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Is your GPU running too hot?</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
+        </a>
+        <a href="../tools/ssd-health-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(0,200,255,0.08); color:var(--accent);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">SSD Health Tools</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">SSD temperature and lifespan estimator.</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
+        </a>
+        <a href="../articles/overclocking-guide.html#oc-selector" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU OC Settings Finder</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Safe overclock settings for 40+ GPU models.</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Find settings</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'IBM Plex Mono',monospace;">PC thermal guides &amp; hardware tools</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="../tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Checker</a>
+          <a href="../tools/ssd-health-checker.html" class="nav-link text-xs">SSD Tools</a>
+          <a href="bottleneck-checker.html" class="nav-link text-xs">Bottleneck</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'IBM Plex Mono',monospace;">
+        &copy; 2025 TempCore. Bottleneck estimates are based on aggregated benchmark data and are approximate. Actual performance varies by game, settings, and system configuration.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/bottleneck.js"></script>
+  <script>
+    function selectUC(uc) {
+      document.querySelectorAll(".uc-chip").forEach(function(c) {
+        c.classList.remove("selected", "blue", "warm");
+      });
+      var chip = document.getElementById("uc-" + uc);
+      chip.classList.add("selected");
+      if (uc === "streaming") chip.classList.add("blue");
+      if (uc === "editing")   chip.classList.add("warm");
+      document.getElementById("bn-usecase").value = uc;
+    }
+  </script>
+
+</body>
+</html>
