@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThermalCore — PC Temperature & Hardware Guides</title>
+  <meta name="description" content="Free GPU temperature checker, SSD health guides, and gaming laptop optimization tools. Know if your PC temps are safe right now.">
+  <meta name="keywords" content="GPU temperature, safe GPU temp, PC thermals, gaming laptop temps, RTX temperature guide">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg:      '#0c0c0e',
+            surface: '#141418',
+            border:  '#2a2a32',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-bg">
+
+  <!-- ══ NAV ══════════════════════════════════════════ -->
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-dot"></div>
+        ThermalCore
+      </a>
+      <div class="flex items-center gap-6">
+        <a href="tools/gpu-temp-checker.html" class="nav-link">GPU Checker</a>
+        <a href="articles/gpu-temp-guide.html" class="nav-link hidden sm:block">Guides</a>
+        <a href="tools/gpu-temp-checker.html"
+           style="background:rgba(255,100,34,0.12); border:1px solid rgba(255,100,34,0.3); color:#ff6422;"
+           class="px-3 py-1.5 rounded text-xs font-mono tracking-wider transition-all hover:bg-orange-500 hover:bg-opacity-20">
+          CHECK NOW
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══════════════════════════════════════════ -->
+  <section class="hero scanlines">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="max-w-6xl mx-auto px-5 relative z-10">
+      <div class="hero-badge">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--hot);display:inline-block;"></span>
+        PC Thermal Intelligence
+      </div>
+      <h1 class="hero-title">
+        Know Your<br>
+        <span class="accent">GPU Temp.</span><br>
+        Stay Safe.
+      </h1>
+      <p class="hero-sub">
+        Enter your GPU model and current temperature. Get an instant verdict — safe, warm, or dangerously hot — with actionable advice.
+      </p>
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href="tools/gpu-temp-checker.html"
+           class="btn-check inline-flex items-center gap-2 px-6 py-3 rounded-lg font-display text-lg tracking-wider"
+           style="width:auto;">
+          🌡️ &nbsp;Check GPU Temperature
+        </a>
+        <a href="articles/gpu-temp-guide.html"
+           style="background:var(--surface); border:1px solid var(--border); color:var(--text);"
+           class="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-mono text-sm tracking-wider transition-all hover:border-gray-500">
+          Read the Guide →
+        </a>
+      </div>
+
+      <!-- Quick temp reference strip -->
+      <div class="temp-strip mt-10 max-w-xl">
+        <div class="temp-strip-segment" style="background:rgba(34,212,126,0.06); border-right:1px solid var(--border);">
+          <span style="color:var(--safe); font-weight:600;">≤ 75°C</span>
+          <span style="color:#8888a0; font-size:0.65rem; letter-spacing:0.05em;">SAFE</span>
+        </div>
+        <div class="temp-strip-segment" style="background:rgba(255,170,0,0.06); border-right:1px solid var(--border);">
+          <span style="color:var(--warm); font-weight:600;">76–85°C</span>
+          <span style="color:#8888a0; font-size:0.65rem; letter-spacing:0.05em;">WARM</span>
+        </div>
+        <div class="temp-strip-segment" style="background:rgba(255,100,34,0.06); border-right:1px solid var(--border);">
+          <span style="color:var(--hot); font-weight:600;">86–94°C</span>
+          <span style="color:#8888a0; font-size:0.65rem; letter-spacing:0.05em;">TOO HOT</span>
+        </div>
+        <div class="temp-strip-segment" style="background:rgba(255,34,68,0.06);">
+          <span style="color:var(--critical); font-weight:600;">95°C+</span>
+          <span style="color:#8888a0; font-size:0.65rem; letter-spacing:0.05em;">CRITICAL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FEATURED TOOLS ════════════════════════════════ -->
+  <section class="py-16 max-w-6xl mx-auto px-5">
+    <div class="section-label">Tools</div>
+    <h2 class="font-display text-4xl mb-8">Free Hardware Tools</h2>
+
+    <div class="grid md:grid-cols-3 gap-4">
+
+      <!-- GPU Checker — Primary -->
+      <a href="tools/gpu-temp-checker.html" class="card card-tool p-5 col-span-1 md:col-span-2 article-card" style="text-decoration:none;">
+        <div class="flex items-start justify-between gap-3 mb-3">
+          <div>
+            <div class="article-tag mb-2" style="background:rgba(255,100,34,0.1); color:var(--hot);">Tool</div>
+            <h3 class="font-display text-2xl tracking-wide article-title transition-colors" style="color:var(--text);">GPU Temperature Checker</h3>
+          </div>
+          <div style="font-size:2.5rem; line-height:1; flex-shrink:0;">🌡️</div>
+        </div>
+        <p style="color:#8888a0; font-size:0.875rem; line-height:1.6; margin-bottom:1rem;">
+          Input your GPU model and current temperature. Get an instant Safe / Warm / Hot verdict with specific suggestions tailored to your card.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="article-tag" style="background:rgba(34,212,126,0.08); color:var(--safe);">RTX 40 Series</span>
+          <span class="article-tag" style="background:rgba(34,212,126,0.08); color:var(--safe);">RTX 30 Series</span>
+          <span class="article-tag" style="background:rgba(34,212,126,0.08); color:var(--safe);">AMD RX 6000/7000</span>
+          <span class="article-tag" style="background:rgba(34,212,126,0.08); color:var(--safe);">GTX Series</span>
+        </div>
+        <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.8rem; margin-top:1rem; letter-spacing:0.05em;">
+          → Check Temperature Now
+        </div>
+      </a>
+
+      <!-- Upcoming tool placeholder -->
+      <div class="card p-5" style="opacity:0.5;">
+        <div class="article-tag mb-2" style="background:rgba(0,200,255,0.08); color:var(--accent);">Coming Soon</div>
+        <div style="font-size:2rem; line-height:1; margin-bottom:0.75rem;">💿</div>
+        <h3 class="font-display text-xl tracking-wide mb-2" style="color:var(--text);">SSD Health Checker</h3>
+        <p style="color:#8888a0; font-size:0.8rem; line-height:1.6;">
+          Check if your SSD temperature and wear indicators are within healthy ranges.
+        </p>
+        <div style="color:#444456; font-family:'IBM Plex Mono',monospace; font-size:0.75rem; margin-top:1rem;">
+          → In development
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ ARTICLES ══════════════════════════════════════ -->
+  <section class="py-8 pb-20 max-w-6xl mx-auto px-5">
+    <div class="section-label">Knowledge Base</div>
+    <h2 class="font-display text-4xl mb-8">GPU Temperature Guides</h2>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <a href="articles/gpu-temp-guide.html" class="card p-5 article-card">
+        <div class="article-tag mb-3" style="background:rgba(255,100,34,0.08); color:var(--hot);">Guide</div>
+        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">
+          What Is a Good GPU Temperature While Gaming?
+        </h3>
+        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">
+          Complete breakdown of safe, warm, and dangerous GPU temps across all major GPU models and use cases.
+        </p>
+        <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+      </a>
+
+      <a href="articles/is-75c-safe.html" class="card p-5 article-card">
+        <div class="article-tag mb-3" style="background:rgba(255,170,0,0.08); color:var(--warm);">FAQ</div>
+        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">
+          Is 75°C Safe for an RTX 4050?
+        </h3>
+        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">
+          Detailed answer for RTX 4050 and similar mid-range GPUs — what 75°C means, when to worry, and what to do.
+        </p>
+        <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+      </a>
+
+      <!-- Placeholder articles -->
+      <div class="card p-5" style="opacity:0.45; cursor:default;">
+        <div class="article-tag mb-3" style="background:rgba(0,200,255,0.06); color:#445566;">Soon</div>
+        <h3 class="font-semibold text-base mb-2" style="color:#445566; line-height:1.4;">
+          How Hot Is Too Hot for Laptops?
+        </h3>
+        <p style="color:#334455; font-size:0.82rem; line-height:1.6;">
+          Gaming laptop thermal limits, throttling behavior, and how to stay cool under load.
+        </p>
+      </div>
+
+      <div class="card p-5" style="opacity:0.45; cursor:default;">
+        <div class="article-tag mb-3" style="background:rgba(0,200,255,0.06); color:#445566;">Soon</div>
+        <h3 class="font-semibold text-base mb-2" style="color:#445566; line-height:1.4;">
+          Best Laptop Cooling Methods in 2024
+        </h3>
+        <p style="color:#334455; font-size:0.82rem; line-height:1.6;">
+          From cooling pads to undervolting — every method ranked by effectiveness and cost.
+        </p>
+      </div>
+
+      <div class="card p-5" style="opacity:0.45; cursor:default;">
+        <div class="article-tag mb-3" style="background:rgba(0,200,255,0.06); color:#445566;">Soon</div>
+        <h3 class="font-semibold text-base mb-2" style="color:#445566; line-height:1.4;">
+          What GPU Temperature Causes Damage?
+        </h3>
+        <p style="color:#334455; font-size:0.82rem; line-height:1.6;">
+          TJ Max explained, long-term heat damage, and the real temperature thresholds that matter.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ════════════════════════════════════════ -->
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1">
+            <div class="logo-dot"></div>
+            ThermalCore
+          </div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'IBM Plex Mono',monospace;">
+            PC thermal guides & hardware tools
+          </p>
+        </div>
+        <div class="flex gap-6">
+          <a href="tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Checker</a>
+          <a href="articles/gpu-temp-guide.html" class="nav-link text-xs">Guides</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'IBM Plex Mono',monospace;">
+        © 2024 ThermalCore. Temperature ranges are general guidelines. Always verify with your GPU manufacturer's specifications.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

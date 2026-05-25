@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPU Temperature Checker — Is Your GPU Too Hot? | ThermalCore</title>
+  <meta name="description" content="Free GPU temperature checker. Enter your GPU model and current temp to instantly find out if it's safe, warm, or dangerously hot — with specific advice.">
+  <meta name="keywords" content="GPU temperature checker, is my GPU too hot, safe GPU temperature, RTX temperature safe, GPU overheating">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-bg">
+
+  <!-- ══ NAV ══════════════════════════════════════════ -->
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-dot"></div>
+        ThermalCore
+      </a>
+      <div class="flex items-center gap-6">
+        <a href="../tools/gpu-temp-checker.html" style="color:var(--accent);" class="nav-link">GPU Checker</a>
+        <a href="../articles/gpu-temp-guide.html" class="nav-link hidden sm:block">Guides</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ PAGE HEADER ══════════════════════════════════ -->
+  <section style="padding: 3rem 0 1.5rem; border-bottom: 1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <a href="../index.html" style="font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">
+        ← Back to Home
+      </a>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
+        <div>
+          <div class="section-label">Tool</div>
+          <h1 class="font-display text-5xl md:text-6xl mt-1">GPU Temp Checker</h1>
+          <p style="color:#8888a0; margin-top:0.5rem; max-width:440px; font-size:0.9rem;">
+            Select your GPU and enter its current temperature. Get an instant verdict with actionable cooling advice.
+          </p>
+        </div>
+        <div class="temp-strip" style="width:fit-content; min-width:260px;">
+          <div class="temp-strip-segment" style="background:rgba(34,212,126,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--safe); font-weight:600;">≤75°C</span>
+            <span style="color:#8888a0; font-size:0.6rem;">SAFE</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,170,0,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--warm); font-weight:600;">76–85°C</span>
+            <span style="color:#8888a0; font-size:0.6rem;">WARM</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,100,34,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--hot); font-weight:600;">86–94°C</span>
+            <span style="color:#8888a0; font-size:0.6rem;">HOT</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,34,68,0.06);">
+            <span style="color:var(--critical); font-weight:600;">95°C+</span>
+            <span style="color:#8888a0; font-size:0.6rem;">CRITICAL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TOOL ═════════════════════════════════════════ -->
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+
+      <!-- Input panel -->
+      <div class="md:col-span-2">
+        <div class="card p-6" style="position:sticky; top:80px;">
+          <div class="section-label mb-4">Enter Your GPU Details</div>
+
+          <!-- GPU Select -->
+          <div class="input-group mb-5">
+            <label for="gpu-select">GPU Model</label>
+            <select id="gpu-select" class="input-field">
+              <option value="">— Select GPU —</option>
+              <optgroup label="NVIDIA RTX 40 Series">
+                <option>RTX 4090</option>
+                <option>RTX 4080 Super</option>
+                <option>RTX 4080</option>
+                <option>RTX 4070 Ti Super</option>
+                <option>RTX 4070 Ti</option>
+                <option>RTX 4070 Super</option>
+                <option>RTX 4070</option>
+                <option>RTX 4060 Ti</option>
+                <option>RTX 4060</option>
+              </optgroup>
+              <optgroup label="NVIDIA RTX 40 (Laptop)">
+                <option>RTX 4050 (Laptop)</option>
+                <option>RTX 4060 (Laptop)</option>
+                <option>RTX 4070 (Laptop)</option>
+                <option>RTX 4080 (Laptop)</option>
+                <option>RTX 4090 (Laptop)</option>
+              </optgroup>
+              <optgroup label="NVIDIA RTX 30 Series">
+                <option>RTX 3090 Ti</option>
+                <option>RTX 3090</option>
+                <option>RTX 3080 Ti</option>
+                <option>RTX 3080</option>
+                <option>RTX 3070 Ti</option>
+                <option>RTX 3070</option>
+                <option>RTX 3060 Ti</option>
+                <option>RTX 3060</option>
+                <option>RTX 3050</option>
+              </optgroup>
+              <optgroup label="NVIDIA RTX 30 (Laptop)">
+                <option>RTX 3060 (Laptop)</option>
+                <option>RTX 3070 (Laptop)</option>
+                <option>RTX 3080 (Laptop)</option>
+              </optgroup>
+              <optgroup label="NVIDIA GTX Series">
+                <option>GTX 1660 Ti</option>
+                <option>GTX 1660 Super</option>
+                <option>GTX 1660</option>
+                <option>GTX 1650</option>
+                <option>GTX 1080 Ti</option>
+                <option>GTX 1080</option>
+                <option>GTX 1070 Ti</option>
+                <option>GTX 1070</option>
+                <option>GTX 1060</option>
+                <option>GTX 1050 Ti</option>
+              </optgroup>
+              <optgroup label="AMD RX 7000 Series">
+                <option>RX 7900 XTX</option>
+                <option>RX 7900 XT</option>
+                <option>RX 7800 XT</option>
+                <option>RX 7700 XT</option>
+                <option>RX 7600</option>
+              </optgroup>
+              <optgroup label="AMD RX 6000 Series">
+                <option>RX 6950 XT</option>
+                <option>RX 6900 XT</option>
+                <option>RX 6800 XT</option>
+                <option>RX 6800</option>
+                <option>RX 6750 XT</option>
+                <option>RX 6700 XT</option>
+                <option>RX 6700</option>
+                <option>RX 6650 XT</option>
+                <option>RX 6600 XT</option>
+                <option>RX 6600</option>
+                <option>RX 6500 XT</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- Temperature Input -->
+          <div class="input-group mb-6">
+            <label for="temp-input">Current Temperature</label>
+            <div class="temp-input-wrap">
+              <input
+                type="number"
+                id="temp-input"
+                class="input-field"
+                placeholder="e.g. 78"
+                min="0" max="150"
+                style="padding-right:2.75rem;"
+              >
+              <span class="unit">°C</span>
+            </div>
+            <div style="color:#8888a0; font-size:0.72rem; margin-top:0.4rem; font-family:'IBM Plex Mono',monospace;">
+              Use MSI Afterburner, GPU-Z, or HWiNFO64 to read temp
+            </div>
+          </div>
+
+          <!-- Error -->
+          <div id="error-box" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'IBM Plex Mono',monospace; margin-bottom:0.75rem;"></div>
+
+          <!-- Submit -->
+          <button class="btn-check" onclick="checkTemperature()">
+            Check Temperature
+          </button>
+
+          <!-- How to read GPU temp note -->
+          <div style="margin-top:1.25rem; background:var(--surface2); border-radius:8px; padding:0.875rem 1rem;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">How to check your GPU temp</div>
+            <ul style="list-style:none; display:flex; flex-direction:column; gap:0.3rem;">
+              <li style="font-size:0.78rem; color:#8888a0; display:flex; gap:0.5rem; align-items:flex-start;"><span style="color:var(--hot);">▸</span>MSI Afterburner (free, real-time overlay)</li>
+              <li style="font-size:0.78rem; color:#8888a0; display:flex; gap:0.5rem; align-items:flex-start;"><span style="color:var(--hot);">▸</span>GPU-Z → Sensors tab</li>
+              <li style="font-size:0.78rem; color:#8888a0; display:flex; gap:0.5rem; align-items:flex-start;"><span style="color:var(--hot);">▸</span>HWiNFO64 → full hardware monitor</li>
+              <li style="font-size:0.78rem; color:#8888a0; display:flex; gap:0.5rem; align-items:flex-start;"><span style="color:var(--hot);">▸</span>Task Manager → Performance → GPU</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result panel -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+
+        <!-- Default state -->
+        <div id="default-state" class="card p-8 flex flex-col items-center justify-center text-center" style="min-height:280px;">
+          <div style="font-size:4rem; margin-bottom:1rem; filter:grayscale(0.3);">🌡️</div>
+          <div class="font-display text-2xl mb-2" style="color:#445566;">Awaiting Input</div>
+          <p style="color:#445566; font-size:0.85rem; max-width:280px; line-height:1.6;">
+            Select your GPU and enter its current temperature to see your result.
+          </p>
+        </div>
+
+        <!-- Result box (populated by JS) -->
+        <div id="result-box" class="result-box"></div>
+
+        <!-- Info cards below result -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-2">
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Note on AMD GPUs</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">
+              AMD RX 6000 and 7000 series GPUs have a TJ Max of 110°C, much higher than NVIDIA. Don't panic if you see 85–90°C on an RX 6700 — it's designed for it.
+            </p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Laptop vs Desktop</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">
+              Laptop GPUs run hotter by design due to confined cooling. An 83°C reading on an RTX 4070 laptop GPU is normal; the same on a desktop card warrants investigation.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Article teaser below -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border);">
+      <div class="section-label">Related Reading</div>
+      <h2 class="font-display text-3xl mt-1 mb-6">GPU Temperature Guides</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <a href="../articles/gpu-temp-guide.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Guide</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">What Is a Good GPU Temperature While Gaming?</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Full breakdown of safe temps, what causes high temps, and how to fix them.</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">→ Read</div>
+        </a>
+        <a href="../articles/is-75c-safe.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">FAQ</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">Is 75°C Safe for an RTX 4050?</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Specific guidance for RTX 4050 laptop and desktop GPU temperature ranges.</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">→ Read</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══ FOOTER ════════════════════════════════════════ -->
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>ThermalCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'IBM Plex Mono',monospace;">PC thermal guides & hardware tools</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="gpu-temp-checker.html" class="nav-link text-xs">GPU Checker</a>
+          <a href="../articles/gpu-temp-guide.html" class="nav-link text-xs">Guides</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'IBM Plex Mono',monospace;">
+        © 2024 ThermalCore. Temperature ranges are general guidelines. Always verify with your GPU manufacturer's specifications.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/gpu-checker.js"></script>
+  <script>
+    // Hide default state when result is shown
+    const origCheck = checkTemperature;
+    checkTemperature = function() {
+      origCheck();
+      const resultBox = document.getElementById('result-box');
+      const defaultState = document.getElementById('default-state');
+      if (resultBox && resultBox.classList.contains('show') && defaultState) {
+        defaultState.style.display = 'none';
+      }
+    };
+  </script>
+
+</body>
+</html>

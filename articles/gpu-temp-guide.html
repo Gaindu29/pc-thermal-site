@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Is a Good GPU Temperature While Gaming? | ThermalCore</title>
+  <meta name="description" content="Learn what GPU temperatures are considered safe, warm, or dangerous while gaming. Covers RTX 40/30 series, AMD RX 6000/7000, and GTX cards with specific numbers.">
+  <meta name="keywords" content="good GPU temperature gaming, safe GPU temp, GPU temperature guide, what temp should GPU be, GPU overheating signs">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-bg">
+
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>ThermalCore</a>
+      <div class="flex items-center gap-6">
+        <a href="../tools/gpu-temp-checker.html" class="nav-link">GPU Checker</a>
+        <a href="gpu-temp-guide.html" style="color:var(--accent);" class="nav-link hidden sm:block">Guides</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <!-- Article content -->
+      <article class="md:col-span-2">
+
+        <!-- Breadcrumb -->
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:#8888a0; margin-bottom:1.5rem; letter-spacing:0.03em;">
+          <a href="../index.html" style="color:#8888a0; text-decoration:none;">Home</a>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">Guides</span>
+        </div>
+
+        <!-- Header -->
+        <div class="article-tag mb-3" style="background:rgba(255,100,34,0.08); color:var(--hot);">GPU Temperature Guide</div>
+        <h1 class="font-display mb-4" style="font-size:clamp(2rem, 5vw, 3.5rem); line-height:0.95; letter-spacing:0.01em;">
+          What Is a Good GPU Temperature While Gaming?
+        </h1>
+        <p style="color:#8888a0; font-size:0.85rem; font-family:'IBM Plex Mono',monospace; margin-bottom:2rem;">
+          Last updated: December 2024 &nbsp;·&nbsp; 8 min read
+        </p>
+
+        <!-- Quick answer callout -->
+        <div class="callout" style="background:rgba(0,200,255,0.06); border-color:rgba(0,200,255,0.2); border-left-color:var(--accent); margin-bottom:2rem;">
+          <strong style="color:var(--text);">Quick answer:</strong> For most desktop GPUs, <strong style="color:var(--safe);">below 80°C</strong> while gaming is healthy. Between 80–90°C is warm but often acceptable. Above 90°C regularly is a sign of poor cooling. Laptop GPUs can safely run 5–8°C higher than their desktop counterparts.
+        </div>
+
+        <div class="article-body">
+
+          <h2>The Four Temperature Zones</h2>
+          <p>GPU temperatures while gaming fall into four distinct zones. Understanding which zone your GPU is in tells you whether action is needed — and how urgently.</p>
+
+          <table class="temp-table mb-6">
+            <thead>
+              <tr>
+                <th>Zone</th>
+                <th>Temperature</th>
+                <th>What It Means</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--safe); font-weight:600;">✅ Safe</td>
+                <td>≤ 75°C</td>
+                <td>Excellent — no action needed</td>
+              </tr>
+              <tr>
+                <td style="color:var(--warm); font-weight:600;">⚠️ Warm</td>
+                <td>76°C – 85°C</td>
+                <td>Normal for demanding games, monitor it</td>
+              </tr>
+              <tr>
+                <td style="color:var(--hot); font-weight:600;">🔥 Too Hot</td>
+                <td>86°C – 94°C</td>
+                <td>May throttle, check cooling soon</td>
+              </tr>
+              <tr>
+                <td style="color:var(--critical); font-weight:600;">🚨 Critical</td>
+                <td>95°C+</td>
+                <td>Stop gaming, investigate immediately</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>These are general guidelines. <strong>The actual thresholds depend on your specific GPU model</strong>, since NVIDIA and AMD have set different TJ Max values across their product lines. Use the <a href="../tools/gpu-temp-checker.html" style="color:var(--accent); text-decoration:none;">GPU Temperature Checker</a> for model-specific results.</p>
+
+          <h2>NVIDIA vs AMD: Why the Numbers Differ</h2>
+
+          <h3>NVIDIA RTX 40 Series</h3>
+          <p>NVIDIA's RTX 40 series has a TJ Max of <strong>89°C</strong>. In practice, these cards are designed to boost aggressively up to about 83–84°C before significantly reducing performance. A well-cooled RTX 4070 or 4080 will typically sit at <strong>70–78°C</strong> during gaming.</p>
+
+          <h3>NVIDIA RTX 30 Series</h3>
+          <p>RTX 30 cards have a notably higher TJ Max of <strong>93°C</strong>. This gives them slightly more thermal headroom, so running at 83–85°C on an RTX 3080 or 3060 under load is within spec, though still worth monitoring.</p>
+
+          <h3>AMD RX 6000 and RX 7000 Series</h3>
+          <p>AMD GPUs are often misread as "overheating" because their TJ Max is <strong>110°C</strong>. Seeing 88–92°C on an RX 6700 XT or RX 7800 XT is perfectly normal and intentional — AMD designed these chips to run hotter for sustained boost clock performance. <strong>Don't panic at 90°C on an AMD card.</strong></p>
+
+          <div class="callout" style="border-left-color:var(--warm);">
+            <strong style="color:var(--text);">AMD Hotspot vs Edge Temperature:</strong> AMD GPUs report both an "edge" temperature (the overall card temp) and a "hotspot" temperature (the hottest point on the die). The hotspot can read 20–30°C higher than the edge. A hotspot of 95°C on an RX 7900 XT is normal operating territory.
+          </div>
+
+          <h2>What Causes High GPU Temperatures?</h2>
+
+          <p>Before reaching for cooling paste or a new case fan, run through this checklist — the cause is often simpler than you think.</p>
+
+          <ul>
+            <li><strong>Dust accumulation</strong> — the number one culprit. Dust acts as insulation on the GPU heatsink fins and fans. Even 6 months of normal use can cause a 5–10°C increase.</li>
+            <li><strong>Poor case airflow</strong> — a case with more exhaust fans than intake fans creates negative pressure and pulls hot air back in through gaps.</li>
+            <li><strong>Dried thermal paste</strong> — the thermal pad between the GPU die and heatsink degrades over time, especially under sustained high temperatures. Typical lifespan is 3–5 years.</li>
+            <li><strong>Ambient room temperature</strong> — a 30°C room vs a 20°C room can add 8–10°C to your GPU temperatures without anything changing on the PC itself.</li>
+            <li><strong>GPU fan curve too conservative</strong> — many AIB partner GPU fan curves run very quiet at the expense of temperature. Manually adjusting the fan curve in MSI Afterburner is the easiest fix.</li>
+            <li><strong>Intensive workloads</strong> — ray tracing, 4K, or compute tasks push GPUs harder than standard 1080p gaming, resulting in higher sustained temperatures.</li>
+          </ul>
+
+          <h2>How to Lower GPU Temperatures</h2>
+
+          <h3>1. Clean Your GPU</h3>
+          <p>Use compressed air to blast dust from the GPU fans and heatsink fins. Remove the GPU from the case for best results. Do this at least once a year if you game regularly.</p>
+
+          <h3>2. Improve Case Airflow</h3>
+          <p>Aim for a balanced or slightly positive pressure setup: 2 front intake fans + 1 rear exhaust is a classic configuration. Ensure no cables are blocking airflow through the GPU zone.</p>
+
+          <h3>3. Adjust the Fan Curve</h3>
+          <p>In MSI Afterburner (NVIDIA/AMD) or AMD Adrenalin, manually set the GPU fan curve to spin up earlier and faster. A simple fix: set the fan to reach 70% speed at 75°C instead of 80–85°C.</p>
+
+          <h3>4. Undervolt Your GPU</h3>
+          <p>Undervolting reduces the voltage supplied to the GPU core while maintaining or even improving clock stability. This is one of the most effective ways to reduce heat — many GPUs can drop 10–15°C with a proper undervolt. Use MSI Afterburner's Voltage/Frequency curve editor (Ctrl+F).</p>
+
+          <h3>5. Repaste the GPU</h3>
+          <p>If your GPU is 3+ years old and running hot after cleaning, consider replacing the thermal compound. This requires disassembling the cooler — use a quality paste like Thermal Grizzly Kryonaut or Arctic MX-6. Expect a 5–15°C improvement on older cards.</p>
+
+          <h2>What Temperature Actually Damages a GPU?</h2>
+          <p>Modern GPUs are designed to throttle (reduce clock speeds) well before reaching temperatures that cause damage. The TJ Max value is the absolute thermal ceiling — sustained operation at or above TJ Max for extended periods can degrade the GPU die over time.</p>
+
+          <p>In practice, thermal damage from gaming is rare on a functioning system. The GPU will thermal throttle and reduce heat output before damage occurs. The bigger risk is <strong>thermal cycling stress</strong> — repeated rapid heat-up/cool-down cycles that can eventually affect solder joints.</p>
+
+          <p>For long-term GPU health, aim to keep sustained gaming temperatures <strong>at least 10°C below TJ Max</strong>.</p>
+
+        </div>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="md:col-span-1">
+        <div style="position:sticky; top:80px; display:flex; flex-direction:column; gap:1rem;">
+
+          <!-- Tool CTA -->
+          <div class="card p-5" style="background:var(--surface2);">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🌡️</div>
+            <div class="font-display text-xl mb-2">Check Your GPU Now</div>
+            <p style="color:#8888a0; font-size:0.82rem; line-height:1.6; margin-bottom:1rem;">
+              Get an instant verdict for your exact GPU model and temperature.
+            </p>
+            <a href="../tools/gpu-temp-checker.html" class="btn-check" style="display:block; text-align:center; text-decoration:none; padding:0.75rem;">
+              GPU Temp Checker
+            </a>
+          </div>
+
+          <!-- Quick ref -->
+          <div class="card p-5">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">TJ Max by GPU</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.8rem; display:flex; flex-direction:column; gap:0.4rem;">
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>RTX 40 Series</span><span style="color:var(--text);">89°C</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>RTX 30 Series</span><span style="color:var(--text);">93°C</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>GTX 10 Series</span><span style="color:var(--text);">94–97°C</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>AMD RX 6000</span><span style="color:var(--text);">110°C</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>AMD RX 7000</span><span style="color:var(--text);">110°C</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>Laptop GPUs</span><span style="color:var(--text);">87–95°C</span></div>
+            </div>
+          </div>
+
+          <!-- Related article -->
+          <a href="is-75c-safe.html" class="card p-5 article-card">
+            <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">FAQ</div>
+            <h4 class="font-semibold text-sm article-title transition-colors" style="color:var(--text); line-height:1.4; margin-bottom:0.4rem;">Is 75°C Safe for RTX 4050?</h4>
+            <p style="color:#8888a0; font-size:0.78rem; line-height:1.5;">Specific guidance for the RTX 4050 laptop GPU.</p>
+            <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.5rem;">→ Read</div>
+          </a>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>ThermalCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'IBM Plex Mono',monospace;">PC thermal guides & hardware tools</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="../tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Checker</a>
+          <a href="gpu-temp-guide.html" class="nav-link text-xs">Guides</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'IBM Plex Mono',monospace;">
+        © 2024 ThermalCore. Information is for guidance only. Always verify with manufacturer documentation.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
