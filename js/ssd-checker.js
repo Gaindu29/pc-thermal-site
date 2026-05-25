@@ -1,5 +1,5 @@
 /**
- * ThermalCore — SSD Health Checker (v2)
+ * TempCore — SSD Health Checker (v2)
  * Inputs: drive type + temperature only
  */
 
