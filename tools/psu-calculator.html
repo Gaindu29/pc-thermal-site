@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PC PSU Wattage Calculator — What Power Supply Do I Need? | TempCore</title>
+  <meta name="description" content="Free PSU wattage calculator. Select your CPU, GPU, drives, fans, and cooler to get your exact power draw, minimum PSU size, and recommended units with buying links.">
+  <meta name="keywords" content="PSU calculator, PC power supply calculator, what wattage PSU do I need, power supply wattage calculator, RTX 4090 PSU requirements">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .field-label {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8888a0;
+      margin-bottom: 0.4rem;
+    }
+    select option, select optgroup { background: #141418; }
+
+    /* ── Counter input ─────────────────────────────── */
+    .counter-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      height: 40px;
+    }
+    .counter-btn {
+      width: 36px;
+      height: 100%;
+      background: var(--surface2);
+      border: none;
+      color: #8888a0;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .counter-btn:hover { background: #2a2a38; color: var(--text); }
+    .counter-val {
+      flex: 1;
+      text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--surface2);
+      border: none;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      height: 100%;
+      padding: 0;
+      outline: none;
+      min-width: 0;
+    }
+
+    /* ── Chip toggle (cooler / OC) ─────────────────── */
+    .chip-group { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .chip-opt {
+      padding: 0.45rem 0.7rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: #8888a0;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .chip-opt:hover { border-color: #3a3a48; color: var(--text); }
+    .chip-opt.active { border-color: var(--hot); background: rgba(255,100,34,0.1); color: var(--hot); }
+    .chip-opt.active.green { border-color: var(--safe); background: rgba(34,212,126,0.08); color: var(--safe); }
+
+    /* ── Toggle checkbox ───────────────────────────── */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+    }
+    .toggle-box {
+      width: 36px; height: 20px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      position: relative;
+      transition: background 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+    .toggle-box::after {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #555568;
+      top: 2px; left: 2px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    input[type=checkbox]:checked + .toggle-box {
+      background: rgba(34,212,126,0.15);
+      border-color: var(--safe);
+    }
+    input[type=checkbox]:checked + .toggle-box::after {
+      transform: translateX(16px);
+      background: var(--safe);
+    }
+    input[type=checkbox] { display: none; }
+    .toggle-label { font-size: 0.85rem; color: #b0b0c8; user-select: none; }
+
+    /* ── Input grid ────────────────────────────────── */
+    .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 480px) { .input-grid { grid-template-columns: 1fr; } }
+
+    /* ── Section divider ───────────────────────────── */
+    .form-section {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-section:last-child { border-bottom: none; }
+    .form-section-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    @media (min-width: 768px) { .sticky-col { position: sticky; top: 80px; } }
+  </style>
+</head>
+<body class="bg-bg">
+
+  <!-- NAV -->
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
+      <div class="flex items-center gap-6">
+        <a href="../tools/gpu-temp-checker.html" class="nav-link">GPU Checker</a>
+        <a href="bottleneck-checker.html" class="nav-link hidden sm:block">Bottleneck</a>
+        <a href="psu-calculator.html" style="color:var(--accent);" class="nav-link">PSU Calc</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <a href="../index.html" style="font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none;">&#8592; Back to Home</a>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
+        <div>
+          <div class="section-label">Tool</div>
+          <h1 class="font-display mt-1" style="font-size:clamp(2.5rem,7vw,5rem); line-height:0.92;">
+            PSU Wattage<br><span style="color:var(--hot);">Calculator</span>
+          </h1>
+          <p style="color:#8888a0; margin-top:0.75rem; font-size:0.9rem; line-height:1.6; max-width:460px;">
+            Select every component in your build to get an accurate power draw estimate, the right PSU wattage, and specific unit recommendations.
+          </p>
+        </div>
+        <!-- Quick ref strip -->
+        <div class="card p-4" style="min-width:240px;">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.6rem;">PSU Load Sweet Spot</div>
+          <div style="display:flex; flex-direction:column; gap:0.3rem; font-size:0.78rem; color:#8888a0; font-family:'IBM Plex Mono',monospace;">
+            <div style="display:flex; justify-content:space-between;"><span>Under 50% load</span><span style="color:var(--warm);">Less efficient</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--safe);">50–80% load</span><span style="color:var(--safe);">✓ Optimal</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>Over 80% load</span><span style="color:var(--hot);">Hot &amp; noisy</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+
+      <!-- ── INPUTS ──────────────────────────────── -->
+      <div class="md:col-span-2">
+        <div class="sticky-col">
+
+          <div class="card" style="overflow:hidden;">
+
+            <!-- CPU + GPU -->
+            <div class="form-section">
+              <div class="form-section-title">⚡ Core Components</div>
+              <div style="margin-bottom:0.875rem;">
+                <label class="field-label" for="psu-cpu">CPU</label>
+                <select id="psu-cpu" class="input-field">
+                  <option value="">— Select CPU —</option>
+                  <optgroup label="Intel 14th Gen">
+                    <option>Core i9-14900K</option><option>Core i9-14900KF</option>
+                    <option>Core i7-14700K</option><option>Core i7-14700KF</option>
+                    <option>Core i5-14600K</option><option>Core i5-14600KF</option>
+                  </optgroup>
+                  <optgroup label="Intel 13th Gen">
+                    <option>Core i9-13900K</option><option>Core i9-13900KF</option>
+                    <option>Core i7-13700K</option><option>Core i7-13700KF</option>
+                    <option>Core i7-13700</option>
+                    <option>Core i5-13600K</option><option>Core i5-13600KF</option>
+                    <option>Core i5-13500</option>
+                    <option>Core i5-13400</option><option>Core i5-13400F</option>
+                    <option>Core i3-13100</option><option>Core i3-13100F</option>
+                  </optgroup>
+                  <optgroup label="Intel 12th Gen">
+                    <option>Core i9-12900K</option><option>Core i9-12900KF</option>
+                    <option>Core i7-12700K</option><option>Core i7-12700KF</option>
+                    <option>Core i7-12700</option>
+                    <option>Core i5-12600K</option><option>Core i5-12600KF</option>
+                    <option>Core i5-12600</option>
+                    <option>Core i5-12400</option><option>Core i5-12400F</option>
+                    <option>Core i3-12100</option><option>Core i3-12100F</option>
+                  </optgroup>
+                  <optgroup label="Intel 11th / 10th Gen">
+                    <option>Core i9-11900K</option><option>Core i7-11700K</option>
+                    <option>Core i5-11600K</option><option>Core i9-10900K</option>
+                    <option>Core i7-10700K</option><option>Core i5-10600K</option>
+                    <option>Core i5-10400</option><option>Core i5-10400F</option>
+                  </optgroup>
+                  <optgroup label="AMD Ryzen 7000 (Zen 4)">
+                    <option>Ryzen 9 7950X3D</option><option>Ryzen 9 7950X</option>
+                    <option>Ryzen 9 7900X3D</option><option>Ryzen 9 7900X</option>
+                    <option>Ryzen 9 7900</option>
+                    <option>Ryzen 7 7800X3D</option>
+                    <option>Ryzen 7 7700X</option><option>Ryzen 7 7700</option>
+                    <option>Ryzen 5 7600X</option><option>Ryzen 5 7600</option>
+                    <option>Ryzen 5 7500F</option>
+                  </optgroup>
+                  <optgroup label="AMD Ryzen 5000 (Zen 3)">
+                    <option>Ryzen 9 5950X</option><option>Ryzen 9 5900X</option>
+                    <option>Ryzen 7 5800X3D</option><option>Ryzen 7 5800X</option>
+                    <option>Ryzen 7 5700X</option>
+                    <option>Ryzen 5 5600X</option><option>Ryzen 5 5600</option>
+                    <option>Ryzen 5 5600G</option><option>Ryzen 5 5500</option>
+                    <option>Ryzen 3 5300G</option>
+                  </optgroup>
+                  <optgroup label="AMD Ryzen 3000 (Zen 2)">
+                    <option>Ryzen 9 3900XT</option><option>Ryzen 9 3900X</option>
+                    <option>Ryzen 7 3800XT</option><option>Ryzen 7 3800X</option>
+                    <option>Ryzen 7 3700X</option>
+                    <option>Ryzen 5 3600XT</option><option>Ryzen 5 3600X</option>
+                    <option>Ryzen 5 3600</option>
+                    <option>Ryzen 3 3300X</option><option>Ryzen 3 3100</option>
+                  </optgroup>
+                  <optgroup label="AMD Ryzen 2000 (Zen+)">
+                    <option>Ryzen 7 2700X</option><option>Ryzen 7 2700</option>
+                    <option>Ryzen 5 2600X</option><option>Ryzen 5 2600</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div>
+                <label class="field-label" for="psu-gpu">GPU</label>
+                <select id="psu-gpu" class="input-field">
+                  <option value="">— Select GPU —</option>
+                  <optgroup label="NVIDIA RTX 40 Series">
+                    <option>RTX 4090</option><option>RTX 4080 Super</option>
+                    <option>RTX 4080</option><option>RTX 4070 Ti Super</option>
+                    <option>RTX 4070 Ti</option><option>RTX 4070 Super</option>
+                    <option>RTX 4070</option><option>RTX 4060 Ti 16GB</option>
+                    <option>RTX 4060 Ti</option><option>RTX 4060</option>
+                  </optgroup>
+                  <optgroup label="NVIDIA RTX 40 Laptop">
+                    <option>RTX 4090 (Laptop)</option><option>RTX 4080 (Laptop)</option>
+                    <option>RTX 4070 (Laptop)</option><option>RTX 4060 (Laptop)</option>
+                    <option>RTX 4050 (Laptop)</option>
+                  </optgroup>
+                  <optgroup label="NVIDIA RTX 30 Series">
+                    <option>RTX 3090 Ti</option><option>RTX 3090</option>
+                    <option>RTX 3080 Ti</option><option>RTX 3080 12GB</option>
+                    <option>RTX 3080 10GB</option><option>RTX 3070 Ti</option>
+                    <option>RTX 3070</option><option>RTX 3060 Ti</option>
+                    <option>RTX 3060</option><option>RTX 3050</option>
+                  </optgroup>
+                  <optgroup label="NVIDIA GTX Series">
+                    <option>GTX 1080 Ti</option><option>GTX 1080</option>
+                    <option>GTX 1070 Ti</option><option>GTX 1070</option>
+                    <option>GTX 1660 Ti</option><option>GTX 1660 Super</option>
+                    <option>GTX 1660</option><option>GTX 1650 Super</option>
+                    <option>GTX 1650</option><option>GTX 1060 6GB</option>
+                    <option>GTX 1060 3GB</option><option>GTX 1050 Ti</option>
+                  </optgroup>
+                  <optgroup label="AMD RX 7000 Series">
+                    <option>RX 7900 XTX</option><option>RX 7900 XT</option>
+                    <option>RX 7900 GRE</option><option>RX 7800 XT</option>
+                    <option>RX 7700 XT</option><option>RX 7600 XT</option>
+                    <option>RX 7600</option>
+                  </optgroup>
+                  <optgroup label="AMD RX 6000 Series">
+                    <option>RX 6950 XT</option><option>RX 6900 XT</option>
+                    <option>RX 6800 XT</option><option>RX 6800</option>
+                    <option>RX 6750 XT</option><option>RX 6700 XT</option>
+                    <option>RX 6700</option><option>RX 6650 XT</option>
+                    <option>RX 6600 XT</option><option>RX 6600</option>
+                    <option>RX 6500 XT</option><option>RX 6400</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <!-- RAM + Storage -->
+            <div class="form-section">
+              <div class="form-section-title">🗄 Memory &amp; Storage</div>
+
+              <div class="input-grid mb-3">
+                <div>
+                  <label class="field-label">RAM Sticks</label>
+                  <div class="counter-wrap">
+                    <button class="counter-btn" onclick="adjCounter('psu-ram-count',-1,1,8)">−</button>
+                    <input type="number" id="psu-ram-count" class="counter-val" value="2" min="1" max="8" readonly>
+                    <button class="counter-btn" onclick="adjCounter('psu-ram-count',+1,1,8)">+</button>
+                  </div>
+                </div>
+                <div>
+                  <label class="field-label">RAM Type</label>
+                  <select id="psu-ram-type" class="input-field" style="height:40px; padding-top:0; padding-bottom:0;">
+                    <option value="ddr4">DDR4</option>
+                    <option value="ddr5">DDR5</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="input-grid mb-1">
+                <div>
+                  <label class="field-label">NVMe SSDs</label>
+                  <div class="counter-wrap">
+                    <button class="counter-btn" onclick="adjCounter('psu-nvme',-1,0,6)">−</button>
+                    <input type="number" id="psu-nvme" class="counter-val" value="1" min="0" max="6" readonly>
+                    <button class="counter-btn" onclick="adjCounter('psu-nvme',+1,0,6)">+</button>
+                  </div>
+                </div>
+                <div>
+                  <label class="field-label">SATA SSDs</label>
+                  <div class="counter-wrap">
+                    <button class="counter-btn" onclick="adjCounter('psu-sata-ssd',-1,0,6)">−</button>
+                    <input type="number" id="psu-sata-ssd" class="counter-val" value="0" min="0" max="6" readonly>
+                    <button class="counter-btn" onclick="adjCounter('psu-sata-ssd',+1,0,6)">+</button>
+                  </div>
+                </div>
+              </div>
+              <div style="max-width:50%; padding-right:0.375rem;">
+                <label class="field-label" style="margin-top:0.75rem;">Hard Drives (HDD)</label>
+                <div class="counter-wrap">
+                  <button class="counter-btn" onclick="adjCounter('psu-hdd',-1,0,8)">−</button>
+                  <input type="number" id="psu-hdd" class="counter-val" value="0" min="0" max="8" readonly>
+                  <button class="counter-btn" onclick="adjCounter('psu-hdd',+1,0,8)">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cooling + Fans -->
+            <div class="form-section">
+              <div class="form-section-title">🌡 Cooling</div>
+
+              <div style="margin-bottom:0.875rem;">
+                <label class="field-label">CPU Cooler</label>
+                <div class="chip-group">
+                  <button class="chip-opt active green" id="cooler-air"   onclick="setCooler('air')">Air</button>
+                  <button class="chip-opt"              id="cooler-aio120" onclick="setCooler('aio120')">AIO 120mm</button>
+                  <button class="chip-opt"              id="cooler-aio240" onclick="setCooler('aio240')">AIO 240mm</button>
+                  <button class="chip-opt"              id="cooler-aio360" onclick="setCooler('aio360')">AIO 360mm</button>
+                </div>
+                <input type="hidden" id="psu-cooler" value="air">
+              </div>
+
+              <div>
+                <label class="field-label">Case Fans</label>
+                <div class="counter-wrap" style="max-width:50%;">
+                  <button class="counter-btn" onclick="adjCounter('psu-fans',-1,0,10)">−</button>
+                  <input type="number" id="psu-fans" class="counter-val" value="3" min="0" max="10" readonly>
+                  <button class="counter-btn" onclick="adjCounter('psu-fans',+1,0,10)">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Overclocking + Extras -->
+            <div class="form-section">
+              <div class="form-section-title">⚙ Overclocking &amp; Extras</div>
+
+              <div style="margin-bottom:0.875rem;">
+                <label class="field-label">Overclocking</label>
+                <div class="chip-group">
+                  <button class="chip-opt active green" id="oc-none" onclick="setOC('none')">None</button>
+                  <button class="chip-opt"              id="oc-cpu"  onclick="setOC('cpu')">CPU OC</button>
+                  <button class="chip-opt"              id="oc-gpu"  onclick="setOC('gpu')">GPU OC</button>
+                  <button class="chip-opt"              id="oc-both" onclick="setOC('both')">Both</button>
+                </div>
+                <input type="hidden" id="psu-oc" value="none">
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:0.6rem;">
+                <label class="toggle-row">
+                  <input type="checkbox" id="psu-rgb">
+                  <div class="toggle-box"></div>
+                  <span class="toggle-label">RGB Lighting (+12W)</span>
+                </label>
+                <label class="toggle-row">
+                  <input type="checkbox" id="psu-optical">
+                  <div class="toggle-box"></div>
+                  <span class="toggle-label">Optical Drive (+20W)</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Calculate button -->
+            <div style="padding:1rem 1.25rem;">
+              <div id="psu-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'IBM Plex Mono',monospace; margin-bottom:0.75rem;"></div>
+              <button class="btn-check" onclick="calcPSU()" style="width:100%;">
+                Calculate PSU Requirements
+              </button>
+            </div>
+
+          </div><!-- /card -->
+        </div>
+      </div>
+
+      <!-- ── RESULTS ──────────────────────────────── -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+
+        <!-- Default state -->
+        <div id="psu-default" class="card p-10 flex flex-col items-center justify-center text-center" style="min-height:340px;">
+          <div style="font-size:3.5rem; margin-bottom:1rem; filter:grayscale(0.3);">🔌</div>
+          <div class="font-display text-2xl mb-2" style="color:#445566;">Select Your Components</div>
+          <p style="color:#445566; font-size:0.85rem; max-width:300px; line-height:1.65;">
+            Fill in your CPU, GPU, and other components to get your system's power draw and the right PSU size.
+          </p>
+        </div>
+
+        <!-- Result -->
+        <div id="psu-result" class="result-box"></div>
+
+        <!-- Info cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-2">
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">80+ Ratings Explained</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Bronze = ~82–85% efficient. Gold = ~87–90%. Platinum = ~90–92%. Titanium = ~92–94%. At high load, Gold vs Platinum saves only a few watts — Gold is the best value for most builds.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Modular vs Non-Modular</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Fully modular lets you route only cables you use — cleaner airflow, easier builds. Non-modular is cheaper but leaves unused cables cluttering the case. Semi-modular is a practical middle ground.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Intel K-Series Power Draw</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Intel i7/i9 K-series CPUs have a base TDP of 125W, but their "Maximum Turbo Power" reaches 250W+. During gaming they sustain 150–250W. This calculator uses realistic gaming power, not the base TDP.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">PSU Lifespan</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Quality PSUs from Seasonic, Corsair RM/HX, and be quiet! carry 7–10 year warranties and often last well beyond. Cheap budget PSUs from no-name brands are the most common cause of component damage from power spikes.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related tools -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border);">
+      <div class="section-label">Related Tools</div>
+      <div class="grid sm:grid-cols-3 gap-4 mt-4">
+        <a href="../tools/gpu-temp-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Temperature Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Is your GPU running too hot?</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
+        </a>
+        <a href="../tools/bottleneck-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">PC Bottleneck Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Is your CPU holding back your GPU?</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
+        </a>
+        <a href="../articles/overclocking-guide.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">Guide</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Overclock Guide</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Safe OC settings for 40+ GPU models.</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Read guide</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'IBM Plex Mono',monospace;">PC thermal guides &amp; hardware tools</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="../tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Checker</a>
+          <a href="bottleneck-checker.html" class="nav-link text-xs">Bottleneck</a>
+          <a href="psu-calculator.html" class="nav-link text-xs">PSU Calc</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'IBM Plex Mono',monospace;">
+        &copy; 2025 TempCore. PSU links are for reference. Product availability and pricing may vary. Always verify specifications with the manufacturer.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/psu-calc.js"></script>
+  <script>
+    function adjCounter(id, delta, min, max) {
+      var el = document.getElementById(id);
+      var v  = parseInt(el.value) + delta;
+      if (v < min) v = min;
+      if (v > max) v = max;
+      el.value = v;
+    }
+
+    function setCooler(val) {
+      ["air","aio120","aio240","aio360"].forEach(function(c) {
+        var btn = document.getElementById("cooler-" + c);
+        if (btn) btn.classList.remove("active","green");
+      });
+      var btn = document.getElementById("cooler-" + val);
+      if (btn) { btn.classList.add("active"); if (val === "air") btn.classList.add("green"); }
+      document.getElementById("psu-cooler").value = val;
+    }
+
+    function setOC(val) {
+      ["none","cpu","gpu","both"].forEach(function(v) {
+        var btn = document.getElementById("oc-" + v);
+        if (btn) btn.classList.remove("active","green");
+      });
+      var btn = document.getElementById("oc-" + val);
+      if (btn) { btn.classList.add("active"); if (val === "none") btn.classList.add("green"); }
+      document.getElementById("psu-oc").value = val;
+    }
+  </script>
+
+</body>
+</html>
