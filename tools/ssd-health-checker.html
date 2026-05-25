@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSD Health Checker — Temperature, Lifespan & SMART Data | ThermalCore</title>
+  <meta name="description" content="Free SSD health checker. Check your SSD temperature, drive health %, bad sectors, and power-on hours. Get an instant verdict: healthy, at risk, or failing.">
+  <meta name="keywords" content="SSD health checker, SSD temperature safe, NVMe temperature, SSD SMART health, is my SSD failing, SSD lifespan checker">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* Extra tab styles for the input sections */
+    .input-section {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .input-section-header {
+      background: var(--surface2);
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: default;
+    }
+    .input-section-header .badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+    }
+    .input-section-header .required-badge {
+      background: rgba(255,100,34,0.12);
+      color: var(--hot);
+      border: 1px solid rgba(255,100,34,0.25);
+    }
+    .input-section-header .optional-badge {
+      background: rgba(0,200,255,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(0,200,255,0.2);
+    }
+    .input-section-body {
+      padding: 1rem;
+      background: var(--surface);
+    }
+    .smart-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .smart-row label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8888a0;
+    }
+    .smart-row .help-tip {
+      font-size: 0.65rem;
+      color: #555568;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      font-family: 'Outfit', sans-serif;
+    }
+    select option { background: #141418; }
+  </style>
+</head>
+<body class="bg-bg">
+
+  <!-- ══ NAV ══════════════════════════════════════════ -->
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-dot"></div>
+        ThermalCore
+      </a>
+      <div class="flex items-center gap-6">
+        <a href="../tools/gpu-temp-checker.html" class="nav-link">GPU Checker</a>
+        <a href="ssd-health-checker.html" style="color:var(--accent);" class="nav-link">SSD Checker</a>
+        <a href="../articles/gpu-temp-guide.html" class="nav-link hidden sm:block">Guides</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ PAGE HEADER ══════════════════════════════════ -->
+  <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <a href="../index.html" style="font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">← Back to Home</a>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
+        <div>
+          <div class="section-label">Tool</div>
+          <h1 class="font-display text-5xl md:text-6xl mt-1">SSD Health Checker</h1>
+          <p style="color:#8888a0; margin-top:0.5rem; max-width:480px; font-size:0.9rem; line-height:1.6;">
+            Enter your SSD's temperature, health percentage, and optional SMART data from <strong style="color:var(--text);">CrystalDiskInfo</strong> to get an instant health verdict.
+          </p>
+        </div>
+        <!-- Dynamic temp strip — updates when drive type changes -->
+        <div id="temp-reference-strip" class="temp-strip" style="width:fit-content; min-width:280px;">
+          <div class="temp-strip-segment" style="background:rgba(34,212,126,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--safe); font-weight:600;">≤ 55°C</span>
+            <span style="color:#8888a0; font-size:0.6rem;">SAFE</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,170,0,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--warm); font-weight:600;">56–70°C</span>
+            <span style="color:#8888a0; font-size:0.6rem;">WARM</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,100,34,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--hot); font-weight:600;">71–79°C</span>
+            <span style="color:#8888a0; font-size:0.6rem;">HOT</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,34,68,0.06);">
+            <span style="color:var(--critical); font-weight:600;">80°C+</span>
+            <span style="color:#8888a0; font-size:0.6rem;">CRITICAL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TOOL ═════════════════════════════════════════ -->
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+
+      <!-- ── Input Panel ── -->
+      <div class="md:col-span-2">
+        <div style="position:sticky; top:80px;">
+
+          <!-- How to get data callout -->
+          <div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:0.875rem 1rem; margin-bottom:1rem;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">📥 Where to get these values</div>
+            <ul style="list-style:none; display:flex; flex-direction:column; gap:0.3rem;">
+              <li style="font-size:0.78rem; color:#8888a0; display:flex; gap:0.5rem;"><span style="color:var(--hot); flex-shrink:0;">▸</span><span>Download <strong style="color:var(--text);">CrystalDiskInfo</strong> (free) — shows health %, temperature, power-on hours, and bad sectors all in one screen</span></li>
+              <li style="font-size:0.78rem; color:#8888a0; display:flex; gap:0.5rem;"><span style="color:var(--hot); flex-shrink:0;">▸</span><span>Temperature also visible in HWiNFO64 or your BIOS</span></li>
+            </ul>
+          </div>
+
+          <!-- SECTION 1: Required -->
+          <div class="input-section">
+            <div class="input-section-header">
+              <span style="color:var(--text); font-size:0.85rem; font-weight:500;">Drive Info & Temperature</span>
+              <span class="badge required-badge">Required</span>
+            </div>
+            <div class="input-section-body flex flex-col gap-4">
+
+              <!-- Drive type -->
+              <div class="smart-row">
+                <label for="ssd-type">Drive Type</label>
+                <select id="ssd-type" class="input-field" onchange="updateTempStrip()">
+                  <option value="">— Select drive type —</option>
+                  <optgroup label="NVMe SSD (PCIe M.2)">
+                    <option value="nvme">NVMe M.2 — Desktop</option>
+                    <option value="laptop_nvme">NVMe M.2 — Laptop</option>
+                  </optgroup>
+                  <optgroup label="SATA SSD">
+                    <option value="sata">SATA SSD (2.5" or M.2 SATA)</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <!-- Temperature -->
+              <div class="smart-row">
+                <label for="ssd-temp">
+                  Current Temperature
+                  <span class="help-tip">From CrystalDiskInfo or HWiNFO64</span>
+                </label>
+                <div class="temp-input-wrap">
+                  <input type="number" id="ssd-temp" class="input-field" placeholder="e.g. 48"
+                    min="0" max="150" style="padding-right:2.75rem;"
+                    onkeydown="if(event.key==='Enter') checkSSD()">
+                  <span class="unit">°C</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SECTION 2: Optional SMART -->
+          <div class="input-section">
+            <div class="input-section-header">
+              <span style="color:var(--text); font-size:0.85rem; font-weight:500;">SMART Data</span>
+              <span class="badge optional-badge">Optional — improves result</span>
+            </div>
+            <div class="input-section-body flex flex-col gap-4">
+
+              <!-- Health % -->
+              <div class="smart-row">
+                <label for="ssd-health">
+                  Drive Health %
+                  <span class="help-tip">Shown in CrystalDiskInfo top-left (e.g. "Good 97%")</span>
+                </label>
+                <div class="temp-input-wrap">
+                  <input type="number" id="ssd-health" class="input-field" placeholder="e.g. 97"
+                    min="0" max="100" style="padding-right:2.75rem;">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <!-- Power-on Hours -->
+              <div class="smart-row">
+                <label for="ssd-poh">
+                  Power-On Hours
+                  <span class="help-tip">SMART ID 09 in CrystalDiskInfo</span>
+                </label>
+                <div class="temp-input-wrap">
+                  <input type="number" id="ssd-poh" class="input-field" placeholder="e.g. 8760"
+                    min="0" style="padding-right:2.75rem;">
+                  <span class="unit" style="font-size:0.7rem;">hrs</span>
+                </div>
+              </div>
+
+              <!-- Bad Sectors -->
+              <div class="smart-row">
+                <label for="ssd-sectors">
+                  Reallocated / Bad Sectors
+                  <span class="help-tip">SMART ID 05 — enter 0 if none shown</span>
+                </label>
+                <input type="number" id="ssd-sectors" class="input-field" placeholder="0" min="0" value="0">
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Error -->
+          <div id="ssd-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'IBM Plex Mono',monospace; margin-bottom:0.75rem;"></div>
+
+          <!-- Submit -->
+          <button class="btn-check" onclick="checkSSD()" style="background:var(--accent); color:#000;">
+            Check SSD Health
+          </button>
+
+        </div>
+      </div>
+
+      <!-- ── Result Panel ── -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+
+        <!-- Default state -->
+        <div id="ssd-default" class="card p-8 flex flex-col items-center justify-center text-center" style="min-height:320px;">
+          <div style="font-size:4rem; margin-bottom:1rem; filter:grayscale(0.3);">💿</div>
+          <div class="font-display text-2xl mb-2" style="color:#445566;">Awaiting Input</div>
+          <p style="color:#445566; font-size:0.85rem; max-width:300px; line-height:1.6;">
+            Select your drive type and enter its current temperature to begin. Add SMART data for a more complete health picture.
+          </p>
+        </div>
+
+        <!-- Result (populated by JS) -->
+        <div id="ssd-result" class="result-box"></div>
+
+        <!-- Info cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-2">
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">NVMe vs SATA Temps</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">
+              NVMe drives run significantly hotter than SATA SSDs — 50–60°C under load is normal. SATA SSDs should stay below 50°C. Don't compare the two directly.
+            </p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">What Is Drive Health %?</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">
+              CrystalDiskInfo calculates drive health from SMART attributes like wear leveling, erase count, and uncorrectable error rates. Below 70% warrants serious attention.
+            </p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">How Long Do SSDs Last?</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">
+              Most SSDs outlive their TBW (Terabytes Written) rating by a large margin. A 240GB consumer SSD rated for 80 TBW often survives 200+ TBW in real-world use.
+            </p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Adding an NVMe Heatsink</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">
+              A passive aluminium NVMe heatsink ($8–15) can reduce drive temps by 10–20°C. Many motherboards include one. Critical if your NVMe slot lacks airflow.
+            </p>
+          </div>
+        </div>
+
+        <!-- SSD temp quick reference table -->
+        <div class="card p-5 mt-2">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">SSD Temperature Reference</div>
+          <table style="width:100%; border-collapse:collapse; font-family:'IBM Plex Mono',monospace; font-size:0.8rem;">
+            <thead>
+              <tr>
+                <th style="text-align:left; padding:0.5rem 0.6rem; background:var(--surface2); color:#8888a0; font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase; border-bottom:1px solid var(--border);">Drive Type</th>
+                <th style="text-align:center; padding:0.5rem 0.6rem; background:var(--surface2); color:var(--safe); font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase; border-bottom:1px solid var(--border);">Safe</th>
+                <th style="text-align:center; padding:0.5rem 0.6rem; background:var(--surface2); color:var(--warm); font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase; border-bottom:1px solid var(--border);">Warm</th>
+                <th style="text-align:center; padding:0.5rem 0.6rem; background:var(--surface2); color:var(--hot); font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase; border-bottom:1px solid var(--border);">Hot</th>
+                <th style="text-align:center; padding:0.5rem 0.6rem; background:var(--surface2); color:var(--critical); font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase; border-bottom:1px solid var(--border);">Critical</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:0.5rem 0.6rem; border-bottom:1px solid rgba(42,42,50,0.5); color:#b0b0c8;">NVMe M.2 (Desktop)</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--safe);">≤55°C</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--warm);">56–70°C</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--hot);">71–79°C</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--critical);">80°C+</td>
+              </tr>
+              <tr>
+                <td style="padding:0.5rem 0.6rem; border-bottom:1px solid rgba(42,42,50,0.5); color:#b0b0c8;">NVMe M.2 (Laptop)</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--safe);">≤58°C</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--warm);">59–72°C</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--hot);">73–80°C</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--critical);">81°C+</td>
+              </tr>
+              <tr>
+                <td style="padding:0.5rem 0.6rem; color:#b0b0c8;">SATA SSD (2.5" / M.2)</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--safe);">≤45°C</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--warm);">46–55°C</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--hot);">56–63°C</td>
+                <td style="text-align:center; padding:0.5rem; color:var(--critical);">64°C+</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related tools & articles -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border);">
+      <div class="section-label">Related Tools & Guides</div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+
+        <a href="../tools/gpu-temp-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Temperature Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Check if your GPU is running too hot while gaming.</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">→ Use tool</div>
+        </a>
+
+        <a href="../articles/gpu-temp-guide.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(0,200,255,0.08); color:var(--accent);">Guide</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Temperature Guide</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">What temperatures are safe, warm, and dangerous for GPUs.</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">→ Read guide</div>
+        </a>
+
+        <a href="../articles/is-75c-safe.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">FAQ</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">Is 75°C Safe for RTX 4050?</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Specific GPU temp guidance for the RTX 4050 laptop GPU.</p>
+          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">→ Read</div>
+        </a>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══ FOOTER ════════════════════════════════════════ -->
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>ThermalCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'IBM Plex Mono',monospace;">PC thermal guides & hardware tools</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="../tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Checker</a>
+          <a href="ssd-health-checker.html" class="nav-link text-xs">SSD Checker</a>
+          <a href="../articles/gpu-temp-guide.html" class="nav-link text-xs">Guides</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'IBM Plex Mono',monospace;">
+        © 2024 ThermalCore. Temperature ranges are general guidelines. Always verify with your drive manufacturer's specifications.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/ssd-checker.js"></script>
+
+</body>
+</html>
