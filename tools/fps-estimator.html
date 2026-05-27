@@ -327,12 +327,15 @@
                   <optgroup label="Intel 13th Gen H / HX">
                     <option>Core i9-13980HX</option><option>Core i9-13900H</option>
                     <option>Core i7-13700HX</option><option>Core i7-13700H</option>
+                    <option>Core i7-13620H</option>
                     <option>Core i5-13600HX</option><option>Core i5-13500H</option>
                     <option>Core i5-13420H</option>
                   </optgroup>
                   <optgroup label="Intel 12th Gen H">
                     <option>Core i9-12900HX</option><option>Core i7-12700H</option>
+                    <option>Core i7-12650H</option>
                     <option>Core i5-12600H</option><option>Core i5-12500H</option>
+                    <option>Core i5-12450H</option>
                   </optgroup>
                   <optgroup label="AMD Ryzen 9000 HX (Fire Range)">
                     <option>Ryzen 9 9955HX</option><option>Ryzen 7 9855HX</option>
@@ -346,13 +349,19 @@
                     <option>Ryzen 9 7945HX3D</option><option>Ryzen 9 7945HX</option>
                     <option>Ryzen 7 7745HX</option><option>Ryzen 5 7645HX</option>
                   </optgroup>
-                  <optgroup label="AMD Ryzen 7000 HS (Phoenix)">
+                  <optgroup label="AMD Ryzen 7000 HS (Phoenix / Zen 4)">
                     <option>Ryzen 9 7940HS</option><option>Ryzen 7 7745HS</option>
                     <option>Ryzen 5 7640HS</option>
                   </optgroup>
-                  <optgroup label="AMD Ryzen 6000 H (Rembrandt)">
-                    <option>Ryzen 9 6980HX</option><option>Ryzen 7 6800H</option>
-                    <option>Ryzen 5 6600H</option>
+                  <optgroup label="AMD Ryzen 7000 H/HS (Rembrandt-R / Zen 3+)">
+                    <option>Ryzen 9 7935HS</option>
+                    <option>Ryzen 7 7735HS</option><option>Ryzen 7 7735H</option>
+                    <option>Ryzen 5 7535HS</option><option>Ryzen 5 7535H</option>
+                  </optgroup>
+                  <optgroup label="AMD Ryzen 6000 H/HS (Rembrandt / Zen 3+)">
+                    <option>Ryzen 9 6980HX</option><option>Ryzen 9 6900HX</option>
+                    <option>Ryzen 7 6800H</option><option>Ryzen 7 6800HS</option>
+                    <option>Ryzen 5 6600H</option><option>Ryzen 5 6600HS</option>
                   </optgroup>
                   <optgroup label="AMD Ryzen 5000 H (Cezanne)">
                     <option>Ryzen 9 5900HX</option><option>Ryzen 7 5800H</option>
@@ -364,12 +373,18 @@
 
             <div>
               <label class="field-label">RAM</label>
-              <div class="chip-row">
+              <div class="chip-row" style="margin-bottom:0.5rem;">
                 <button class="fps-chip" id="ram-8"  onclick="setChip('ram','8GB',  this)">8GB</button>
                 <button class="fps-chip active" id="ram-16" onclick="setChip('ram','16GB', this)">16GB</button>
                 <button class="fps-chip" id="ram-32" onclick="setChip('ram','32GB', this)">32GB+</button>
               </div>
               <input type="hidden" id="fps-ram" value="16GB">
+              <div class="chip-row" style="margin-top:0.3rem;">
+                <button class="fps-chip active" id="rtype-ddr4" onclick="setChip('rtype','DDR4',this)">DDR4</button>
+                <button class="fps-chip" id="rtype-ddr5" onclick="setChip('rtype','DDR5',this)">DDR5</button>
+              </div>
+              <input type="hidden" id="fps-rtype" value="DDR4">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; margin-top:0.35rem; line-height:1.5;">DDR5 improves CPU-limited frame rates by ~6% — mainly noticeable in esports &amp; high-FPS titles</div>
             </div>
           </div>
 
@@ -486,17 +501,13 @@
 
   <script src="../js/fps-estimator.js"></script>
   <script>
-    // RAM / Resolution chip state (quality is now managed in fps-estimator.js)
-    var chipState = { ram: "16GB", res: "1440p" };
-
     function setChip(group, value, el) {
-      chipState[group] = value;
       var prefix = group + "-";
       document.querySelectorAll("[id^='" + prefix + "']").forEach(function(b) {
         b.classList.remove("active", "hot");
       });
       el.classList.add("active");
-      var hiddenId = group === "ram" ? "fps-ram" : "fps-res";
+      var hiddenId = group === "ram" ? "fps-ram" : group === "rtype" ? "fps-rtype" : "fps-res";
       document.getElementById(hiddenId).value = value;
     }
 

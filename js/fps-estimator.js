@@ -152,11 +152,11 @@ const LAPTOP_CPU_FPS = {
   "Core i5-14500H":     162,
   // Intel 13th Gen H/HX — 2023
   "Core i9-13980HX":    210, "Core i9-13900H":     182, "Core i7-13700HX":   200,
-  "Core i7-13700H":     165, "Core i5-13600HX":    178, "Core i5-13500H":    155,
-  "Core i5-13420H":     142,
+  "Core i7-13700H":     165, "Core i7-13620H":     148, "Core i5-13600HX":    178,
+  "Core i5-13500H":     155, "Core i5-13420H":     142,
   // Intel 12th Gen H — 2022
-  "Core i9-12900HX":    192, "Core i7-12700H":     158, "Core i5-12600H":    142,
-  "Core i5-12500H":     138,
+  "Core i9-12900HX":    192, "Core i7-12700H":     158, "Core i7-12650H":    150,
+  "Core i5-12600H":     142, "Core i5-12500H":     138, "Core i5-12450H":    128,
   // AMD Ryzen 9000 HX (Fire Range) — 2025
   "Ryzen 9 9955HX":     215, "Ryzen 7 9855HX":     202, "Ryzen 5 9655HX":    188,
   // AMD Ryzen AI 300 (Strix Point) — 2024
@@ -164,12 +164,25 @@ const LAPTOP_CPU_FPS = {
   // AMD Ryzen 7000 HX (Dragon Range) — 2023
   "Ryzen 9 7945HX3D":   228, "Ryzen 9 7945HX":     212,
   "Ryzen 7 7745HX":     195, "Ryzen 5 7645HX":     178,
-  // AMD Ryzen 7000 HS (Phoenix) — 2023
+  // AMD Ryzen 7000 HS Phoenix (Zen 4) — 2023
   "Ryzen 9 7940HS":     182, "Ryzen 7 7745HS":     170, "Ryzen 5 7640HS":    158,
-  // AMD Ryzen 6000 H (Rembrandt) — 2022
-  "Ryzen 9 6980HX":     178, "Ryzen 7 6800H":      162, "Ryzen 5 6600H":     148,
+  // AMD Ryzen 7000 H/HS Rembrandt-R (Zen 3+) — 2023 — rebranded Zen 3+ with higher clocks
+  "Ryzen 9 7935HS":     188, "Ryzen 7 7735HS":     168, "Ryzen 7 7735H":     165,
+  "Ryzen 5 7535HS":     152, "Ryzen 5 7535H":      148,
+  // AMD Ryzen 6000 H/HS Rembrandt (Zen 3+) — 2022
+  "Ryzen 9 6980HX":     178, "Ryzen 9 6900HX":     172, "Ryzen 7 6800H":     162,
+  "Ryzen 7 6800HS":     160, "Ryzen 5 6600H":      148, "Ryzen 5 6600HS":    146,
   // AMD Ryzen 5000 H (Cezanne) — 2021
   "Ryzen 9 5900HX":     165, "Ryzen 7 5800H":      155, "Ryzen 5 5600H":     142,
+};
+
+// ── RAM type multipliers (DDR4 vs DDR5) ──────────────────────────────────────
+// DDR5 primarily lifts the CPU ceiling via higher bandwidth; impact on GPU-limited
+// scenarios is negligible. Effect scales with a game's CPU sensitivity (cpuScale).
+// Baseline values: flat ~6% uplift on CPU ceiling; gpuFPS is unaffected.
+const RAM_TYPE_MULT = {
+  "DDR4": 1.00,   // baseline — most 2019-2022 systems
+  "DDR5": 1.06,   // ~6% avg gaming uplift on CPU ceiling; more visible in esports/high-FPS titles
 };
 
 // ── Resolution scaling (relative to 1440p = 1.0) ─────────────────────────────
@@ -475,28 +488,29 @@ const GAME_LIST = GAMES.filter((g, i, arr) => arr.findIndex(x => x.name === g.na
 // ── Resolution scaling ────────────────────────────────────────────────────────
 
 // ── FPS calculation ───────────────────────────────────────────────────────────
-function estimateFPS(gpuKey, cpuKey, ramKey, resolution, qualityKey, game, isLaptop) {
+function estimateFPS(gpuKey, cpuKey, ramKey, ramType, resolution, qualityKey, game, isLaptop) {
   const gpuMult  = isLaptop ? (LAPTOP_GPU_MULT[gpuKey] || 0.38) : (GPU_MULT[gpuKey] || 0.5);
   const cpuFPS   = isLaptop ? (LAPTOP_CPU_FPS[cpuKey] || 150)   : (CPU_FPS[cpuKey]  || 160);
-  const ramMult  = RAM_MULT[ramKey]          || 1.0;
   const resMult  = RES_SCALE[resolution]     || 1.0;
   const qualMult = QUALITY_SCALE[qualityKey] || 1.0;
+  const ramTMult = RAM_TYPE_MULT[ramType]    || 1.0;
 
-  // Raw GPU-limited FPS
+  // Raw GPU-limited FPS (DDR type doesn't affect discrete GPU VRAM bandwidth)
   let gpuFPS = game.base * gpuMult * resMult * qualMult;
 
   // Laptop thermal penalty: additional ~5% reduction to model TDP throttling in sustained load
   if (isLaptop) gpuFPS *= 0.95;
 
-  // Apply RAM penalty (only for RAM-sensitive games)
+  // Apply RAM size penalty (only for RAM-sensitive games)
   if (game.ramSensitive && ramKey === "8GB") {
     gpuFPS *= RAM_MULT["8GB"];
   }
 
-  // CPU ceiling for this game/resolution
+  // CPU ceiling for this game/resolution.
+  // RAM type (DDR4 vs DDR5) applied here — bandwidth feeds CPU throughput; effect is
+  // meaningful in CPU-limited/esports titles, invisible when the GPU is the bottleneck.
   const cpuResFactor = resolution === "1080p" ? 1.5 : resolution === "4K" ? 0.5 : 1.0;
-  // Laptop CPUs also throttle under sustained gaming load — apply a small ceiling reduction
-  const cpuCeiling = cpuFPS * game.cpuScale * cpuResFactor * (isLaptop ? 0.93 : 1.0);
+  const cpuCeiling = cpuFPS * game.cpuScale * cpuResFactor * (isLaptop ? 0.93 : 1.0) * ramTMult;
 
   // Final FPS = minimum of GPU and CPU ceiling
   const raw = Math.min(gpuFPS, cpuCeiling);
@@ -639,6 +653,7 @@ function runFPSEstimate() {
   var gpuKey    = isLaptop ? document.getElementById("fps-gpu-laptop").value : document.getElementById("fps-gpu").value;
   var cpuKey    = isLaptop ? document.getElementById("fps-cpu-laptop").value : document.getElementById("fps-cpu").value;
   var ramKey    = document.getElementById("fps-ram").value;
+  var ramType   = document.getElementById("fps-rtype").value || "DDR4";
   var res       = document.getElementById("fps-res").value;
   var qualityKey= document.getElementById("fps-quality").value;
   var errorEl   = document.getElementById("fps-error");
@@ -658,7 +673,7 @@ function runFPSEstimate() {
     document.getElementById("fps-quality").value = qualityKey;
   }
 
-  var est  = estimateFPS(gpuKey, cpuKey, ramKey, res, qualityKey, selectedGame, isLaptop);
+  var est  = estimateFPS(gpuKey, cpuKey, ramKey, ramType, res, qualityKey, selectedGame, isLaptop);
   var tier = fpsTier(est.fps);
   var frameTime = (1000 / est.fps).toFixed(1);
 
@@ -667,7 +682,7 @@ function runFPSEstimate() {
     return {
       label: p.label,
       key:   p.key,
-      fps:   Math.min(estimateFPS(gpuKey, cpuKey, ramKey, res, p.key, selectedGame, isLaptop).fps, 999)
+      fps:   Math.min(estimateFPS(gpuKey, cpuKey, ramKey, ramType, res, p.key, selectedGame, isLaptop).fps, 999)
     };
   });
 
@@ -727,11 +742,17 @@ function runFPSEstimate() {
       'margin-left:0.5rem; vertical-align:middle;">💻 LAPTOP</span>'
     : "";
 
+  var ddrBadge = ramType === "DDR5"
+    ? '<span style="background:rgba(0,200,255,0.07); border:1px solid rgba(0,200,255,0.2); color:var(--accent); ' +
+      'font-family:\'JetBrains Mono\',monospace; font-size:0.62rem; border-radius:4px; padding:0.15rem 0.5rem; ' +
+      'margin-left:0.4rem; vertical-align:middle;">DDR5</span>'
+    : "";
+
   resultEl.innerHTML =
     '<div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem;">' +
       '<div>' +
         '<div style="font-family:\'JetBrains Mono\',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.2rem;">' +
-          selectedGame.name + ' · ' + res + ' · ' + activeLabel + platformBadge + '</div>' +
+          selectedGame.name + ' · ' + res + ' · ' + activeLabel + platformBadge + ddrBadge + '</div>' +
         '<div style="font-family:\'Bebas Neue\',sans-serif; font-size:3.5rem; color:' + tier.color + '; line-height:1;">' +
           est.fps + ' <span style="font-size:1.5rem; color:#8888a0;">FPS</span></div>' +
         '<div style="font-family:\'JetBrains Mono\',monospace; font-size:0.75rem; color:' + tier.color + '; margin-top:0.15rem;">' +
