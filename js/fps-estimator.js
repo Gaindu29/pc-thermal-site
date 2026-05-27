@@ -485,10 +485,151 @@ const GAMES = [
 // Deduplicate (safety)
 const GAME_LIST = GAMES.filter((g, i, arr) => arr.findIndex(x => x.name === g.name) === i);
 
+// ── GPU Max TGP (watts) ───────────────────────────────────────────────────────
+// Maximum advertised TGP for each laptop GPU — the baseline our LAPTOP_GPU_MULT is calibrated to.
+const GPU_MAX_TGP = {
+  "RTX 5090 Laptop":175,"RTX 5080 Laptop":150,"RTX 5070 Ti Laptop":115,
+  "RTX 5070 Laptop":115,"RTX 5060 Laptop":115,
+  "RTX 4090 Laptop":175,"RTX 4080 Laptop":150,
+  "RTX 4070 Laptop":115,"RTX 4060 Laptop":115,"RTX 4050 Laptop":115,
+  "RTX 3080 Ti Laptop":150,"RTX 3080 Laptop":150,
+  "RTX 3070 Ti Laptop":125,"RTX 3070 Laptop":125,"RTX 3060 Laptop":115,
+  "RTX 3050 Ti Laptop":80,"RTX 3050 Laptop":80,
+  "GTX 1660 Ti Laptop":80,"GTX 1650 Ti Laptop":55,"GTX 1650 Laptop":50,
+  "RX 7900M":175,"RX 7800M":120,"RX 7700S":100,"RX 7600M XT":120,"RX 7600M":120,
+  "RX 6850M XT":145,"RX 6700M":100,"RX 6600M":100,
+};
+
+// ── TGP -> performance scale factor ──────────────────────────────────────────
+// GPU performance doesn't scale 1:1 with power. Empirical approximation:
+// scale = 0.45 + 0.55 x (tgp / maxTGP), clipped to [0.45, 1.05]
+// Example: RTX 4050 @ 60W out of 115W max -> 0.45 + 0.55x0.52 = 0.74 (26% slower)
+function tgpScaleFactor(tgp, gpuKey) {
+  var maxTGP = GPU_MAX_TGP[gpuKey] || 115;
+  var ratio = tgp / maxTGP;
+  return Math.min(1.05, Math.max(0.45, 0.45 + 0.55 * ratio));
+}
+
+// ── Laptop model database ─────────────────────────────────────────────────────
+const LAPTOP_MODELS = [
+  // Lenovo LOQ
+  {brand:"Lenovo",model:"LOQ 15 (RTX 4050 / Intel)",gpu:"RTX 4050 Laptop",cpu:"Core i5-13420H",tgp:60,note:"60W TGP on all GPUs. Real perf 25-35% below max-TGP RTX 4050 laptops."},
+  {brand:"Lenovo",model:"LOQ 15 (RTX 4050 / Ryzen)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 7 7745HX",tgp:60,note:"60W TGP. Real performance can be 25-35% below max-TGP RTX 4050 laptops."},
+  {brand:"Lenovo",model:"LOQ 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:60,note:"Unusual: RTX 4060 also capped at 60W. Large gap vs other RTX 4060 laptops at 100-115W."},
+  {brand:"Lenovo",model:"LOQ 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:80},
+  // Lenovo IdeaPad Gaming
+  {brand:"Lenovo",model:"IdeaPad Gaming 3 (RTX 3050 Ti)",gpu:"RTX 3050 Ti Laptop",cpu:"Ryzen 5 5600H",tgp:75},
+  {brand:"Lenovo",model:"IdeaPad Gaming 3 (RTX 3060)",gpu:"RTX 3060 Laptop",cpu:"Ryzen 5 5600H",tgp:80},
+  // Lenovo Legion
+  {brand:"Lenovo",model:"Legion 5 Gen 9 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:115},
+  {brand:"Lenovo",model:"Legion 5 Gen 9 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:115},
+  {brand:"Lenovo",model:"Legion 5 Pro Gen 9 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:140,note:"TGP boost via Lenovo Vantage Performance Mode."},
+  {brand:"Lenovo",model:"Legion 5 Pro Gen 9 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Ryzen 9 7945HX",tgp:150},
+  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:115},
+  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Ryzen 9 7945HX",tgp:150},
+  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Ryzen 9 7945HX",tgp:175},
+  {brand:"Lenovo",model:"Legion Pro 7i (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:175,note:"One of the highest TGP laptop configs available."},
+  {brand:"Lenovo",model:"Legion Pro 7i (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
+  {brand:"Lenovo",model:"Legion Slim 5 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700H",tgp:65,note:"Thin-and-light — 65W to stay within slim thermal constraints."},
+  // ASUS TUF
+  {brand:"ASUS",model:"TUF Gaming A15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:100},
+  {brand:"ASUS",model:"TUF Gaming A15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:125},
+  {brand:"ASUS",model:"TUF Gaming F15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700H",tgp:100},
+  {brand:"ASUS",model:"TUF Gaming F15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:125},
+  {brand:"ASUS",model:"TUF Gaming A16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:125},
+  // ASUS ROG Strix
+  {brand:"ASUS",model:"ROG Strix G16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:100},
+  {brand:"ASUS",model:"ROG Strix G16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:125},
+  {brand:"ASUS",model:"ROG Strix G16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
+  {brand:"ASUS",model:"ROG Strix G18 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
+  {brand:"ASUS",model:"ROG Strix G18 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175},
+  {brand:"ASUS",model:"ROG Strix SCAR 16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Ryzen 9 7945HX",tgp:150},
+  {brand:"ASUS",model:"ROG Strix SCAR 16 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Ryzen 9 7945HX",tgp:175},
+  {brand:"ASUS",model:"ROG Strix SCAR 18 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175},
+  // ASUS ROG Zephyrus
+  {brand:"ASUS",model:"ROG Zephyrus G14 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:80,note:"Thin chassis limits TGP. Great efficiency but not full performance."},
+  {brand:"ASUS",model:"ROG Zephyrus G14 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
+  {brand:"ASUS",model:"ROG Zephyrus G16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
+  {brand:"ASUS",model:"ROG Zephyrus G16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:120},
+  {brand:"ASUS",model:"ROG Zephyrus M16 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900H",tgp:150},
+  {brand:"ASUS",model:"ROG Flow X13 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:65,note:"Ultra-thin convertible — significantly lower TGP than gaming laptops."},
+  {brand:"ASUS",model:"ROG Flow X13 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:75},
+  // MSI
+  {brand:"MSI",model:"Cyborg 15 (RTX 4050)",gpu:"RTX 4050 Laptop",cpu:"Core i7-13620H",tgp:80},
+  {brand:"MSI",model:"Cyborg 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13620H",tgp:85},
+  {brand:"MSI",model:"Katana 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13620H",tgp:105},
+  {brand:"MSI",model:"Katana 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13620H",tgp:115},
+  {brand:"MSI",model:"Vector GP76 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:115},
+  {brand:"MSI",model:"Vector GP76 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:150},
+  {brand:"MSI",model:"Raider GE78 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
+  {brand:"MSI",model:"Raider GE78 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175},
+  {brand:"MSI",model:"Stealth 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:80,note:"Slim profile — 80W TGP."},
+  {brand:"MSI",model:"Stealth 16 Studio (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:100},
+  {brand:"MSI",model:"Stealth 16 Studio (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:120},
+  // HP
+  {brand:"HP",model:"Victus 15 (RTX 4050)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:60,note:"Budget gaming — 60W TGP, same constraints as Lenovo LOQ."},
+  {brand:"HP",model:"Victus 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7535HS",tgp:80},
+  {brand:"HP",model:"Victus 16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7535HS",tgp:80},
+  {brand:"HP",model:"Victus 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HS",tgp:80,note:"HP caps RTX 4070 at 80W on Victus — notably lower than most at 115W+."},
+  {brand:"HP",model:"OMEN 16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HS",tgp:100},
+  {brand:"HP",model:"OMEN 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:115},
+  {brand:"HP",model:"OMEN 17 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:125},
+  {brand:"HP",model:"OMEN 17 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"HP",model:"OMEN Transcend 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900H",tgp:100,note:"Thin OMEN — 100W is a solid compromise for the slim chassis."},
+  // Dell / Alienware
+  {brand:"Dell",model:"G15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell caps G15 at 80W — notably slower than RTX 4060 laptops at 100-115W."},
+  {brand:"Dell",model:"G15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell G15 caps RTX 4070 at 80W — large gap vs competitors at 115W+."},
+  {brand:"Dell",model:"G16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:100},
+  {brand:"Dell",model:"G16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13650HX",tgp:105},
+  {brand:"Alienware",model:"m16 R2 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700HX",tgp:125},
+  {brand:"Alienware",model:"m16 R2 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Alienware",model:"m18 R2 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Alienware",model:"m18 R2 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
+  {brand:"Alienware",model:"x16 R2 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-14900HX",tgp:150,note:"Despite full RTX 4090, capped at 150W to manage thermals in the slim chassis."},
+  // Acer
+  {brand:"Acer",model:"Nitro V 15 (RTX 4050)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:75},
+  {brand:"Acer",model:"Nitro V 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7735HS",tgp:80},
+  {brand:"Acer",model:"Nitro 5 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:85},
+  {brand:"Acer",model:"Nitro 5 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i5-13420H",tgp:115},
+  {brand:"Acer",model:"Predator Helios Neo 16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700HX",tgp:100},
+  {brand:"Acer",model:"Predator Helios Neo 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700HX",tgp:100},
+  {brand:"Acer",model:"Predator Helios 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:140},
+  {brand:"Acer",model:"Predator Helios 16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Acer",model:"Predator Helios 18 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Acer",model:"Predator Helios 18 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
+  // Razer
+  {brand:"Razer",model:"Blade 14 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:80},
+  {brand:"Razer",model:"Blade 14 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
+  {brand:"Razer",model:"Blade 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13800H",tgp:100,note:"Premium thin chassis — 100W is a solid balance for the Blade's slim design."},
+  {brand:"Razer",model:"Blade 15 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:120},
+  {brand:"Razer",model:"Blade 15 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Razer",model:"Blade 16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:120},
+  {brand:"Razer",model:"Blade 16 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:150},
+  // Gigabyte / AORUS
+  {brand:"Gigabyte",model:"G5 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i5-12500H",tgp:80},
+  {brand:"Gigabyte",model:"G6 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-12650H",tgp:80},
+  {brand:"Gigabyte",model:"AORUS 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:130},
+  {brand:"Gigabyte",model:"AORUS 15 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Gigabyte",model:"AORUS 17 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  // Samsung
+  {brand:"Samsung",model:"Galaxy Book4 Ultra (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:65,note:"Professional ultrabook — 65W TGP, much lower than gaming laptops."},
+];
+
+// ── Laptop model search helper ────────────────────────────────────────────────
+function searchLaptopModels(query) {
+  if (!query || query.length < 2) return [];
+  var words = query.toLowerCase().split(/\s+/).filter(function(w) { return w.length > 0; });
+  return LAPTOP_MODELS.filter(function(m) {
+    var str = (m.brand + " " + m.model).toLowerCase();
+    return words.every(function(w) { return str.includes(w); });
+  }).slice(0, 8);
+}
+
 // ── Resolution scaling ────────────────────────────────────────────────────────
 
+
 // ── FPS calculation ───────────────────────────────────────────────────────────
-function estimateFPS(gpuKey, cpuKey, ramKey, ramType, resolution, qualityKey, game, isLaptop) {
+function estimateFPS(gpuKey, cpuKey, ramKey, ramType, resolution, qualityKey, game, isLaptop, tgpScale) {
   const gpuMult  = isLaptop ? (LAPTOP_GPU_MULT[gpuKey] || 0.38) : (GPU_MULT[gpuKey] || 0.5);
   const cpuFPS   = isLaptop ? (LAPTOP_CPU_FPS[cpuKey] || 150)   : (CPU_FPS[cpuKey]  || 160);
   const resMult  = RES_SCALE[resolution]     || 1.0;
@@ -498,8 +639,13 @@ function estimateFPS(gpuKey, cpuKey, ramKey, ramType, resolution, qualityKey, ga
   // Raw GPU-limited FPS (DDR type doesn't affect discrete GPU VRAM bandwidth)
   let gpuFPS = game.base * gpuMult * resMult * qualMult;
 
-  // Laptop thermal penalty: additional ~5% reduction to model TDP throttling in sustained load
-  if (isLaptop) gpuFPS *= 0.95;
+  // Laptop GPU scaling:
+  // - When model TGP is known: use that precise scale (replaces the generic 0.95)
+  // - When unknown: fall back to 0.95 (generic "expect some throttling" penalty)
+  if (isLaptop) {
+    var gpuScale = (tgpScale !== undefined && tgpScale !== null) ? tgpScale : 0.95;
+    gpuFPS *= gpuScale;
+  }
 
   // Apply RAM size penalty (only for RAM-sensitive games)
   if (game.ramSensitive && ramKey === "8GB") {
@@ -545,14 +691,24 @@ function searchGames(query) {
 // ── Platform + Quality state ─────────────────────────────────────────────────
 var currentPlatform = "desktop";
 var selectedQualityKey = "High";
+var selectedLaptopModel = null;
 
 function setPlatform(platform) {
   currentPlatform = platform;
+  selectedLaptopModel = null;
 
   document.getElementById("gpu-desktop-wrap").style.display = platform === "desktop" ? "" : "none";
   document.getElementById("gpu-laptop-wrap").style.display  = platform === "laptop"  ? "" : "none";
   document.getElementById("cpu-desktop-wrap").style.display = platform === "desktop" ? "" : "none";
   document.getElementById("cpu-laptop-wrap").style.display  = platform === "laptop"  ? "" : "none";
+  document.getElementById("laptop-model-wrap").style.display= platform === "laptop"  ? "" : "none";
+
+  // Reset model search UI
+  if (platform === "laptop") {
+    document.getElementById("fps-model-input").value = "";
+    document.getElementById("fps-model-badge").style.display = "none";
+    document.getElementById("fps-model-suggestions").style.display = "none";
+  }
 
   var btnD = document.getElementById("btn-desktop");
   var btnL = document.getElementById("btn-laptop");
@@ -561,12 +717,84 @@ function setPlatform(platform) {
   btnD.classList.toggle("hot", false);
   btnL.classList.toggle("hot", false);
 
-  // Clear any results when switching platform
+  // Clear results when switching platform
   var resultEl = document.getElementById("fps-result");
   resultEl.innerHTML = "";
   resultEl.className = "result-box";
   var defaultEl = document.getElementById("fps-default");
   if (defaultEl) defaultEl.style.display = "";
+}
+
+// ── Laptop model search UI ────────────────────────────────────────────────────
+function handleModelSearch() {
+  var q   = document.getElementById("fps-model-input").value;
+  var box = document.getElementById("fps-model-suggestions");
+
+  if (!q || q.length < 2) { box.style.display = "none"; return; }
+
+  var results = searchLaptopModels(q);
+  if (results.length === 0) {
+    box.innerHTML = '<div style="padding:0.75rem 1rem; font-size:0.82rem; color:#8888a0;">No matching models found — select your GPU manually and results will assume max TGP.</div>';
+    box.style.display = "block";
+    return;
+  }
+
+  box.innerHTML = results.map(function(m) {
+    var maxTGP = GPU_MAX_TGP[m.gpu] || 115;
+    var pct = Math.round((1 - tgpScaleFactor(m.tgp, m.gpu)) * 100);
+    var tgpColor = m.tgp >= maxTGP * 0.9 ? "var(--safe)" : m.tgp >= maxTGP * 0.7 ? "var(--warm)" : "var(--critical)";
+    return '<div class="fps-suggestion-item" onclick="selectLaptopModel(' + JSON.stringify(m).replace(/"/g,'&quot;') + ')" ' +
+      'style="padding:0.65rem 1rem; cursor:pointer; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border);">' +
+        '<div>' +
+          '<div style="font-size:0.85rem; color:var(--text);">' + m.brand + ' ' + m.model + '</div>' +
+          '<div style="font-size:0.72rem; color:#8888a0; font-family:\'JetBrains Mono\',monospace;">' + m.gpu + '</div>' +
+        '</div>' +
+        '<div style="text-align:right;">' +
+          '<div style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:' + tgpColor + ';">' + m.tgp + 'W</div>' +
+          (pct > 5 ? '<div style="font-family:\'JetBrains Mono\',monospace; font-size:0.62rem; color:#555568;">-' + pct + '% vs max</div>' : '') +
+        '</div>' +
+      '</div>';
+  }).join('');
+  box.style.display = "block";
+}
+
+function selectLaptopModel(model) {
+  selectedLaptopModel = model;
+  document.getElementById("fps-model-input").value = model.brand + " " + model.model;
+  document.getElementById("fps-model-suggestions").style.display = "none";
+
+  var scale = tgpScaleFactor(model.tgp, model.gpu);
+  var maxTGP = GPU_MAX_TGP[model.gpu] || 115;
+  var pct = Math.round((1 - scale) * 100);
+  var tgpColor = model.tgp >= maxTGP * 0.9 ? "var(--safe)" : model.tgp >= maxTGP * 0.7 ? "var(--warm)" : "var(--critical)";
+
+  var badge = document.getElementById("fps-model-badge");
+  badge.innerHTML =
+    '<div style="background:rgba(0,200,255,0.05); border:1px solid rgba(0,200,255,0.2); border-radius:8px; padding:0.6rem 0.75rem;">' +
+      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem;">' +
+        '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:var(--accent);">' + model.brand + ' ' + model.model + '</span>' +
+        '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:' + tgpColor + ';">' + model.tgp + 'W TGP' +
+          (pct > 5 ? ' <span style="color:#555568;">(' + pct + '% below max)</span>' : ' <span style="color:var(--safe);">(full power)</span>') +
+        '</span>' +
+      '</div>' +
+      (model.note ? '<div style="font-size:0.72rem; color:#8888a0; line-height:1.5;">' + model.note + '</div>' : '') +
+    '</div>';
+  badge.style.display = "block";
+
+  // Auto-fill GPU
+  trySetSelect("fps-gpu-laptop", model.gpu);
+  // Auto-fill CPU if available
+  if (model.cpu) trySetSelect("fps-cpu-laptop", model.cpu);
+}
+
+function trySetSelect(selectId, value) {
+  var sel = document.getElementById(selectId);
+  if (!sel || !value) return;
+  for (var i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].text.trim() === value.trim()) {
+      sel.selectedIndex = i; return;
+    }
+  }
 }
 
 function setQuality(key, el) {
@@ -673,7 +901,41 @@ function runFPSEstimate() {
     document.getElementById("fps-quality").value = qualityKey;
   }
 
-  var est  = estimateFPS(gpuKey, cpuKey, ramKey, ramType, res, qualityKey, selectedGame, isLaptop);
+  // ── Resolve TGP scale ──────────────────────────────────────────────────────
+  var tgpScale = null;
+  var tgpNote  = "";
+  if (isLaptop) {
+    if (selectedLaptopModel) {
+      tgpScale = tgpScaleFactor(selectedLaptopModel.tgp, gpuKey);
+      var maxTGP = GPU_MAX_TGP[gpuKey] || 115;
+      var tgpPct = Math.round((1 - tgpScale) * 100);
+      if (tgpPct > 5) {
+        tgpNote = '<div style="background:rgba(0,200,255,0.05); border:1px solid rgba(0,200,255,0.2); border-left:3px solid var(--accent); ' +
+          'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
+          '📊 <strong style="color:var(--accent);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> — ' +
+          'GPU TGP: <strong>' + selectedLaptopModel.tgp + 'W</strong> (max is ' + maxTGP + 'W). ' +
+          'A <strong>' + tgpPct + '% performance adjustment</strong> has been applied to reflect your laptop\'s actual power limit.' +
+          (selectedLaptopModel.note ? ' <em style="color:#555568;">' + selectedLaptopModel.note + '</em>' : '') +
+          '</div>';
+      } else {
+        tgpNote = '<div style="background:rgba(34,212,126,0.05); border:1px solid rgba(34,212,126,0.2); border-left:3px solid var(--safe); ' +
+          'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
+          '✅ <strong style="color:var(--safe);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> — ' +
+          'GPU running at full <strong>' + selectedLaptopModel.tgp + 'W TGP</strong>. Estimate is well-calibrated for your configuration.' +
+          '</div>';
+      }
+    } else {
+      // No model specified — warn about TGP assumption
+      tgpNote = '<div style="background:rgba(255,170,0,0.05); border:1px solid rgba(255,170,0,0.2); border-left:3px solid var(--warm); ' +
+        'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
+        '⚠️ <strong style="color:var(--warm);">No laptop model specified</strong> — estimate assumes near-maximum TGP for this GPU. ' +
+        'Budget and mid-range gaming laptops often run GPUs at 30–40% below their maximum TGP, which can reduce real-world FPS significantly. ' +
+        '<strong style="color:var(--warm);">Enter your laptop model above</strong> for a more accurate, TGP-adjusted estimate.' +
+        '</div>';
+    }
+  }
+
+  var est  = estimateFPS(gpuKey, cpuKey, ramKey, ramType, res, qualityKey, selectedGame, isLaptop, tgpScale);
   var tier = fpsTier(est.fps);
   var frameTime = (1000 / est.fps).toFixed(1);
 
@@ -682,7 +944,7 @@ function runFPSEstimate() {
     return {
       label: p.label,
       key:   p.key,
-      fps:   Math.min(estimateFPS(gpuKey, cpuKey, ramKey, ramType, res, p.key, selectedGame, isLaptop).fps, 999)
+      fps:   Math.min(estimateFPS(gpuKey, cpuKey, ramKey, ramType, res, p.key, selectedGame, isLaptop, tgpScale).fps, 999)
     };
   });
 
@@ -765,7 +1027,7 @@ function runFPSEstimate() {
         '<div style="font-size:0.72rem; color:#555568;">' + gpuKey + '</div>' +
       '</div>' +
     '</div>' +
-    cpuNote + ramNote + upscaleNote +
+    tgpNote + cpuNote + ramNote + upscaleNote +
     '<div style="font-family:\'JetBrains Mono\',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">All Quality Presets at ' + res + '</div>' +
     '<div style="margin-bottom:1.25rem;">' + barsHTML + '</div>' +
     '<div style="background:var(--surface2); border-radius:8px; padding:0.875rem 1rem; border:1px solid var(--border); font-size:0.82rem; color:#b0b0c8; line-height:1.65;">' +
@@ -785,5 +1047,9 @@ document.addEventListener("click", function(e) {
   var box = document.getElementById("fps-suggestions");
   if (box && !box.contains(e.target) && e.target.id !== "fps-game-input") {
     box.style.display = "none";
+  }
+  var mbox = document.getElementById("fps-model-suggestions");
+  if (mbox && !mbox.contains(e.target) && e.target.id !== "fps-model-input") {
+    mbox.style.display = "none";
   }
 });

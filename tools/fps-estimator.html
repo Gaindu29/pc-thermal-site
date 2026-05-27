@@ -83,6 +83,20 @@
     .platform-chip:hover { border-color: #3a3a48; color: var(--text); }
     .platform-chip.active { border-color: var(--accent); background: rgba(0,200,255,0.1); color: var(--accent); font-weight: 600; }
 
+    #fps-model-suggestions {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      z-index: 50;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .fps-model-item:hover { background: var(--surface2); }
+    .fps-model-item:last-child { border-bottom: none !important; }
     @media (min-width: 768px) { .sticky-col { position: sticky; top: 80px; } }
   </style>
 </head>
@@ -166,7 +180,29 @@
               </div>
             </div>
 
-            <!-- GPU -->
+            <!-- Laptop Model Search (optional, improves TGP accuracy) -->
+            <div id="laptop-model-wrap" style="display:none; margin-bottom:1rem;">
+              <label class="field-label">
+                Laptop Model
+                <span style="color:#555568; font-weight:400; text-transform:none; letter-spacing:0; font-size:0.65rem; margin-left:0.3rem;">optional — enables TGP-accurate estimates</span>
+              </label>
+              <div class="search-wrap">
+                <input
+                  id="fps-model-input"
+                  class="input-field"
+                  type="text"
+                  placeholder="e.g. Lenovo LOQ 15, ASUS TUF A15, Dell G15..."
+                  autocomplete="off"
+                  oninput="handleModelSearch()"
+                  onkeydown="if(event.key==='Escape'){document.getElementById('fps-model-suggestions').style.display='none';}"
+                >
+                <div id="fps-model-suggestions"></div>
+              </div>
+              <div id="fps-model-badge" style="display:none; margin-top:0.5rem;"></div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; margin-top:0.35rem; line-height:1.5;">
+                When matched, GPU &amp; CPU are auto-filled and TGP adjusted. Skip if you don't know your exact model.
+              </div>
+            </div>
             <div class="mb-4">
               <label class="field-label" for="fps-gpu">GPU</label>
 
