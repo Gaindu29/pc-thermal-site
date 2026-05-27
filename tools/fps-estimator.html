@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PC Game FPS Estimator — How Many FPS Will I Get? | TempCore</title>
+  <meta name="description" content="Free FPS estimator. Select your GPU, CPU, and RAM, search any game, and get an estimated frame rate at your chosen resolution and quality settings.">
+  <meta name="keywords" content="FPS estimator, how many FPS will I get, PC gaming FPS calculator, GPU benchmark estimator, Cyberpunk FPS calculator, RTX 4070 FPS">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .field-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8888a0;
+      margin-bottom: 0.4rem;
+    }
+    select option, select optgroup { background: #141418; }
+
+    /* Search */
+    .search-wrap { position: relative; }
+    #fps-suggestions {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      z-index: 50;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .fps-suggestion-item:hover { background: var(--surface2); }
+    .fps-suggestion-item:last-child { border-bottom: none !important; }
+
+    /* Chip group for resolution / quality */
+    .chip-row { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .fps-chip {
+      padding: 0.4rem 0.7rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #8888a0;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .fps-chip:hover { border-color: #3a3a48; color: var(--text); }
+    .fps-chip.active { border-color: var(--accent); background: rgba(0,200,255,0.08); color: var(--accent); }
+    .fps-chip.active.hot { border-color: var(--hot); background: rgba(255,100,34,0.1); color: var(--hot); }
+
+    @media (min-width: 768px) { .sticky-col { position: sticky; top: 80px; } }
+  </style>
+</head>
+<body class="bg-bg">
+
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
+      <div class="flex items-center gap-6">
+        <a href="../tools/gpu-temp-checker.html" class="nav-link">GPU Temp</a>
+        <a href="../tools/bottleneck-checker.html" class="nav-link hidden sm:block">Bottleneck</a>
+        <a href="fps-estimator.html" style="color:var(--accent);" class="nav-link">FPS</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <a href="../index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none;">&#8592; Back to Home</a>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
+        <div>
+          <div class="section-label">Tool</div>
+          <h1 class="font-display mt-1" style="font-size:clamp(2.5rem,7vw,5rem); line-height:0.92;">
+            Game FPS<br><span style="color:var(--accent);">Estimator</span>
+          </h1>
+          <p style="color:#8888a0; margin-top:0.75rem; font-size:0.9rem; line-height:1.6; max-width:460px;">
+            Search any game, select your hardware and settings, and get an estimated native FPS — with and without upscaling.
+          </p>
+        </div>
+        <div class="card p-4" style="min-width:230px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Performance Tiers</div>
+          <div style="display:flex; flex-direction:column; gap:0.3rem; font-family:'JetBrains Mono',monospace; font-size:0.72rem;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--critical);">Below 30</span><span style="color:#8888a0;">Unplayable</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--warm);">45–60 FPS</span><span style="color:#8888a0;">Playable</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--safe);">60–90 FPS</span><span style="color:#8888a0;">Smooth</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--safe);">90–144 FPS</span><span style="color:#8888a0;">Great</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent);">144+ FPS</span><span style="color:#8888a0;">High Refresh</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+
+      <!-- INPUTS -->
+      <div class="md:col-span-2">
+        <div class="sticky-col flex flex-col gap-3">
+
+          <!-- Game Search -->
+          <div class="card p-5">
+            <div class="section-label mb-4">Search Game</div>
+            <div class="mb-1 search-wrap">
+              <label class="field-label" for="fps-game-input">Game Title</label>
+              <input
+                id="fps-game-input"
+                class="input-field"
+                type="text"
+                placeholder="e.g. Cyberpunk, CS2, Elden Ring..."
+                autocomplete="off"
+                oninput="handleGameSearch()"
+                onkeydown="if(event.key==='Escape'){document.getElementById('fps-suggestions').style.display='none';}"
+              >
+              <div id="fps-suggestions"></div>
+            </div>
+            <div id="fps-game-badge" style="display:none; margin-top:0.5rem;"></div>
+          </div>
+
+          <!-- Hardware -->
+          <div class="card p-5">
+            <div class="section-label mb-4">Your Hardware</div>
+
+            <div class="mb-4">
+              <label class="field-label" for="fps-gpu">GPU</label>
+              <select id="fps-gpu" class="input-field">
+                <option value="">&#8212; Select GPU &#8212;</option>
+                <optgroup label="NVIDIA RTX 50 Series">
+                  <option>RTX 5090</option><option>RTX 5080</option>
+                  <option>RTX 5070 Ti</option><option>RTX 5070</option>
+                  <option>RTX 5060 Ti 16GB</option><option>RTX 5060 Ti</option><option>RTX 5060</option>
+                </optgroup>
+                <optgroup label="NVIDIA RTX 40 Series">
+                  <option>RTX 4090</option><option>RTX 4080 Super</option><option>RTX 4080</option>
+                  <option>RTX 4070 Ti Super</option><option>RTX 4070 Ti</option>
+                  <option>RTX 4070 Super</option><option>RTX 4070</option>
+                  <option>RTX 4060 Ti 16GB</option><option>RTX 4060 Ti</option><option>RTX 4060</option>
+                </optgroup>
+                <optgroup label="NVIDIA RTX 30 Series">
+                  <option>RTX 3090 Ti</option><option>RTX 3090</option><option>RTX 3080 Ti</option>
+                  <option>RTX 3080 12GB</option><option>RTX 3080 10GB</option>
+                  <option>RTX 3070 Ti</option><option>RTX 3070</option>
+                  <option>RTX 3060 Ti</option><option>RTX 3060</option><option>RTX 3050</option>
+                </optgroup>
+                <optgroup label="NVIDIA GTX Series">
+                  <option>GTX 1080 Ti</option><option>GTX 1080</option><option>GTX 1070 Ti</option>
+                  <option>GTX 1070</option><option>GTX 1660 Ti</option><option>GTX 1660 Super</option>
+                  <option>GTX 1660</option><option>GTX 1650 Super</option><option>GTX 1650</option>
+                  <option>GTX 1060 6GB</option><option>GTX 1050 Ti</option>
+                </optgroup>
+                <optgroup label="AMD RX 7000 Series">
+                  <option>RX 7900 XTX</option><option>RX 7900 XT</option><option>RX 7900 GRE</option>
+                  <option>RX 7800 XT</option><option>RX 7700 XT</option>
+                  <option>RX 7600 XT</option><option>RX 7600</option>
+                </optgroup>
+                <optgroup label="AMD RX 6000 Series">
+                  <option>RX 6950 XT</option><option>RX 6900 XT</option><option>RX 6800 XT</option>
+                  <option>RX 6800</option><option>RX 6750 XT</option><option>RX 6700 XT</option>
+                  <option>RX 6700</option><option>RX 6650 XT</option>
+                  <option>RX 6600 XT</option><option>RX 6600</option><option>RX 6500 XT</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="field-label" for="fps-cpu">CPU</label>
+              <select id="fps-cpu" class="input-field">
+                <option value="">&#8212; Select CPU &#8212;</option>
+                <optgroup label="Intel 14th Gen">
+                  <option>Core i9-14900K</option><option>Core i9-14900KF</option>
+                  <option>Core i7-14700K</option><option>Core i7-14700KF</option>
+                  <option>Core i5-14600K</option><option>Core i5-14600KF</option>
+                </optgroup>
+                <optgroup label="Intel 13th Gen">
+                  <option>Core i9-13900K</option><option>Core i9-13900KF</option>
+                  <option>Core i7-13700K</option><option>Core i7-13700KF</option><option>Core i7-13700</option>
+                  <option>Core i5-13600K</option><option>Core i5-13600KF</option>
+                  <option>Core i5-13400</option><option>Core i5-13400F</option>
+                  <option>Core i3-13100</option><option>Core i3-13100F</option>
+                </optgroup>
+                <optgroup label="Intel 12th Gen">
+                  <option>Core i9-12900K</option><option>Core i7-12700K</option>
+                  <option>Core i5-12600K</option><option>Core i5-12400</option><option>Core i5-12400F</option>
+                  <option>Core i3-12100</option><option>Core i3-12100F</option>
+                </optgroup>
+                <optgroup label="Intel 11th / 10th Gen">
+                  <option>Core i9-11900K</option><option>Core i7-11700K</option>
+                  <option>Core i9-10900K</option><option>Core i7-10700K</option>
+                  <option>Core i5-10400</option><option>Core i5-10400F</option>
+                </optgroup>
+                <optgroup label="AMD Ryzen 7000 (Zen 4)">
+                  <option>Ryzen 9 7950X3D</option><option>Ryzen 9 7950X</option>
+                  <option>Ryzen 9 7900X3D</option><option>Ryzen 9 7900X</option>
+                  <option>Ryzen 7 7800X3D</option>
+                  <option>Ryzen 7 7700X</option><option>Ryzen 7 7700</option>
+                  <option>Ryzen 5 7600X</option><option>Ryzen 5 7600</option><option>Ryzen 5 7500F</option>
+                </optgroup>
+                <optgroup label="AMD Ryzen 5000 (Zen 3)">
+                  <option>Ryzen 9 5900X</option>
+                  <option>Ryzen 7 5800X3D</option><option>Ryzen 7 5800X</option><option>Ryzen 7 5700X</option>
+                  <option>Ryzen 5 5600X</option><option>Ryzen 5 5600</option><option>Ryzen 5 5500</option>
+                </optgroup>
+                <optgroup label="AMD Ryzen 3000 (Zen 2)">
+                  <option>Ryzen 9 3900X</option><option>Ryzen 7 3700X</option>
+                  <option>Ryzen 5 3600X</option><option>Ryzen 5 3600</option>
+                  <option>Ryzen 3 3300X</option>
+                </optgroup>
+                <optgroup label="AMD Ryzen 2000 (Zen+)">
+                  <option>Ryzen 7 2700X</option><option>Ryzen 5 2600X</option><option>Ryzen 5 2600</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div>
+              <label class="field-label">RAM</label>
+              <div class="chip-row">
+                <button class="fps-chip" id="ram-8"  onclick="setChip('ram','8GB',  this)">8GB</button>
+                <button class="fps-chip active" id="ram-16" onclick="setChip('ram','16GB', this)">16GB</button>
+                <button class="fps-chip" id="ram-32" onclick="setChip('ram','32GB', this)">32GB+</button>
+              </div>
+              <input type="hidden" id="fps-ram" value="16GB">
+            </div>
+          </div>
+
+          <!-- Settings -->
+          <div class="card p-5">
+            <div class="section-label mb-4">Settings</div>
+
+            <div class="mb-4">
+              <label class="field-label">Resolution</label>
+              <div class="chip-row">
+                <button class="fps-chip"       id="res-1080" onclick="setChip('res','1080p',this)">1080p</button>
+                <button class="fps-chip active" id="res-1440" onclick="setChip('res','1440p',this)">1440p</button>
+                <button class="fps-chip"       id="res-4k"   onclick="setChip('res','4K',   this)">4K</button>
+              </div>
+              <input type="hidden" id="fps-res" value="1440p">
+            </div>
+
+            <div>
+              <label class="field-label">Quality Preset</label>
+              <div class="chip-row">
+                <button class="fps-chip"       id="q-low"    onclick="setChip('q','Low',        this)">Low</button>
+                <button class="fps-chip"       id="q-medium" onclick="setChip('q','Medium',     this)">Medium</button>
+                <button class="fps-chip active hot" id="q-high" onclick="setChip('q','High',   this)">High</button>
+                <button class="fps-chip"       id="q-ultra"  onclick="setChip('q','Ultra',      this)">Ultra</button>
+                <button class="fps-chip"       id="q-rt"     onclick="setChip('q','Ultra + RT', this)">Ultra+RT</button>
+              </div>
+              <input type="hidden" id="fps-quality" value="High">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:#555568; margin-top:0.35rem;">Ultra+RT: ray tracing enabled, supported games only</div>
+            </div>
+          </div>
+
+          <!-- Error + Submit -->
+          <div id="fps-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'JetBrains Mono',monospace;"></div>
+          <button class="btn-check" onclick="runFPSEstimate()" style="background:var(--accent); color:#0c0c0e; width:100%;">
+            Estimate FPS
+          </button>
+
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+
+        <div id="fps-default" class="card p-10 flex flex-col items-center justify-center text-center" style="min-height:320px;">
+          <div style="font-size:3.5rem; margin-bottom:1rem; filter:grayscale(0.3);">🎮</div>
+          <div class="font-display text-2xl mb-2" style="color:#445566;">Select Hardware &amp; Game</div>
+          <p style="color:#445566; font-size:0.85rem; max-width:300px; line-height:1.65;">
+            Search for any game, select your GPU, CPU, and RAM — then hit Estimate FPS to see how your rig handles it.
+          </p>
+          <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:center;">
+            <button onclick="quickFill('Cyberpunk 2077')" style="background:var(--surface2); border:1px solid var(--border); color:#8888a0; font-family:'JetBrains Mono',monospace; font-size:0.7rem; padding:0.3rem 0.6rem; border-radius:4px; cursor:pointer;">Cyberpunk 2077</button>
+            <button onclick="quickFill('Counter-Strike 2')" style="background:var(--surface2); border:1px solid var(--border); color:#8888a0; font-family:'JetBrains Mono',monospace; font-size:0.7rem; padding:0.3rem 0.6rem; border-radius:4px; cursor:pointer;">Counter-Strike 2</button>
+            <button onclick="quickFill('Elden Ring')" style="background:var(--surface2); border:1px solid var(--border); color:#8888a0; font-family:'JetBrains Mono',monospace; font-size:0.7rem; padding:0.3rem 0.6rem; border-radius:4px; cursor:pointer;">Elden Ring</button>
+            <button onclick="quickFill('Fortnite')" style="background:var(--surface2); border:1px solid var(--border); color:#8888a0; font-family:'JetBrains Mono',monospace; font-size:0.7rem; padding:0.3rem 0.6rem; border-radius:4px; cursor:pointer;">Fortnite</button>
+          </div>
+        </div>
+
+        <div id="fps-result" class="result-box"></div>
+
+        <!-- Context cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-2">
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Native vs Upscaled</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">These estimates are for <strong style="color:var(--text);">native resolution</strong> — no DLSS, FSR, or XeSS. DLSS 4 Quality mode typically adds 40–60% more frames with minimal visual difference on supported NVIDIA GPUs.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Why 60 FPS at 1440p?</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">For most single-player AAA games, <strong style="color:var(--text);">60 FPS at 1440p High</strong> is the sweet spot — smooth, visually impressive, and achievable on mid-range hardware. Competitive games benefit from 144+ FPS.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border);">
+      <div class="section-label">Related Tools</div>
+      <div class="grid sm:grid-cols-3 gap-4 mt-4">
+        <a href="../tools/bottleneck-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">PC Bottleneck Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Is your CPU limiting your GPU's FPS potential?</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Check</div>
+        </a>
+        <a href="../tools/gpu-temp-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Temperature Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Is your GPU running too hot while gaming?</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Check</div>
+        </a>
+        <a href="../articles/overclocking-guide.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">Guide</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Overclocking Guide</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Push your GPU further — safely.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Read</div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">PC hardware tools for gamers</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="fps-estimator.html" class="nav-link text-xs">FPS Estimator</a>
+          <a href="bottleneck-checker.html" class="nav-link text-xs">Bottleneck</a>
+          <a href="gpu-temp-checker.html" class="nav-link text-xs">GPU Temp</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2025 TempCore. FPS estimates are approximate (±10–15%) based on aggregated benchmark data at native resolution.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/fps-estimator.js"></script>
+  <script>
+    var chipState = { ram: "16GB", res: "1440p", q: "High" };
+
+    function setChip(group, value, el) {
+      chipState[group] = value;
+      var prefix = group + "-";
+      document.querySelectorAll("[id^='" + prefix + "']").forEach(function(b) {
+        b.classList.remove("active", "hot");
+      });
+      el.classList.add("active");
+      if (group === "q") el.classList.add("hot");
+      var hiddenId = group === "ram" ? "fps-ram" : group === "res" ? "fps-res" : "fps-quality";
+      document.getElementById(hiddenId).value = value;
+    }
+
+    function quickFill(gameName) {
+      document.getElementById("fps-game-input").value = gameName;
+      handleGameSearch();
+      // Auto-select if exact match
+      var match = GAME_LIST.find(function(g) { return g.name === gameName; });
+      if (match) selectGame(match);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What GPU Temperature Actually Causes Damage? | TempCore</title>
+  <meta name="description" content="Does heat really damage your GPU? Learn what TJ Max means, how thermal throttling protects hardware, why GDDR6X memory is different, and what temperatures genuinely shorten GPU lifespan.">
+  <meta name="keywords" content="GPU temperature damage, does GPU heat cause damage, TJ Max explained, GPU lifespan temperature, GDDR6X junction temperature, safe GPU temp long term">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-bg">
+
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
+      <div class="flex items-center gap-6">
+        <a href="../tools/gpu-temp-checker.html" class="nav-link">GPU Temp</a>
+        <a href="gpu-temp-guide.html" style="color:var(--accent);" class="nav-link hidden sm:block">Guides</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <article class="md:col-span-2">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#8888a0; margin-bottom:1.5rem;">
+          <a href="../index.html" style="color:#8888a0; text-decoration:none;">Home</a>
+          <span style="margin:0 0.5rem;">›</span>
+          <a href="gpu-temp-guide.html" style="color:#8888a0; text-decoration:none;">Guides</a>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">GPU Temperature &amp; Damage</span>
+        </div>
+
+        <div class="article-tag mb-3" style="background:rgba(255,34,68,0.08); color:var(--critical);">Hardware Guide</div>
+        <h1 class="font-display mb-4" style="font-size:clamp(2rem,5vw,3.5rem); line-height:0.93;">
+          What GPU Temperature<br>Actually Causes Damage?
+        </h1>
+        <p style="color:#8888a0; font-size:0.85rem; font-family:'JetBrains Mono',monospace; margin-bottom:2rem;">Last updated: 2025 &nbsp;·&nbsp; 9 min read</p>
+
+        <div class="callout" style="background:rgba(34,212,126,0.05); border-left-color:var(--safe); margin-bottom:2rem;">
+          <strong style="color:var(--safe);">The short version:</strong> Modern GPUs almost never suffer heat damage from normal gaming. They throttle themselves before reaching harmful temperatures. The real risks are sustained operation <em>at TJ Max</em>, voltage instability, thermal cycling stress over years, and GDDR6X memory junction temperatures exceeding 100°C.
+        </div>
+
+        <div class="article-body">
+
+          <h2>TJ Max: What the Limit Actually Means</h2>
+          <p>Every GPU die has a <strong>TJ Max</strong> (Thermal Junction Maximum) — the absolute ceiling temperature the silicon is rated to operate at. Beyond this, the chip begins to degrade at the molecular level: electromigration accelerates, gate oxide integrity weakens, and the probability of permanent failure increases.</p>
+          <p>Modern GPUs do not let you reach this point. They begin thermal throttling (reducing clock speeds) well before TJ Max, and will perform an emergency shutdown if temperatures somehow climb further. The last time a consumer GPU genuinely died from heat alone — without a failed cooler or blocked vents as a contributing factor — is rare enough to be news.</p>
+
+          <table class="temp-table mb-4">
+            <thead>
+              <tr><th>GPU Family</th><th>TJ Max</th><th>Typical Throttle Start</th><th>Hard Shutdown</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--text);">RTX 50 Series</td>
+                <td>90°C</td>
+                <td style="color:var(--warm);">~85°C</td>
+                <td style="color:var(--critical);">>95°C</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text);">RTX 40 Series</td>
+                <td>89°C</td>
+                <td style="color:var(--warm);">~84°C</td>
+                <td style="color:var(--critical);">>95°C</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text);">RTX 30 Series</td>
+                <td>93°C</td>
+                <td style="color:var(--warm);">~88°C</td>
+                <td style="color:var(--critical);">>99°C</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text);">GTX 10 Series</td>
+                <td>91–97°C</td>
+                <td style="color:var(--warm);">~88°C</td>
+                <td style="color:var(--critical);">>105°C</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text);">AMD RX 6000/7000</td>
+                <td>110°C</td>
+                <td style="color:var(--warm);">~100°C</td>
+                <td style="color:var(--critical);">>115°C</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Thermal Throttling: Protection, Not Failure</h2>
+          <p>When your GPU reaches its thermal threshold, it reduces its clock speeds to lower power consumption and heat output. This is a deliberate protection mechanism — not a hardware failure. The GPU is doing exactly what it was designed to do.</p>
+          <p>What throttling <em>does</em> mean: you are leaving performance on the table. An RTX 4080 throttling from 2700 MHz to 2000 MHz at 88°C is losing roughly 15–20% of its potential frame rate while the chip works to cool down. This is why maintaining good thermals improves performance even on hardware that isn't "at risk."</p>
+
+          <h2>The GDDR6X Memory Problem</h2>
+          <p>This is the one area where consumer GPUs can genuinely experience accelerated wear from heat. Cards using <strong>GDDR6X VRAM</strong> — the RTX 3080, 3080 Ti, 3090, 3090 Ti, 4080, 4080 Super, and 4090 — have a separate and critical temperature sensor: the <strong>Memory Junction Temperature</strong>.</p>
+          <p>GDDR6X uses PAM4 signalling which generates significantly more heat per bit transferred than GDDR6. Under heavy load, memory junction temperatures routinely reach 90–100°C on reference RTX 3080/3090 cards. This is within spec — but sustained operation above 100°C memory junction has been associated with accelerated VRAM degradation in community testing over years of use.</p>
+
+          <div class="warning-box">
+            <strong style="color:var(--critical);">GDDR6X Memory Guideline:</strong> Monitor Memory Junction Temperature in HWiNFO64 (not just GPU core temp). Keep it below 95°C during sustained load for long-term reliability. If you see regular 100°C+ memory junction temps, reducing memory overclocks or improving case airflow is worthwhile.
+          </div>
+
+          <p>This issue does not apply to GDDR6 cards (RTX 4060, 4060 Ti, 4070, 3060, 3070, etc.) or GDDR7 cards (RTX 50 series). GDDR7 is both faster and more thermally efficient than GDDR6X.</p>
+
+          <h2>Thermal Cycling: The Long-Term Concern</h2>
+          <p>If sustained high temperatures are less of a concern than commonly believed, what actually shortens GPU lifespan? The most underappreciated mechanism is <strong>thermal cycling stress</strong>.</p>
+          <p>Every time your GPU heats up from idle to gaming temperature and back, the solder joints between the GPU die and PCB experience micro-stress from differential thermal expansion. Different materials expand at different rates — silicon, solder, and PCB substrate each expand differently under heat. Over thousands of heating and cooling cycles across several years, this stress can lead to micro-cracks in solder joints, eventually causing connection failures.</p>
+          <p>This is why GPUs that run at 85°C for two hours, then cool to idle, cycle far more thermal stress than a GPU that maintains a more stable 75°C under load. The <em>delta</em> (the temperature swing) matters more than the absolute maximum in the long run.</p>
+
+          <h2>What Actually Kills GPUs</h2>
+          <p>Based on real-world failure data from repair shops and community reports, the leading causes of GPU failure are:</p>
+          <ul>
+            <li><strong>Power delivery issues:</strong> Power spikes, unstable PSU voltage, or insufficient wattage causing voltage irregularities on the GPU's power rails. This is why a quality PSU matters — not just wattage, but voltage stability.</li>
+            <li><strong>Failed thermal paste + clogged cooler:</strong> When the thermal compound dries out and the heatsink fills with dust, the GPU genuinely runs hot enough over years to accelerate degradation. This is preventable with periodic maintenance.</li>
+            <li><strong>Physical damage:</strong> Dropping the card, bending PCIe slots, or moisture ingress.</li>
+            <li><strong>Manufacturing defects:</strong> Some GPU batches have higher-than-average failure rates regardless of care. This is random silicon lottery — not temperature-related.</li>
+            <li><strong>Mining abuse:</strong> Cards run at 100% GPU load 24/7 for years accumulate far more thermal cycles and operational hours than gaming usage. This genuinely shortens lifespan.</li>
+          </ul>
+
+          <h2>How to Protect Your GPU Long-Term</h2>
+          <ul>
+            <li><strong>Keep core temps below 85°C</strong> during gaming — not because damage happens above this, but because it indicates good airflow and paste health, preventing gradual degradation</li>
+            <li><strong>Monitor GDDR6X junction temp</strong> if you own an RTX 3080–3090 or 4080–4090 — keep it under 95°C</li>
+            <li><strong>Clean your PC every 6–12 months</strong> — dust accumulation is the most common cause of thermal degradation over time</li>
+            <li><strong>Repaste every 3–5 years</strong> on older GPUs — thermal compound dries and cracks, raising temperatures 8–15°C</li>
+            <li><strong>Use a quality PSU</strong> with stable 12V rail — voltage spikes damage GPU power delivery stages, not heat</li>
+            <li><strong>Avoid extreme overclocking with excessive voltage</strong> — adding 100mV+ beyond stock to chase maximum clock speeds meaningfully increases electromigration at the silicon level</li>
+          </ul>
+
+          <h2>Temperatures That Should Genuinely Concern You</h2>
+          <table class="temp-table mb-4">
+            <thead>
+              <tr><th>Scenario</th><th>Risk Level</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--text);">GPU core at 75–83°C during gaming</td>
+                <td style="color:var(--safe);">Normal</td>
+                <td style="color:#b0b0c8;">No action needed</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text);">GPU core regularly at 88–92°C</td>
+                <td style="color:var(--warm);">Warm</td>
+                <td style="color:#b0b0c8;">Improve airflow or fan curve</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text);">GDDR6X junction above 95°C</td>
+                <td style="color:var(--hot);">Concern</td>
+                <td style="color:#b0b0c8;">Improve case airflow, reduce memory OC</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text);">GPU hitting TJ Max regularly</td>
+                <td style="color:var(--critical);">High risk</td>
+                <td style="color:#b0b0c8;">Clean immediately, repaste if old</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text);">Random shutdowns during gaming</td>
+                <td style="color:var(--critical);">Hardware issue</td>
+                <td style="color:#b0b0c8;">Diagnose cooling, check PSU</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside class="md:col-span-1">
+        <div style="position:sticky; top:80px; display:flex; flex-direction:column; gap:1rem;">
+
+          <div class="card p-5" style="background:var(--surface2);">
+            <div style="font-size:1.75rem; margin-bottom:0.5rem;">🌡️</div>
+            <div class="font-display text-lg mb-2">Check Your GPU Now</div>
+            <p style="color:#8888a0; font-size:0.8rem; line-height:1.6; margin-bottom:0.875rem;">Get an instant verdict for your specific GPU model and temperature.</p>
+            <a href="../tools/gpu-temp-checker.html" class="btn-check" style="display:block; text-align:center; text-decoration:none; padding:0.65rem; font-size:1rem;">GPU Temp Checker</a>
+          </div>
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Key Takeaways</div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <div style="display:flex; gap:0.5rem; font-size:0.8rem; color:#b0b0c8; align-items:flex-start;"><span style="color:var(--safe); flex-shrink:0;">✓</span>Throttling is protection, not failure</div>
+              <div style="display:flex; gap:0.5rem; font-size:0.8rem; color:#b0b0c8; align-items:flex-start;"><span style="color:var(--safe); flex-shrink:0;">✓</span>PSU quality matters more than heat</div>
+              <div style="display:flex; gap:0.5rem; font-size:0.8rem; color:#b0b0c8; align-items:flex-start;"><span style="color:var(--warm); flex-shrink:0;">⚠</span>GDDR6X junction &gt;95°C is a concern</div>
+              <div style="display:flex; gap:0.5rem; font-size:0.8rem; color:#b0b0c8; align-items:flex-start;"><span style="color:var(--warn); flex-shrink:0;">⚠</span>Thermal cycling &gt; peak temp for lifespan</div>
+              <div style="display:flex; gap:0.5rem; font-size:0.8rem; color:#b0b0c8; align-items:flex-start;"><span style="color:var(--critical); flex-shrink:0;">✗</span>Excessive voltage OC = real risk</div>
+            </div>
+          </div>
+
+          <a href="gpu-temp-guide.html" class="card p-5 article-card">
+            <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Guide</div>
+            <h4 class="font-semibold text-sm article-title transition-colors" style="color:var(--text); line-height:1.4; margin-bottom:0.4rem;">Good GPU Temps While Gaming</h4>
+            <p style="color:#8888a0; font-size:0.78rem; line-height:1.5;">Complete safe temperature ranges for every major GPU.</p>
+            <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.5rem;">→ Read</div>
+          </a>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div><div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div></div>
+        <div class="flex gap-6">
+          <a href="../tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Temp</a>
+          <a href="gpu-temp-guide.html" class="nav-link text-xs">Guides</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2025 TempCore. Information is for guidance only. Always verify with manufacturer documentation.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
