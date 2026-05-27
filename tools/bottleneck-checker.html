@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PC Bottleneck Checker — CPU & GPU Balance Tool | Thermalix</title>
+  <title>PC Bottleneck Checker — CPU & GPU Balance Tool | TempCore</title>
   <meta name="description" content="Free PC bottleneck checker. Select your CPU and GPU to instantly see if one component is limiting the other — at 1080p, 1440p, and 4K. Covers 100+ CPUs and 80+ GPUs.">
   <meta name="keywords" content="PC bottleneck checker, CPU GPU bottleneck, is my CPU bottlenecking my GPU, bottleneck calculator, PC build bottleneck test, RTX 4070 bottleneck i5">
 
@@ -23,7 +23,7 @@
     /* ── Field layout ─────────────────────────────── */
     .field-label {
       display: block;
-      font-family: 'IBM Plex Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -52,7 +52,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       color: #8888a0;
-      font-family: 'IBM Plex Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       letter-spacing: 0.04em;
       cursor: pointer;
@@ -90,7 +90,7 @@
   <!-- NAV -->
   <nav class="scanlines">
     <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
-      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>Thermalix</a>
+      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
       <div class="flex items-center gap-6">
         <a href="../tools/gpu-temp-checker.html" class="nav-link">GPU Checker</a>
         <a href="bottleneck-checker.html" style="color:var(--accent);" class="nav-link">Bottleneck</a>
@@ -102,7 +102,7 @@
   <!-- PAGE HEADER -->
   <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
     <div class="max-w-6xl mx-auto px-5">
-      <a href="../index.html" style="font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">&#8592; Back to Home</a>
+      <a href="../index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">&#8592; Back to Home</a>
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
         <div>
           <div class="section-label">Tool</div>
@@ -252,6 +252,15 @@
               <label class="field-label" for="bn-gpu">Your GPU</label>
               <select id="bn-gpu" class="input-field">
                 <option value="">&#8212; Select GPU &#8212;</option>
+                <optgroup label="NVIDIA RTX 50 Series (Blackwell)">
+                  <option>RTX 5090</option>
+                  <option>RTX 5080</option>
+                  <option>RTX 5070 Ti</option>
+                  <option>RTX 5070</option>
+                  <option>RTX 5060 Ti 16GB</option>
+                  <option>RTX 5060 Ti</option>
+                  <option>RTX 5060</option>
+                </optgroup>
                 <optgroup label="NVIDIA RTX 40 Series">
                   <option>RTX 4090</option>
                   <option>RTX 4080 Super</option>
@@ -336,7 +345,7 @@
             </div>
 
             <!-- Error -->
-            <div id="bn-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'IBM Plex Mono',monospace; margin-bottom:0.75rem;"></div>
+            <div id="bn-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'JetBrains Mono',monospace; margin-bottom:0.75rem;"></div>
 
             <!-- Submit -->
             <button class="btn-check" onclick="checkBottleneck()" style="width:100%;">
@@ -346,7 +355,7 @@
 
           <!-- What this tool measures -->
           <div class="info-strip">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">How this works</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">How this works</div>
             Scores are derived from aggregated gaming benchmarks across popular titles. Bottleneck % represents how much one component limits the other. Results are estimates — actual values vary by game, settings, and background load.
           </div>
 
@@ -371,19 +380,19 @@
         <!-- Context cards -->
         <div class="grid sm:grid-cols-2 gap-4 mt-2">
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">1080p vs 4K Bottleneck</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">1080p vs 4K Bottleneck</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">At 1080p, your CPU does more of the work and bottlenecks appear more often. At 4K, the GPU is under heavy load and CPU bottlenecks almost disappear. Moving to a higher resolution is one way to reduce a CPU bottleneck.</p>
           </div>
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">What % Is Acceptable?</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">What % Is Acceptable?</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">No system is perfectly balanced. A 10&#8211;15% bottleneck is normal and expected. Only above 25&#8211;30% does it meaningfully impact performance enough to justify an upgrade specifically for balance.</p>
           </div>
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">3D V-Cache CPUs</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">3D V-Cache CPUs</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">AMD's Ryzen 7 5800X3D and 7800X3D use 3D V-Cache to dramatically increase gaming performance beyond their base clock speeds. They are outliers in the lineup — often the best gaming CPUs despite lower all-core performance.</p>
           </div>
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">GPU Upgrade vs CPU Upgrade</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">GPU Upgrade vs CPU Upgrade</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">If your GPU is the bottleneck, upgrading the GPU directly improves FPS. If your CPU is the bottleneck, upgrading the CPU will reduce the bottleneck but you may still be GPU-limited in many scenes.</p>
           </div>
         </div>
@@ -399,19 +408,19 @@
           <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Tool</div>
           <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Temperature Checker</h3>
           <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Is your GPU running too hot?</p>
-          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
         </a>
         <a href="../tools/ssd-health-checker.html" class="card p-5 article-card">
           <div class="article-tag mb-2" style="background:rgba(0,200,255,0.08); color:var(--accent);">Tool</div>
           <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">SSD Health Tools</h3>
           <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">SSD temperature and lifespan estimator.</p>
-          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
         </a>
         <a href="../articles/overclocking-guide.html#oc-selector" class="card p-5 article-card">
           <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">Tool</div>
           <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU OC Settings Finder</h3>
           <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Safe overclock settings for 40+ GPU models.</p>
-          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Find settings</div>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Find settings</div>
         </a>
       </div>
     </div>
@@ -422,8 +431,8 @@
     <div class="max-w-6xl mx-auto px-5">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div class="nav-logo mb-1"><div class="logo-dot"></div>Thermalix</div>
-          <p style="color:#555568; font-size:0.78rem; font-family:'IBM Plex Mono',monospace;">PC thermal guides &amp; hardware tools</p>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">PC thermal guides &amp; hardware tools</p>
         </div>
         <div class="flex gap-6">
           <a href="../tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Checker</a>
@@ -431,8 +440,8 @@
           <a href="bottleneck-checker.html" class="nav-link text-xs">Bottleneck</a>
         </div>
       </div>
-      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'IBM Plex Mono',monospace;">
-        &copy; 2025 Thermalix. Bottleneck estimates are based on aggregated benchmark data and are approximate. Actual performance varies by game, settings, and system configuration.
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2025 TempCore. Bottleneck estimates are based on aggregated benchmark data and are approximate. Actual performance varies by game, settings, and system configuration.
       </div>
     </div>
   </footer>

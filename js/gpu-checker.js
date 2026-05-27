@@ -5,6 +5,16 @@
 
 // GPU database: model → { label, tjMax, safeGaming, warnGaming }
 const GPU_DATA = {
+  // NVIDIA RTX 50 Series (Blackwell) — GDDR7
+  // TJ Max 90°C across all 50-series desktop models
+  "RTX 5090":    { tjMax: 90, safeGaming: 80, warnGaming: 85 },
+  "RTX 5080":    { tjMax: 90, safeGaming: 82, warnGaming: 86 },
+  "RTX 5070 Ti": { tjMax: 90, safeGaming: 82, warnGaming: 86 },
+  "RTX 5070":    { tjMax: 90, safeGaming: 83, warnGaming: 87 },
+  "RTX 5060 Ti 16GB": { tjMax: 90, safeGaming: 83, warnGaming: 87 },
+  "RTX 5060 Ti": { tjMax: 90, safeGaming: 83, warnGaming: 87 },
+  "RTX 5060":    { tjMax: 90, safeGaming: 83, warnGaming: 87 },
+
   // NVIDIA RTX 40 Series
   "RTX 4090":   { tjMax: 89,  safeGaming: 80, warnGaming: 85 },
   "RTX 4080 Super": { tjMax: 89,  safeGaming: 80, warnGaming: 85 },
@@ -191,7 +201,7 @@ function checkTemperature() {
     <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:1rem;">
       <div>
         <div class="result-status">${tierDef.label}</div>
-        <div style="color:#8888a0; font-family:'IBM Plex Mono',monospace; font-size:0.75rem; margin-top:0.2rem;">${selectedGPU}</div>
+        <div style="color:#8888a0; font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.2rem;">${selectedGPU}</div>
       </div>
       <div class="result-temp-display">${temp}°C</div>
     </div>
@@ -199,12 +209,12 @@ function checkTemperature() {
     <div class="thermo-bar">
       <div class="thermo-fill" id="thermo-fill" style="width:0%; background:${thermoCol};"></div>
     </div>
-    <div style="display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:#8888a0; margin-bottom:1.25rem;">
+    <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#8888a0; margin-bottom:1.25rem;">
       <span>30°C</span>
       <span>TJ Max: ${gpuData.tjMax}°C</span>
     </div>
 
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">Suggestions</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">Suggestions</div>
     <div>${suggestionsHTML}</div>
   `;
 

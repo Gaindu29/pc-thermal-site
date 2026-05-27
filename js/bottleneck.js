@@ -119,6 +119,22 @@ const CPU_FPS = {
 
 const GPU_FPS = {
 
+  // ── NVIDIA RTX 50 Series (Blackwell, GDDR7) ─────────────────────────────────
+  // Sources: GamersNexus, Tom's Hardware GPU hierarchy, PNY 5080 review 2025
+  // RTX 5090: ~30% faster than 4090 at 4K, 17% at 1440p (Tom's Hardware hierarchy)
+  "RTX 5090":          { f1080: 338, f1440: 222, f4k: 127, vram: 32 },
+  // RTX 5080: ~15-20% behind 5090, roughly matches or slightly trails 4090 at 4K
+  "RTX 5080":          { f1080: 278, f1440: 175, f4k:  97, vram: 16 },
+  // RTX 5070 Ti: ~18% slower than 5080 (PNY 5080 review), strong 1440p card
+  "RTX 5070 Ti":       { f1080: 237, f1440: 148, f4k:  81, vram: 16 },
+  // RTX 5070: ~30% slower than 5070 Ti (PNY 5080 review extrapolated)
+  "RTX 5070":          { f1080: 205, f1440: 130, f4k:  70, vram: 12 },
+  // RTX 5060 Ti: similar performance tier to RTX 4070, GDDR7 helps bandwidth
+  "RTX 5060 Ti 16GB":  { f1080: 168, f1440: 106, f4k:  55, vram: 16 },
+  "RTX 5060 Ti":       { f1080: 165, f1440: 104, f4k:  54, vram:  8 },
+  // RTX 5060: ~10-15% faster than RTX 4060 with improved GDDR7 bandwidth
+  "RTX 5060":          { f1080: 150, f1440:  95, f4k:  47, vram:  8 },
+
   // ── NVIDIA RTX 40 Series ─────────────────────────────────────────────────
   "RTX 4090":          { f1080: 310, f1440: 190, f4k:  98, vram: 24 },
   "RTX 4080 Super":    { f1080: 272, f1440: 168, f4k:  85, vram: 16 },
@@ -263,9 +279,9 @@ function buildBalanceBar(cpuFPS, gpuFPS) {
     <rect x="99" y="15" width="2" height="17" rx="1" fill="#444456"/>
     <circle cx="${markerX}" cy="23.5" r="9" fill="${fillColor}" opacity="0.3"/>
     <circle cx="${markerX}" cy="23.5" r="6" fill="${fillColor}"/>
-    <text x="10" y="44" text-anchor="middle" fill="#8888a0" font-family="IBM Plex Mono,monospace" font-size="7.5" letter-spacing="0.5">CPU</text>
-    <text x="190" y="44" text-anchor="middle" fill="#8888a0" font-family="IBM Plex Mono,monospace" font-size="7.5" letter-spacing="0.5">GPU</text>
-    <text x="100" y="44" text-anchor="middle" fill="#555568" font-family="IBM Plex Mono,monospace" font-size="6.5">BALANCED</text>
+    <text x="10" y="44" text-anchor="middle" fill="#8888a0" font-family="JetBrains Mono,monospace" font-size="7.5" letter-spacing="0.5">CPU</text>
+    <text x="190" y="44" text-anchor="middle" fill="#8888a0" font-family="JetBrains Mono,monospace" font-size="7.5" letter-spacing="0.5">GPU</text>
+    <text x="100" y="44" text-anchor="middle" fill="#555568" font-family="JetBrains Mono,monospace" font-size="6.5">BALANCED</text>
   </svg>`;
 }
 
@@ -277,10 +293,10 @@ function resCard(res, result) {
   const upgradeHint   = isGPULimited ? "→ GPU upgrade" : "→ CPU upgrade";
 
   return `<div style="background:var(--surface2); border:1px solid ${tier.color}33; border-top:2px solid ${tier.color}; border-radius:8px; padding:0.875rem 0.875rem;">
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.35rem;">${res}</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.35rem;">${res}</div>
     <div style="font-family:'Bebas Neue',sans-serif; font-size:1.95rem; color:${tier.color}; line-height:1; margin-bottom:0.1rem;">${result.pct}%</div>
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:${tier.color}; margin-bottom:0.35rem;">${limitLabel}</div>
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--safe); margin-bottom:0.3rem;">~${result.fps} FPS</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:${tier.color}; margin-bottom:0.35rem;">${limitLabel}</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--safe); margin-bottom:0.3rem;">~${result.fps} FPS</div>
     <div style="font-size:0.72rem; color:#555568; line-height:1.4;">${result.pct > 15 ? upgradeHint : "✓ Good match"}</div>
   </div>`;
 }
@@ -387,19 +403,19 @@ function checkBottleneck() {
 
   resultEl.innerHTML = `
     <div style="margin-bottom:1.1rem;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.15rem;">Verdict at 1440p · ${ucLabel}</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.15rem;">Verdict at 1440p · ${ucLabel}</div>
       <div style="font-family:'Bebas Neue',sans-serif; font-size:2.6rem; letter-spacing:0.04em; color:${overallTier.color}; line-height:1;">${overallTier.label}</div>
       <div style="font-size:0.82rem; color:#8888a0; margin-top:0.25rem;">${overallTier.summary}</div>
     </div>
 
     <!-- Balance bar at 1440p -->
     <div style="margin-bottom:1.25rem;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.35rem;">Balance at 1440p — marker left = CPU limits; right = GPU limits</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.35rem;">Balance at 1440p — marker left = CPU limits; right = GPU limits</div>
       ${bar}
     </div>
 
     <!-- Per-resolution cards -->
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">Bottleneck % &amp; Est. FPS by Resolution</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">Bottleneck % &amp; Est. FPS by Resolution</div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0.6rem; margin-bottom:1.2rem;">
       ${resCard("1080p", r1080)}
       ${resCard("1440p", r1440)}
@@ -408,26 +424,26 @@ function checkBottleneck() {
 
     <!-- Performance index -->
     <div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:0.875rem 1rem; margin-bottom:1.2rem;">
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.6rem;">Performance Index</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.6rem;">Performance Index</div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
         <div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:0.6rem; color:#8888a0; margin-bottom:0.2rem;">CPU FPS CEILING</div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:1.05rem; color:var(--text);">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:#8888a0; margin-bottom:0.2rem;">CPU FPS CEILING</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:1.05rem; color:var(--text);">
             ${cpuEff} FPS
             ${useCase !== "gaming" ? `<span style="font-size:0.7rem; color:#555568;"> (${cpuBase} base − ${useCase} load)</span>` : ""}
           </div>
           <div style="font-size:0.7rem; color:#555568;">${cpuKey}</div>
         </div>
         <div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:0.6rem; color:#8888a0; margin-bottom:0.2rem;">GPU OUTPUT (1440p)</div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:1.05rem; color:var(--text);">${gpu.f1440} FPS</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:#8888a0; margin-bottom:0.2rem;">GPU OUTPUT (1440p)</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:1.05rem; color:var(--text);">${gpu.f1440} FPS</div>
           <div style="font-size:0.7rem; color:#555568;">${gpuKey} · ${gpu.vram}GB VRAM</div>
         </div>
       </div>
     </div>
 
     <!-- Advice -->
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">Analysis</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">Analysis</div>
     <div class="${overallTier.cssClass}">${adviceHTML}</div>
 
     <div style="font-size:0.7rem; color:#555568; margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border); line-height:1.6;">

@@ -100,6 +100,16 @@ const CPU_W = {
 // Manufacturer rated TDP — this is the sustained gaming power draw
 // Sources: NVIDIA/AMD product pages + hardware review measurements
 const GPU_W = {
+  // ── NVIDIA RTX 50 Series (Blackwell) — Official TDP ────────────────────────
+  // Source: NVIDIA official specs, GamersNexus Jan 2025
+  "RTX 5090":         575,  // Official NVIDIA spec — highest consumer GPU TDP ever
+  "RTX 5080":         360,  // Official NVIDIA spec
+  "RTX 5070 Ti":      300,  // Official NVIDIA spec
+  "RTX 5070":         250,  // Official NVIDIA spec
+  "RTX 5060 Ti 16GB": 165,  // Same TDP as RTX 4060 Ti — GDDR7 offsets performance gains
+  "RTX 5060 Ti":      165,
+  "RTX 5060":         145,  // Estimated based on lineup position
+
   // ── NVIDIA RTX 40 Series ─────────────────────────────────────────────────
   "RTX 4090":           450,
   "RTX 4080 Super":     320,
@@ -352,8 +362,8 @@ function calcPSU() {
           <div style="flex:1; height:6px; background:var(--surface2); border-radius:3px; overflow:hidden;">
             <div style="width:${barW}%; height:100%; background:${color}; border-radius:3px;"></div>
           </div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:var(--text); width:45px; text-align:right; flex-shrink:0;">${w}W</div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:#555568; width:30px; text-align:right; flex-shrink:0;">${pct}%</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text); width:45px; text-align:right; flex-shrink:0;">${w}W</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:#555568; width:30px; text-align:right; flex-shrink:0;">${pct}%</div>
         </div>`;
     }).join("");
 
@@ -361,20 +371,20 @@ function calcPSU() {
     const isBest = i === 0;
     return `
       <div style="background:var(--surface2); border:1px solid ${isBest ? "rgba(255,100,34,0.35)" : "var(--border)"}; border-radius:8px; padding:0.875rem 1rem; position:relative; ${isBest ? "border-top:2px solid var(--hot);" : ""}">
-        ${isBest ? `<div style="position:absolute; top:-1px; left:0.875rem; font-family:'IBM Plex Mono',monospace; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; background:var(--hot); color:#fff; padding:0.15rem 0.4rem; border-radius:0 0 4px 4px;">Top Pick</div>` : ""}
+        ${isBest ? `<div style="position:absolute; top:-1px; left:0.875rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; background:var(--hot); color:#fff; padding:0.15rem 0.4rem; border-radius:0 0 4px 4px;">Top Pick</div>` : ""}
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; ${isBest ? "margin-top:0.5rem;" : ""}">
           <div style="flex:1;">
             <div style="font-weight:600; font-size:0.85rem; color:var(--text); margin-bottom:0.2rem;">${p.name}</div>
             <div style="display:flex; flex-wrap:wrap; gap:0.3rem; margin-bottom:0.3rem;">
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; background:rgba(34,212,126,0.08); color:var(--safe); border:1px solid rgba(34,212,126,0.2); padding:0.1rem 0.4rem; border-radius:4px;">${p.rating}</span>
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; background:rgba(0,200,255,0.06); color:var(--accent); border:1px solid rgba(0,200,255,0.2); padding:0.1rem 0.4rem; border-radius:4px;">${p.modular}</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; background:rgba(34,212,126,0.08); color:var(--safe); border:1px solid rgba(34,212,126,0.2); padding:0.1rem 0.4rem; border-radius:4px;">${p.rating}</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; background:rgba(0,200,255,0.06); color:var(--accent); border:1px solid rgba(0,200,255,0.2); padding:0.1rem 0.4rem; border-radius:4px;">${p.modular}</span>
             </div>
             <div style="font-size:0.75rem; color:#8888a0; line-height:1.4;">${p.note}</div>
           </div>
           <div style="text-align:right; flex-shrink:0;">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.9rem; color:var(--safe); font-weight:600; margin-bottom:0.3rem;">${p.price}</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.9rem; color:var(--safe); font-weight:600; margin-bottom:0.3rem;">${p.price}</div>
             <a href="${p.link}" target="_blank" rel="noopener noreferrer"
-               style="display:inline-block; background:var(--hot); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.06em; text-transform:uppercase; padding:0.3rem 0.6rem; border-radius:4px; text-decoration:none; white-space:nowrap;">
+               style="display:inline-block; background:var(--hot); color:#fff; font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.06em; text-transform:uppercase; padding:0.3rem 0.6rem; border-radius:4px; text-decoration:none; white-space:nowrap;">
               Amazon →
             </a>
           </div>
@@ -392,12 +402,12 @@ function calcPSU() {
     <!-- Total draw -->
     <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:1rem;">
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0;">Estimated System Draw</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0;">Estimated System Draw</div>
         <div style="font-family:'Bebas Neue',sans-serif; font-size:3.5rem; color:var(--text); line-height:1;">${totalW}<span style="font-size:1.5rem; color:#8888a0;"> W</span></div>
         <div style="font-size:0.8rem; color:#8888a0;">${cpuKey} + ${gpuKey}</div>
       </div>
       <div style="text-align:right;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.6rem; text-transform:uppercase; color:#8888a0; margin-bottom:0.25rem;">GPU accounts for</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; text-transform:uppercase; color:#8888a0; margin-bottom:0.25rem;">GPU accounts for</div>
         <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--accent); line-height:1;">${Math.round(gpuTotal/totalW*100)}%</div>
         <div style="font-size:0.72rem; color:#555568;">of total draw</div>
       </div>
@@ -414,23 +424,23 @@ function calcPSU() {
     <div style="margin-bottom:1.25rem;">${breakdownRows}</div>
 
     <!-- PSU size cards -->
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">PSU Size Recommendations</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">PSU Size Recommendations</div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0.6rem; margin-bottom:1.25rem;">
       <div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:0.875rem 0.875rem; opacity:0.7;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.6rem; text-transform:uppercase; color:#8888a0; margin-bottom:0.3rem;">Minimum</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; text-transform:uppercase; color:#8888a0; margin-bottom:0.3rem;">Minimum</div>
         <div style="font-family:'Bebas Neue',sans-serif; font-size:1.9rem; color:var(--warm); line-height:1;">${minimumW}W</div>
         <div style="font-size:0.72rem; color:#555568; margin-top:0.2rem;">10% headroom</div>
         <div style="font-size:0.72rem; color:#555568;">Works, not ideal</div>
       </div>
       <div style="background:var(--surface2); border:2px solid var(--safe); border-radius:8px; padding:0.875rem 0.875rem; position:relative;">
-        <div style="position:absolute; top:-1px; left:50%; transform:translateX(-50%); font-family:'IBM Plex Mono',monospace; font-size:0.58rem; letter-spacing:0.08em; text-transform:uppercase; background:var(--safe); color:#000; padding:0.1rem 0.4rem; border-radius:0 0 4px 4px; white-space:nowrap;">Recommended</div>
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.6rem; text-transform:uppercase; color:#8888a0; margin-bottom:0.3rem; margin-top:0.5rem;">Ideal</div>
+        <div style="position:absolute; top:-1px; left:50%; transform:translateX(-50%); font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.08em; text-transform:uppercase; background:var(--safe); color:#000; padding:0.1rem 0.4rem; border-radius:0 0 4px 4px; white-space:nowrap;">Recommended</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; text-transform:uppercase; color:#8888a0; margin-bottom:0.3rem; margin-top:0.5rem;">Ideal</div>
         <div style="font-family:'Bebas Neue',sans-serif; font-size:1.9rem; color:var(--safe); line-height:1;">${recommendedW}W</div>
         <div style="font-size:0.72rem; color:var(--safe); margin-top:0.2rem;">30% headroom</div>
         <div style="font-size:0.72rem; color:#555568;">Optimal efficiency</div>
       </div>
       <div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:0.875rem 0.875rem; opacity:0.7;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.6rem; text-transform:uppercase; color:#8888a0; margin-bottom:0.3rem;">Future-Proof</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; text-transform:uppercase; color:#8888a0; margin-bottom:0.3rem;">Future-Proof</div>
         <div style="font-family:'Bebas Neue',sans-serif; font-size:1.9rem; color:var(--accent); line-height:1;">${futureW}W</div>
         <div style="font-size:0.72rem; color:#555568; margin-top:0.2rem;">50% headroom</div>
         <div style="font-size:0.72rem; color:#555568;">Upgrade-ready</div>
@@ -445,7 +455,7 @@ function calcPSU() {
     </div>
 
     <!-- PSU picks -->
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.6rem;">Recommended ${psURec.wattage} PSU Units</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.6rem;">Recommended ${psURec.wattage} PSU Units</div>
     <div style="display:flex; flex-direction:column; gap:0.5rem;">${psPicksHTML}</div>
 
     <div style="font-size:0.7rem; color:#555568; margin-top:0.875rem; line-height:1.6;">

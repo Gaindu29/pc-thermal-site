@@ -1,5 +1,5 @@
 /**
- * TempCore — SSD Health Checker (v2)
+ * ThermalCore — SSD Health Checker (v2)
  * Inputs: drive type + temperature only
  */
 
@@ -136,27 +136,27 @@ function checkSSD() {
     <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:1rem;">
       <div>
         <div style="font-family:'Bebas Neue',sans-serif; font-size:3rem; letter-spacing:0.05em; color:${color}; line-height:1;">${tier.label}</div>
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:#8888a0; margin-top:0.2rem;">${profile.label}</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#8888a0; margin-top:0.2rem;">${profile.label}</div>
       </div>
-      <div style="font-family:'IBM Plex Mono',monospace; font-size:4rem; font-weight:600; color:${color}; line-height:1;">${temp}°C</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:4rem; font-weight:600; color:${color}; line-height:1;">${temp}°C</div>
     </div>
 
     <div class="thermo-bar">
       <div id="ssd-thermo-fill" style="width:0%; height:100%; border-radius:100px; background:${color}; transition:width 0.6s cubic-bezier(0.34,1.2,0.64,1);"></div>
     </div>
-    <div style="display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:0.63rem; color:#8888a0; margin-bottom:1.25rem;">
+    <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:0.63rem; color:#8888a0; margin-bottom:1.25rem;">
       <span>15°C</span>
       <span>Max: ${profile.tjMax}°C</span>
     </div>
 
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; margin-bottom:1.25rem;">
       <div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:0.75rem 1rem;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.25rem;">Normal Idle</div>
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.9rem; color:var(--safe);">${profile.idle}</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.25rem;">Normal Idle</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.9rem; color:var(--safe);">${profile.idle}</div>
       </div>
       <div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:0.75rem 1rem;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.25rem;">Under Load</div>
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:0.9rem; color:var(--warm);">${profile.gaming}</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.25rem;">Under Load</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.9rem; color:var(--warm);">${profile.gaming}</div>
       </div>
     </div>
 
@@ -164,7 +164,7 @@ function checkSSD() {
       ${profile.note}
     </div>
 
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">What to do</div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.5rem;">What to do</div>
     ${suggestionsHTML}
   `;
 
@@ -374,9 +374,9 @@ function buildGauge(pct, color) {
       ' stroke-linecap="round" transform="rotate(-45 ' + cx + ' ' + cy + ')"/>' +
     // Percentage text
     '<text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" fill="' + color + '"' +
-      ' font-family="IBM Plex Mono,monospace" font-size="20" font-weight="600">' + Math.round(clamped) + '%</text>' +
+      ' font-family="JetBrains Mono,monospace" font-size="20" font-weight="600">' + Math.round(clamped) + '%</text>' +
     '<text x="' + cx + '" y="' + (cy + 16) + '" text-anchor="middle" fill="#8888a0"' +
-      ' font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1">USED</text>' +
+      ' font-family="JetBrains Mono,monospace" font-size="9" letter-spacing="1">USED</text>' +
   '</svg>';
 }
 

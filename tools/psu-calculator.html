@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PC PSU Wattage Calculator — What Power Supply Do I Need? | Thermalix</title>
+  <title>PC PSU Wattage Calculator — What Power Supply Do I Need? | TempCore</title>
   <meta name="description" content="Free PSU wattage calculator. Select your CPU, GPU, drives, fans, and cooler to get your exact power draw, minimum PSU size, and recommended units with buying links.">
   <meta name="keywords" content="PSU calculator, PC power supply calculator, what wattage PSU do I need, power supply wattage calculator, RTX 4090 PSU requirements">
 
@@ -22,7 +22,7 @@
   <style>
     .field-label {
       display: block;
-      font-family: 'IBM Plex Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -59,7 +59,7 @@
     .counter-val {
       flex: 1;
       text-align: center;
-      font-family: 'IBM Plex Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.9rem;
       color: var(--text);
       background: var(--surface2);
@@ -80,7 +80,7 @@
       border: 1px solid var(--border);
       border-radius: 6px;
       color: #8888a0;
-      font-family: 'IBM Plex Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       cursor: pointer;
       transition: all 0.15s;
@@ -137,7 +137,7 @@
     }
     .form-section:last-child { border-bottom: none; }
     .form-section-title {
-      font-family: 'IBM Plex Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -156,7 +156,7 @@
   <!-- NAV -->
   <nav class="scanlines">
     <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
-      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>Thermalix</a>
+      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
       <div class="flex items-center gap-6">
         <a href="../tools/gpu-temp-checker.html" class="nav-link">GPU Checker</a>
         <a href="bottleneck-checker.html" class="nav-link hidden sm:block">Bottleneck</a>
@@ -168,7 +168,7 @@
   <!-- HEADER -->
   <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
     <div class="max-w-6xl mx-auto px-5">
-      <a href="../index.html" style="font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none;">&#8592; Back to Home</a>
+      <a href="../index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none;">&#8592; Back to Home</a>
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
         <div>
           <div class="section-label">Tool</div>
@@ -181,8 +181,8 @@
         </div>
         <!-- Quick ref strip -->
         <div class="card p-4" style="min-width:240px;">
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.6rem;">PSU Load Sweet Spot</div>
-          <div style="display:flex; flex-direction:column; gap:0.3rem; font-size:0.78rem; color:#8888a0; font-family:'IBM Plex Mono',monospace;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.6rem;">PSU Load Sweet Spot</div>
+          <div style="display:flex; flex-direction:column; gap:0.3rem; font-size:0.78rem; color:#8888a0; font-family:'JetBrains Mono',monospace;">
             <div style="display:flex; justify-content:space-between;"><span>Under 50% load</span><span style="color:var(--warm);">Less efficient</span></div>
             <div style="display:flex; justify-content:space-between;"><span style="color:var(--safe);">50–80% load</span><span style="color:var(--safe);">✓ Optimal</span></div>
             <div style="display:flex; justify-content:space-between;"><span>Over 80% load</span><span style="color:var(--hot);">Hot &amp; noisy</span></div>
@@ -274,6 +274,12 @@
                 <label class="field-label" for="psu-gpu">GPU</label>
                 <select id="psu-gpu" class="input-field">
                   <option value="">— Select GPU —</option>
+                  <optgroup label="NVIDIA RTX 50 Series (Blackwell)">
+                                      <option>RTX 5090</option><option>RTX 5080</option>
+                    <option>RTX 5070 Ti</option><option>RTX 5070</option>
+                    <option>RTX 5060 Ti 16GB</option><option>RTX 5060 Ti</option>
+                    <option>RTX 5060</option>
+                  </optgroup>
                   <optgroup label="NVIDIA RTX 40 Series">
                     <option>RTX 4090</option><option>RTX 4080 Super</option>
                     <option>RTX 4080</option><option>RTX 4070 Ti Super</option>
@@ -425,7 +431,7 @@
 
             <!-- Calculate button -->
             <div style="padding:1rem 1.25rem;">
-              <div id="psu-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'IBM Plex Mono',monospace; margin-bottom:0.75rem;"></div>
+              <div id="psu-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'JetBrains Mono',monospace; margin-bottom:0.75rem;"></div>
               <button class="btn-check" onclick="calcPSU()" style="width:100%;">
                 Calculate PSU Requirements
               </button>
@@ -453,19 +459,19 @@
         <!-- Info cards -->
         <div class="grid sm:grid-cols-2 gap-4 mt-2">
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">80+ Ratings Explained</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">80+ Ratings Explained</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Bronze = ~82–85% efficient. Gold = ~87–90%. Platinum = ~90–92%. Titanium = ~92–94%. At high load, Gold vs Platinum saves only a few watts — Gold is the best value for most builds.</p>
           </div>
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Modular vs Non-Modular</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Modular vs Non-Modular</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Fully modular lets you route only cables you use — cleaner airflow, easier builds. Non-modular is cheaper but leaves unused cables cluttering the case. Semi-modular is a practical middle ground.</p>
           </div>
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Intel K-Series Power Draw</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Intel K-Series Power Draw</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Intel i7/i9 K-series CPUs have a base TDP of 125W, but their "Maximum Turbo Power" reaches 250W+. During gaming they sustain 150–250W. This calculator uses realistic gaming power, not the base TDP.</p>
           </div>
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">PSU Lifespan</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">PSU Lifespan</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Quality PSUs from Seasonic, Corsair RM/HX, and be quiet! carry 7–10 year warranties and often last well beyond. Cheap budget PSUs from no-name brands are the most common cause of component damage from power spikes.</p>
           </div>
         </div>
@@ -481,19 +487,19 @@
           <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Tool</div>
           <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Temperature Checker</h3>
           <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Is your GPU running too hot?</p>
-          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
         </a>
         <a href="../tools/bottleneck-checker.html" class="card p-5 article-card">
           <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Tool</div>
           <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">PC Bottleneck Checker</h3>
           <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Is your CPU holding back your GPU?</p>
-          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Use tool</div>
         </a>
         <a href="../articles/overclocking-guide.html" class="card p-5 article-card">
           <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">Guide</div>
           <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Overclock Guide</h3>
           <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Safe OC settings for 40+ GPU models.</p>
-          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Read guide</div>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Read guide</div>
         </a>
       </div>
     </div>
@@ -504,8 +510,8 @@
     <div class="max-w-6xl mx-auto px-5">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div class="nav-logo mb-1"><div class="logo-dot"></div>Thermalix</div>
-          <p style="color:#555568; font-size:0.78rem; font-family:'IBM Plex Mono',monospace;">PC thermal guides &amp; hardware tools</p>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">PC thermal guides &amp; hardware tools</p>
         </div>
         <div class="flex gap-6">
           <a href="../tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Checker</a>
@@ -513,8 +519,8 @@
           <a href="psu-calculator.html" class="nav-link text-xs">PSU Calc</a>
         </div>
       </div>
-      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'IBM Plex Mono',monospace;">
-        &copy; 2025 Thermalix. PSU links are for reference. Product availability and pricing may vary. Always verify specifications with the manufacturer.
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2025 TempCore. PSU links are for reference. Product availability and pricing may vary. Always verify specifications with the manufacturer.
       </div>
     </div>
   </footer>

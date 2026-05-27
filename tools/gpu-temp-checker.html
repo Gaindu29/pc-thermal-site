@@ -3,20 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GPU Temperature Checker — Is Your GPU Too Hot? | Thermalix</title>
+  <title>GPU Temperature Checker — Is Your GPU Too Hot? | ThermalCore</title>
   <meta name="description" content="Free GPU temperature checker. Enter your GPU model and current temp to instantly find out if it's safe, warm, or dangerously hot — with specific advice.">
   <meta name="keywords" content="GPU temperature checker, is my GPU too hot, safe GPU temperature, RTX temperature safe, GPU overheating">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-Z4Z7ZHHT3Z');
-  </script>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../css/style.css">
@@ -28,7 +17,7 @@
     <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
       <a href="../index.html" class="nav-logo">
         <div class="logo-dot"></div>
-        Thermalix
+        ThermalCore
       </a>
       <div class="flex items-center gap-6">
         <a href="../tools/gpu-temp-checker.html" style="color:var(--accent);" class="nav-link">GPU Checker</a>
@@ -40,7 +29,7 @@
   <!-- ══ PAGE HEADER ══════════════════════════════════ -->
   <section style="padding: 3rem 0 1.5rem; border-bottom: 1px solid var(--border);">
     <div class="max-w-6xl mx-auto px-5">
-      <a href="../index.html" style="font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">
+      <a href="../index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">
         ← Back to Home
       </a>
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
@@ -87,6 +76,15 @@
             <label for="gpu-select">GPU Model</label>
             <select id="gpu-select" class="input-field">
               <option value="">— Select GPU —</option>
+              <optgroup label="NVIDIA RTX 50 Series (Blackwell)">
+                <option>RTX 5090</option>
+                <option>RTX 5080</option>
+                <option>RTX 5070 Ti</option>
+                <option>RTX 5070</option>
+                <option>RTX 5060 Ti 16GB</option>
+                <option>RTX 5060 Ti</option>
+                <option>RTX 5060</option>
+              </optgroup>
               <optgroup label="NVIDIA RTX 40 Series">
                 <option>RTX 4090</option>
                 <option>RTX 4080 Super</option>
@@ -170,13 +168,13 @@
               >
               <span class="unit">°C</span>
             </div>
-            <div style="color:#8888a0; font-size:0.72rem; margin-top:0.4rem; font-family:'IBM Plex Mono',monospace;">
+            <div style="color:#8888a0; font-size:0.72rem; margin-top:0.4rem; font-family:'JetBrains Mono',monospace;">
               Use MSI Afterburner, GPU-Z, or HWiNFO64 to read temp
             </div>
           </div>
 
           <!-- Error -->
-          <div id="error-box" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'IBM Plex Mono',monospace; margin-bottom:0.75rem;"></div>
+          <div id="error-box" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'JetBrains Mono',monospace; margin-bottom:0.75rem;"></div>
 
           <!-- Submit -->
           <button class="btn-check" onclick="checkTemperature()">
@@ -185,7 +183,7 @@
 
           <!-- How to read GPU temp note -->
           <div style="margin-top:1.25rem; background:var(--surface2); border-radius:8px; padding:0.875rem 1rem;">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">How to check your GPU temp</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">How to check your GPU temp</div>
             <ul style="list-style:none; display:flex; flex-direction:column; gap:0.3rem;">
               <li style="font-size:0.78rem; color:#8888a0; display:flex; gap:0.5rem; align-items:flex-start;"><span style="color:var(--hot);">▸</span>MSI Afterburner (free, real-time overlay)</li>
               <li style="font-size:0.78rem; color:#8888a0; display:flex; gap:0.5rem; align-items:flex-start;"><span style="color:var(--hot);">▸</span>GPU-Z → Sensors tab</li>
@@ -214,13 +212,13 @@
         <!-- Info cards below result -->
         <div class="grid sm:grid-cols-2 gap-4 mt-2">
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Note on AMD GPUs</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Note on AMD GPUs</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">
               AMD RX 6000 and 7000 series GPUs have a TJ Max of 110°C, much higher than NVIDIA. Don't panic if you see 85–90°C on an RX 6700 — it's designed for it.
             </p>
           </div>
           <div class="card p-4">
-            <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Laptop vs Desktop</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Laptop vs Desktop</div>
             <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">
               Laptop GPUs run hotter by design due to confined cooling. An 83°C reading on an RTX 4070 laptop GPU is normal; the same on a desktop card warrants investigation.
             </p>
@@ -239,13 +237,13 @@
           <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Guide</div>
           <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">What Is a Good GPU Temperature While Gaming?</h3>
           <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Full breakdown of safe temps, what causes high temps, and how to fix them.</p>
-          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">→ Read</div>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">→ Read</div>
         </a>
         <a href="../articles/is-75c-safe.html" class="card p-5 article-card">
           <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">FAQ</div>
           <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">Is 75°C Safe for an RTX 4050?</h3>
           <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Specific guidance for RTX 4050 laptop and desktop GPU temperature ranges.</p>
-          <div style="color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">→ Read</div>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">→ Read</div>
         </a>
       </div>
     </div>
@@ -257,16 +255,16 @@
     <div class="max-w-6xl mx-auto px-5">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div class="nav-logo mb-1"><div class="logo-dot"></div>Thermalix</div>
-          <p style="color:#555568; font-size:0.78rem; font-family:'IBM Plex Mono',monospace;">PC thermal guides & hardware tools</p>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>ThermalCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">PC thermal guides & hardware tools</p>
         </div>
         <div class="flex gap-6">
           <a href="gpu-temp-checker.html" class="nav-link text-xs">GPU Checker</a>
           <a href="../articles/gpu-temp-guide.html" class="nav-link text-xs">Guides</a>
         </div>
       </div>
-      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'IBM Plex Mono',monospace;">
-        © 2025 Thermalix. Temperature ranges are general guidelines. Always verify with your GPU manufacturer's specifications.
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        © 2024 ThermalCore. Temperature ranges are general guidelines. Always verify with your GPU manufacturer's specifications.
       </div>
     </div>
   </footer>
