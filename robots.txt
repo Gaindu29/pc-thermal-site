@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Block raw JS source from being indexed as content
+Disallow: /js/
+
+Sitemap: https://temp-core.com/sitemap.xml

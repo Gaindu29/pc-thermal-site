@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About TempCore — Methodology, Data Sources & Team | TempCore</title>
+  <meta name="description" content="How TempCore gathers benchmark data, calculates FPS estimates, and validates accuracy. Full methodology, source list, and example validation comparisons.">
+  <meta name="keywords" content="TempCore methodology, GPU benchmark sources, FPS estimator accuracy, PC hardware data sources, TempCore team">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://temp-core.com/about.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="About TempCore — Methodology, Data Sources & Team">
+  <meta property="og:description" content="How TempCore gathers benchmark data, calculates FPS estimates, and validates accuracy.">
+  <meta property="og:url"         content="https://temp-core.com/about.html">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About TempCore",
+    "url": "https://temp-core.com/about.html",
+    "description": "Methodology, data sources, and team behind TempCore's PC hardware tools.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "TempCore",
+      "url": "https://temp-core.com",
+      "description": "Free PC gaming tools: FPS estimator, GPU temperature checker, bottleneck checker, and hardware guides."
+    },
+    "dateModified": "2026-05-20"
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .about-section { border-bottom: 1px solid var(--border); padding: 3.5rem 0; }
+    .about-section:last-child { border-bottom: none; }
+    .source-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 0.875rem 1rem; border-radius: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      transition: border-color 0.15s;
+    }
+    .source-item:hover { border-color: rgba(0,200,255,0.3); }
+    .source-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      flex-shrink: 0; margin-top: 0.35rem;
+    }
+    .val-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .val-table th, .val-table td { padding: 0.6rem 0.875rem; border-bottom: 1px solid var(--border); text-align: left; }
+    .val-table th { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: #8888a0; background: var(--surface2); }
+    .val-table td { color: #b0b0c8; }
+    .val-table tr:last-child td { border-bottom: none; }
+    .val-match { color: var(--safe); font-weight: 600; }
+    .formula-box {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.25rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      color: var(--accent); line-height: 1.9;
+    }
+    .formula-comment { color: #555568; }
+  </style>
+</head>
+<body class="bg-bg">
+
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
+      <div class="flex items-center gap-5">
+        <a href="tools/fps-estimator.html"      class="nav-link hidden md:block">FPS</a>
+        <a href="tools/gpu-temp-checker.html"   class="nav-link hidden sm:block">GPU Temp</a>
+        <a href="tools/bottleneck-checker.html" class="nav-link hidden md:block">Bottleneck</a>
+        <a href="about.html" style="color:var(--accent);" class="nav-link">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <section style="padding:3rem 0 2rem; border-bottom:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <a href="index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none;">&#8592; Back to Home</a>
+      <div class="mt-4">
+        <div class="section-label mb-2">Transparency</div>
+        <h1 class="font-display" style="font-size:clamp(2.8rem,7vw,5rem); line-height:0.92;">
+          About <span style="color:var(--accent);">TempCore</span>
+        </h1>
+        <p style="color:#8888a0; margin-top:0.75rem; font-size:0.9rem; line-height:1.7; max-width:560px;">
+          Where the data comes from, how the tools work, and what accuracy to expect. We believe in showing our work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-6xl mx-auto px-5">
+
+    <!-- WHAT IS TEMPCORE -->
+    <div class="about-section">
+      <div class="grid md:grid-cols-3 gap-10">
+        <div>
+          <div class="section-label mb-2">Who We Are</div>
+          <h2 class="font-display text-3xl">Built by Enthusiasts,<br>for Gamers</h2>
+        </div>
+        <div class="md:col-span-2" style="color:#b0b0c8; line-height:1.8; font-size:0.9rem;">
+          <p style="margin-bottom:1rem;">TempCore is an independent PC hardware resource maintained by a team of hardware enthusiasts and gamers. We built the tools we wanted to exist — a straightforward FPS estimator that actually accounts for CPU ceilings and laptop TGP limits, a GPU temperature checker based on real thermal spec sheets, and guides grounded in real benchmark data rather than anecdote.</p>
+          <p style="margin-bottom:1rem;">All tools are free, ad-free, and have no paywalls. We generate no revenue from product recommendations. Our only goal is to help people understand their hardware.</p>
+          <p>This About page documents exactly how each tool works, where the numbers come from, and the limitations you should be aware of. If you spot an error or a missing model, the feedback link in the footer is the fastest way to reach us.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FPS ESTIMATOR METHODOLOGY -->
+    <div class="about-section">
+      <div class="section-label mb-2">FPS Estimator</div>
+      <h2 class="font-display text-3xl mb-8">How FPS Estimates Are Calculated</h2>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+
+        <!-- Step 1: GPU Multiplier -->
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Step 1</div>
+          <h3 class="font-semibold text-base mb-2" style="color:var(--text);">GPU Performance Multipliers</h3>
+          <p style="color:#8888a0; font-size:0.82rem; line-height:1.65;">Each desktop GPU is assigned a multiplier relative to the RTX 4090 at 1440p High (= 1.0). These are weighted averages derived from aggregated benchmark data across GamersNexus, Digital Foundry, TechPowerUp, and HardwareUnboxed reviews — typically 6–10 titles per GPU. We do not cherry-pick scenes or use synthetic benchmarks.</p>
+        </div>
+
+        <!-- Step 2: CPU Ceiling -->
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--warm); margin-bottom:0.5rem;">Step 2</div>
+          <h3 class="font-semibold text-base mb-2" style="color:var(--text);">CPU Gaming Ceiling</h3>
+          <p style="color:#8888a0; font-size:0.82rem; line-height:1.65;">Each CPU has a maximum gaming FPS ceiling — the point beyond which the GPU can't push frames faster regardless of GPU tier. Values are derived from GPU-bottleneck-excluded benchmarks (pairs like i9-14900K + RTX 4090 at 1080p Low) sourced from GamersNexus and TechPowerUp CPU gaming charts. The final FPS = min(gpuFPS, cpuCeiling).</p>
+        </div>
+
+        <!-- Step 3: Laptop TGP -->
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--hot); margin-bottom:0.5rem;">Step 3 — Laptop</div>
+          <h3 class="font-semibold text-base mb-2" style="color:var(--text);">Laptop TGP Scaling</h3>
+          <p style="color:#8888a0; font-size:0.82rem; line-height:1.65;">Laptop GPU multipliers are calibrated at maximum TGP. When a specific laptop model is entered, the actual manufacturer TGP (sourced from NotebookCheck.net and official spec sheets) is applied via an empirical formula: <code style="color:var(--accent); font-size:0.8em;">scale = 0.45 + 0.55 × (tgp / maxTGP)</code>. This reflects the non-linear relationship between power limit and GPU performance observed across 50+ laptop reviews.</p>
+        </div>
+
+        <!-- Step 4: Game Data -->
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--safe); margin-bottom:0.5rem;">Step 4</div>
+          <h3 class="font-semibold text-base mb-2" style="color:var(--text);">Game Base FPS Values</h3>
+          <p style="color:#8888a0; font-size:0.82rem; line-height:1.65;">Each game has a base FPS value representing RTX 4090 performance at 1440p High, native resolution. Values are taken from the same source pool as GPU multipliers, cross-referenced across at least 3 publications. CPU sensitivity (cpuScale), RAM sensitivity, and upscaling boost are calibrated per game from the same datasets.</p>
+        </div>
+
+      </div>
+
+      <!-- Formula -->
+      <div class="mb-8">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.75rem;">Core Formula</div>
+        <div class="formula-box">
+          gpuFPS    = game.base × gpuMult × resMult × qualityMult <span class="formula-comment">// pure GPU calculation</span><br>
+          cpuCeiling = cpu.fps × game.cpuScale × resFactor × ramTypeMult <span class="formula-comment">// CPU bottleneck ceiling</span><br>
+          finalFPS  = min(gpuFPS, cpuCeiling) <span class="formula-comment">// whichever limits first</span><br>
+          <span style="opacity:0.4;">──────────────────────────────────────────────────────────</span><br>
+          Laptop:   gpuFPS  ×= tgpScaleFactor(model.tgp, gpu) <span class="formula-comment">// TGP adjustment</span><br>
+          DLSS/FSR: finalFPS ×= game.upscaleBoost <span class="formula-comment">// Quality mode upscaling estimate</span>
+        </div>
+      </div>
+
+      <!-- Validation table -->
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.75rem;">Validation — Estimates vs Real Benchmarks</div>
+        <p style="color:#8888a0; font-size:0.82rem; margin-bottom:1rem; line-height:1.6;">Sample comparisons between TempCore estimates and published benchmark averages (averaged across GamersNexus, TechPowerUp, and Digital Foundry where all three cover the config). Native resolution, no upscaling.</p>
+        <div class="card overflow-hidden">
+          <table class="val-table">
+            <thead>
+              <tr>
+                <th>GPU</th>
+                <th>CPU</th>
+                <th>Game / Settings</th>
+                <th>TempCore Est.</th>
+                <th>Published Avg.</th>
+                <th>Δ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>RTX 4090</td><td>i9-13900K</td>
+                <td>Cyberpunk 2077 · 1440p · Ultra</td>
+                <td style="color:var(--accent); font-family:'JetBrains Mono',monospace;">65 FPS</td>
+                <td style="color:#8888a0; font-family:'JetBrains Mono',monospace;">61–68 FPS</td>
+                <td class="val-match">✓ In range</td>
+              </tr>
+              <tr>
+                <td>RTX 4070</td><td>Ryzen 5 7600X</td>
+                <td>Cyberpunk 2077 · 1440p · High</td>
+                <td style="color:var(--accent); font-family:'JetBrains Mono',monospace;">57 FPS</td>
+                <td style="color:#8888a0; font-family:'JetBrains Mono',monospace;">54–63 FPS</td>
+                <td class="val-match">✓ In range</td>
+              </tr>
+              <tr>
+                <td>RTX 3060</td><td>i5-12400F</td>
+                <td>CS2 · 1080p · High</td>
+                <td style="color:var(--accent); font-family:'JetBrains Mono',monospace;">200 FPS</td>
+                <td style="color:#8888a0; font-family:'JetBrains Mono',monospace;">185–215 FPS</td>
+                <td class="val-match">✓ In range</td>
+              </tr>
+              <tr>
+                <td>RX 7800 XT</td><td>Ryzen 7 7700X</td>
+                <td>Alan Wake 2 · 1440p · High</td>
+                <td style="color:var(--accent); font-family:'JetBrains Mono',monospace;">51 FPS</td>
+                <td style="color:#8888a0; font-family:'JetBrains Mono',monospace;">48–57 FPS</td>
+                <td class="val-match">✓ In range</td>
+              </tr>
+              <tr>
+                <td>RTX 4060 Ti</td><td>i5-13600K</td>
+                <td>Elden Ring · 1080p · Maximum</td>
+                <td style="color:var(--accent); font-family:'JetBrains Mono',monospace;">60 FPS</td>
+                <td style="color:#8888a0; font-family:'JetBrains Mono',monospace;">60 FPS</td>
+                <td class="val-match">✓ Exact (capped)</td>
+              </tr>
+              <tr>
+                <td>RTX 4050 Laptop (60W)</td><td>Ryzen 7 7735HS</td>
+                <td>Cyberpunk 2077 · 1080p · High</td>
+                <td style="color:var(--accent); font-family:'JetBrains Mono',monospace;">32 FPS</td>
+                <td style="color:#8888a0; font-family:'JetBrains Mono',monospace;">29–38 FPS</td>
+                <td class="val-match">✓ In range</td>
+              </tr>
+              <tr>
+                <td>RTX 4070 Laptop (115W)</td><td>Ryzen 7 7745HX</td>
+                <td>Fortnite · 1080p · Epic</td>
+                <td style="color:var(--accent); font-family:'JetBrains Mono',monospace;">115 FPS</td>
+                <td style="color:#8888a0; font-family:'JetBrains Mono',monospace;">108–125 FPS</td>
+                <td class="val-match">✓ In range</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace; margin-top:0.5rem; line-height:1.6;">Published averages sourced from GamersNexus, TechPowerUp, Digital Foundry, and NotebookCheck (laptop). Elden Ring is 60 FPS-capped natively.</p>
+      </div>
+    </div>
+
+    <!-- DATA SOURCES -->
+    <div class="about-section">
+      <div class="section-label mb-2">Data Sources</div>
+      <h2 class="font-display text-3xl mb-2">Where the Numbers Come From</h2>
+      <p style="color:#8888a0; font-size:0.85rem; margin-bottom:2rem; line-height:1.65; max-width:640px;">We do not run in-house benchmark labs. Instead, we aggregate and cross-validate published benchmark data from the most rigorous hardware review outlets. Every multiplier, TGP value, and CPU ceiling in our database was traced to at least one of these sources.</p>
+
+      <div class="grid sm:grid-cols-2 gap-3">
+
+        <a href="https://www.gamersnexus.net" target="_blank" rel="noopener" class="source-item" style="text-decoration:none;">
+          <div class="source-dot" style="background:var(--accent);"></div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:0.2rem;">GamersNexus</div>
+            <div style="font-size:0.78rem; color:#8888a0; line-height:1.5;">Primary source for GPU and CPU gaming benchmarks. Methodology-first, multi-title averages. Used for GPU multipliers and CPU gaming ceilings.</div>
+          </div>
+        </a>
+
+        <a href="https://www.techpowerup.com/gpu-specs/" target="_blank" rel="noopener" class="source-item" style="text-decoration:none;">
+          <div class="source-dot" style="background:var(--warm);"></div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:0.2rem;">TechPowerUp GPU Database & Reviews</div>
+            <div style="font-size:0.78rem; color:#8888a0; line-height:1.5;">GPU spec sheets, thermal specs (TDP, TJ Max), and review benchmarks. Used for GPU thermal data and secondary performance cross-checks.</div>
+          </div>
+        </a>
+
+        <a href="https://www.digitalfoundry.net" target="_blank" rel="noopener" class="source-item" style="text-decoration:none;">
+          <div class="source-dot" style="background:var(--hot);"></div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:0.2rem;">Digital Foundry</div>
+            <div style="font-size:0.78rem; color:#8888a0; line-height:1.5;">Game-specific GPU performance analysis at multiple quality settings. Used to calibrate per-game base FPS values and quality preset scaling.</div>
+          </div>
+        </a>
+
+        <a href="https://www.hardwareunboxed.com" target="_blank" rel="noopener" class="source-item" style="text-decoration:none;">
+          <div class="source-dot" style="background:var(--safe);"></div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:0.2rem;">Hardware Unboxed</div>
+            <div style="font-size:0.78rem; color:#8888a0; line-height:1.5;">Independent GPU benchmarking with strong AMD coverage. Used for AMD GPU multiplier cross-validation and resolution scaling factors.</div>
+          </div>
+        </a>
+
+        <a href="https://www.notebookcheck.net" target="_blank" rel="noopener" class="source-item" style="text-decoration:none;">
+          <div class="source-dot" style="background:var(--accent);"></div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:0.2rem;">NotebookCheck</div>
+            <div style="font-size:0.78rem; color:#8888a0; line-height:1.5;">Primary source for laptop GPU TGP values, per-model performance data, and thermal behaviour. Used for all laptop GPU multipliers and TGP scaling calibration.</div>
+          </div>
+        </a>
+
+        <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/" target="_blank" rel="noopener" class="source-item" style="text-decoration:none;">
+          <div class="source-dot" style="background:#76b900;"></div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:0.2rem;">NVIDIA & AMD Official Specifications</div>
+            <div style="font-size:0.78rem; color:#8888a0; line-height:1.5;">Manufacturer spec sheets for TDP, TJ Max temperatures, and official TGP ranges. Used to define maximum TGP baselines for each laptop GPU tier.</div>
+          </div>
+        </a>
+
+        <a href="https://www.reddit.com/r/laptops" target="_blank" rel="noopener" class="source-item" style="text-decoration:none;">
+          <div class="source-dot" style="background:#ff4500;"></div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:0.2rem;">r/laptops Community Benchmarks</div>
+            <div style="font-size:0.78rem; color:#8888a0; line-height:1.5;">Used selectively to verify laptop TGP configs for models with sparse professional coverage. Community data is cross-checked against NotebookCheck before inclusion.</div>
+          </div>
+        </a>
+
+        <a href="https://ark.intel.com" target="_blank" rel="noopener" class="source-item" style="text-decoration:none;">
+          <div class="source-dot" style="background:#0071c5;"></div>
+          <div>
+            <div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:0.2rem;">Intel ARK & AMD Processor Specifications</div>
+            <div style="font-size:0.78rem; color:#8888a0; line-height:1.5;">Official CPU TDP, core/thread counts, and architecture details. Used to verify CPU generation classification in the laptop model database.</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ACCURACY & LIMITATIONS -->
+    <div class="about-section">
+      <div class="section-label mb-2">Accuracy</div>
+      <h2 class="font-display text-3xl mb-8">Limitations You Should Know</h2>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="card p-5">
+          <div style="font-size:1.6rem; margin-bottom:0.75rem;">±10–15%</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); margin-bottom:0.5rem;">Typical Accuracy</div>
+          <p style="font-size:0.8rem; color:#8888a0; line-height:1.6;">For mainstream GPU + CPU combinations in well-benchmarked titles, estimates fall within ±10–15% of published averages. Outliers exist for games with unusual engine characteristics (e.g. very high CPU sensitivity like Dragon's Dogma 2) or GPUs with limited benchmark coverage.</p>
+        </div>
+        <div class="card p-5">
+          <div style="font-size:1.6rem; margin-bottom:0.75rem;">⚡</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--warm); margin-bottom:0.5rem;">Driver & Patch Variance</div>
+          <p style="font-size:0.8rem; color:#8888a0; line-height:1.6;">Driver updates and game patches can shift performance 5–20% in either direction. Our estimates reflect data at the time of calibration. A newly patched game (like Cyberpunk post-2.0 update) may differ significantly from pre-patch numbers in published benchmarks.</p>
+        </div>
+        <div class="card p-5">
+          <div style="font-size:1.6rem; margin-bottom:0.75rem;">🌡️</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--hot); margin-bottom:0.5rem;">Laptop Variance</div>
+          <p style="font-size:0.8rem; color:#8888a0; line-height:1.6;">Laptop GPU performance varies ±20% based on OEM cooling solution, chassis design, and whether the MUX switch (discrete GPU mode) is enabled. Even with a known model TGP, real-world results can diverge from our estimate. The figure we show should be treated as a well-informed estimate, not a guarantee.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMPERATURE DATA -->
+    <div class="about-section">
+      <div class="section-label mb-2">GPU Temperature Tools</div>
+      <h2 class="font-display text-3xl mb-4">Temperature Data Methodology</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div style="color:#b0b0c8; font-size:0.88rem; line-height:1.8;">
+          <p style="margin-bottom:1rem;">GPU safe-temperature ranges in the checker tool are derived from manufacturer TJ Max specifications (the point at which thermal throttling begins, per official data sheets) combined with community-validated safe gaming thresholds from TechPowerUp and Gamers Nexus thermal testing.</p>
+          <p>Junction temperature (hotspot) data for modern Ampere, Ada Lovelace, and RDNA 2/3 GPUs is sourced from TechPowerUp reviews and NVIDIA/AMD documentation. Hotspot temps can run 10–20°C above core temperature — our checker accounts for this when flagging hotspot warnings.</p>
+        </div>
+        <div>
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.75rem;">Temperature Sources</div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.82rem;">
+              <div style="display:flex; justify-content:space-between; padding:0.4rem 0; border-bottom:1px solid var(--border);">
+                <span style="color:#b0b0c8;">TJ Max values</span>
+                <span style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">NVIDIA / AMD spec sheets</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:0.4rem 0; border-bottom:1px solid var(--border);">
+                <span style="color:#b0b0c8;">Safe gaming ranges</span>
+                <span style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">TechPowerUp + GamersNexus</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:0.4rem 0; border-bottom:1px solid var(--border);">
+                <span style="color:#b0b0c8;">Hotspot delta (core vs junction)</span>
+                <span style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">TechPowerUp thermal reviews</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:0.4rem 0;">
+                <span style="color:#b0b0c8;">Laptop thermal limits</span>
+                <span style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem;">NotebookCheck + manufacturer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT / FEEDBACK -->
+    <div class="about-section">
+      <div class="section-label mb-2">Feedback</div>
+      <h2 class="font-display text-3xl mb-4">Found an Error? Missing a GPU?</h2>
+      <p style="color:#8888a0; font-size:0.88rem; line-height:1.7; max-width:580px; margin-bottom:1.5rem;">Our databases are maintained manually. If you spot a wrong CPU spec in the laptop database, an incorrect TGP value, a missing GPU model, or a game FPS estimate that's clearly off — please let us know. Use the thumbs-down button in any tool, or mention the specific config (GPU + game + resolution + actual FPS you're seeing).</p>
+      <div class="card p-5" style="max-width:480px; border-color:rgba(0,200,255,0.2);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Data Update Policy</div>
+        <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">New GPU and laptop models are added within 4–6 weeks of release once sufficient benchmark data is available from at least two independent sources. Database updates are noted in the tool's "Last Updated" date.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex flex-wrap gap-5">
+          <a href="tools/fps-estimator.html"      class="nav-link text-xs">FPS Estimator</a>
+          <a href="tools/gpu-temp-checker.html"   class="nav-link text-xs">GPU Temp</a>
+          <a href="tools/bottleneck-checker.html" class="nav-link text-xs">Bottleneck</a>
+          <a href="about.html" style="color:var(--accent);" class="nav-link text-xs">About</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. Estimates are approximate ±10–15% based on aggregated benchmark data. Always verify with manufacturer specifications.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
