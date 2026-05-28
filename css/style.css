@@ -1,5 +1,5 @@
-/* ThermalCore — Custom Styles */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+/* TempCore — Custom Styles */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --bg:        #0c0c0e;
@@ -35,7 +35,7 @@ body {
 /* ── Typography ───────────────────────────── */
 .font-display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.03em; }
 .font-mono    { font-family: 'JetBrains Mono', monospace; }
-.font-heading  { font-family: 'Space Grotesk', sans-serif; }
+.font-heading  { font-family: 'Inter', sans-serif; font-weight: 700; }
 
 /* ── Noise texture overlay ────────────────── */
 body::before {
@@ -391,25 +391,29 @@ footer {
 
 /* ── Article content ──────────────────────── */
 .article-body h2 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 1.75rem;
-  letter-spacing: 0.03em;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
   color: var(--text);
-  margin: 2rem 0 0.75rem;
+  margin: 2.25rem 0 0.75rem;
+  line-height: 1.2;
 }
 
 .article-body h3 {
-  font-size: 1.1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--text);
-  margin: 1.5rem 0 0.5rem;
+  margin: 1.75rem 0 0.5rem;
 }
 
 .article-body p {
   color: #b0b0c8;
-  margin-bottom: 1rem;
-  line-height: 1.75;
+  margin-bottom: 1.1rem;
+  line-height: 1.8;
+  font-size: 0.95rem;
 }
 
 .article-body ul {

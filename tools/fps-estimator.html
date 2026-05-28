@@ -16,14 +16,14 @@
     gtag('config', 'G-Z4Z7ZHHT3Z');
   </script>
 
-  <link rel="canonical" href="https://tempcore.io/tools/fps-estimator.html">
+  <link rel="canonical" href="https://temp-core.com/tools/fps-estimator.html">
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
   <meta property="og:site_name"   content="TempCore">
   <meta property="og:title"       content="PC Game FPS Estimator — How Many FPS Will I Get? | TempCore">
   <meta property="og:description" content="Free FPS estimator for desktop and laptop GPUs. Select your hardware, choose a game, and get an estimated frame rate at any resolution and quality setting.">
-  <meta property="og:url"         content="https://tempcore.io/tools/fps-estimator.html">
+  <meta property="og:url"         content="https://temp-core.com/tools/fps-estimator.html">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -31,19 +31,19 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "PC Game FPS Estimator",
-    "url": "https://tempcore.io/tools/fps-estimator.html",
+    "url": "https://temp-core.com/tools/fps-estimator.html",
     "description": "Free FPS estimator for desktop and laptop GPUs. Covers 38+ games, 80+ desktop GPUs, 28+ laptop GPUs, and 176 verified laptop models with real TGP data.",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web Browser",
     "author": {
       "@type": "Organization",
       "name": "TempCore",
-      "url": "https://tempcore.io"
+      "url": "https://temp-core.com"
     },
     "publisher": {
       "@type": "Organization",
       "name": "TempCore",
-      "url": "https://tempcore.io"
+      "url": "https://temp-core.com"
     },
     "datePublished": "2026-02-01",
     "dateModified": "2026-05-20",
@@ -582,6 +582,7 @@
   </footer>
 
   <script src="../js/fps-estimator.js"></script>
+  <script src="../js/feedback.js"></script>
   <script>
     function setChip(group, value, el) {
       var prefix = group + "-";
@@ -599,7 +600,165 @@
       var match = GAME_LIST.find(function(g) { return g.name === gameName; });
       if (match) selectGame(match);
     }
+
+    // ── Feedback modal ─────────────────────────────────────────────────────────
+    var _currentTab = "calibrate";
+
+    function openFeedback(tab) {
+      _currentTab = tab || "calibrate";
+      switchTab(_currentTab);
+      // Pre-fill estimate tab if we have data
+      if (lastEstimate) {
+        var el = document.getElementById("fb-estimate-context");
+        if (el) {
+          el.innerHTML =
+            '<div style="background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:0.6rem 0.875rem; font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:#8888a0; line-height:1.8; margin-bottom:0.875rem;">' +
+            lastEstimate.gpu + ' &nbsp;·&nbsp; ' + lastEstimate.cpu + ' &nbsp;·&nbsp; ' +
+            lastEstimate.game + ' &nbsp;·&nbsp; ' + lastEstimate.resolution + ' ' + lastEstimate.quality +
+            ' &nbsp;·&nbsp; <span style="color:var(--accent);">Est. ' + lastEstimate.estimatedFPS + ' FPS</span>' +
+            '</div>';
+        }
+      } else {
+        var el2 = document.getElementById("fb-estimate-context");
+        if (el2) el2.innerHTML = '<p style="font-size:0.78rem; color:#555568; margin-bottom:0.875rem;">Run an FPS estimate first to auto-fill hardware details.</p>';
+      }
+      document.getElementById("feedback-overlay").style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeFeedback() {
+      document.getElementById("feedback-overlay").style.display = "none";
+      document.body.style.overflow = "";
+      // Reset form state
+      document.getElementById("fb-status").textContent = "";
+      document.getElementById("fb-submit-btn").disabled = false;
+      document.getElementById("fb-submit-btn").textContent = "Send Feedback";
+    }
+
+    function closeFeedbackIfOutside(e) {
+      if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
+    }
+
+    function switchTab(tab) {
+      _currentTab = tab;
+      ["calibrate","missing","general"].forEach(function(t) {
+        document.getElementById("fbtab-" + t).style.display = (t === tab) ? "block" : "none";
+        document.getElementById("fbtn-"  + t).classList.toggle("active", t === tab);
+      });
+    }
+
+    function submitFeedback() {
+      var statusEl = document.getElementById("fb-status");
+      var submitBtn = document.getElementById("fb-submit-btn");
+      var subject, message;
+
+      if (_currentTab === "calibrate") {
+        var actualFPS  = document.getElementById("fb-actual-fps").value.trim();
+        var direction  = document.getElementById("fb-direction").value;
+        var muxState   = document.getElementById("fb-mux").value;
+        var driverNote = document.getElementById("fb-driver").value.trim();
+        var notes      = document.getElementById("fb-cal-notes").value.trim();
+
+        if (!actualFPS) {
+          statusEl.textContent = "Please enter your actual FPS.";
+          statusEl.style.color = "var(--critical)";
+          return;
+        }
+        if (!lastEstimate) {
+          statusEl.textContent = "Please run an FPS estimate first so we can capture your hardware details.";
+          statusEl.style.color = "var(--critical)";
+          return;
+        }
+
+        var dirMap = { lower:"Lower than estimated", higher:"Higher than estimated",
+                       unstable:"Unstable / inconsistent", cpu_limit:"CPU-limited differently",
+                       thermal:"Thermal throttling", scene:"Scene-dependent variance" };
+
+        subject = "TempCore — FPS Calibration [" + lastEstimate.game + " / " + lastEstimate.gpu + "]";
+        message =
+          "FEEDBACK TYPE: FPS Calibration Report\n" +
+          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+          "HARDWARE\n" +
+          "GPU: " + lastEstimate.gpu + "\n" +
+          "CPU: " + lastEstimate.cpu + "\n" +
+          "Platform: " + lastEstimate.platform + "\n" +
+          (lastEstimate.laptopModel ? "Laptop Model: " + lastEstimate.laptopModel + "\n" : "") +
+          (lastEstimate.tgp ? "TGP: " + lastEstimate.tgp + "\n" : "") +
+          "RAM: " + lastEstimate.ram + " " + lastEstimate.ramType + "\n\n" +
+          "GAME & SETTINGS\n" +
+          "Game: " + lastEstimate.game + "\n" +
+          "Resolution: " + lastEstimate.resolution + "\n" +
+          "Quality: " + lastEstimate.quality + "\n\n" +
+          "ESTIMATE vs REALITY\n" +
+          "TempCore estimate: " + lastEstimate.estimatedFPS + " FPS\n" +
+          "User's actual FPS: " + actualFPS + " FPS\n" +
+          "Direction: " + (dirMap[direction] || direction) + "\n" +
+          (muxState !== "na" ? "MUX Switch: " + muxState + "\n" : "") +
+          (driverNote ? "Driver version: " + driverNote + "\n" : "") + "\n" +
+          (notes ? "USER NOTES\n" + notes + "\n\n" : "") +
+          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
+          "Submitted: " + new Date().toISOString();
+
+      } else if (_currentTab === "missing") {
+        var hwType  = document.getElementById("fb-hw-type").value;
+        var hwModel = document.getElementById("fb-hw-model").value.trim();
+        var hwNotes = document.getElementById("fb-hw-notes").value.trim();
+
+        if (!hwModel) {
+          statusEl.textContent = "Please enter the hardware model name.";
+          statusEl.style.color = "var(--critical)";
+          return;
+        }
+
+        subject = "TempCore — Missing Hardware: " + hwModel;
+        message =
+          "FEEDBACK TYPE: Missing Hardware Report\n" +
+          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+          "HARDWARE TYPE: " + hwType.toUpperCase() + "\n" +
+          "BRAND & MODEL: " + hwModel + "\n\n" +
+          (hwNotes ? "ADDITIONAL INFO\n" + hwNotes + "\n\n" : "") +
+          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
+          "Submitted: " + new Date().toISOString();
+
+      } else {
+        var genMsg = document.getElementById("fb-general-msg").value.trim();
+        var genType = document.getElementById("fb-general-type").value;
+        if (!genMsg) {
+          statusEl.textContent = "Please write something.";
+          statusEl.style.color = "var(--critical)";
+          return;
+        }
+        subject = "TempCore — " + genType + " Feedback";
+        message =
+          "FEEDBACK TYPE: " + genType + "\n" +
+          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+          "MESSAGE:\n" + genMsg + "\n\n" +
+          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
+          "Submitted: " + new Date().toISOString();
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+      statusEl.textContent = "";
+
+      sendToWeb3Forms(subject, message, function(ok) {
+        if (ok) {
+          submitBtn.textContent = "Sent ✓";
+          statusEl.style.color = "var(--safe)";
+          statusEl.textContent = "Thanks! We review every submission and use it to update our database.";
+          setTimeout(closeFeedback, 3000);
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Send Feedback";
+          statusEl.style.color = "var(--critical)";
+          statusEl.textContent = "Failed to send. Check your connection and try again.";
+        }
+      });
+    }
+
   </script>
+
+
 
 </body>
 </html>

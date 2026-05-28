@@ -839,6 +839,7 @@ function searchGames(query) {
 var currentPlatform = "desktop";
 var selectedQualityKey = "High";
 var selectedLaptopModel = null;
+var lastEstimate = null; // stores last run for feedback pre-fill
 
 function setPlatform(platform) {
   currentPlatform = platform;
@@ -1182,7 +1183,29 @@ function runFPSEstimate() {
     '<div style="font-size:0.7rem; color:#555568; margin-top:0.875rem; line-height:1.6; padding-top:0.75rem; border-top:1px solid var(--border);">' +
       'Estimates based on aggregated benchmark data at native resolution without upscaling. ' +
       (isLaptop ? 'Laptop estimates use average TGP configurations — actual performance varies ±20% based on OEM cooling and power limits. ' : '') +
-      'Actual performance varies by scene, driver version, and system configuration. Numbers are approximate ±10–15%.</div>';
+      'Actual performance varies by scene, driver version, and system configuration. Numbers are approximate ±10–15%.</div>' +
+
+    // ── Accuracy feedback bar ──────────────────────────────────────────────
+    '<div id="fps-thumbs-bar" style="margin-top:1rem; padding-top:0.875rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">' +
+      '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.68rem; color:#555568;">Was this accurate?</span>' +
+      '<button onclick="handleThumbsUp()" style="background:transparent; border:1px solid rgba(34,212,126,0.25); color:#22d47e; font-family:\'JetBrains Mono\',monospace; font-size:0.7rem; padding:0.25rem 0.65rem; border-radius:5px; cursor:pointer;">👍 Looks right</button>' +
+      '<button onclick="window.openFB(\'calibrate\')" style="background:transparent; border:1px solid rgba(255,100,34,0.25); color:#ff6422; font-family:\'JetBrains Mono\',monospace; font-size:0.7rem; padding:0.25rem 0.65rem; border-radius:5px; cursor:pointer;">👎 Help us calibrate</button>' +
+    '</div>';
+
+  // Store estimate data for feedback pre-fill
+  lastEstimate = {
+    gpu:         gpuKey,
+    cpu:         cpuKey,
+    platform:    isLaptop ? "Laptop" : "Desktop",
+    laptopModel: selectedLaptopModel ? selectedLaptopModel.brand + " " + selectedLaptopModel.model : null,
+    game:        selectedGame.name,
+    resolution:  res,
+    quality:     activeLabel,
+    estimatedFPS: est.fps,
+    ram:         ramKey,
+    ramType:     ramType,
+    tgp:         selectedLaptopModel ? selectedLaptopModel.tgp + "W" : null
+  };
 
   resultEl.className = "result-box " + tier.cssClass + " show";
   if (defaultEl) defaultEl.style.display = "none";
@@ -1200,3 +1223,109 @@ document.addEventListener("click", function(e) {
     mbox.style.display = "none";
   }
 });
+
+// ── Thumbs feedback handlers ──────────────────────────────────────────────────
+function handleThumbsUp() {
+  var bar = document.getElementById("fps-thumbs-bar");
+  if (bar) bar.innerHTML =
+    '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:var(--safe);">' +
+    '👍 Thanks — helps us validate our data!</span>';
+}
+// handleThumbsDown is wired directly to window.openFB in the result HTML
+
+// Close suggestions on outside click
+document.addEventListener("click", function(e) {
+  var box = document.getElementById("fps-suggestions");
+  if (box && !box.contains(e.target) && e.target.id !== "fps-game-input") {
+    box.style.display = "none";
+  }
+  var mbox = document.getElementById("fps-model-suggestions");
+  if (mbox && !mbox.contains(e.target) && e.target.id !== "fps-model-input") {
+    mbox.style.display = "none";
+  }
+});
+
+// ── Thumbs feedback handlers ──────────────────────────────────────────────────
+function handleThumbsUp() {
+  var bar = document.getElementById("fps-thumbs-bar");
+  var inline = document.getElementById("fps-inline-feedback");
+  if (bar) bar.innerHTML = '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:var(--safe);">👍 Thanks — helps us validate our data!</span>';
+  if (inline) inline.style.display = "none";
+  // Send a silent positive signal (no email needed)
+}
+
+function handleThumbsDown() {
+  var inline = document.getElementById("fps-inline-feedback");
+  var bar    = document.getElementById("fps-thumbs-bar");
+  if (inline) {
+    inline.style.display = inline.style.display === "none" ? "block" : "none";
+    if (inline.style.display === "block") {
+      setTimeout(function() { inline.scrollIntoView({ behavior:"smooth", block:"nearest" }); }, 50);
+    }
+  }
+}
+
+function submitInlineFeedback() {
+  var actualFPS  = document.getElementById("inline-actual-fps").value.trim();
+  var direction  = document.getElementById("inline-direction").value;
+  var notes      = document.getElementById("inline-notes").value.trim();
+  var statusEl   = document.getElementById("inline-feedback-status");
+  var submitBtn  = document.getElementById("inline-submit-btn");
+
+  if (!actualFPS) {
+    statusEl.textContent = "Please enter your actual FPS.";
+    statusEl.style.color = "var(--critical)";
+    return;
+  }
+  if (!lastEstimate) {
+    statusEl.textContent = "Run an estimate first.";
+    return;
+  }
+
+  var directionLabel = {
+    lower:     "Lower than estimated",
+    higher:    "Higher than estimated",
+    unstable:  "Unstable / inconsistent",
+    cpu_limit: "CPU-limited differently",
+    thermal:   "Thermal throttling observed"
+  }[direction] || direction;
+
+  var message =
+    "FEEDBACK TYPE: FPS Calibration Report\n" +
+    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+    "HARDWARE\n" +
+    "GPU: " + lastEstimate.gpu + "\n" +
+    "CPU: " + lastEstimate.cpu + "\n" +
+    "Platform: " + lastEstimate.platform + "\n" +
+    (lastEstimate.laptopModel ? "Laptop Model: " + lastEstimate.laptopModel + "\n" : "") +
+    (lastEstimate.tgp ? "TGP: " + lastEstimate.tgp + "\n" : "") +
+    "RAM: " + lastEstimate.ram + " " + lastEstimate.ramType + "\n\n" +
+    "GAME & SETTINGS\n" +
+    "Game: " + lastEstimate.game + "\n" +
+    "Resolution: " + lastEstimate.resolution + "\n" +
+    "Quality: " + lastEstimate.quality + "\n\n" +
+    "ESTIMATE vs REALITY\n" +
+    "TempCore estimate: " + lastEstimate.estimatedFPS + " FPS\n" +
+    "User's actual FPS: " + actualFPS + " FPS\n" +
+    "Direction: " + directionLabel + "\n\n" +
+    (notes ? "USER NOTES\n" + notes + "\n\n" : "") +
+    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
+    "Submitted: " + new Date().toISOString();
+
+  submitBtn.disabled = true;
+  statusEl.textContent = "Sending...";
+  statusEl.style.color = "#8888a0";
+
+  sendToWeb3Forms("TempCore — FPS Calibration Report [" + lastEstimate.game + " / " + lastEstimate.gpu + "]", message, function(ok) {
+    if (ok) {
+      document.getElementById("fps-inline-feedback").innerHTML =
+        '<div style="padding:0.5rem 0; font-family:\'JetBrains Mono\',monospace; font-size:0.78rem; color:var(--safe);">✅ Sent — thank you! This helps us calibrate the ' + lastEstimate.gpu + ' multiplier.</div>';
+      var bar = document.getElementById("fps-thumbs-bar");
+      if (bar) bar.style.display = "none";
+    } else {
+      submitBtn.disabled = false;
+      statusEl.textContent = "Failed to send. Please try again.";
+      statusEl.style.color = "var(--critical)";
+    }
+  });
+}
