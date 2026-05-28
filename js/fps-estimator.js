@@ -148,14 +148,16 @@ const LAPTOP_CPU_FPS = {
   "Core Ultra 5 135H":  145, "Core Ultra 5 125H":  138,
   // Intel 14th Gen H/HX — 2024
   "Core i9-14900HX":    215, "Core i7-14700HX":    205, "Core i7-14650HX":   198,
-  "Core i5-14500HX":    188, "Core i9-14900H":     188, "Core i7-14700H":    175,
-  "Core i5-14500H":     162,
+  "Core i5-14500HX":    188, "Core i5-14450HX":    178, "Core i9-14900H":    188,
+  "Core i7-14700H":     175, "Core i5-14500H":     162,
   // Intel 13th Gen H/HX — 2023
-  "Core i9-13980HX":    210, "Core i9-13900H":     182, "Core i7-13700HX":   200,
-  "Core i7-13700H":     165, "Core i7-13620H":     148, "Core i5-13600HX":    178,
-  "Core i5-13500H":     155, "Core i5-13420H":     142,
-  // Intel 12th Gen H — 2022
-  "Core i9-12900HX":    192, "Core i7-12700H":     158, "Core i7-12650H":    150,
+  "Core i9-13980HX":    210, "Core i9-13950HX":    213, "Core i9-13900HX":   205,
+  "Core i9-13900H":     182, "Core i7-13700HX":    200, "Core i7-13800H":    170,
+  "Core i7-13700H":     165, "Core i7-13650HX":    170, "Core i7-13620H":    148,
+  "Core i5-13600HX":    178, "Core i5-13500H":     155, "Core i5-13450HX":   175,
+  "Core i5-13420H":     142,
+  // Intel 12th Gen H/HX — 2022
+  "Core i9-12900HX":    192, "Core i9-12900H":    178, "Core i7-12700HX":    182, "Core i7-12700H":    158, "Core i7-12650H":    150,
   "Core i5-12600H":     142, "Core i5-12500H":     138, "Core i5-12450H":    128,
   // AMD Ryzen 9000 HX (Fire Range) — 2025
   "Ryzen 9 9955HX":     215, "Ryzen 7 9855HX":     202, "Ryzen 5 9655HX":    188,
@@ -164,13 +166,17 @@ const LAPTOP_CPU_FPS = {
   // AMD Ryzen 7000 HX (Dragon Range) — 2023
   "Ryzen 9 7945HX3D":   228, "Ryzen 9 7945HX":     212,
   "Ryzen 7 7745HX":     195, "Ryzen 5 7645HX":     178,
+  // AMD Ryzen 8000 H/HS Hawk Point (Zen 4) — 2024
+  "Ryzen 9 8945HS":     185, "Ryzen 7 8845HS":     172, "Ryzen 5 8645HS":    158,
   // AMD Ryzen 7000 HS Phoenix (Zen 4) — 2023
-  "Ryzen 9 7940HS":     182, "Ryzen 7 7745HS":     170, "Ryzen 5 7640HS":    158,
+  "Ryzen 9 7940HS":     182, "Ryzen 7 7840HS":     175, "Ryzen 7 7745HS":     170, "Ryzen 7 7745H":     172,
+  "Ryzen 7 7435HS":     158, "Ryzen 5 7640HS":     158, "Ryzen 5 7640H":     155,
   // AMD Ryzen 7000 H/HS Rembrandt-R (Zen 3+) — 2023 — rebranded Zen 3+ with higher clocks
   "Ryzen 9 7935HS":     188, "Ryzen 7 7735HS":     168, "Ryzen 7 7735H":     165,
   "Ryzen 5 7535HS":     152, "Ryzen 5 7535H":      148,
   // AMD Ryzen 6000 H/HS Rembrandt (Zen 3+) — 2022
-  "Ryzen 9 6980HX":     178, "Ryzen 9 6900HX":     172, "Ryzen 7 6800H":     162,
+  "Ryzen 9 6980HX":     178, "Ryzen 9 6900HX":     172, "Ryzen 9 6900HS":    174,
+  "Ryzen 7 6800H":      162,
   "Ryzen 7 6800HS":     160, "Ryzen 5 6600H":      148, "Ryzen 5 6600HS":    146,
   // AMD Ryzen 5000 H (Cezanne) — 2021
   "Ryzen 9 5900HX":     165, "Ryzen 7 5800H":      155, "Ryzen 5 5600H":     142,
@@ -512,107 +518,248 @@ function tgpScaleFactor(tgp, gpuKey) {
 
 // ── Laptop model database ─────────────────────────────────────────────────────
 const LAPTOP_MODELS = [
-  // Lenovo LOQ
-  {brand:"Lenovo",model:"LOQ 15 (RTX 4050 / Intel)",gpu:"RTX 4050 Laptop",cpu:"Core i5-13420H",tgp:60,note:"60W TGP on all GPUs. Real perf 25-35% below max-TGP RTX 4050 laptops."},
-  {brand:"Lenovo",model:"LOQ 15 (RTX 4050 / Ryzen)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 7 7745HX",tgp:60,note:"60W TGP. Real performance can be 25-35% below max-TGP RTX 4050 laptops."},
-  {brand:"Lenovo",model:"LOQ 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:60,note:"Unusual: RTX 4060 also capped at 60W. Large gap vs other RTX 4060 laptops at 100-115W."},
-  {brand:"Lenovo",model:"LOQ 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:80},
-  // Lenovo IdeaPad Gaming
+  // ━━ LENOVO LOQ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // APH9 variant — Ryzen 7 7745HX (Dragon Range HX)
+  {brand:"Lenovo",model:"LOQ 15 APH9 (RTX 4050 / Ryzen 7 7745HX)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 7 7745HX",tgp:60,note:"All LOQ 15 GPUs are capped at 60W. Significant gap vs full-TGP laptops."},
+  // ARP9 variant — Ryzen 7 7735HS (Rembrandt-R Zen 3+) ← confirmed common config
+  {brand:"Lenovo",model:"LOQ 15 ARP9 (RTX 4050 / Ryzen 7 7735HS)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 7 7735HS",tgp:60,note:"60W TGP. The Ryzen 7 7735HS is Zen 3+ (Rembrandt-R), not the newer Zen 4 7745HX variant."},
+  // ARP9 base variant — Ryzen 5 7535HS
+  {brand:"Lenovo",model:"LOQ 15 ARP9 (RTX 4050 / Ryzen 5 7535HS)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:60,note:"60W TGP. Base Rembrandt-R config."},
+  // IRH9 Intel variant
+  {brand:"Lenovo",model:"LOQ 15 IRH9 (RTX 4050 / Core i5-13420H)",gpu:"RTX 4050 Laptop",cpu:"Core i5-13420H",tgp:60},
+  {brand:"Lenovo",model:"LOQ 15 IRH9 (RTX 4050 / Core i7-13620H)",gpu:"RTX 4050 Laptop",cpu:"Core i7-13620H",tgp:60},
+  {brand:"Lenovo",model:"LOQ 15 (RTX 4060 / Core i5-13420H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:60,note:"Unusual: RTX 4060 also capped at 60W. Large performance gap vs other RTX 4060 laptops at 100-115W."},
+  {brand:"Lenovo",model:"LOQ 15 (RTX 4060 / Ryzen 7 7745HX)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:60,note:"Unusual: RTX 4060 capped at 60W on LOQ 15 APH9."},
+  {brand:"Lenovo",model:"LOQ 15 (RTX 4070 / Ryzen 7 7745HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:80},
+
+  // ━━ LENOVO IDEAPAD GAMING ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"Lenovo",model:"IdeaPad Gaming 3 (RTX 3050 Ti)",gpu:"RTX 3050 Ti Laptop",cpu:"Ryzen 5 5600H",tgp:75},
   {brand:"Lenovo",model:"IdeaPad Gaming 3 (RTX 3060)",gpu:"RTX 3060 Laptop",cpu:"Ryzen 5 5600H",tgp:80},
-  // Lenovo Legion
-  {brand:"Lenovo",model:"Legion 5 Gen 9 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:115},
-  {brand:"Lenovo",model:"Legion 5 Gen 9 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:115},
-  {brand:"Lenovo",model:"Legion 5 Pro Gen 9 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:140,note:"TGP boost via Lenovo Vantage Performance Mode."},
-  {brand:"Lenovo",model:"Legion 5 Pro Gen 9 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Ryzen 9 7945HX",tgp:150},
-  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:115},
-  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Ryzen 9 7945HX",tgp:150},
-  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Ryzen 9 7945HX",tgp:175},
-  {brand:"Lenovo",model:"Legion Pro 7i (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:175,note:"One of the highest TGP laptop configs available."},
-  {brand:"Lenovo",model:"Legion Pro 7i (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
-  {brand:"Lenovo",model:"Legion Slim 5 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700H",tgp:65,note:"Thin-and-light — 65W to stay within slim thermal constraints."},
-  // ASUS TUF
-  {brand:"ASUS",model:"TUF Gaming A15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:100},
-  {brand:"ASUS",model:"TUF Gaming A15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:125},
-  {brand:"ASUS",model:"TUF Gaming F15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700H",tgp:100},
-  {brand:"ASUS",model:"TUF Gaming F15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:125},
-  {brand:"ASUS",model:"TUF Gaming A16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:125},
-  // ASUS ROG Strix
-  {brand:"ASUS",model:"ROG Strix G16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:100},
-  {brand:"ASUS",model:"ROG Strix G16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:125},
-  {brand:"ASUS",model:"ROG Strix G16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
-  {brand:"ASUS",model:"ROG Strix G18 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
-  {brand:"ASUS",model:"ROG Strix G18 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175},
-  {brand:"ASUS",model:"ROG Strix SCAR 16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Ryzen 9 7945HX",tgp:150},
-  {brand:"ASUS",model:"ROG Strix SCAR 16 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Ryzen 9 7945HX",tgp:175},
-  {brand:"ASUS",model:"ROG Strix SCAR 18 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175},
-  // ASUS ROG Zephyrus
-  {brand:"ASUS",model:"ROG Zephyrus G14 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:80,note:"Thin chassis limits TGP. Great efficiency but not full performance."},
-  {brand:"ASUS",model:"ROG Zephyrus G14 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
-  {brand:"ASUS",model:"ROG Zephyrus G16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
-  {brand:"ASUS",model:"ROG Zephyrus G16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:120},
-  {brand:"ASUS",model:"ROG Zephyrus M16 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900H",tgp:150},
-  {brand:"ASUS",model:"ROG Flow X13 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:65,note:"Ultra-thin convertible — significantly lower TGP than gaming laptops."},
-  {brand:"ASUS",model:"ROG Flow X13 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:75},
-  // MSI
-  {brand:"MSI",model:"Cyborg 15 (RTX 4050)",gpu:"RTX 4050 Laptop",cpu:"Core i7-13620H",tgp:80},
-  {brand:"MSI",model:"Cyborg 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13620H",tgp:85},
-  {brand:"MSI",model:"Katana 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13620H",tgp:105},
-  {brand:"MSI",model:"Katana 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13620H",tgp:115},
-  {brand:"MSI",model:"Vector GP76 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:115},
-  {brand:"MSI",model:"Vector GP76 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:150},
-  {brand:"MSI",model:"Raider GE78 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
-  {brand:"MSI",model:"Raider GE78 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175},
-  {brand:"MSI",model:"Stealth 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:80,note:"Slim profile — 80W TGP."},
-  {brand:"MSI",model:"Stealth 16 Studio (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:100},
-  {brand:"MSI",model:"Stealth 16 Studio (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:120},
-  // HP
-  {brand:"HP",model:"Victus 15 (RTX 4050)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:60,note:"Budget gaming — 60W TGP, same constraints as Lenovo LOQ."},
-  {brand:"HP",model:"Victus 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7535HS",tgp:80},
-  {brand:"HP",model:"Victus 16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7535HS",tgp:80},
-  {brand:"HP",model:"Victus 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HS",tgp:80,note:"HP caps RTX 4070 at 80W on Victus — notably lower than most at 115W+."},
-  {brand:"HP",model:"OMEN 16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HS",tgp:100},
-  {brand:"HP",model:"OMEN 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:115},
-  {brand:"HP",model:"OMEN 17 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:125},
-  {brand:"HP",model:"OMEN 17 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
-  {brand:"HP",model:"OMEN Transcend 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900H",tgp:100,note:"Thin OMEN — 100W is a solid compromise for the slim chassis."},
-  // Dell / Alienware
-  {brand:"Dell",model:"G15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell caps G15 at 80W — notably slower than RTX 4060 laptops at 100-115W."},
-  {brand:"Dell",model:"G15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell G15 caps RTX 4070 at 80W — large gap vs competitors at 115W+."},
-  {brand:"Dell",model:"G16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:100},
-  {brand:"Dell",model:"G16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13650HX",tgp:105},
-  {brand:"Alienware",model:"m16 R2 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700HX",tgp:125},
-  {brand:"Alienware",model:"m16 R2 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
-  {brand:"Alienware",model:"m18 R2 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
-  {brand:"Alienware",model:"m18 R2 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
-  {brand:"Alienware",model:"x16 R2 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-14900HX",tgp:150,note:"Despite full RTX 4090, capped at 150W to manage thermals in the slim chassis."},
-  // Acer
-  {brand:"Acer",model:"Nitro V 15 (RTX 4050)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:75},
-  {brand:"Acer",model:"Nitro V 15 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7735HS",tgp:80},
-  {brand:"Acer",model:"Nitro 5 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:85},
-  {brand:"Acer",model:"Nitro 5 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i5-13420H",tgp:115},
-  {brand:"Acer",model:"Predator Helios Neo 16 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700HX",tgp:100},
-  {brand:"Acer",model:"Predator Helios Neo 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700HX",tgp:100},
-  {brand:"Acer",model:"Predator Helios 16 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:140},
-  {brand:"Acer",model:"Predator Helios 16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
-  {brand:"Acer",model:"Predator Helios 18 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
-  {brand:"Acer",model:"Predator Helios 18 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
-  // Razer
-  {brand:"Razer",model:"Blade 14 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:80},
-  {brand:"Razer",model:"Blade 14 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
-  {brand:"Razer",model:"Blade 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13800H",tgp:100,note:"Premium thin chassis — 100W is a solid balance for the Blade's slim design."},
-  {brand:"Razer",model:"Blade 15 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:120},
-  {brand:"Razer",model:"Blade 15 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:150},
-  {brand:"Razer",model:"Blade 16 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:120},
-  {brand:"Razer",model:"Blade 16 (RTX 4090)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:150},
-  // Gigabyte / AORUS
-  {brand:"Gigabyte",model:"G5 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i5-12500H",tgp:80},
-  {brand:"Gigabyte",model:"G6 (RTX 4060)",gpu:"RTX 4060 Laptop",cpu:"Core i7-12650H",tgp:80},
-  {brand:"Gigabyte",model:"AORUS 15 (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:130},
-  {brand:"Gigabyte",model:"AORUS 15 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
-  {brand:"Gigabyte",model:"AORUS 17 (RTX 4080)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
-  // Samsung
-  {brand:"Samsung",model:"Galaxy Book4 Ultra (RTX 4070)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:65,note:"Professional ultrabook — 65W TGP, much lower than gaming laptops."},
+
+  // ━━ LENOVO LEGION AMD GPU SERIES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Lenovo",model:"Legion 5 Gen 6 (RX 6600M / Ryzen 5 5600H)",gpu:"RX 6600M",cpu:"Ryzen 5 5600H",tgp:100,note:"First generation Lenovo Legion with AMD discrete GPU. Good TGP at 100W."},
+  {brand:"Lenovo",model:"Legion 5 Gen 6 (RX 6600M / Ryzen 7 5800H)",gpu:"RX 6600M",cpu:"Ryzen 7 5800H",tgp:100},
+  {brand:"Lenovo",model:"Legion 5 Gen 7 (RX 6700M / Ryzen 7 6800H)",gpu:"RX 6700M",cpu:"Ryzen 7 6800H",tgp:100,note:"Solid AMD-only gaming laptop from 2022."},
+
+  // ━━ LENOVO LEGION NVIDIA SERIES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Lenovo",model:"Legion 5 Gen 9 (RTX 4060 / Ryzen 7 7745HX)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:115},
+  {brand:"Lenovo",model:"Legion 5 Gen 9 (RTX 4070 / Ryzen 7 7745HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:115},
+  {brand:"Lenovo",model:"Legion 5 Gen 9 (RTX 4060 / Core i7-13700H)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700H",tgp:115},
+  {brand:"Lenovo",model:"Legion 5 Pro Gen 9 (RTX 4070 / Ryzen 9 7945HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:140,note:"TGP boost to 140W available in Performance Mode via Lenovo Vantage."},
+  {brand:"Lenovo",model:"Legion 5 Pro Gen 9 (RTX 4080 / Ryzen 9 7945HX)",gpu:"RTX 4080 Laptop",cpu:"Ryzen 9 7945HX",tgp:150},
+  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4060 / Ryzen 9 7945HX)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7945HX",tgp:115},
+  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4070 / Ryzen 9 7945HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:140,note:"TGP boost via Vantage Performance Mode."},
+  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4080 / Ryzen 9 7945HX)",gpu:"RTX 4080 Laptop",cpu:"Ryzen 9 7945HX",tgp:150},
+  {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4090 / Ryzen 9 7945HX)",gpu:"RTX 4090 Laptop",cpu:"Ryzen 9 7945HX",tgp:175},
+  {brand:"Lenovo",model:"Legion Pro 7i Gen 8 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:175,note:"One of the highest TGP laptop configurations available."},
+  {brand:"Lenovo",model:"Legion Pro 7i Gen 8 (RTX 4090 / Core i9-13900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
+  {brand:"Lenovo",model:"Legion 9i Gen 8 (RTX 4090 / Core i9-13900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175,note:"Flagship Legion — liquid metal thermal compound, sustained 175W."},
+  {brand:"Lenovo",model:"Legion Slim 5 Gen 8 (RTX 4060 / Core i7-13700H)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700H",tgp:65,note:"Thin-and-light design limits TGP to 65W."},
+
+  // ━━ ASUS TUF GAMING ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"ASUS",model:"TUF Gaming A15 (RTX 4060 / Ryzen 7 7745HX)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:100},
+  {brand:"ASUS",model:"TUF Gaming A15 (RTX 4070 / Ryzen 9 7945HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:125},
+  {brand:"ASUS",model:"TUF Gaming A15 (RTX 4060 / Ryzen 7 7745H)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745H",tgp:100,note:"Some markets ship with the H (non-HX) Ryzen variant."},
+  {brand:"ASUS",model:"TUF Gaming A17 (RTX 4060 / Ryzen 7 7745HX)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:100},
+  {brand:"ASUS",model:"TUF Gaming A17 (RTX 4070 / Ryzen 9 7945HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:125},
+  {brand:"ASUS",model:"TUF Gaming F15 (RTX 4060 / Core i7-13700H)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700H",tgp:100},
+  {brand:"ASUS",model:"TUF Gaming F15 (RTX 4070 / Core i7-13700H)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:125},
+  {brand:"ASUS",model:"TUF Gaming A16 (RTX 4070 / Ryzen 9 7945HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:125},
+
+  // ━━ ASUS ROG STRIX (AMD GPU) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"ASUS",model:"ROG Strix G15 2021 (RX 6700M / Ryzen 9 5900HX)",gpu:"RX 6700M",cpu:"Ryzen 9 5900HX",tgp:100,note:"AMD-only gaming laptop. Solid 100W TGP for the RX 6700M."},
+  {brand:"ASUS",model:"ROG Strix G15 2022 (RX 6800M / Ryzen 9 6900HX)",gpu:"RX 6850M XT",cpu:"Ryzen 9 6900HX",tgp:145,note:"High-end AMD system. The 6800M runs near the RX 6850M XT spec at 145W."},
+  {brand:"ASUS",model:"ROG Strix SCAR 16 2024 AMD (RX 7900M / Ryzen 9 7945HX)",gpu:"RX 7900M",cpu:"Ryzen 9 7945HX",tgp:175,note:"ASUS released an AMD GPU variant of the SCAR 16 with RX 7900M at full 175W TGP."},
+
+  // ━━ ASUS ROG STRIX (NVIDIA) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"ASUS",model:"ROG Strix G16 (RTX 4060 / Core i7-13650HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:100},
+  {brand:"ASUS",model:"ROG Strix G16 (RTX 4070 / Core i9-13980HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:125},
+  {brand:"ASUS",model:"ROG Strix G16 (RTX 4080 / Core i9-13980HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
+  {brand:"ASUS",model:"ROG Strix G18 (RTX 4070 / Core i9-13980HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:125},
+  {brand:"ASUS",model:"ROG Strix G18 (RTX 4080 / Core i9-13980HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
+  {brand:"ASUS",model:"ROG Strix G18 (RTX 4090 / Core i9-13980HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175},
+  {brand:"ASUS",model:"ROG Strix SCAR 16 (RTX 4080 / Ryzen 9 7945HX)",gpu:"RTX 4080 Laptop",cpu:"Ryzen 9 7945HX",tgp:150},
+  {brand:"ASUS",model:"ROG Strix SCAR 16 (RTX 4090 / Ryzen 9 7945HX)",gpu:"RTX 4090 Laptop",cpu:"Ryzen 9 7945HX",tgp:175},
+  {brand:"ASUS",model:"ROG Strix SCAR 18 (RTX 4090 / Core i9-13980HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175},
+  // 2025 SCAR
+  {brand:"ASUS",model:"ROG Strix SCAR 16 2025 (RTX 5090 / Ryzen AI 9 HX 370)",gpu:"RTX 5090 Laptop",cpu:"Ryzen AI 9 HX 370",tgp:175},
+  {brand:"ASUS",model:"ROG Strix SCAR 18 2025 (RTX 5090 / Core Ultra 9 285HX)",gpu:"RTX 5090 Laptop",cpu:"Core Ultra 9 285HX",tgp:175},
+
+  // ━━ ASUS ROG ZEPHYRUS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"ASUS",model:"ROG Zephyrus G14 2022 (RX 6700S / Ryzen 9 6900HS)",gpu:"RX 6700M",cpu:"Ryzen 9 6900HS",tgp:65,note:"The 2022 G14 used AMD discrete GPU. RX 6700S runs at 65W (S = slim/lower TGP)."},
+  {brand:"ASUS",model:"ROG Zephyrus G14 2023 (RTX 4060 / Ryzen 9 7940HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:80,note:"Switched back to NVIDIA in 2023. Thin chassis caps TGP at 80W."},
+  {brand:"ASUS",model:"ROG Zephyrus G14 2023 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
+  {brand:"ASUS",model:"ROG Zephyrus G14 2024 (RTX 4070 / Ryzen AI 9 HX 370)",gpu:"RTX 4070 Laptop",cpu:"Ryzen AI 9 HX 370",tgp:100},
+  {brand:"ASUS",model:"ROG Zephyrus G16 2024 (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:100,note:"2024 G16 (GU605) uses Intel Meteor Lake — not Raptor Lake. Thin chassis at 100W TGP."},
+  {brand:"ASUS",model:"ROG Zephyrus G16 2024 (RTX 4080 / Core Ultra 9 185H)",gpu:"RTX 4080 Laptop",cpu:"Core Ultra 9 185H",tgp:120,note:"2024 G16 Meteor Lake. 120W TGP for RTX 4080 in the slim chassis."},
+  {brand:"ASUS",model:"ROG Zephyrus G16 2025 (RTX 5080 / Core Ultra 9 285H)",gpu:"RTX 5080 Laptop",cpu:"Core Ultra 9 285H",tgp:150},
+  {brand:"ASUS",model:"ROG Zephyrus M16 (RTX 4090 / Core i9-13900H)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900H",tgp:150},
+  {brand:"ASUS",model:"ROG Flow X13 (RTX 4060 / Ryzen 9 7940HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:65,note:"Ultra-thin convertible — 65W TGP."},
+  {brand:"ASUS",model:"ROG Flow X13 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:75},
+
+  // ━━ MSI (AMD GPU) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"MSI",model:"Bravo 15 A5EF (RX 6600M / Ryzen 7 5800H)",gpu:"RX 6600M",cpu:"Ryzen 7 5800H",tgp:80,note:"Budget AMD gaming laptop. 80W TGP is lower than Legion 5 Gen 6 at 100W."},
+  {brand:"MSI",model:"Alpha 15 B5EEK (RX 6700M / Ryzen 9 5900HX)",gpu:"RX 6700M",cpu:"Ryzen 9 5900HX",tgp:80,note:"All-AMD gaming laptop. 80W is lower than the RX 6700M's 100W max."},
+
+  // ━━ MSI (NVIDIA) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"MSI",model:"Cyborg 15 (RTX 4050 / Core i7-13620H)",gpu:"RTX 4050 Laptop",cpu:"Core i7-13620H",tgp:80},
+  {brand:"MSI",model:"Cyborg 15 (RTX 4060 / Core i7-13620H)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13620H",tgp:85},
+  {brand:"MSI",model:"Katana 15 B13V (RTX 4060 / Core i7-13620H)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13620H",tgp:105},
+  {brand:"MSI",model:"Katana 15 B13V (RTX 4070 / Core i7-13620H)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13620H",tgp:115},
+  {brand:"MSI",model:"Vector GP76 HX (RTX 4070 / Core i7-13700H)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:115},
+  {brand:"MSI",model:"Vector GP76 HX (RTX 4080 / Core i9-13900H)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:150},
+  {brand:"MSI",model:"Raider GE78 HX (RTX 4080 / Core i9-13980HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
+  {brand:"MSI",model:"Raider GE78 HX (RTX 4090 / Core i9-13980HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175},
+  {brand:"MSI",model:"Titan GT77 HX (RTX 4090 / Core i9-13980HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:175,note:"Desktop-class performance in laptop form. 175W sustained TGP."},
+  {brand:"MSI",model:"Stealth 15 (RTX 4070 / Core i7-13700H)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:80,note:"Slim profile constrains TGP to 80W."},
+  {brand:"MSI",model:"Stealth 16 Studio (RTX 4070 / Core i7-13700H)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:100},
+  {brand:"MSI",model:"Stealth 16 Studio (RTX 4080 / Core i9-13900H)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:120},
+
+  // ━━ HP (AMD GPU) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"HP",model:"OMEN 16 (RX 6600M / Ryzen 7 6800H)",gpu:"RX 6600M",cpu:"Ryzen 7 6800H",tgp:80,note:"HP's AMD discrete GPU option. 80W TGP is below the RX 6600M's 100W max."},
+
+  // ━━ HP (NVIDIA) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"HP",model:"Victus 15 (RTX 4050 / Ryzen 5 7535HS)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:60,note:"Budget gaming — 60W TGP, same constraint as Lenovo LOQ."},
+  {brand:"HP",model:"Victus 15 (RTX 4060 / Ryzen 5 7535HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7535HS",tgp:80},
+  {brand:"HP",model:"Victus 16 (RTX 4060 / Ryzen 5 7535HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7535HS",tgp:80},
+  {brand:"HP",model:"Victus 16 (RTX 4070 / Ryzen 7 7745HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HS",tgp:80,note:"HP caps the RTX 4070 at 80W on Victus — notably lower than most at 115W+."},
+  {brand:"HP",model:"OMEN 16 (RTX 4060 / Ryzen 7 7745HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HS",tgp:100},
+  {brand:"HP",model:"OMEN 16 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:115},
+  {brand:"HP",model:"OMEN 17 (RTX 4070 / Core i9-13900HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:125},
+  {brand:"HP",model:"OMEN 17 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"HP",model:"OMEN Transcend 16 (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:100,note:"Thin OMEN uses Meteor Lake (Core Ultra 9 185H) — different architecture from standard H-series. 100W TGP."},
+
+  // ━━ DELL (AMD GPU) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Dell",model:"G15 5525 (RX 6700M / Ryzen 7 6800H)",gpu:"RX 6700M",cpu:"Ryzen 7 6800H",tgp:80,note:"Dell's AMD GPU G15 variant. 80W TGP — same cap as the NVIDIA G15 models."},
+
+  // ━━ DELL / ALIENWARE (NVIDIA) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Dell",model:"G15 5530 (RTX 4060 / Core i7-13650HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell caps G15 at 80W — noticeably slower than RTX 4060 laptops at 100-115W."},
+  {brand:"Dell",model:"G15 5530 (RTX 4070 / Core i7-13650HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell G15 caps RTX 4070 at 80W — large gap vs competitors at 115W+."},
+  {brand:"Dell",model:"G16 7630 (RTX 4060 / Core i7-13650HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:100},
+  {brand:"Dell",model:"G16 7630 (RTX 4070 / Core i7-13650HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13650HX",tgp:105},
+  {brand:"Alienware",model:"m16 R2 (RTX 4070 / Core i7-13700HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700HX",tgp:125},
+  {brand:"Alienware",model:"m16 R2 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Alienware",model:"m18 R2 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Alienware",model:"m18 R2 (RTX 4090 / Core i9-13900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
+  {brand:"Alienware",model:"x16 R2 (RTX 4090 / Core i9-14900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-14900HX",tgp:150,note:"Despite the full RTX 4090 chip, capped at 150W in the slim x16 chassis."},
+
+  // ━━ ACER (AMD GPU) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Acer",model:"Nitro 5 AN515-46 (RX 6600M / Ryzen 5 6600H)",gpu:"RX 6600M",cpu:"Ryzen 5 6600H",tgp:80,note:"AMD-only Nitro 5. 80W TGP for the RX 6600M."},
+  {brand:"Acer",model:"Nitro 5 AN515-46 (RX 6600M / Ryzen 7 6800H)",gpu:"RX 6600M",cpu:"Ryzen 7 6800H",tgp:80},
+
+  // ━━ ACER (NVIDIA) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Acer",model:"Nitro V 15 (RTX 4050 / Ryzen 5 7535HS)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:75},
+  {brand:"Acer",model:"Nitro V 15 (RTX 4060 / Ryzen 7 7735HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7735HS",tgp:80},
+  {brand:"Acer",model:"Nitro 5 (RTX 4060 / Core i5-13420H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:85},
+  {brand:"Acer",model:"Nitro 5 (RTX 4070 / Core i5-13420H)",gpu:"RTX 4070 Laptop",cpu:"Core i5-13420H",tgp:115},
+  {brand:"Acer",model:"Predator Helios Neo 16 (RTX 4060 / Core i7-13700HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700HX",tgp:100},
+  {brand:"Acer",model:"Predator Helios Neo 16 (RTX 4070 / Core i7-13700HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700HX",tgp:100},
+  {brand:"Acer",model:"Predator Helios 16 (RTX 4070 / Core i9-13900HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:140},
+  {brand:"Acer",model:"Predator Helios 16 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Acer",model:"Predator Helios 18 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Acer",model:"Predator Helios 18 (RTX 4090 / Core i9-13900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
+
+  // ━━ RAZER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Razer",model:"Blade 14 (RTX 4060 / Ryzen 9 7940HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:80},
+  {brand:"Razer",model:"Blade 14 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
+  {brand:"Razer",model:"Blade 15 (RTX 4070 / Core i7-13800H)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13800H",tgp:100,note:"Premium slim chassis — 100W is a good balance for the Blade's thin design."},
+  {brand:"Razer",model:"Blade 15 (RTX 4080 / Core i9-13900H)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:120},
+  {brand:"Razer",model:"Blade 15 (RTX 4090 / Core i9-13900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Razer",model:"Blade 16 (RTX 4080 / Core i9-13980HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:120},
+  {brand:"Razer",model:"Blade 16 (RTX 4090 / Core i9-13980HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:150},
+  {brand:"Razer",model:"Blade 16 2025 (RTX 5090 / Core Ultra 9 285HX)",gpu:"RTX 5090 Laptop",cpu:"Core Ultra 9 285HX",tgp:150,note:"2025 Blade 16 — thermal-limited to 150W despite RTX 5090 chip."},
+
+  // ━━ GIGABYTE / AORUS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Gigabyte",model:"G5 KF (RTX 4060 / Core i5-12500H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-12500H",tgp:80},
+  {brand:"Gigabyte",model:"G6 KF (RTX 4060 / Core i7-12650H)",gpu:"RTX 4060 Laptop",cpu:"Core i7-12650H",tgp:80},
+  {brand:"Gigabyte",model:"AORUS 15 (RTX 4070 / Core i7-13700H)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700H",tgp:130},
+  {brand:"Gigabyte",model:"AORUS 15 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+  {brand:"Gigabyte",model:"AORUS 17 (RTX 4070 / Core i9-13900HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:130},
+  {brand:"Gigabyte",model:"AORUS 17 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
+
+  // ━━ FRAMEWORK ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Framework",model:"Framework 16 (RX 7700S / Ryzen 7 7840HS)",gpu:"RX 7700S",cpu:"Ryzen 7 7840HS",tgp:100,note:"Modular open-source laptop. RX 7700S GPU module at 100W. Uses Phoenix Ryzen 7 7840HS — NOT Dragon Range HX."},
+  {brand:"Framework",model:"Framework 16 (RX 7600M XT / Ryzen 9 7940HS)",gpu:"RX 7600M XT",cpu:"Ryzen 9 7940HS",tgp:100,note:"Higher-CPU config. RX 7600M XT at 100W. Framework 16 uses Phoenix HS chips, not Dragon Range HX."},
+
+  // ━━ SAMSUNG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Samsung",model:"Galaxy Book4 Ultra (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:65,note:"Professional ultrabook — 65W TGP, much lower than gaming laptops."},
+
+  // ━━ LENOVO — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Lenovo",model:"LOQ 15 Gen 2 Intel (RTX 4060 / Core i5-14450HX)",gpu:"RTX 4060 Laptop",cpu:"Core i5-14450HX",tgp:60,note:"2024 LOQ 15 Gen 2 still caps GPU at 60W. RTX 4060 here performs significantly below other RTX 4060 laptops."},
+  {brand:"Lenovo",model:"LOQ 15 Gen 2 Intel (RTX 4070 / Core i7-14650HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-14650HX",tgp:80},
+  {brand:"Lenovo",model:"IdeaPad Gaming 3i (RTX 3060 / Core i5-12500H)",gpu:"RTX 3060 Laptop",cpu:"Core i5-12500H",tgp:80},
+  {brand:"Lenovo",model:"Legion 5i Gen 8 (RTX 3070 Ti / Core i7-12700H)",gpu:"RTX 3070 Ti Laptop",cpu:"Core i7-12700H",tgp:125},
+  {brand:"Lenovo",model:"Legion 5i Gen 9 (RTX 4060 / Core i7-13700HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700HX",tgp:115},
+  {brand:"Lenovo",model:"Legion 5i Gen 9 (RTX 4070 / Core i7-13700HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700HX",tgp:115},
+  {brand:"Lenovo",model:"Legion Slim 7 Gen 8 (RTX 4060 / Ryzen 7 7840HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7840HS",tgp:80,note:"Thin Legion — 80W TGP to maintain the ultraslim chassis."},
+  {brand:"Lenovo",model:"Legion Slim 7 Gen 8 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100,note:"Higher CPU tier Slim 7. 100W — acceptable for a premium slim gaming laptop."},
+  {brand:"Lenovo",model:"Legion 7 Gen 10 (RTX 5080 / Ryzen 9 9955HX)",gpu:"RTX 5080 Laptop",cpu:"Ryzen 9 9955HX",tgp:150},
+  {brand:"Lenovo",model:"Legion 5 Gen 10 (RTX 5060 / Core i7-14650HX)",gpu:"RTX 5060 Laptop",cpu:"Core i7-14650HX",tgp:80},
+  {brand:"Lenovo",model:"Legion 5 Gen 10 (RTX 5070 Ti / Core i9-14900HX)",gpu:"RTX 5070 Ti Laptop",cpu:"Core i9-14900HX",tgp:115},
+
+  // ━━ ASUS — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"ASUS",model:"ROG Strix G16 2025 (RTX 5080 / Core i9-14900HX)",gpu:"RTX 5080 Laptop",cpu:"Core i9-14900HX",tgp:150},
+  {brand:"ASUS",model:"ROG Strix G18 2025 (RTX 5090 / Core i9-14900HX)",gpu:"RTX 5090 Laptop",cpu:"Core i9-14900HX",tgp:175},
+  {brand:"ASUS",model:"ROG Zephyrus G14 2025 (RTX 5070 / Ryzen AI 9 HX 370)",gpu:"RTX 5070 Laptop",cpu:"Ryzen AI 9 HX 370",tgp:100,note:"2025 G14 pairs Strix Point with Blackwell GPU. 100W in the thin chassis."},
+  {brand:"ASUS",model:"ROG Strix SCAR 18 2025 (RTX 5090 / Core i9-14900HX)",gpu:"RTX 5090 Laptop",cpu:"Core i9-14900HX",tgp:175},
+  {brand:"ASUS",model:"TUF Gaming A15 2024 (RTX 4060 / Ryzen 7 7435HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7435HS",tgp:100,note:"Budget-tier TUF A15 uses the Ryzen 7 7435HS. Still a solid performer at 100W GPU TGP."},
+  {brand:"ASUS",model:"VivoBook Pro 16X OLED (RTX 4060 / Core i9-13980HX)",gpu:"RTX 4060 Laptop",cpu:"Core i9-13980HX",tgp:60,note:"Content-creator laptop — flagship CPU but GPU severely power-limited at 60W for battery/thermals."},
+  {brand:"ASUS",model:"ProArt Studiobook 16 (RTX 4070 / Core i9-13980HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:80,note:"Workstation laptop — GPU TGP kept low for quiet sustained operation."},
+
+  // ━━ MSI — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"MSI",model:"Titan GT78 HX 2024 (RTX 4090 / Core i9-14900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-14900HX",tgp:175,note:"Desktop-replacement — no thermal compromises."},
+  {brand:"MSI",model:"Vector GP78 HX (RTX 4070 / Core i9-14900HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-14900HX",tgp:115},
+  {brand:"MSI",model:"Vector GP78 HX (RTX 4080 / Core i9-14900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-14900HX",tgp:150},
+  {brand:"MSI",model:"Creator Z17 HX Studio (RTX 4070 / Core i9-13980HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:100,note:"Creator workstation — 100W TGP for sustained quiet operation."},
+  {brand:"MSI",model:"Sword 15 (RTX 4060 / Core i7-13620H)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13620H",tgp:100,note:"Mid-range MSI gaming laptop. Good value at 100W TGP."},
+  {brand:"MSI",model:"Raider GE66 (RTX 3080 Ti / Core i9-12900H)",gpu:"RTX 3080 Ti Laptop",cpu:"Core i9-12900H",tgp:150},
+
+  // ━━ HP — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"HP",model:"OMEN Max 16 (RTX 4090 / Core i9-14900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-14900HX",tgp:175,note:"HP flagship — full 175W TGP, no compromises."},
+  {brand:"HP",model:"OMEN 16 Intel (RTX 4060 / Core i7-13700HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700HX",tgp:100},
+  {brand:"HP",model:"OMEN 16 Intel (RTX 4070 / Core i9-13900HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:115},
+  {brand:"HP",model:"Victus 15 Intel (RTX 4060 / Core i5-13420H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:80},
+  {brand:"HP",model:"Victus 16 Intel (RTX 4060 / Core i5-13420H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:80},
+  {brand:"HP",model:"OMEN 16 2025 (RTX 5070 Ti / Core Ultra 7 255H)",gpu:"RTX 5070 Ti Laptop",cpu:"Core Ultra 7 255H",tgp:115},
+
+  // ━━ DELL / ALIENWARE — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Dell",model:"G15 5535 AMD (RTX 4060 / Ryzen 5 7640HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7640HS",tgp:80,note:"AMD G15 variant with lower-tier CPU. Same 80W TGP constraint as Intel G15."},
+  {brand:"Dell",model:"G15 5535 AMD (RTX 4070 / Ryzen 7 7745HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:80,note:"AMD G15 with Dragon Range CPU. GPU still capped at 80W."},
+  {brand:"Dell",model:"XPS 15 9530 (RTX 4060 / Core i9-13900H)",gpu:"RTX 4060 Laptop",cpu:"Core i9-13900H",tgp:80,note:"Premium ultraslim — GPU heavily constrained at 80W for the thin chassis."},
+  {brand:"Alienware",model:"m16 R2 AMD (RTX 4070 / Ryzen 9 7945HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:125},
+
+  // ━━ ACER — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Acer",model:"Nitro V 15 Intel (RTX 4060 / Core i5-13420H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:80},
+  {brand:"Acer",model:"Nitro 5 AMD (RTX 4060 / Ryzen 7 7745HX)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:85},
+  {brand:"Acer",model:"Nitro 5 AMD (RTX 4070 / Ryzen 7 7745HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:115},
+  {brand:"Acer",model:"Predator Triton Neo 16 (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:100,note:"Thin Predator using Meteor Lake. 100W is solid for the slim chassis."},
+  {brand:"Acer",model:"Predator Triton Neo 16 (RTX 4080 / Core Ultra 9 185H)",gpu:"RTX 4080 Laptop",cpu:"Core Ultra 9 185H",tgp:120},
+
+  // ━━ RAZER — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Razer",model:"Blade 14 2024 (RTX 4070 / Ryzen 9 8945HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 8945HS",tgp:100,note:"2024 Blade 14 upgrades to Hawk Point (Ryzen 9 8945HS). Same 100W TGP."},
+  {brand:"Razer",model:"Blade 18 (RTX 4090 / Core i9-13950HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13950HX",tgp:175,note:"Desktop-replacement Razer Blade 18 — full 175W TGP, no thermal compromise."},
+  {brand:"Razer",model:"Blade 16 2025 (RTX 5090 / Core Ultra 9 285HX)",gpu:"RTX 5090 Laptop",cpu:"Core Ultra 9 285HX",tgp:150},
+
+  // ━━ GIGABYTE — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Gigabyte",model:"AORUS Master 16 (RTX 4080 / Core i9-14900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-14900HX",tgp:150},
+  {brand:"Gigabyte",model:"AORUS 16X (RTX 4080 / Core i9-13980HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
+  {brand:"Gigabyte",model:"G7 KF (RTX 4060 / Core i7-13650HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:100},
+
+  // ━━ SAMSUNG — additional ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Samsung",model:"Galaxy Book4 Ultra (RTX 4080 / Core Ultra 9 185H)",gpu:"RTX 4080 Laptop",cpu:"Core Ultra 9 185H",tgp:80,note:"Even the RTX 4080 is limited to 80W in this ultra-slim chassis. Prioritises battery life."},
+
+  // ━━ AMD GPU — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"ASUS",model:"ROG Strix SCAR 16 2024 AMD (RX 7900M / Ryzen 9 7945HX)",gpu:"RX 7900M",cpu:"Ryzen 9 7945HX",tgp:150,note:"All-AMD flagship. RX 7900M at 150W is competitive with RTX 4080 Laptop."},
+  {brand:"Lenovo",model:"Legion 5 Gen 7 AMD (RX 6700M / Ryzen 7 6800H)",gpu:"RX 6700M",cpu:"Ryzen 7 6800H",tgp:100,note:"2022 all-AMD Legion — solid 1080p/1440p performer."},
+  {brand:"Lenovo",model:"Legion 5 Gen 8 AMD (RX 7600M XT / Ryzen 7 7745HX)",gpu:"RX 7600M XT",cpu:"Ryzen 7 7745HX",tgp:120,note:"2023 all-AMD — RX 7600M XT is a capable 1080p/1440p GPU."},
+  {brand:"HP",model:"OMEN 16 2022 AMD (RX 6650M / Ryzen 7 6800H)",gpu:"RX 6600M",cpu:"Ryzen 7 6800H",tgp:80,note:"2022 all-AMD OMEN. RX 6650M performs similarly to RX 6600M — mapped to closest available key."},
+  {brand:"MSI",model:"Bravo 15 B7ED (RX 7600M / Ryzen 7 7745HX)",gpu:"RX 7600M",cpu:"Ryzen 7 7745HX",tgp:80,note:"2023 all-AMD MSI. RX 7600M at 80W — solid budget gaming GPU."},
+  {brand:"Acer",model:"Nitro 5 2022 AMD (RX 6600M / Ryzen 7 6800H)",gpu:"RX 6600M",cpu:"Ryzen 7 6800H",tgp:80},
+
+  // ━━ 2025 HIGH-END MODELS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"Lenovo",model:"Legion 9i Gen 10 (RTX 5090 / Core Ultra 9 285HX)",gpu:"RTX 5090 Laptop",cpu:"Core Ultra 9 285HX",tgp:175,note:"2025 flagship. Liquid metal thermal compound maintains sustained 175W."},
+  {brand:"ASUS",model:"ROG Zephyrus G16 2025 (RTX 5080 / Core Ultra 9 285H)",gpu:"RTX 5080 Laptop",cpu:"Core Ultra 9 285H",tgp:150},
+  {brand:"MSI",model:"Raider GE78 HX 2025 (RTX 5090 / Core i9-14900HX)",gpu:"RTX 5090 Laptop",cpu:"Core i9-14900HX",tgp:175},
 ];
 
 // ── Laptop model search helper ────────────────────────────────────────────────
