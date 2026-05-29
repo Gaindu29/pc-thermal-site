@@ -1,5 +1,5 @@
 /**
- * ThermalCore — GPU Temperature Checker Logic
+ * TempCore — GPU Temperature Checker Logic
  * gpu-checker.js
  */
 
