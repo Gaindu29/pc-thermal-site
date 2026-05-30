@@ -818,14 +818,14 @@ function estimateFPS(gpuKey, cpuKey, ramKey, ramType, resolution, qualityKey, ga
 
 // ── Performance tier ──────────────────────────────────────────────────────────
 function fpsTier(fps) {
-  if (fps <  20) return { label:"UNPLAYABLE",   cssClass:"critical", color:"var(--critical)", icon:"💀" };
-  if (fps <  30) return { label:"VERY POOR",    cssClass:"critical", color:"var(--critical)", icon:"🔴" };
-  if (fps <  45) return { label:"PLAYABLE",     cssClass:"hot",      color:"var(--hot)",      icon:"🟠" };
-  if (fps <  60) return { label:"DECENT",       cssClass:"warm",     color:"var(--warm)",     icon:"🟡" };
-  if (fps <  90) return { label:"SMOOTH",       cssClass:"safe",     color:"var(--safe)",     icon:"🟢" };
-  if (fps < 144) return { label:"GREAT",        cssClass:"safe",     color:"var(--safe)",     icon:"✅" };
-  if (fps < 240) return { label:"HIGH REFRESH", cssClass:"safe",     color:"var(--accent)",   icon:"⚡" };
-  return               { label:"OVERKILL",      cssClass:"safe",     color:"var(--accent)",   icon:"🚀" };
+  if (fps <  20) return { label:"UNPLAYABLE",   cssClass:"critical", color:"var(--critical)" };
+  if (fps <  30) return { label:"VERY POOR",    cssClass:"critical", color:"var(--critical)" };
+  if (fps <  45) return { label:"PLAYABLE",     cssClass:"hot",      color:"var(--hot)" };
+  if (fps <  60) return { label:"DECENT",       cssClass:"warm",     color:"var(--warm)" };
+  if (fps <  90) return { label:"SMOOTH",       cssClass:"safe",     color:"var(--safe)" };
+  if (fps < 144) return { label:"GREAT",        cssClass:"safe",     color:"var(--safe)" };
+  if (fps < 240) return { label:"HIGH REFRESH", cssClass:"safe",     color:"var(--accent)" };
+  return               { label:"OVERKILL",      cssClass:"safe",     color:"var(--accent)" };
 }
 
 // ── Game search ───────────────────────────────────────────────────────────────
@@ -1060,7 +1060,7 @@ function runFPSEstimate() {
       if (tgpPct > 5) {
         tgpNote = '<div style="background:rgba(0,200,255,0.05); border:1px solid rgba(0,200,255,0.2); border-left:3px solid var(--accent); ' +
           'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
-          '📊 <strong style="color:var(--accent);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> — ' +
+          '<span style="display:inline-block;font-family:monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;background:rgba(0,0,0,0.2);border:1px solid var(--accent);color:var(--accent);border-radius:3px;padding:0.1rem 0.35rem;margin-right:0.4rem;vertical-align:middle;">INFO</span><strong style="color:var(--accent);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> — ' +
           'GPU TGP: <strong>' + selectedLaptopModel.tgp + 'W</strong> (max is ' + maxTGP + 'W). ' +
           'A <strong>' + tgpPct + '% performance adjustment</strong> has been applied to reflect your laptop\'s actual power limit.' +
           (selectedLaptopModel.note ? ' <em style="color:#555568;">' + selectedLaptopModel.note + '</em>' : '') +
@@ -1068,7 +1068,7 @@ function runFPSEstimate() {
       } else {
         tgpNote = '<div style="background:rgba(34,212,126,0.05); border:1px solid rgba(34,212,126,0.2); border-left:3px solid var(--safe); ' +
           'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
-          '✅ <strong style="color:var(--safe);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> — ' +
+          '<span style="display:inline-block;font-family:monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;background:rgba(0,0,0,0.2);border:1px solid var(--safe);color:var(--safe);border-radius:3px;padding:0.1rem 0.35rem;margin-right:0.4rem;vertical-align:middle;">OK</span><strong style="color:var(--safe);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> — ' +
           'GPU running at full <strong>' + selectedLaptopModel.tgp + 'W TGP</strong>. Estimate is well-calibrated for your configuration.' +
           '</div>';
       }
@@ -1076,7 +1076,7 @@ function runFPSEstimate() {
       // No model specified — warn about TGP assumption
       tgpNote = '<div style="background:rgba(255,170,0,0.05); border:1px solid rgba(255,170,0,0.2); border-left:3px solid var(--warm); ' +
         'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
-        '⚠️ <strong style="color:var(--warm);">No laptop model specified</strong> — estimate assumes near-maximum TGP for this GPU. ' +
+        '<span style="display:inline-block;font-family:monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;background:rgba(0,0,0,0.2);border:1px solid var(--warn);color:var(--warn);border-radius:3px;padding:0.1rem 0.35rem;margin-right:0.4rem;vertical-align:middle;">WARN</span><strong style="color:var(--warm);">No laptop model specified</strong> — estimate assumes near-maximum TGP for this GPU. ' +
         'Budget and mid-range gaming laptops often run GPUs at 30–40% below their maximum TGP, which can reduce real-world FPS significantly. ' +
         '<strong style="color:var(--warm);">Enter your laptop model above</strong> for a more accurate, TGP-adjusted estimate.' +
         '</div>';
@@ -1140,7 +1140,7 @@ function runFPSEstimate() {
 
   var ramNote = (ramKey === "8GB" && selectedGame.ramSensitive)
     ? '<div style="background:rgba(255,34,68,0.05); border:1px solid rgba(255,34,68,0.2); border-left:3px solid var(--critical); ' +
-      'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">🔴 ' +
+      'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
       '<strong style="color:var(--critical);">8GB RAM warning:</strong> ' + selectedGame.name +
       ' benefits significantly from 16GB. Expect stutter and reduced average FPS with 8GB.' +
       (isLaptop ? ' This is especially pronounced on laptops with shared memory bandwidth.' : '') + '</div>'
@@ -1149,7 +1149,7 @@ function runFPSEstimate() {
   var platformBadge = isLaptop
     ? '<span style="background:rgba(255,170,0,0.1); border:1px solid rgba(255,170,0,0.25); color:var(--warm); ' +
       'font-family:\'JetBrains Mono\',monospace; font-size:0.62rem; border-radius:4px; padding:0.15rem 0.5rem; ' +
-      'margin-left:0.5rem; vertical-align:middle;">💻 LAPTOP</span>'
+      'margin-left:0.5rem; vertical-align:middle;">LAPTOP</span>'
     : "";
 
   var ddrBadge = ramType === "DDR5"
@@ -1188,8 +1188,8 @@ function runFPSEstimate() {
     // ── Accuracy feedback bar ──────────────────────────────────────────────
     '<div id="fps-thumbs-bar" style="margin-top:1rem; padding-top:0.875rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">' +
       '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.68rem; color:#555568;">Was this accurate?</span>' +
-      '<button onclick="handleThumbsUp()" style="background:transparent; border:1px solid rgba(34,212,126,0.25); color:#22d47e; font-family:\'JetBrains Mono\',monospace; font-size:0.7rem; padding:0.25rem 0.65rem; border-radius:5px; cursor:pointer;">👍 Looks right</button>' +
-      '<button onclick="window.openFB(\'calibrate\')" style="background:transparent; border:1px solid rgba(255,100,34,0.25); color:#ff6422; font-family:\'JetBrains Mono\',monospace; font-size:0.7rem; padding:0.25rem 0.65rem; border-radius:5px; cursor:pointer;">👎 Help us calibrate</button>' +
+      '<button onclick="handleThumbsUp()" style="background:transparent; border:1px solid rgba(34,212,126,0.25); color:#22d47e; font-family:\'JetBrains Mono\',monospace; font-size:0.7rem; padding:0.25rem 0.65rem; border-radius:5px; cursor:pointer;">Accurate</button>' +
+      '<button onclick="window.openFB(\'calibrate\')" style="background:transparent; border:1px solid rgba(255,100,34,0.25); color:#ff6422; font-family:\'JetBrains Mono\',monospace; font-size:0.7rem; padding:0.25rem 0.65rem; border-radius:5px; cursor:pointer;">Calibrate</button>' +
     '</div>';
 
   // Store estimate data for feedback pre-fill
@@ -1229,7 +1229,7 @@ function handleThumbsUp() {
   var bar = document.getElementById("fps-thumbs-bar");
   if (bar) bar.innerHTML =
     '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:var(--safe);">' +
-    '👍 Thanks — helps us validate our data!</span>';
+    '✓ Thanks — helps us validate our data!</span>';
 }
 // handleThumbsDown is wired directly to window.openFB in the result HTML
 
@@ -1249,7 +1249,7 @@ document.addEventListener("click", function(e) {
 function handleThumbsUp() {
   var bar = document.getElementById("fps-thumbs-bar");
   var inline = document.getElementById("fps-inline-feedback");
-  if (bar) bar.innerHTML = '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:var(--safe);">👍 Thanks — helps us validate our data!</span>';
+  if (bar) bar.innerHTML = '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:var(--safe);"> Thanks — helps us validate our data!</span>';
   if (inline) inline.style.display = "none";
   // Send a silent positive signal (no email needed)
 }
@@ -1319,7 +1319,7 @@ function submitInlineFeedback() {
   sendToWeb3Forms("TempCore — FPS Calibration Report [" + lastEstimate.game + " / " + lastEstimate.gpu + "]", message, function(ok) {
     if (ok) {
       document.getElementById("fps-inline-feedback").innerHTML =
-        '<div style="padding:0.5rem 0; font-family:\'JetBrains Mono\',monospace; font-size:0.78rem; color:var(--safe);">✅ Sent — thank you! This helps us calibrate the ' + lastEstimate.gpu + ' multiplier.</div>';
+        '<div style="padding:0.5rem 0; font-family:\'JetBrains Mono\',monospace; font-size:0.78rem; color:var(--safe);"> Sent — thank you! This helps us calibrate the ' + lastEstimate.gpu + ' multiplier.</div>';
       var bar = document.getElementById("fps-thumbs-bar");
       if (bar) bar.style.display = "none";
     } else {

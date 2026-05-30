@@ -394,7 +394,7 @@ function calcPSU() {
 
   const ocNote = ocLevel !== "none"
     ? `<div style="background:rgba(255,170,0,0.06); border:1px solid rgba(255,170,0,0.2); border-left:3px solid var(--warm); border-radius:6px; padding:0.65rem 0.875rem; font-size:0.8rem; color:#b0b0c8; margin-bottom:1rem; line-height:1.6;">
-        ⚡ Overclock included: +${ocCpuExtra}W CPU${ocGpuExtra > 0 ? `, +${ocGpuExtra}W GPU` : ""} added to estimate.
+        Overclock included: +${ocCpuExtra}W CPU${ocGpuExtra > 0 ? `, +${ocGpuExtra}W GPU` : ""} added to estimate.
        </div>`
     : "";
 

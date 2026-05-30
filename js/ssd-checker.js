@@ -37,10 +37,10 @@ const SSD_PROFILES = {
 };
 
 const TIERS = {
-  safe:     { label: "SAFE",     cssClass: "safe",     emoji: "✅" },
-  warm:     { label: "WARM",     cssClass: "warm",     emoji: "⚠️" },
-  hot:      { label: "TOO HOT",  cssClass: "hot",      emoji: "🔥" },
-  critical: { label: "CRITICAL", cssClass: "critical", emoji: "🚨" },
+  safe:     { label: "SAFE",     cssClass: "safe",     emoji: "" },
+  warm:     { label: "WARM",     cssClass: "warm",     emoji: "" },
+  hot:      { label: "TOO HOT",  cssClass: "hot",      emoji: "" },
+  critical: { label: "CRITICAL", cssClass: "critical", emoji: "" },
 };
 
 const SUGGESTIONS = {
@@ -475,7 +475,7 @@ function checkLifespan() {
   // NAND note
   var nandNote = "";
   if (ssd.nand === "3D QLC") {
-    nandNote = '<div style="background:rgba(255,170,0,0.06); border:1px solid rgba(255,170,0,0.2); border-left:3px solid var(--warm); border-radius:6px; padding:0.75rem 1rem; font-size:0.8rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">⚠️ This drive uses <strong style="color:var(--text);">QLC NAND</strong>, which has lower write endurance than TLC. The rated TBW reflects this — stay within it more carefully than with a TLC drive.</div>';
+    nandNote = '<div style="background:rgba(255,170,0,0.06); border:1px solid rgba(255,170,0,0.2); border-left:3px solid var(--warm); border-radius:6px; padding:0.75rem 1rem; font-size:0.8rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;"> This drive uses <strong style="color:var(--text);">QLC NAND</strong>, which has lower write endurance than TLC. The rated TBW reflects this — stay within it more carefully than with a TLC drive.</div>';
   }
 
   // Beyond TBW note

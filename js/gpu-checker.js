@@ -83,10 +83,10 @@ const DEFAULT_GPU = { tjMax: 95, safeGaming: 83, warnGaming: 89 };
 
 // Status tier definitions
 const TIERS = {
-  safe:     { label: "SAFE",     emoji: "✅", color: "safe" },
-  warm:     { label: "WARM",     emoji: "⚠️", color: "warm" },
-  hot:      { label: "TOO HOT",  emoji: "🔥", color: "hot"  },
-  critical: { label: "CRITICAL", emoji: "🚨", color: "critical" },
+  safe:     { label: "SAFE",     emoji: "", color: "safe" },
+  warm:     { label: "WARM",     emoji: "", color: "warm" },
+  hot:      { label: "TOO HOT",  emoji: "", color: "hot"  },
+  critical: { label: "CRITICAL", emoji: "", color: "critical" },
 };
 
 const SUGGESTIONS = {

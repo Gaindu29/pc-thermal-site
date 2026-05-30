@@ -363,9 +363,9 @@
             <div class="mb-5">
               <label class="field-label">Use Case</label>
               <div class="uc-chips">
-                <button class="uc-chip selected" id="uc-gaming"    onclick="selectUC('gaming')"   >🎮 Gaming</button>
-                <button class="uc-chip"          id="uc-streaming" onclick="selectUC('streaming')">📡 Streaming</button>
-                <button class="uc-chip"          id="uc-editing"   onclick="selectUC('editing')"  >🎬 Editing</button>
+                <button class="uc-chip selected" id="uc-gaming"    onclick="selectUC('gaming')"   >Gaming</button>
+                <button class="uc-chip"          id="uc-streaming" onclick="selectUC('streaming')">Streaming</button>
+                <button class="uc-chip"          id="uc-editing"   onclick="selectUC('editing')"  >Editing</button>
               </div>
               <input type="hidden" id="bn-usecase" value="gaming">
               <div class="field-hint">Streaming and editing shift more load to the CPU</div>
@@ -394,7 +394,7 @@
 
         <!-- Default state -->
         <div id="bn-default" class="card p-10 flex flex-col items-center justify-center text-center" style="min-height:320px;">
-          <div style="font-size:3.5rem; margin-bottom:1rem; filter:grayscale(0.3);">⚡</div>
+          <div style="margin-bottom:1rem;"><svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6;"><path d="M4 16h10M14 16l-4-4M14 16l-4 4"/><path d="M28 16H18M18 16l4-4M18 16l4 4"/><line x1="16" y1="9" x2="16" y2="23" stroke-dasharray="2.5 2.5"/></svg></div>
           <div class="font-display text-2xl mb-2" style="color:#445566;">Select CPU &amp; GPU</div>
           <p style="color:#445566; font-size:0.85rem; max-width:300px; line-height:1.6;">
             Choose your CPU and GPU from the dropdowns to see how well matched they are across 1080p, 1440p, and 4K.

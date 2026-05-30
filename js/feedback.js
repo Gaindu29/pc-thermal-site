@@ -112,9 +112,9 @@
       '</div>',
 
       '<div id="fb-tabs">',
-        '<button class="fb-tab-btn active" id="fbtn-calibrate" onclick="window.switchFBTab(\'calibrate\')">&#x1F4CA; Calibrate</button>',
-        '<button class="fb-tab-btn"        id="fbtn-missing"   onclick="window.switchFBTab(\'missing\')">&#x1F527; Missing HW</button>',
-        '<button class="fb-tab-btn"        id="fbtn-general"   onclick="window.switchFBTab(\'general\')">&#x1F4A1; Suggestion</button>',
+        '<button class="fb-tab-btn active" id="fbtn-calibrate" onclick="window.switchFBTab(\'calibrate\')">Calibrate</button>',
+        '<button class="fb-tab-btn"        id="fbtn-missing"   onclick="window.switchFBTab(\'missing\')">Missing HW</button>',
+        '<button class="fb-tab-btn"        id="fbtn-general"   onclick="window.switchFBTab(\'general\')">Suggestion</button>',
       '</div>',
 
       '<div id="fb-body">',
@@ -212,7 +212,7 @@
     // Floating button
     var btn = document.createElement('button');
     btn.id = 'fb-float';
-    btn.innerHTML = '&#x1F4AC; Feedback';
+    btn.innerHTML = 'Feedback';
     btn.onclick = function () { window.openFB('general'); };
     document.body.appendChild(btn);
 
@@ -339,7 +339,7 @@
     .then(function (r) { return r.json(); })
     .then(function (d) {
       if (d.success) {
-        submitBtn.textContent = 'Sent ✓';
+        submitBtn.textContent = 'Sent';
         statusEl.style.color = '#22d47e';
         statusEl.textContent = 'Thanks — every submission is reviewed.';
         setTimeout(window.closeFB, 2800);
