@@ -1,158 +1,27 @@
 /* ==========================================================================
    TempCore — PC Builder Recommendation Engine
    --------------------------------------------------------------------------
-   Approximate USD street prices, 2026. Real prices vary — the affiliate links
-   reflect the live price at click-through.
-   --------------------------------------------------------------------------
-   Affiliate link convention:
-     - aff:  shortened amzn.to link (TempCore affiliate, existing)
-     - search: amazon.com search URL — needs replacing with an affiliate link
+   This file contains the recommendation logic only.
+   Component data (prices, specs, affiliate links) lives in components.js,
+   which must be loaded BEFORE this file via a separate <script> tag.
+
+   Status: BETA — released May 2026.
    ========================================================================== */
 
-/* ---------- CPU DATABASE ---------- */
-var CPUS = [
-  // Entry — AM4
-  { name: "AMD Ryzen 5 5500",          brand: "amd",   socket: "AM4",  price: 95,  perf: 55, tdp: 65,  igpu: false, aff: "https://www.amazon.com/s?k=AMD+Ryzen+5+5500" },
-  { name: "AMD Ryzen 5 5600",          brand: "amd",   socket: "AM4",  price: 125, perf: 62, tdp: 65,  igpu: false, aff: "https://www.amazon.com/s?k=AMD+Ryzen+5+5600" },
-  { name: "Intel Core i3-13100F",      brand: "intel", socket: "LGA1700", price: 110, perf: 56, tdp: 60,  igpu: false, aff: "https://www.amazon.com/s?k=Intel+Core+i3-13100F" },
-  { name: "Intel Core i5-12400F",      brand: "intel", socket: "LGA1700", price: 140, perf: 64, tdp: 65,  igpu: false, aff: "https://www.amazon.com/s?k=Intel+Core+i5-12400F" },
+if (!window.COMPONENTS_DATA) {
+  console.error("PC Builder: components.js must be loaded before pc-builder.js");
+}
 
-  // Mid — AM5 / LGA1700
-  { name: "AMD Ryzen 5 7600",          brand: "amd",   socket: "AM5",  price: 200, perf: 75, tdp: 65,  igpu: true,  aff: "https://amzn.to/4u9w4CC" },
-  { name: "AMD Ryzen 5 7600X",         brand: "amd",   socket: "AM5",  price: 220, perf: 78, tdp: 105, igpu: true,  aff: "https://www.amazon.com/s?k=AMD+Ryzen+5+7600X" },
-  { name: "Intel Core i5-13400F",      brand: "intel", socket: "LGA1700", price: 180, perf: 72, tdp: 65,  igpu: false, aff: "https://www.amazon.com/s?k=Intel+Core+i5-13400F" },
-  { name: "Intel Core i5-13600K",      brand: "intel", socket: "LGA1700", price: 280, perf: 84, tdp: 125, igpu: true,  aff: "https://amzn.to/4o8f8Lp" },
-  { name: "Intel Core i5-14600KF",     brand: "intel", socket: "LGA1700", price: 290, perf: 86, tdp: 125, igpu: false, aff: "https://www.amazon.com/s?k=Intel+Core+i5-14600KF" },
-
-  // Upper Mid
-  { name: "AMD Ryzen 7 5800X3D",       brand: "amd",   socket: "AM4",  price: 300, perf: 82, tdp: 105, igpu: false, aff: "https://www.amazon.com/s?k=AMD+Ryzen+7+5800X3D" },
-  { name: "AMD Ryzen 7 7700",          brand: "amd",   socket: "AM5",  price: 300, perf: 86, tdp: 65,  igpu: true,  aff: "https://www.amazon.com/s?k=AMD+Ryzen+7+7700" },
-  { name: "AMD Ryzen 7 7700X",         brand: "amd",   socket: "AM5",  price: 330, perf: 88, tdp: 105, igpu: true,  aff: "https://amzn.to/4nVbV1w" },
-  { name: "Intel Core i7-13700K",      brand: "intel", socket: "LGA1700", price: 390, perf: 92, tdp: 125, igpu: true,  aff: "https://www.amazon.com/s?k=Intel+Core+i7-13700K" },
-  { name: "Intel Core i7-14700K",      brand: "intel", socket: "LGA1700", price: 410, perf: 95, tdp: 125, igpu: true,  aff: "https://www.amazon.com/s?k=Intel+Core+i7-14700K" },
-
-  // High
-  { name: "AMD Ryzen 7 7800X3D",       brand: "amd",   socket: "AM5",  price: 430, perf: 96, tdp: 120, igpu: true,  aff: "https://www.amazon.com/s?k=AMD+Ryzen+7+7800X3D" },
-  { name: "AMD Ryzen 9 7900X",         brand: "amd",   socket: "AM5",  price: 430, perf: 94, tdp: 170, igpu: true,  aff: "https://www.amazon.com/s?k=AMD+Ryzen+9+7900X" },
-  { name: "AMD Ryzen 9 9900X",         brand: "amd",   socket: "AM5",  price: 470, perf: 97, tdp: 120, igpu: true,  aff: "https://www.amazon.com/s?k=AMD+Ryzen+9+9900X" },
-
-  // Enthusiast
-  { name: "Intel Core i9-14900K",      brand: "intel", socket: "LGA1700", price: 580, perf: 100, tdp: 125, igpu: true, aff: "https://www.amazon.com/s?k=Intel+Core+i9-14900K" },
-  { name: "AMD Ryzen 9 7950X3D",       brand: "amd",   socket: "AM5",  price: 590, perf: 102, tdp: 120, igpu: true, aff: "https://www.amazon.com/s?k=AMD+Ryzen+9+7950X3D" },
-  { name: "AMD Ryzen 9 9950X3D",       brand: "amd",   socket: "AM5",  price: 700, perf: 110, tdp: 170, igpu: true, aff: "https://www.amazon.com/s?k=AMD+Ryzen+9+9950X3D" }
-];
-
-/* ---------- GPU DATABASE ---------- */
-/* perf is a relative gaming score where RTX 4060 = 50. vram in GB. */
-var GPUS = [
-  { name: "AMD Radeon RX 6600",        price: 200, perf: 42, vram: 8,  tdp: 132, aff: "https://www.amazon.com/s?k=AMD+Radeon+RX+6600" },
-  { name: "NVIDIA RTX 3060 12GB",      price: 240, perf: 46, vram: 12, tdp: 170, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+3060+12GB" },
-  { name: "NVIDIA RTX 4060",           price: 280, perf: 50, vram: 8,  tdp: 115, aff: "https://amzn.to/4dUBxHy" },
-  { name: "AMD Radeon RX 7600 XT",     price: 320, perf: 53, vram: 16, tdp: 190, aff: "https://amzn.to/43J9Axn" },
-  { name: "NVIDIA RTX 5060",           price: 340, perf: 60, vram: 8,  tdp: 150, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+5060" },
-  { name: "NVIDIA RTX 4060 Ti",        price: 400, perf: 62, vram: 8,  tdp: 160, aff: "https://amzn.to/3PxJGtn" },
-  { name: "AMD Radeon RX 7700 XT",     price: 430, perf: 70, vram: 12, tdp: 245, aff: "https://amzn.to/4fQwxpG" },
-  { name: "NVIDIA RTX 5060 Ti 16GB",   price: 460, perf: 72, vram: 16, tdp: 180, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+5060+Ti+16GB" },
-  { name: "AMD Radeon RX 7800 XT",     price: 520, perf: 80, vram: 16, tdp: 263, aff: "https://www.amazon.com/s?k=AMD+Radeon+RX+7800+XT" },
-  { name: "NVIDIA RTX 4070",           price: 540, perf: 78, vram: 12, tdp: 200, aff: "https://amzn.to/4x0ekMw" },
-  { name: "NVIDIA RTX 5070",           price: 580, perf: 88, vram: 12, tdp: 250, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+5070" },
-  { name: "NVIDIA RTX 4070 Super",     price: 600, perf: 86, vram: 12, tdp: 220, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+4070+Super" },
-  { name: "AMD Radeon RX 7900 GRE",    price: 580, perf: 88, vram: 16, tdp: 260, aff: "https://www.amazon.com/s?k=AMD+Radeon+RX+7900+GRE" },
-  { name: "AMD Radeon RX 7900 XT",     price: 680, perf: 95, vram: 20, tdp: 315, aff: "https://www.amazon.com/s?k=AMD+Radeon+RX+7900+XT" },
-  { name: "NVIDIA RTX 5070 Ti",        price: 770, perf: 102, vram: 16, tdp: 300, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+5070+Ti" },
-  { name: "NVIDIA RTX 4070 Ti Super",  price: 800, perf: 100, vram: 16, tdp: 285, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+4070+Ti+Super" },
-  { name: "AMD Radeon RX 7900 XTX",    price: 890, perf: 110, vram: 24, tdp: 355, aff: "https://www.amazon.com/s?k=AMD+Radeon+RX+7900+XTX" },
-  { name: "NVIDIA RTX 4080 Super",     price: 1000, perf: 115, vram: 16, tdp: 320, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+4080+Super" },
-  { name: "NVIDIA RTX 5080",           price: 1100, perf: 130, vram: 16, tdp: 360, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+5080" },
-  { name: "NVIDIA RTX 4090",           price: 1700, perf: 150, vram: 24, tdp: 450, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+4090" },
-  { name: "NVIDIA RTX 5090",           price: 2200, perf: 180, vram: 32, tdp: 575, aff: "https://www.amazon.com/s?k=NVIDIA+RTX+5090" }
-];
-
-/* ---------- MOTHERBOARD DATABASE ---------- */
-var MOBOS = [
-  { name: "MSI A520M-A PRO",           price: 70,  socket: "AM4",     formFactor: "mATX", wifi: false, tier: 1, aff: "https://www.amazon.com/s?k=MSI+A520M-A+PRO" },
-  { name: "ASUS PRIME B450M-A II",     price: 80,  socket: "AM4",     formFactor: "mATX", wifi: false, tier: 1, aff: "https://www.amazon.com/s?k=ASUS+PRIME+B450M-A+II" },
-  { name: "MSI B550M PRO-VDH WiFi",    price: 120, socket: "AM4",     formFactor: "mATX", wifi: true,  tier: 2, aff: "https://www.amazon.com/s?k=MSI+B550M+PRO-VDH+WiFi" },
-  { name: "ASRock B550 Phantom Gaming 4", price: 110, socket: "AM4",  formFactor: "ATX",  wifi: false, tier: 2, aff: "https://www.amazon.com/s?k=ASRock+B550+Phantom+Gaming+4" },
-
-  { name: "MSI PRO B760M-A WiFi DDR4", price: 130, socket: "LGA1700", formFactor: "mATX", wifi: true,  tier: 2, aff: "https://www.amazon.com/s?k=MSI+PRO+B760M-A+WiFi+DDR4" },
-  { name: "ASUS PRIME B760-PLUS D4",   price: 150, socket: "LGA1700", formFactor: "ATX",  wifi: false, tier: 2, aff: "https://www.amazon.com/s?k=ASUS+PRIME+B760-PLUS+D4" },
-  { name: "MSI MAG B760 TOMAHAWK WiFi",price: 200, socket: "LGA1700", formFactor: "ATX",  wifi: true,  tier: 3, aff: "https://www.amazon.com/s?k=MSI+MAG+B760+TOMAHAWK+WiFi" },
-  { name: "Gigabyte Z790 AORUS Elite AX", price: 280, socket: "LGA1700", formFactor: "ATX", wifi: true, tier: 4, aff: "https://www.amazon.com/s?k=Gigabyte+Z790+AORUS+Elite+AX" },
-
-  { name: "MSI PRO B650M-A WiFi",      price: 160, socket: "AM5",     formFactor: "mATX", wifi: true,  tier: 2, aff: "https://www.amazon.com/s?k=MSI+PRO+B650M-A+WiFi" },
-  { name: "ASRock B650 PG Lightning",  price: 170, socket: "AM5",     formFactor: "ATX",  wifi: false, tier: 2, aff: "https://www.amazon.com/s?k=ASRock+B650+PG+Lightning" },
-  { name: "MSI MAG B650 TOMAHAWK WiFi",price: 220, socket: "AM5",     formFactor: "ATX",  wifi: true,  tier: 3, aff: "https://www.amazon.com/s?k=MSI+MAG+B650+TOMAHAWK+WiFi" },
-  { name: "ASUS ROG STRIX B650E-F WiFi",price: 270, socket: "AM5",    formFactor: "ATX",  wifi: true,  tier: 3, aff: "https://www.amazon.com/s?k=ASUS+ROG+STRIX+B650E-F+WiFi" },
-  { name: "ASUS ROG STRIX X670E-E WiFi",price: 400, socket: "AM5",    formFactor: "ATX",  wifi: true,  tier: 4, aff: "https://www.amazon.com/s?k=ASUS+ROG+STRIX+X670E-E+WiFi" }
-];
-
-/* ---------- RAM DATABASE ---------- */
-var RAMS = [
-  { name: "Corsair Vengeance LPX 16GB DDR4-3200 (2x8GB)",   price: 40,  size: 16,  type: "DDR4", aff: "https://amzn.to/4vmVEVW" },
-  { name: "Crucial 16GB DDR4-3200 (2x8GB)",                  price: 38,  size: 16,  type: "DDR4", aff: "https://www.amazon.com/s?k=Crucial+16GB+DDR4-3200+2x8GB" },
-  { name: "Corsair Vengeance 32GB DDR4-3600 (2x16GB)",       price: 70,  size: 32,  type: "DDR4", aff: "https://www.amazon.com/s?k=Corsair+Vengeance+32GB+DDR4-3600" },
-  { name: "G.Skill Ripjaws V 32GB DDR4-3600 (2x16GB)",       price: 75,  size: 32,  type: "DDR4", aff: "https://www.amazon.com/s?k=G.Skill+Ripjaws+V+32GB+DDR4-3600" },
-  { name: "G.Skill Flare X5 16GB DDR5-5600 (2x8GB)",         price: 55,  size: 16,  type: "DDR5", aff: "https://www.amazon.com/s?k=G.Skill+Flare+X5+16GB+DDR5-5600" },
-  { name: "Corsair Vengeance 32GB DDR5-6000 (2x16GB)",       price: 95,  size: 32,  type: "DDR5", aff: "https://amzn.to/4uIgTl3" },
-  { name: "G.Skill Trident Z5 32GB DDR5-6000 CL30 (2x16GB)", price: 110, size: 32,  type: "DDR5", aff: "https://amzn.to/4u9PlEb" },
-  { name: "Corsair Vengeance 64GB DDR5-6000 (2x32GB)",       price: 200, size: 64,  type: "DDR5", aff: "https://www.amazon.com/s?k=Corsair+Vengeance+64GB+DDR5-6000" },
-  { name: "G.Skill Trident Z5 64GB DDR5-6400 (2x32GB)",      price: 230, size: 64,  type: "DDR5", aff: "https://www.amazon.com/s?k=G.Skill+Trident+Z5+64GB+DDR5-6400" }
-];
-
-/* ---------- STORAGE DATABASE ---------- */
-var SSDS = [
-  { name: "Crucial MX500 500GB SATA",         price: 50,  size: 500,  type: "SATA",  tier: 1, aff: "https://www.amazon.com/s?k=Crucial+MX500+500GB" },
-  { name: "WD Blue SN570 500GB NVMe",         price: 45,  size: 500,  type: "NVMe",  tier: 1, aff: "https://www.amazon.com/s?k=WD+Blue+SN570+500GB+NVMe" },
-  { name: "Crucial MX500 1TB SATA",           price: 75,  size: 1000, type: "SATA",  tier: 1, aff: "https://amzn.to/4fbk13Y" },
-  { name: "Samsung 870 EVO 1TB SATA",         price: 85,  size: 1000, type: "SATA",  tier: 1, aff: "https://amzn.to/49xtOOd" },
-  { name: "WD Blue SN570 1TB NVMe",           price: 65,  size: 1000, type: "NVMe",  tier: 2, aff: "https://amzn.to/43J9fe5" },
-  { name: "Crucial P3 Plus 1TB NVMe Gen4",    price: 75,  size: 1000, type: "NVMe",  tier: 2, aff: "https://www.amazon.com/s?k=Crucial+P3+Plus+1TB+NVMe" },
-  { name: "Samsung 990 Pro 1TB NVMe Gen4",    price: 110, size: 1000, type: "NVMe",  tier: 3, aff: "https://amzn.to/4xej7KG" },
-  { name: "WD Black SN850X 1TB NVMe Gen4",    price: 110, size: 1000, type: "NVMe",  tier: 3, aff: "https://www.amazon.com/s?k=WD+Black+SN850X+1TB" },
-  { name: "Crucial P3 Plus 2TB NVMe Gen4",    price: 130, size: 2000, type: "NVMe",  tier: 2, aff: "https://www.amazon.com/s?k=Crucial+P3+Plus+2TB+NVMe" },
-  { name: "Samsung 990 Pro 2TB NVMe Gen4",    price: 200, size: 2000, type: "NVMe",  tier: 3, aff: "https://www.amazon.com/s?k=Samsung+990+Pro+2TB" },
-  { name: "WD Black SN850X 2TB NVMe Gen4",    price: 200, size: 2000, type: "NVMe",  tier: 3, aff: "https://www.amazon.com/s?k=WD+Black+SN850X+2TB" }
-];
-
-/* ---------- CASE DATABASE ---------- */
-var CASES = [
-  { name: "Cooler Master MasterBox Q300L",     price: 50,  rgb: false, glass: false, tier: 1, aff: "https://www.amazon.com/s?k=Cooler+Master+MasterBox+Q300L" },
-  { name: "Montech AIR 100 ARGB",              price: 65,  rgb: true,  glass: true,  tier: 2, aff: "https://www.amazon.com/s?k=Montech+AIR+100+ARGB" },
-  { name: "NZXT H510 Flow",                    price: 80,  rgb: false, glass: true,  tier: 2, aff: "https://www.amazon.com/s?k=NZXT+H510+Flow" },
-  { name: "Phanteks Eclipse G360A",            price: 90,  rgb: true,  glass: true,  tier: 2, aff: "https://www.amazon.com/s?k=Phanteks+Eclipse+G360A" },
-  { name: "Lian Li Lancool 216",               price: 110, rgb: true,  glass: true,  tier: 3, aff: "https://www.amazon.com/s?k=Lian+Li+Lancool+216" },
-  { name: "Fractal Design North",              price: 140, rgb: false, glass: true,  tier: 3, aff: "https://www.amazon.com/s?k=Fractal+Design+North" },
-  { name: "Lian Li O11 Dynamic EVO",           price: 170, rgb: false, glass: true,  tier: 4, aff: "https://www.amazon.com/s?k=Lian+Li+O11+Dynamic+EVO" },
-  { name: "Hyte Y60",                          price: 200, rgb: false, glass: true,  tier: 4, aff: "https://www.amazon.com/s?k=Hyte+Y60" }
-];
-
-/* ---------- CPU COOLER DATABASE ---------- */
-var COOLERS = [
-  { name: "Stock cooler (included)",                    price: 0,   maxTdp: 95,  type: "air", aff: null },
-  { name: "ID-COOLING SE-224-XT Black",                 price: 30,  maxTdp: 180, type: "air", aff: "https://www.amazon.com/s?k=ID-COOLING+SE-224-XT" },
-  { name: "Thermalright Peerless Assassin 120 SE",      price: 40,  maxTdp: 245, type: "air", aff: "https://amzn.to/3RDUuqr" },
-  { name: "be quiet! Pure Rock 2 Black",                price: 50,  maxTdp: 150, type: "air", aff: "https://www.amazon.com/s?k=be+quiet+Pure+Rock+2+Black" },
-  { name: "Noctua NH-U12A",                             price: 110, maxTdp: 230, type: "air", aff: "https://www.amazon.com/s?k=Noctua+NH-U12A" },
-  { name: "Arctic Liquid Freezer III 240",              price: 90,  maxTdp: 280, type: "aio", aff: "https://www.amazon.com/s?k=Arctic+Liquid+Freezer+III+240" },
-  { name: "Arctic Liquid Freezer III 360",              price: 130, maxTdp: 350, type: "aio", aff: "https://www.amazon.com/s?k=Arctic+Liquid+Freezer+III+360" },
-  { name: "Corsair iCUE H150i ELITE LCD XT",            price: 220, maxTdp: 350, type: "aio", aff: "https://www.amazon.com/s?k=Corsair+iCUE+H150i+ELITE+LCD+XT" }
-];
-
-/* ---------- PSU DATABASE ---------- */
-var PSUS = [
-  { name: "EVGA 600 BR Bronze",                price: 55,  watts: 600,  rating: "80+ Bronze",   aff: "https://www.amazon.com/s?k=EVGA+600+BR" },
-  { name: "Corsair CV650 Bronze",              price: 70,  watts: 650,  rating: "80+ Bronze",   aff: "https://www.amazon.com/s?k=Corsair+CV650" },
-  { name: "be quiet! Pure Power 12 M 650W",    price: 90,  watts: 650,  rating: "80+ Gold",     aff: "https://www.amazon.com/s?k=be+quiet+Pure+Power+12+M+650W" },
-  { name: "Corsair RM650x",                    price: 110, watts: 650,  rating: "80+ Gold",     aff: "https://www.amazon.com/s?k=Corsair+RM650x" },
-  { name: "Seasonic Focus GX-750",             price: 115, watts: 750,  rating: "80+ Gold",     aff: "https://www.amazon.com/s?k=Seasonic+Focus+GX-750" },
-  { name: "Corsair RM750x",                    price: 125, watts: 750,  rating: "80+ Gold",     aff: "https://www.amazon.com/s?k=Corsair+RM750x" },
-  { name: "Seasonic Focus GX-850",             price: 130, watts: 850,  rating: "80+ Gold",     aff: "https://amzn.to/4uJxcxY" },
-  { name: "Corsair RM850x",                    price: 140, watts: 850,  rating: "80+ Gold",     aff: "https://amzn.to/4dULZif" },
-  { name: "Seasonic Focus GX-1000",            price: 170, watts: 1000, rating: "80+ Gold",     aff: "https://www.amazon.com/s?k=Seasonic+Focus+GX-1000" },
-  { name: "Corsair HX1000",                    price: 185, watts: 1000, rating: "80+ Platinum", aff: "https://www.amazon.com/s?k=Corsair+HX1000" },
-  { name: "Corsair HX1200",                    price: 230, watts: 1200, rating: "80+ Platinum", aff: "https://www.amazon.com/s?k=Corsair+HX1200" }
-];
+var CPUS    = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.CPUS)    || [];
+var GPUS    = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.GPUS)    || [];
+var MOBOS   = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.MOBOS)   || [];
+var RAMS    = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.RAMS)    || [];
+var SSDS    = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.SSDS)    || [];
+var CASES   = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.CASES)   || [];
+var COOLERS = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.COOLERS) || [];
+var PSUS    = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.PSUS)    || [];
+var DATA_LAST_UPDATED = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.lastUpdated) || "unknown";
+var DATA_PRICE_NOTE   = (window.COMPONENTS_DATA && window.COMPONENTS_DATA.priceNote)   || "";
 
 /* ==========================================================================
    RECOMMENDATION ENGINE
@@ -210,25 +79,53 @@ function pickCPU(budget, prefs) {
   var sorted = byPrice(CPUS);
   var pred = function(c) {
     if (prefs.cpuBrand && prefs.cpuBrand !== "either" && c.brand !== prefs.cpuBrand) return false;
-    // For productivity with iGPU-only path, require iGPU
     if (prefs.requireIGPU && !c.igpu) return false;
     return true;
   };
-  return pickBest(sorted, budget, pred) || pickCheapest(sorted, pred) || sorted[0];
+  // Pick CPU with highest perf within budget
+  var best = null;
+  for (var i = 0; i < sorted.length; i++) {
+    var c = sorted[i];
+    if (c.price > budget) continue;
+    if (!pred(c)) continue;
+    if (!best || c.perf > best.perf) best = c;
+  }
+  if (!best) best = pickCheapest(sorted, pred) || sorted[0];
+  return best;
 }
 
 function pickGPU(budget, prefs) {
   var sorted = byPrice(GPUS);
   var pred = function(g) {
-    // AI/ML: bias toward NVIDIA (CUDA) and require >=12GB VRAM if budget allows >=$500
+    // AI/ML: require NVIDIA (CUDA)
     if (prefs.goal === "ai_ml") {
       if (!/NVIDIA/.test(g.name)) return false;
     }
     return true;
   };
-  var pick = pickBest(sorted, budget, pred);
-  if (!pick) pick = pickCheapest(sorted, pred);
-  return pick;
+  // For creation, prefer 12GB+ VRAM when affordable (Blender, video editing, etc. benefit)
+  var preferredPred = pred;
+  if (prefs.goal === "creation") {
+    preferredPred = function(g) { return pred(g) && g.vram >= 12; };
+  }
+  // Pick highest-perf GPU within budget meeting preferred predicate; fall back to base predicate
+  var best = null;
+  for (var i = 0; i < sorted.length; i++) {
+    var g = sorted[i];
+    if (g.price > budget) continue;
+    if (!preferredPred(g)) continue;
+    if (!best || g.perf > best.perf) best = g;
+  }
+  if (!best) {
+    for (var j = 0; j < sorted.length; j++) {
+      var g2 = sorted[j];
+      if (g2.price > budget) continue;
+      if (!pred(g2)) continue;
+      if (!best || g2.perf > best.perf) best = g2;
+    }
+  }
+  if (!best) best = pickCheapest(sorted, pred);
+  return best;
 }
 
 function pickMobo(budget, prefs) {
@@ -352,10 +249,42 @@ function buildPC(input) {
   var rgb = input.rgb || "any";
   var wifi = !!input.wifi;
 
-  if (budget < 500) {
+  if (budget < 700) {
     return {
       ok: false,
-      reason: "Budget too low. A complete PC tower starts around $500. Below that, consider buying a used or prebuilt system."
+      reason: "Budget too low for a complete tower in 2026. With current RAM and SSD prices roughly 2x mid-2024 levels, a complete build now starts around $700. Below that, look at used/refurbished systems or a prebuilt PC on sale."
+    };
+  }
+
+  // Goal-vs-budget feasibility checks — block clearly impossible combinations early
+  if (goal === "gaming" && resolution === "4k" && budget < 1500) {
+    return {
+      ok: false,
+      reason: "4K gaming is not realistic under $1500 with May 2026 component prices. A capable 4K GPU (RTX 5070 Ti / RX 9070 XT or better) alone runs $700+ and leaves no room for the rest of the system. Try 1440p at this budget — it will give a much better experience for the money — or raise the budget to $1800+ for an entry-level 4K build."
+    };
+  }
+  if (goal === "gaming" && resolution === "1440p" && budget < 900) {
+    return {
+      ok: false,
+      reason: "1440p gaming under $900 leaves no room for a GPU that can drive 1440p well in modern AAA titles. Try 1080p at this budget, or raise to $1100+ for a real 1440p build."
+    };
+  }
+  if (goal === "ai_ml" && budget < 1200) {
+    return {
+      ok: false,
+      reason: "AI/ML workloads need a GPU with substantial VRAM. The cheapest cards with 12+ GB VRAM (RTX 5060 Ti 16GB, RTX 5070, RX 9070) start around $400 and need a capable CPU + 32 GB RAM + fast storage around them. $1200+ is realistic; below that, consider cloud GPU rental instead."
+    };
+  }
+  if (goal === "creation" && budget < 1000) {
+    return {
+      ok: false,
+      reason: "Content creation workflows need at least 32 GB RAM (~$200), a fast 1+ TB NVMe (~$200), and a capable GPU. $1000+ is realistic for a usable creation build in 2026; below that, productivity is a better fit for your budget."
+    };
+  }
+  if (goal === "streaming" && budget < 1100) {
+    return {
+      ok: false,
+      reason: "Streaming benefits from extra CPU cores or a GPU with hardware encoding (NVENC / AV1). $1100+ gives you room for both gaming-capable hardware and the encoder headroom for smooth streams. Below that, gaming-only is more achievable."
     };
   }
 
@@ -454,24 +383,25 @@ function buildPC(input) {
   // Step 10: If well under budget (>=15% headroom), upgrade GPU then CPU
   var headroom = budget - total;
   var upgradeAttempts = 0;
-  while (headroom >= budget * 0.10 && upgradeAttempts < 10) {
+  while (headroom >= budget * 0.05 && upgradeAttempts < 10) {
     upgradeAttempts++;
     var upgraded = false;
     // Try upgrading GPU
     if (picks.gpu) {
       var betterGPU = findBetterAlternative("gpu", picks.gpu, headroom, picks, { goal: goal });
       if (betterGPU) {
-        total = total - picks.gpu.price + betterGPU.price;
-        picks.gpu = betterGPU;
-        // Re-check PSU
-        var newPsu = pickPSU(budget, { cpuTDP: picks.cpu.tdp, gpuTDP: betterGPU.tdp });
-        if (newPsu.price !== picks.psu.price) {
-          total = total - picks.psu.price + newPsu.price;
-          picks.psu = newPsu;
+        // Project total INCLUDING any PSU bump the bigger GPU would force
+        var projectedPsu = pickPSU(budget, { cpuTDP: picks.cpu.tdp, gpuTDP: betterGPU.tdp });
+        var psuDelta = (projectedPsu.price !== picks.psu.price) ? (projectedPsu.price - picks.psu.price) : 0;
+        var projectedTotal = total - picks.gpu.price + betterGPU.price + psuDelta;
+        if (projectedTotal <= budget) {
+          total = projectedTotal;
+          picks.gpu = betterGPU;
+          if (psuDelta !== 0) picks.psu = projectedPsu;
+          headroom = budget - total;
+          upgraded = true;
+          continue;
         }
-        headroom = budget - total;
-        upgraded = true;
-        continue;
       }
     }
     // Try upgrading CPU
@@ -479,19 +409,22 @@ function buildPC(input) {
       cpuBrand: cpuBrand, requireIGPU: requireIGPU
     });
     if (betterCPU && betterCPU.socket === picks.cpu.socket) {
-      total = total - picks.cpu.price + betterCPU.price;
-      picks.cpu = betterCPU;
-      // Re-check cooler
+      // Project total INCLUDING any cooler bump the bigger CPU would force
+      var coolerDelta = 0;
+      var newCooler = null;
       if (picks.cooler.maxTdp < betterCPU.tdp) {
-        var newCooler = pickCooler(budget, { cpuTDP: betterCPU.tdp });
-        if (newCooler) {
-          total = total - picks.cooler.price + newCooler.price;
-          picks.cooler = newCooler;
-        }
+        newCooler = pickCooler(budget, { cpuTDP: betterCPU.tdp });
+        if (newCooler) coolerDelta = newCooler.price - picks.cooler.price;
       }
-      headroom = budget - total;
-      upgraded = true;
-      continue;
+      var projectedCpuTotal = total - picks.cpu.price + betterCPU.price + coolerDelta;
+      if (projectedCpuTotal <= budget) {
+        total = projectedCpuTotal;
+        picks.cpu = betterCPU;
+        if (newCooler) picks.cooler = newCooler;
+        headroom = budget - total;
+        upgraded = true;
+        continue;
+      }
     }
     if (!upgraded) break;
   }
@@ -499,20 +432,20 @@ function buildPC(input) {
   // ===== Performance reality checks: warn on borderline configurations =====
   if (goal === "gaming" && picks.gpu) {
     if (resolution === "4k") {
-      if (budget < 1500 || picks.gpu.vram < 12 || picks.gpu.tdp < 200) {
-        warnings.push("4K gaming really wants a budget of $1800+ and a GPU in the RTX 4070 Super class (12+ GB VRAM, 250W+ TDP) or better. At this tier expect to use DLSS/FSR Quality mode, drop to the High preset, or step down to 1440p in the most demanding AAA titles. 1440p will give a much better experience for the money — consider it.");
-      } else if (picks.gpu.price < 700) {
+      if (budget < 1800 || picks.gpu.vram < 12 || picks.gpu.tdp < 200) {
+        warnings.push("This is a borderline 4K build. A more comfortable starting point with 2026 prices is $1800+ paired with an RTX 5070 Ti / RX 9070 XT or better. At this tier, expect to use DLSS/FSR Quality mode, drop to the High preset, or step down to 1440p in the most demanding AAA titles.");
+      } else if (picks.gpu.price < 750) {
         warnings.push("This GPU handles 4K, but in the most demanding new titles you may need to use the High preset (not Ultra) or enable DLSS/FSR Quality to hold 60+ FPS.");
       }
     } else if (resolution === "1440p") {
       if (picks.gpu.vram < 8) {
         warnings.push("Under 8 GB VRAM is borderline at 1440p in modern AAA games. Expect to use Medium textures in the newest titles.");
-      } else if (picks.gpu.vram === 8 && picks.gpu.price < 350) {
+      } else if (picks.gpu.vram === 8 && picks.gpu.price < 400) {
         warnings.push("8 GB VRAM is getting tight at 1440p in the newest AAA titles — expect Medium-High textures rather than Ultra. Fine for esports and most games up through 2024.");
-      } else if (picks.gpu.price < 300) {
+      } else if (picks.gpu.price < 350) {
         warnings.push("This GPU is entry-tier for 1440p. Plan on the Medium-High preset rather than Ultra in newer AAA games to keep 60+ FPS.");
       }
-    } else if (resolution === "1080p" && picks.gpu.price < 200) {
+    } else if (resolution === "1080p" && picks.gpu.price < 250) {
       warnings.push("This is a budget GPU — solid for esports and older AAA titles at 1080p High, but expect to drop to Medium in the newest releases.");
     }
   }
@@ -533,7 +466,7 @@ function buildPC(input) {
     warnings.push("CPU cooler is rated " + picks.cooler.maxTdp + "W vs. a " + picks.cpu.tdp + "W CPU — workable but with little thermal headroom. Expect higher temps under sustained load; a beefier cooler would let the CPU boost longer.");
   }
 
-  if (picks.ram && /16GB/.test(picks.ram.name) && (goal === "creation" || goal === "ai_ml" || goal === "streaming")) {
+  if (picks.ram && picks.ram.size === 16 && (goal === "creation" || goal === "ai_ml" || goal === "streaming")) {
     var workName = goal === "ai_ml" ? "AI/ML" : (goal === "creation" ? "content creation" : "streaming");
     warnings.push("16 GB RAM is tight for " + workName + " work once you have multiple apps and browser tabs open. 32 GB is the practical baseline — a RAM upgrade is a good first-year purchase.");
   }
@@ -551,7 +484,8 @@ function buildPC(input) {
     allocKey: allocKey,
     systemDraw: systemDraw,
     tier: getTierName(budget),
-    iGpuOnly: !picks.gpu
+    iGpuOnly: !picks.gpu,
+    dataLastUpdated: DATA_LAST_UPDATED
   };
 }
 
@@ -582,12 +516,19 @@ function findBetterAlternative(cat, current, extraBudget, picks, opts) {
   var pool = byPrice(getPool(cat));
   var maxPrice = current.price + extraBudget;
   var best = null;
+  var bestMetric = -Infinity;
   for (var i = 0; i < pool.length; i++) {
     var item = pool[i];
     if (item.price <= current.price) continue;
     if (item.price > maxPrice) continue;
     if (!isCompatible(cat, item, picks, opts)) continue;
-    best = item;
+    // For CPU/GPU, rank by perf; for others, by price (proxy for tier)
+    var metric = (cat === "cpu" || cat === "gpu") ? (item.perf || item.price) : item.price;
+    if (item.perf && item.perf <= current.perf) continue; // must actually be better
+    if (metric > bestMetric) {
+      best = item;
+      bestMetric = metric;
+    }
   }
   return best;
 }
@@ -646,10 +587,10 @@ function isCompatible(cat, item, picks, opts) {
 }
 
 function getTierName(budget) {
-  if (budget < 700)  return { label: "Entry", color: "var(--safe)" };
-  if (budget < 1100) return { label: "Mid-Range", color: "var(--accent)" };
-  if (budget < 1700) return { label: "High-End", color: "var(--warm)" };
-  if (budget < 2500) return { label: "Enthusiast", color: "var(--hot)" };
+  if (budget < 900)  return { label: "Entry", color: "var(--safe)" };
+  if (budget < 1400) return { label: "Mid-Range", color: "var(--accent)" };
+  if (budget < 2200) return { label: "High-End", color: "var(--warm)" };
+  if (budget < 3500) return { label: "Enthusiast", color: "var(--hot)" };
   return { label: "Flagship", color: "var(--critical)" };
 }
 
@@ -798,8 +739,17 @@ function pcb_render(result) {
       '</div>' +
     '</div>' +
 
+    /* Price volatility warning (prominent — fires on every successful build) */
+    '<div style="margin-top:1.25rem; padding:0.9rem 1.1rem; background:rgba(255,100,34,0.07); border:1px solid rgba(255,100,34,0.3); border-radius:8px; display:flex; gap:0.7rem; align-items:flex-start;">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hot)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' +
+      '<div style="flex:1;">' +
+        '<div style="font-family:\'JetBrains Mono\',monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--hot); margin-bottom:0.3rem; font-weight:600;">Verify prices before buying</div>' +
+        '<div style="font-size:0.82rem; color:#b0b0c8; line-height:1.55;">Prices last updated <strong style="color:#d0d0e0;">' + result.dataLastUpdated + '</strong>. The ongoing AI-driven DRAM and NAND shortage means RAM, SSDs, and GPUs can move &plusmn;20% week-to-week. Click each component to check the live Amazon price before purchasing — your final build total may differ from the estimate shown.</div>' +
+      '</div>' +
+    '</div>' +
+
     /* Disclaimer */
-    '<p style="margin-top:1rem; font-family:\'JetBrains Mono\',monospace; font-size:0.65rem; color:#555568; line-height:1.6;">Prices are approximate 2026 USD street prices and may vary. Verify current pricing at the retailer before purchasing. Budget excludes peripherals (monitor, keyboard, mouse, headset).</p>';
+    '<p style="margin-top:1rem; font-family:\'JetBrains Mono\',monospace; font-size:0.65rem; color:#555568; line-height:1.6;">PC Builder is in <strong style="color:#8888a0;">BETA</strong>. Component picks are algorithmic suggestions, not personalized advice. Budget excludes peripherals (monitor, keyboard, mouse, headset). As an Amazon Associate, TempCore earns from qualifying purchases.</p>';
 
   resultBox.className = "result-box safe show";
   resultBox.innerHTML = html;

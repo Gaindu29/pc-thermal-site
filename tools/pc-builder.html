@@ -197,6 +197,7 @@
       <div class="hero-badge">
         <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>
         PC Builder
+        <span style="margin-left:0.5rem; padding:0.15rem 0.45rem; background:rgba(255,170,0,0.15); color:var(--warm); border-radius:3px; font-size:0.6rem; letter-spacing:0.1em; font-weight:700;">BETA</span>
       </div>
       <h1 class="font-display" style="font-size:clamp(2.5rem, 6vw, 4.5rem); line-height:0.95; letter-spacing:0.01em; margin-bottom:1rem;">
         Build A PC<br>
@@ -206,26 +207,35 @@
         Enter your total budget and what you intend to do with the machine. The tool picks a full tower &mdash; CPU, GPU, board, RAM, storage, cooling, case, and PSU &mdash; that fits inside that budget. Peripherals (monitor, keyboard, mouse, headset) are intentionally excluded.
       </p>
 
+      <!-- Beta + price-volatility notice -->
+      <div style="margin-top:1.25rem; padding:0.85rem 1.1rem; background:rgba(255,100,34,0.07); border:1px solid rgba(255,100,34,0.3); border-radius:8px; max-width:760px; display:flex; gap:0.7rem; align-items:flex-start;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hot)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div style="flex:1;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--hot); margin-bottom:0.3rem; font-weight:600;">Beta &middot; verify prices before buying</div>
+          <div style="font-size:0.85rem; color:#b0b0c8; line-height:1.55;">The ongoing AI-driven DRAM and NAND shortage has pushed RAM, SSD, and GPU prices to 2&ndash;3x mid-2024 levels, and they move &plusmn;20% week-to-week. Estimates here reflect May 2026 market data. Always click through to Amazon to confirm the live price before purchasing.</div>
+        </div>
+      </div>
+
       <!-- Budget tier strip -->
       <div class="temp-strip" style="margin-top:1.5rem; max-width:760px;">
         <div class="temp-strip-segment" style="background:rgba(34,212,126,0.06); border-right:1px solid var(--border);">
-          <span style="color:var(--safe); font-weight:600;">$500&ndash;$700</span>
+          <span style="color:var(--safe); font-weight:600;">$700&ndash;$900</span>
           <span style="color:#8888a0; font-size:0.6rem;">ENTRY</span>
         </div>
         <div class="temp-strip-segment" style="background:rgba(0,200,255,0.06); border-right:1px solid var(--border);">
-          <span style="color:var(--accent); font-weight:600;">$700&ndash;$1.1K</span>
+          <span style="color:var(--accent); font-weight:600;">$900&ndash;$1.4K</span>
           <span style="color:#8888a0; font-size:0.6rem;">MID-RANGE</span>
         </div>
         <div class="temp-strip-segment" style="background:rgba(255,170,0,0.06); border-right:1px solid var(--border);">
-          <span style="color:var(--warm); font-weight:600;">$1.1K&ndash;$1.7K</span>
+          <span style="color:var(--warm); font-weight:600;">$1.4K&ndash;$2.2K</span>
           <span style="color:#8888a0; font-size:0.6rem;">HIGH-END</span>
         </div>
         <div class="temp-strip-segment" style="background:rgba(255,100,34,0.06); border-right:1px solid var(--border);">
-          <span style="color:var(--hot); font-weight:600;">$1.7K&ndash;$2.5K</span>
+          <span style="color:var(--hot); font-weight:600;">$2.2K&ndash;$3.5K</span>
           <span style="color:#8888a0; font-size:0.6rem;">ENTHUSIAST</span>
         </div>
         <div class="temp-strip-segment" style="background:rgba(255,34,68,0.06);">
-          <span style="color:var(--critical); font-weight:600;">$2.5K+</span>
+          <span style="color:var(--critical); font-weight:600;">$3.5K+</span>
           <span style="color:#8888a0; font-size:0.6rem;">FLAGSHIP</span>
         </div>
       </div>
@@ -248,7 +258,7 @@
               <label class="field-label" for="pcb-budget">Total Budget (USD)</label>
               <div class="budget-wrap">
                 <span class="currency">$</span>
-                <input id="pcb-budget" type="number" class="input-field" placeholder="1200" min="400" max="10000" step="50" value="1200">
+                <input id="pcb-budget" type="number" class="input-field" placeholder="1400" min="700" max="10000" step="50" value="1400">
               </div>
               <p style="font-size:0.7rem; color:#555568; font-family:'JetBrains Mono',monospace; margin-top:0.4rem;">Tower only. Peripherals not included.</p>
             </div>
@@ -439,6 +449,7 @@
     </div>
   </footer>
 
+  <script src="../js/components.js"></script>
   <script src="../js/pc-builder.js"></script>
   <script src="../js/feedback.js"></script>
 </body>
