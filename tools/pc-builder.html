@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build a PC for Your Budget — Free PC Builder Tool | TempCore</title>
+  <meta name="description" content="Free PC builder. Enter your budget and use case (gaming, content creation, streaming, productivity, AI/ML) and get a complete component list with parts that fit. No peripherals — tower only.">
+  <meta name="keywords" content="PC builder, build a PC for my budget, PC parts picker, gaming PC builder, $1000 gaming PC, $1500 gaming PC, PC build planner, custom PC builder">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <link rel="canonical" href="https://temp-core.com/tools/pc-builder.html">
+
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="Build a PC for Your Budget — Free PC Builder Tool | TempCore">
+  <meta property="og:description" content="Enter your budget and goal — get a full PC component list that fits. Gaming, content creation, streaming, productivity, AI/ML.">
+  <meta property="og:url"         content="https://temp-core.com/tools/pc-builder.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TempCore PC Builder",
+    "url": "https://temp-core.com/tools/pc-builder.html",
+    "description": "Free budget-based PC builder. Enter your budget and use case and get a complete component list within budget.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web Browser",
+    "author": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-05-31",
+    "dateModified": "2026-05-31",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .field-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8888a0;
+      margin-bottom: 0.4rem;
+    }
+    select option, select optgroup { background: #141418; }
+
+    /* Chip toggles */
+    .chip-group { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .chip-opt {
+      padding: 0.5rem 0.75rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: #8888a0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .chip-opt:hover { border-color: #3a3a48; color: var(--text); }
+    .chip-opt.active {
+      border-color: var(--accent);
+      background: rgba(0,200,255,0.10);
+      color: var(--accent);
+    }
+
+    /* Goal chip group — full row, equal width */
+    .goal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.4rem;
+    }
+    @media (min-width: 480px) {
+      .goal-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .goal-grid .chip-opt {
+      text-align: center;
+      padding: 0.6rem 0.4rem;
+      justify-content: center;
+    }
+
+    /* Budget input with $ prefix */
+    .budget-wrap {
+      position: relative;
+    }
+    .budget-wrap .currency {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: #8888a0;
+      pointer-events: none;
+    }
+    .budget-wrap .input-field {
+      padding-left: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Wi-Fi toggle */
+    .wifi-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.85rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .wifi-toggle:hover { border-color: #3a3a48; }
+    .wifi-toggle .label {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .wifi-toggle .sub {
+      font-size: 0.7rem;
+      color: #8888a0;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 0.1rem;
+    }
+    .wifi-box {
+      width: 38px; height: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .wifi-box::after {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #555568;
+      top: 3px; left: 3px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .wifi-box.on {
+      background: rgba(0,200,255,0.15);
+      border-color: var(--accent);
+    }
+    .wifi-box.on::after {
+      transform: translateX(16px);
+      background: var(--accent);
+    }
+
+    /* Sticky inputs on desktop */
+    @media (min-width: 768px) {
+      .sticky-inputs { position: sticky; top: 5rem; }
+    }
+  </style>
+</head>
+<body class="bg-bg">
+
+  <!-- NAV -->
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
+      <div class="flex items-center gap-5">
+        <a href="fps-estimator.html"      class="nav-link hidden md:block">FPS</a>
+        <a href="gpu-temp-checker.html"   class="nav-link hidden sm:block">GPU Temp</a>
+        <a href="bottleneck-checker.html" class="nav-link hidden md:block">Bottleneck</a>
+        <a href="psu-calculator.html"     class="nav-link hidden lg:block">PSU Calc</a>
+        <a href="../about.html" class="nav-link hidden lg:block">About</a>
+        <a href="../index.html#tools"
+           style="background:rgba(0,200,255,0.12); border:1px solid rgba(0,200,255,0.3); color:var(--accent);"
+           class="px-3 py-1.5 rounded text-xs font-mono tracking-wider transition-all hover:bg-opacity-20">
+          All Tools &rarr;
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero scanlines" style="padding:3.5rem 0 2.5rem;">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="max-w-6xl mx-auto px-5 relative z-10">
+      <div class="hero-badge">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>
+        PC Builder
+      </div>
+      <h1 class="font-display" style="font-size:clamp(2.5rem, 6vw, 4.5rem); line-height:0.95; letter-spacing:0.01em; margin-bottom:1rem;">
+        Build A PC<br>
+        <span style="color:var(--accent);">For Your Budget.</span>
+      </h1>
+      <p style="font-size:1.02rem; color:#8888a0; max-width:620px; line-height:1.65;">
+        Enter your total budget and what you intend to do with the machine. The tool picks a full tower &mdash; CPU, GPU, board, RAM, storage, cooling, case, and PSU &mdash; that fits inside that budget. Peripherals (monitor, keyboard, mouse, headset) are intentionally excluded.
+      </p>
+
+      <!-- Budget tier strip -->
+      <div class="temp-strip" style="margin-top:1.5rem; max-width:760px;">
+        <div class="temp-strip-segment" style="background:rgba(34,212,126,0.06); border-right:1px solid var(--border);">
+          <span style="color:var(--safe); font-weight:600;">$500&ndash;$700</span>
+          <span style="color:#8888a0; font-size:0.6rem;">ENTRY</span>
+        </div>
+        <div class="temp-strip-segment" style="background:rgba(0,200,255,0.06); border-right:1px solid var(--border);">
+          <span style="color:var(--accent); font-weight:600;">$700&ndash;$1.1K</span>
+          <span style="color:#8888a0; font-size:0.6rem;">MID-RANGE</span>
+        </div>
+        <div class="temp-strip-segment" style="background:rgba(255,170,0,0.06); border-right:1px solid var(--border);">
+          <span style="color:var(--warm); font-weight:600;">$1.1K&ndash;$1.7K</span>
+          <span style="color:#8888a0; font-size:0.6rem;">HIGH-END</span>
+        </div>
+        <div class="temp-strip-segment" style="background:rgba(255,100,34,0.06); border-right:1px solid var(--border);">
+          <span style="color:var(--hot); font-weight:600;">$1.7K&ndash;$2.5K</span>
+          <span style="color:#8888a0; font-size:0.6rem;">ENTHUSIAST</span>
+        </div>
+        <div class="temp-strip-segment" style="background:rgba(255,34,68,0.06);">
+          <span style="color:var(--critical); font-weight:600;">$2.5K+</span>
+          <span style="color:#8888a0; font-size:0.6rem;">FLAGSHIP</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+
+      <!-- ── INPUTS ──────────────────────────────────────── -->
+      <div class="md:col-span-2">
+        <div class="sticky-inputs flex flex-col gap-4">
+
+          <div class="card p-5">
+            <div class="section-label mb-4">Configure Your Build</div>
+
+            <!-- Budget -->
+            <div class="mb-5">
+              <label class="field-label" for="pcb-budget">Total Budget (USD)</label>
+              <div class="budget-wrap">
+                <span class="currency">$</span>
+                <input id="pcb-budget" type="number" class="input-field" placeholder="1200" min="400" max="10000" step="50" value="1200">
+              </div>
+              <p style="font-size:0.7rem; color:#555568; font-family:'JetBrains Mono',monospace; margin-top:0.4rem;">Tower only. Peripherals not included.</p>
+            </div>
+
+            <!-- Goal -->
+            <div class="mb-5">
+              <label class="field-label">Primary Use Case</label>
+              <input type="hidden" id="pcb-goal" value="gaming">
+              <div class="goal-grid">
+                <button type="button" id="pcb-goal-gaming"       class="chip-opt active" onclick="pcb_setChip('goal','gaming')">Gaming</button>
+                <button type="button" id="pcb-goal-creation"     class="chip-opt"        onclick="pcb_setChip('goal','creation')">Content Creation</button>
+                <button type="button" id="pcb-goal-streaming"    class="chip-opt"        onclick="pcb_setChip('goal','streaming')">Streaming</button>
+                <button type="button" id="pcb-goal-productivity" class="chip-opt"        onclick="pcb_setChip('goal','productivity')">Productivity</button>
+                <button type="button" id="pcb-goal-ai_ml"        class="chip-opt"        onclick="pcb_setChip('goal','ai_ml')">AI / ML</button>
+              </div>
+            </div>
+
+            <!-- Resolution (gaming only) -->
+            <div class="mb-5" id="pcb-resolution-wrap">
+              <label class="field-label" for="pcb-resolution">Target Resolution</label>
+              <select id="pcb-resolution" class="input-field">
+                <option value="1080p">1080p &middot; high refresh</option>
+                <option value="1440p" selected>1440p &middot; balanced</option>
+                <option value="4k">4K &middot; ultra detail</option>
+              </select>
+            </div>
+
+            <!-- Storage -->
+            <div class="mb-5">
+              <label class="field-label" for="pcb-storage">Storage Capacity</label>
+              <select id="pcb-storage" class="input-field">
+                <option value="500">500 GB &middot; light user</option>
+                <option value="1000" selected>1 TB &middot; standard</option>
+                <option value="2000">2 TB &middot; games / large libraries</option>
+              </select>
+            </div>
+
+            <!-- CPU brand -->
+            <div class="mb-5">
+              <label class="field-label">CPU Preference</label>
+              <input type="hidden" id="pcb-cpuBrand" value="either">
+              <div class="chip-group">
+                <button type="button" id="pcb-cpuBrand-either" class="chip-opt active" onclick="pcb_setChip('cpuBrand','either')">No preference</button>
+                <button type="button" id="pcb-cpuBrand-amd"    class="chip-opt"        onclick="pcb_setChip('cpuBrand','amd')">AMD</button>
+                <button type="button" id="pcb-cpuBrand-intel"  class="chip-opt"        onclick="pcb_setChip('cpuBrand','intel')">Intel</button>
+              </div>
+            </div>
+
+            <!-- Aesthetics -->
+            <div class="mb-5">
+              <label class="field-label">Case Aesthetics</label>
+              <input type="hidden" id="pcb-rgb" value="any">
+              <div class="chip-group">
+                <button type="button" id="pcb-rgb-any"  class="chip-opt active" onclick="pcb_setChip('rgb','any')">Either</button>
+                <button type="button" id="pcb-rgb-none" class="chip-opt"        onclick="pcb_setChip('rgb','none')">Functional</button>
+                <button type="button" id="pcb-rgb-rgb"  class="chip-opt"        onclick="pcb_setChip('rgb','rgb')">RGB / glass</button>
+              </div>
+            </div>
+
+            <!-- Wi-Fi -->
+            <div class="mb-5">
+              <input type="hidden" id="pcb-wifi" value="0">
+              <div class="wifi-toggle" id="pcb-wifi-row" onclick="pcb_setWifi(document.getElementById('pcb-wifi').value !== '1')">
+                <div>
+                  <div class="label">Need built-in Wi-Fi?</div>
+                  <div class="sub">Picks a Wi-Fi-enabled motherboard</div>
+                </div>
+                <div class="wifi-box" id="pcb-wifi-toggle"></div>
+              </div>
+            </div>
+
+            <!-- Build button -->
+            <button type="button" class="btn-check" style="background:var(--accent); color:#0c0c0e;" onclick="pcb_compute()">
+              Build My PC
+            </button>
+
+          </div><!-- /card -->
+
+          <!-- Quick info card -->
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">How allocation works</div>
+            <p style="font-size:0.78rem; color:#8888a0; line-height:1.65;">
+              Each use case uses a different budget split. Gaming prioritizes the GPU. Content creation balances CPU and GPU. Productivity skews toward memory and storage. AI / ML loads almost everything into the GPU with at least 12 GB of VRAM.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── RESULTS ──────────────────────────────────────── -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+
+        <!-- Default state -->
+        <div id="pcb-default" class="card p-10 flex flex-col items-center justify-center text-center" style="min-height:380px;">
+          <div style="margin-bottom:1rem;">
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.55;">
+              <rect x="14" y="6" width="36" height="52" rx="3"/>
+              <line x1="22" y1="14" x2="42" y2="14"/>
+              <line x1="22" y1="20" x2="42" y2="20"/>
+              <rect x="22" y="28" width="20" height="10" rx="1"/>
+              <circle cx="32" cy="48" r="3"/>
+              <path d="M28 48h-4M40 48h-4" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <div class="font-display text-2xl mb-2" style="color:#445566;">Configure And Build</div>
+          <p style="color:#445566; font-size:0.85rem; max-width:340px; line-height:1.65;">
+            Set your budget and use case on the left, then click Build My PC to get a full component list with current pricing and direct purchase links.
+          </p>
+        </div>
+
+        <!-- Result -->
+        <div id="pcb-result" class="result-box"></div>
+
+        <!-- Info cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-2">
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Why no peripherals?</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Monitor, keyboard, mouse, and headset preferences vary wildly and are easy to upgrade later. Putting the full budget into the tower means a stronger machine that won't bottleneck a future display upgrade.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Pricing notes</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Listed prices are approximate 2026 USD street prices. Sales, region, and stock fluctuate &mdash; the affiliate links show live pricing at click-through. Budgets under $500 are too tight for a complete new tower.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Verify before buying</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Compatibility is checked at a high level (CPU socket, RAM type, PSU wattage). Always confirm the specific motherboard supports your chosen CPU model, RAM speed, and BIOS version before placing an order.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Tower minus peripherals</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">A complete first-time build also needs a monitor (~$150&ndash;$400), keyboard and mouse (~$30&ndash;$150), and an OS license (~$0&ndash;$130). Plan for these separately on top of the tower cost.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related tools -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border);">
+      <div class="section-label">Related Tools</div>
+      <div class="grid sm:grid-cols-3 gap-4 mt-4">
+        <a href="psu-calculator.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">PSU Wattage Calculator</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Exact power draw and PSU sizing for any combo.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&rarr; Use tool</div>
+        </a>
+        <a href="bottleneck-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">Bottleneck Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Make sure your CPU and GPU are balanced.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&rarr; Use tool</div>
+        </a>
+        <a href="fps-estimator.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(0,200,255,0.08); color:var(--accent);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">FPS Estimator</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Predict FPS in 40+ games for your build.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&rarr; Use tool</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Affiliate Disclosure -->
+  <div style="text-align:center; padding:0.75rem 1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; border-top:1px solid var(--border);">
+    As an Amazon Associate TempCore earns from qualifying purchases. Affiliate links are marked and do not affect our editorial opinions.
+  </div>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex flex-wrap gap-5">
+          <a href="fps-estimator.html"      class="nav-link text-xs">FPS Estimator</a>
+          <a href="gpu-temp-checker.html"   class="nav-link text-xs">GPU Temp</a>
+          <a href="ssd-health-checker.html" class="nav-link text-xs">SSD Tools</a>
+          <a href="bottleneck-checker.html" class="nav-link text-xs">Bottleneck</a>
+          <a href="psu-calculator.html"     class="nav-link text-xs">PSU Calc</a>
+          <a href="../about.html"           class="nav-link text-xs" style="color:var(--accent);">About</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. Component prices are approximate USD street prices. Always verify current pricing and motherboard compatibility before purchasing.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/pc-builder.js"></script>
+  <script src="../js/feedback.js"></script>
+</body>
+</html>
