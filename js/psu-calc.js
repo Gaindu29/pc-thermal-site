@@ -227,7 +227,7 @@ const PSU_DB = [
     maxW: 850,
     wattage: "850W",
     picks: [
-      { name: "Seasonic Focus GX-850", rating: "80+ Gold",     modular: "Fully Modular", price: "~$130", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+850&tag=tempcore-20",  note: "Strong choice for RTX 4080 / RX 7900 builds" },
+      { name: "Seasonic Focus GX-850", rating: "80+ Gold",     modular: "Fully Modular", price: "~$130", link: "https://www.amazon.com/dp/B0DLFMTX12?tag=tempcore-20&linkCode=sl1&linkId=3055b5643da65511db0a48be797af8a3&language=en_US&ref_=as_li_ss_tl",  note: "Strong choice for RTX 4080 / RX 7900 builds" },
       { name: "Corsair RM850x",        rating: "80+ Gold",     modular: "Fully Modular", price: "~$140", link: "https://www.amazon.com/s?k=Corsair+RM850x&tag=tempcore-20",          note: "Popular for high-end mid-tower builds" },
       { name: "EVGA SuperNOVA 850 G6", rating: "80+ Gold",     modular: "Fully Modular", price: "~$130", link: "https://www.amazon.com/s?k=EVGA+SuperNOVA+850+G6&tag=tempcore-20",   note: "Compact design, suits tight builds" },
     ]
@@ -382,7 +382,6 @@ function calcPSU() {
             <div style="font-size:0.75rem; color:#8888a0; line-height:1.4;">${p.note}</div>
           </div>
           <div style="text-align:right; flex-shrink:0;">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:0.9rem; color:var(--safe); font-weight:600; margin-bottom:0.3rem;">${p.price}</div>
             <a href="${p.link}" target="_blank" rel="noopener noreferrer"
                style="display:inline-block; background:var(--hot); color:#fff; font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.06em; text-transform:uppercase; padding:0.3rem 0.6rem; border-radius:4px; text-decoration:none; white-space:nowrap;">
               Amazon →

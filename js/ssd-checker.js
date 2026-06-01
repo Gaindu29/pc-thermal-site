@@ -51,7 +51,7 @@ const SUGGESTIONS = {
   ],
   warm: [
     "Temperature is elevated. Ensure good airflow over the SSD or its heatsink.",
-    "For NVMe drives: a passive aluminium M.2 heatsink ($8–15) can drop temps by 10–20°C.",
+    "For NVMe drives: a passive aluminium M.2 heatsink can drop temps by 10–20°C.",
     "Check that case fans are directing airflow past the M.2 slot.",
     "Reduce ambient room temperature if possible — it directly affects SSD temps.",
   ],
