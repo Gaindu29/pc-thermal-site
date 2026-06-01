@@ -200,54 +200,54 @@ const PSU_DB = [
     maxW: 550,
     wattage: "550W",
     picks: [
-      { name: "Seasonic Focus GX-550", rating: "80+ Gold", modular: "Fully Modular",  price: "~$90",  link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+550", note: "Excellent build quality, 10-year warranty" },
-      { name: "Corsair RM550x",        rating: "80+ Gold", modular: "Fully Modular",  price: "~$95",  link: "https://www.amazon.com/s?k=Corsair+RM550x", note: "Zero RPM fan mode, very quiet" },
-      { name: "be quiet! Pure Power 12 M 550W", rating: "80+ Gold", modular: "Semi-Modular", price: "~$75", link: "https://www.amazon.com/s?k=be+quiet+Pure+Power+12+M+550W", note: "Silent and reliable budget-friendly option" },
+      { name: "Seasonic Focus GX-550", rating: "80+ Gold", modular: "Fully Modular",  price: "~$90",  link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+550&tag=tempcore-20", note: "Excellent build quality, 10-year warranty" },
+      { name: "Corsair RM550x",        rating: "80+ Gold", modular: "Fully Modular",  price: "~$95",  link: "https://www.amazon.com/s?k=Corsair+RM550x&tag=tempcore-20", note: "Zero RPM fan mode, very quiet" },
+      { name: "be quiet! Pure Power 12 M 550W", rating: "80+ Gold", modular: "Semi-Modular", price: "~$75", link: "https://www.amazon.com/s?k=be+quiet+Pure+Power+12+M+550W&tag=tempcore-20", note: "Silent and reliable budget-friendly option" },
     ]
   },
   {
     maxW: 650,
     wattage: "650W",
     picks: [
-      { name: "Seasonic Focus GX-650", rating: "80+ Gold",     modular: "Fully Modular", price: "~$100", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+650", note: "Best-in-class reliability, highly recommended" },
-      { name: "Corsair RM650x",        rating: "80+ Gold",     modular: "Fully Modular", price: "~$110", link: "https://www.amazon.com/s?k=Corsair+RM650x",       note: "Hybrid fan mode, whisper-quiet operation" },
-      { name: "EVGA SuperNOVA 650 G6", rating: "80+ Gold",     modular: "Fully Modular", price: "~$95",  link: "https://www.amazon.com/s?k=EVGA+SuperNOVA+650+G6", note: "Compact form factor, good for smaller cases" },
+      { name: "Seasonic Focus GX-650", rating: "80+ Gold",     modular: "Fully Modular", price: "~$100", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+650&tag=tempcore-20", note: "Best-in-class reliability, highly recommended" },
+      { name: "Corsair RM650x",        rating: "80+ Gold",     modular: "Fully Modular", price: "~$110", link: "https://www.amazon.com/s?k=Corsair+RM650x&tag=tempcore-20",       note: "Hybrid fan mode, whisper-quiet operation" },
+      { name: "EVGA SuperNOVA 650 G6", rating: "80+ Gold",     modular: "Fully Modular", price: "~$95",  link: "https://www.amazon.com/s?k=EVGA+SuperNOVA+650+G6&tag=tempcore-20", note: "Compact form factor, good for smaller cases" },
     ]
   },
   {
     maxW: 750,
     wattage: "750W",
     picks: [
-      { name: "Seasonic Focus GX-750", rating: "80+ Gold",     modular: "Fully Modular", price: "~$115", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+750",      note: "Tier-1 OEM, excellent long-term reliability" },
-      { name: "Corsair RM750x",        rating: "80+ Gold",     modular: "Fully Modular", price: "~$120", link: "https://www.amazon.com/s?k=Corsair+RM750x",             note: "Top pick for mid-high end gaming builds" },
-      { name: "be quiet! Straight Power 11 750W", rating: "80+ Platinum", modular: "Fully Modular", price: "~$130", link: "https://www.amazon.com/s?k=be+quiet+Straight+Power+11+750W", note: "Platinum efficiency, premium silent operation" },
+      { name: "Seasonic Focus GX-750", rating: "80+ Gold",     modular: "Fully Modular", price: "~$115", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+750&tag=tempcore-20",      note: "Tier-1 OEM, excellent long-term reliability" },
+      { name: "Corsair RM750x",        rating: "80+ Gold",     modular: "Fully Modular", price: "~$120", link: "https://www.amazon.com/s?k=Corsair+RM750x&tag=tempcore-20",             note: "Top pick for mid-high end gaming builds" },
+      { name: "be quiet! Straight Power 11 750W", rating: "80+ Platinum", modular: "Fully Modular", price: "~$130", link: "https://www.amazon.com/s?k=be+quiet+Straight+Power+11+750W&tag=tempcore-20", note: "Platinum efficiency, premium silent operation" },
     ]
   },
   {
     maxW: 850,
     wattage: "850W",
     picks: [
-      { name: "Seasonic Focus GX-850", rating: "80+ Gold",     modular: "Fully Modular", price: "~$130", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+850",  note: "Strong choice for RTX 4080 / RX 7900 builds" },
-      { name: "Corsair RM850x",        rating: "80+ Gold",     modular: "Fully Modular", price: "~$140", link: "https://www.amazon.com/s?k=Corsair+RM850x",          note: "Popular for high-end mid-tower builds" },
-      { name: "EVGA SuperNOVA 850 G6", rating: "80+ Gold",     modular: "Fully Modular", price: "~$130", link: "https://www.amazon.com/s?k=EVGA+SuperNOVA+850+G6",   note: "Compact design, suits tight builds" },
+      { name: "Seasonic Focus GX-850", rating: "80+ Gold",     modular: "Fully Modular", price: "~$130", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+850&tag=tempcore-20",  note: "Strong choice for RTX 4080 / RX 7900 builds" },
+      { name: "Corsair RM850x",        rating: "80+ Gold",     modular: "Fully Modular", price: "~$140", link: "https://www.amazon.com/s?k=Corsair+RM850x&tag=tempcore-20",          note: "Popular for high-end mid-tower builds" },
+      { name: "EVGA SuperNOVA 850 G6", rating: "80+ Gold",     modular: "Fully Modular", price: "~$130", link: "https://www.amazon.com/s?k=EVGA+SuperNOVA+850+G6&tag=tempcore-20",   note: "Compact design, suits tight builds" },
     ]
   },
   {
     maxW: 1000,
     wattage: "1000W",
     picks: [
-      { name: "Seasonic Focus GX-1000",    rating: "80+ Gold",     modular: "Fully Modular", price: "~$170", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+1000", note: "Best value 1000W Gold option" },
-      { name: "Corsair HX1000",            rating: "80+ Platinum", modular: "Fully Modular", price: "~$185", link: "https://www.amazon.com/s?k=Corsair+HX1000",          note: "Platinum efficiency — worth it for high-draw builds" },
-      { name: "be quiet! Dark Power 13 1000W", rating: "80+ Titanium", modular: "Fully Modular", price: "~$240", link: "https://www.amazon.com/s?k=be+quiet+Dark+Power+13+1000W", note: "Premium build, near-silent, Titanium rated" },
+      { name: "Seasonic Focus GX-1000",    rating: "80+ Gold",     modular: "Fully Modular", price: "~$170", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+1000&tag=tempcore-20", note: "Best value 1000W Gold option" },
+      { name: "Corsair HX1000",            rating: "80+ Platinum", modular: "Fully Modular", price: "~$185", link: "https://www.amazon.com/s?k=Corsair+HX1000&tag=tempcore-20",          note: "Platinum efficiency — worth it for high-draw builds" },
+      { name: "be quiet! Dark Power 13 1000W", rating: "80+ Titanium", modular: "Fully Modular", price: "~$240", link: "https://www.amazon.com/s?k=be+quiet+Dark+Power+13+1000W&tag=tempcore-20", note: "Premium build, near-silent, Titanium rated" },
     ]
   },
   {
     maxW: 9999,
     wattage: "1200W+",
     picks: [
-      { name: "Corsair HX1200",        rating: "80+ Platinum", modular: "Fully Modular", price: "~$230", link: "https://www.amazon.com/s?k=Corsair+HX1200",          note: "Recommended for RTX 4090 overclocked systems" },
-      { name: "Seasonic Prime TX-1000", rating: "80+ Titanium", modular: "Fully Modular", price: "~$280", link: "https://www.amazon.com/s?k=Seasonic+Prime+TX+1000",   note: "Tier-1 Titanium — the best efficiency available" },
-      { name: "be quiet! Dark Power Pro 12 1200W", rating: "80+ Titanium", modular: "Fully Modular", price: "~$300", link: "https://www.amazon.com/s?k=be+quiet+Dark+Power+Pro+12+1200W", note: "Extreme headroom for workstation / dual-GPU builds" },
+      { name: "Corsair HX1200",        rating: "80+ Platinum", modular: "Fully Modular", price: "~$230", link: "https://www.amazon.com/s?k=Corsair+HX1200&tag=tempcore-20",          note: "Recommended for RTX 4090 overclocked systems" },
+      { name: "Seasonic Prime TX-1000", rating: "80+ Titanium", modular: "Fully Modular", price: "~$280", link: "https://www.amazon.com/s?k=Seasonic+Prime+TX+1000&tag=tempcore-20",   note: "Tier-1 Titanium — the best efficiency available" },
+      { name: "be quiet! Dark Power Pro 12 1200W", rating: "80+ Titanium", modular: "Fully Modular", price: "~$300", link: "https://www.amazon.com/s?k=be+quiet+Dark+Power+Pro+12+1200W&tag=tempcore-20", note: "Extreme headroom for workstation / dual-GPU builds" },
     ]
   },
 ];
