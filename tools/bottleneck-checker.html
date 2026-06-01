@@ -44,22 +44,6 @@
   </script>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    /* Pre-paint theme + sidebar state — prevents flash on load */
-    (function () {
-      try {
-        var t = localStorage.getItem('tc_theme'); if (!t) {
-          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
-        }
-        document.documentElement.setAttribute('data-theme', t);
-        var s = localStorage.getItem('tc_sidebar') || 'expanded';
-        document.documentElement.setAttribute('data-sidebar', s);
-      } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.documentElement.setAttribute('data-sidebar', 'expanded');
-      }
-    })();
-  </script>
   <link rel="stylesheet" href="../css/style.css">
 
   <style>
@@ -131,9 +115,18 @@
 <body class="bg-bg">
 
   <!-- NAV -->
-  <!-- TempCore sidebar (rendered by js/layout.js) -->
-  <div id="tc-sidebar-mount"></div>
-<!-- PAGE HEADER -->
+  <nav class="scanlines">
+    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="../index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
+      <div class="flex items-center gap-6">
+        <a href="../tools/gpu-temp-checker.html" class="nav-link">GPU Checker</a>
+        <a href="bottleneck-checker.html" style="color:var(--accent);" class="nav-link">Bottleneck</a>
+        <a href="../articles/overclocking-guide.html" class="nav-link hidden sm:block">OC Guide</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
   <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
     <div class="max-w-6xl mx-auto px-5">
       <a href="../index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">&#8592; Back to Home</a>
@@ -485,7 +478,7 @@
     <div class="max-w-6xl mx-auto px-5">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div class="nav-logo mb-1">TempCore</div>
+          <div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div>
           <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">PC thermal guides &amp; hardware tools</p>
         </div>
         <div class="flex gap-6">
@@ -515,7 +508,5 @@
   </script>
 
   <script src="../js/feedback.js"></script>
-  <script src="../js/layout.js"></script>
-
 </body>
 </html>
