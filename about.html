@@ -45,6 +45,22 @@
   </script>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    /* Pre-paint theme + sidebar state — prevents flash on load */
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme'); if (!t) {
+          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        var s = localStorage.getItem('tc_sidebar') || 'expanded';
+        document.documentElement.setAttribute('data-sidebar', s);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-sidebar', 'expanded');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
 
   <style>
@@ -77,20 +93,9 @@
   </style>
 </head>
 <body class="bg-bg">
-
-  <nav class="scanlines">
-    <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
-      <a href="index.html" class="nav-logo"><div class="logo-dot"></div>TempCore</a>
-      <div class="flex items-center gap-5">
-        <a href="tools/fps-estimator.html"      class="nav-link hidden md:block">FPS</a>
-        <a href="tools/gpu-temp-checker.html"   class="nav-link hidden sm:block">GPU Temp</a>
-        <a href="tools/bottleneck-checker.html" class="nav-link hidden md:block">Bottleneck</a>
-        <a href="about.html" style="color:var(--accent);" class="nav-link">About</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HEADER -->
+  <!-- TempCore sidebar (rendered by js/layout.js) -->
+  <div id="tc-sidebar-mount"></div>
+<!-- HEADER -->
   <section style="padding:3rem 0 2rem; border-bottom:1px solid var(--border);">
     <div class="max-w-6xl mx-auto px-5">
       <a href="index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none;">&#8592; Back to Home</a>
@@ -402,7 +407,7 @@
     <div class="max-w-6xl mx-auto px-5">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div class="nav-logo mb-1"><div class="logo-dot"></div>TempCore</div>
+          <div class="nav-logo mb-1">TempCore</div>
           <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
         </div>
         <div class="flex flex-wrap gap-5">
@@ -419,5 +424,7 @@
   </footer>
 
   <script src="js/feedback.js"></script>
+  <script src="./js/layout.js"></script>
+
 </body>
 </html>
