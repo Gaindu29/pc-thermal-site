@@ -110,7 +110,9 @@
     html +=   '<a href="' + P + 'index.html" class="tc-sidebar-logo" title="TempCore home">';
     html +=     '<span class="tc-sidebar-dot"></span><span class="tc-sidebar-label">TempCore</span>';
     html +=   '</a>';
-    html +=   renderToggleButton('tc-collapse-toggle', 'expand', 'Expand', 'tc-collapse-btn tc-desktop-only');
+    html +=   '<button type="button" class="tc-sidebar-link tc-collapse-btn tc-desktop-only" id="tc-collapse-toggle" title="Expand sidebar" aria-label="Toggle sidebar">' +
+                '<span class="tc-sidebar-link-icon" id="tc-collapse-toggle-icon">' + svgIcon('expand') + '</span>' +
+              '</button>';
     html += '</div>';
 
     // TOOLS group
@@ -161,13 +163,11 @@
   function applySidebar(state) {
     // "expanded" | "collapsed" | "open" (mobile drawer)
     document.documentElement.setAttribute('data-sidebar', state);
-    var iconEl  = document.getElementById('tc-collapse-toggle-icon');
-    var labelEl = document.getElementById('tc-collapse-toggle-label');
-    var btnEl   = document.getElementById('tc-collapse-toggle');
+    var iconEl = document.getElementById('tc-collapse-toggle-icon');
+    var btnEl  = document.getElementById('tc-collapse-toggle');
     var isCollapsed = (state === 'collapsed');
-    if (iconEl)  iconEl.innerHTML  = svgIcon(isCollapsed ? 'expand' : 'collapse');
-    if (labelEl) labelEl.textContent = isCollapsed ? 'Expand' : 'Collapse';
-    if (btnEl)   btnEl.title       = isCollapsed ? 'Expand sidebar' : 'Collapse sidebar';
+    if (iconEl) iconEl.innerHTML = svgIcon(isCollapsed ? 'expand' : 'collapse');
+    if (btnEl)  btnEl.title      = isCollapsed ? 'Expand sidebar' : 'Collapse sidebar';
   }
 
   function lsGet(key) {
