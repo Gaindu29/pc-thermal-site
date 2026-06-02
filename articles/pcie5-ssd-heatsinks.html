@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do PCIe 5.0 SSDs Need a Heatsink? (2026 Guide) | TempCore</title>
+  <meta name="description" content="PCIe 5.0 SSDs run hotter than any consumer drive ever made — often 80°C+ under load. Here's exactly when you need a heatsink, when the motherboard's is enough, and which heatsinks actually work.">
+  <meta name="keywords" content="PCIe 5 SSD heatsink, PCIe 5.0 SSD cooling, M.2 heatsink, do PCIe 5 SSDs need heatsink, Crucial T705 cooling, Samsung 9100 Pro heatsink, NVMe thermal throttling">
+
+  <link rel="canonical" href="https://temp-core.com/articles/pcie5-ssd-heatsinks.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="Do PCIe 5.0 SSDs Need a Heatsink? (2026 Guide) | TempCore">
+  <meta property="og:description" content="PCIe 5 SSDs run 80°C+ under load. When you actually need a heatsink, when the motherboard's is enough, which ones work.">
+  <meta property="og:url"         content="https://temp-core.com/articles/pcie5-ssd-heatsinks.html">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Do PCIe 5.0 SSDs Need a Heatsink?",
+    "description": "When you need a dedicated heatsink for PCIe 5 SSDs, when the motherboard's is enough, and which heatsinks actually move temps.",
+    "url": "https://temp-core.com/articles/pcie5-ssd-heatsinks.html",
+    "author":    { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "publisher": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-06-01",
+    "dateModified":  "2026-06-01"
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    /* Pre-paint theme + sidebar state — prevents flash on load */
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme'); if (!t) {
+          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        var s = localStorage.getItem('tc_sidebar') || 'collapsed';
+        document.documentElement.setAttribute('data-sidebar', s);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-sidebar', 'collapsed');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-bg">
+  <!-- TempCore sidebar (rendered by js/layout.js) -->
+  <div id="tc-sidebar-mount"></div>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <!-- Article content -->
+      <article class="md:col-span-2 article-body">
+
+        <!-- Breadcrumb -->
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--muted); margin-bottom:1.5rem; letter-spacing:0.03em;">
+          <a href="../index.html" style="color:var(--muted); text-decoration:none;">Home</a>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">Articles</span>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">PCIe 5 SSD Heatsinks</span>
+        </div>
+
+        <!-- Header -->
+        <div class="article-tag mb-3" style="background:rgba(94,176,166,0.10); color:var(--accent-2);">Storage Cooling</div>
+        <h1 class="font-display mb-4" style="font-size:clamp(2rem, 5vw, 3.5rem); line-height:1.02; letter-spacing:-0.015em;">
+          Do PCIe 5.0 SSDs Need a Heatsink?
+        </h1>
+        <p style="color:var(--muted-2); font-size:0.85rem; font-family:'JetBrains Mono',monospace; margin-bottom:2rem;">
+          Published June 2026 &nbsp;·&nbsp; By TempCore Editorial Team &nbsp;·&nbsp; 9 min read
+        </p>
+
+        <!-- Quick answer callout -->
+        <div class="callout" style="margin-bottom:2rem;">
+          <strong style="color:var(--text);">Quick answer:</strong> Yes &mdash; PCIe 5 SSDs need <em>some</em> form of cooling, but you almost certainly don't need to buy a fancy aftermarket one. The heatsink built into your motherboard's M.2 slot is enough for 90% of users. You only need a dedicated heatsink if your board has no M.2 cover, you run sustained large file transfers, or you're putting a PCIe 5 drive in a laptop.
+        </div>
+
+        <h2>Why PCIe 5 SSDs Run So Hot</h2>
+        <p>Every PCIe generation doubles the bandwidth of the last. PCIe 5 NVMe drives push <strong>14,000+ MB/s</strong> &mdash; roughly 2x a PCIe 4 drive and 4x a PCIe 3 drive. That speed comes from two things, both of which generate heat:</p>
+        <ul>
+          <li><strong>The controller.</strong> Faster signalling on the controller chip means more switching activity per second, more power draw, more waste heat. Phison's E26 controller (the chip inside the Crucial T705, Corsair MP700, and many other PCIe 5 drives) draws roughly 8&ndash;11 W under full load. For comparison, a Samsung 990 Pro controller (PCIe 4) draws around 5&ndash;7 W.</li>
+          <li><strong>Denser NAND running faster.</strong> The flash chips themselves run hotter when written to at peak speed.</li>
+        </ul>
+        <p>The result: a bare PCIe 5 SSD with no heatsink can hit <strong>90&ndash;105&deg;C in under 30 seconds</strong> of sustained writes. That triggers thermal throttling, which is the SSD's way of saving itself: it cuts performance, sometimes by 50% or more, until the temperature drops.</p>
+
+        <h2>What "Throttling" Actually Looks Like</h2>
+        <p>The throttling curve isn't a cliff. Most PCIe 5 controllers throttle in stages:</p>
+        <table class="temp-table">
+          <thead>
+            <tr><th>Controller temp</th><th>What happens</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt; 70&deg;C</td><td>Full speed, full PCIe 5 bandwidth.</td></tr>
+            <tr><td>70&ndash;80&deg;C</td><td>Mild throttling on some drives. Speeds drop slightly.</td></tr>
+            <tr><td>80&ndash;85&deg;C</td><td>Aggressive throttling. Speeds drop to PCIe 4 levels (~7,000 MB/s).</td></tr>
+            <tr><td>&gt; 90&deg;C</td><td>Heavy throttling. Sustained speeds can fall to ~3,000 MB/s.</td></tr>
+            <tr><td>&gt; 110&deg;C</td><td>Emergency shutdown to protect the drive.</td></tr>
+          </tbody>
+        </table>
+        <p>For everyday use &mdash; opening apps, loading games, browsing &mdash; you'll never hit these temps. The drive only gets hot during <em>sustained sequential workloads</em>: copying huge files (50+ GB), unpacking archives, transcoding video to the SSD, or running storage benchmarks back-to-back.</p>
+
+        <h2>Three Cooling Options, From Cheapest to Most Effective</h2>
+
+        <h3>1. The motherboard's built-in M.2 heatsink (free)</h3>
+        <p>Most motherboards released after early 2024 ship with a metal cover over at least one M.2 slot &mdash; usually the top one. On mid-range and higher boards, that cover is a real heatsink: an aluminium block with a thermal pad on the underside that touches the SSD's controller and NAND.</p>
+        <p>This is genuinely effective. In testing, a decent stock M.2 heatsink can keep a Phison E26 drive at <strong>~65&ndash;72&deg;C</strong> under full sequential load &mdash; well clear of throttling. If your board has one, use it. Don't replace it with a third-party heatsink unless you've measured your temps and found them lacking.</p>
+
+        <h3>2. A passive aftermarket heatsink</h3>
+        <p>If your motherboard doesn't have a built-in cover (older or budget boards), or if you've installed your PCIe 5 SSD in a secondary slot without one, a passive heatsink solves the problem cheaply. Look for:</p>
+        <ul>
+          <li><strong>Aluminium body with finned design</strong> &mdash; more surface area dissipates more heat.</li>
+          <li><strong>Pre-cut thermal pads</strong> &mdash; one for the top of the chips, sometimes a thinner one for the bottom (which helps a lot on double-sided drives).</li>
+          <li><strong>~22 mm tall maximum</strong> &mdash; taller heatsinks can hit your GPU or graphics card backplate.</li>
+        </ul>
+        <p>A passive heatsink typically gets a PCIe 5 SSD to <strong>~70&ndash;78&deg;C</strong> under load &mdash; not as good as a board-integrated heatsink with active airflow, but plenty for non-pro workloads.</p>
+
+        <h3>3. Active cooling (heatsink + tiny fan)</h3>
+        <p>The "extreme" option: a heatsink with a small 20&ndash;30 mm fan bolted on. These look ridiculous on a motherboard but they work &mdash; an active heatsink can keep a PCIe 5 SSD below <strong>60&deg;C</strong> in any workload.</p>
+        <p>You only need active cooling if you're running database workloads, professional video editing on a scratch drive, or 3D scene baking where the SSD writes for hours straight. For gaming and general PC use, this is overkill and adds another noise source to your case.</p>
+
+        <div class="callout" style="margin:1.5rem 0;">
+          <strong style="color:var(--text);">Don't stack heatsinks.</strong> If your motherboard already covers the M.2 slot, removing that cover to install a taller third-party heatsink doesn't help &mdash; the airflow inside the chassis already passes over the board heatsink. The third-party one only wins when it has direct airflow from a case fan blowing on it. Otherwise it just blocks the airflow that was working.
+        </div>
+
+        <h2>When You Definitely Need a Dedicated Heatsink</h2>
+        <p>Skip the stock M.2 cover and buy a real heatsink if any of these apply:</p>
+        <ul>
+          <li><strong>Your board has no M.2 cover at all.</strong> Budget boards (under ~$150) often only cover the primary slot, or none.</li>
+          <li><strong>You're using the secondary M.2 slot for a PCIe 5 drive.</strong> Second and third slots usually don't have integrated heatsinks.</li>
+          <li><strong>Your case has poor airflow.</strong> A board heatsink relies on passive convection plus case airflow. If you've got a sealed-glass case with minimal intake, even a "good" board cover may not be enough.</li>
+          <li><strong>You're putting a PCIe 5 SSD in a laptop.</strong> Most laptop M.2 slots have a tiny thermal pad against the chassis as their entire cooling solution. PCIe 5 drives in laptops throttle severely &mdash; many users see them hit ~95&deg;C during normal Windows updates. A low-profile thin graphite pad replacement (or just sticking with a PCIe 4 drive) is the realistic fix.</li>
+        </ul>
+
+        <h2>How to Check Your SSD's Temperature</h2>
+        <p>You can't tell if you need a heatsink without measuring. Use any of these:</p>
+        <ul>
+          <li><strong>CrystalDiskInfo</strong> (free, Windows) &mdash; shows live temp on the main screen for every drive.</li>
+          <li><strong>HWiNFO64</strong> (free) &mdash; shows controller temp, NAND temp, and composite temp separately. The "Composite" reading is what triggers throttling on most drives.</li>
+          <li><strong>The TempCore <a href="../tools/ssd-health-checker.html">SSD Health Checker</a></strong> &mdash; enter your temp and drive type and get an instant verdict on whether it's in safe range.</li>
+        </ul>
+        <p>Take readings during a real workload, not at idle. Copy a 50 GB file from one folder to another (or run CrystalDiskMark's sequential write test) and watch the temp during the write. If "Composite" stays under 75&deg;C, you don't need anything more. If it crosses 80&deg;C, you have throttling headroom problems.</p>
+
+        <h2>What to Buy if You Need One</h2>
+        <p>A few solid choices in 2026, ordered by use case:</p>
+        <ul>
+          <li><strong>For a desktop secondary slot</strong> &mdash; any 22&ndash;28 mm aluminium-finned heatsink with quality thermal pads will do the job. The Thermalright HR-09 2280 and the be quiet! MC1 are both popular and inexpensive.</li>
+          <li><strong>For a board with no M.2 cover at all</strong> &mdash; the EKWB-style passive heatsinks with copper heat pipes work noticeably better than pure aluminium blocks under sustained load. Worth the small price bump.</li>
+          <li><strong>If you're a creator or run benchmarks</strong> &mdash; the Sabrent Rocket Heatsink (active) or Cool Adapt for active M.2 are the most aggressive consumer options. Loud, but effective.</li>
+          <li><strong>For laptops</strong> &mdash; don't buy a heatsink. The chassis won't close. Replace the existing thermal pad with a slightly thicker thermal-conductive pad (1&ndash;1.5 mm Gelid or Thermalright pad), or move to a PCIe 4 drive which generates roughly half the heat with negligible real-world speed difference.</li>
+        </ul>
+
+        <h2>The Bottom Line</h2>
+        <p>PCIe 5 SSDs are the hottest consumer drives ever made, but the heatsink panic in YouTube content is overblown for most users. If your motherboard ships with an M.2 cover, install your drive under it, run a real workload, check the temperature once, and move on. Only buy a dedicated heatsink if you measured a problem.</p>
+        <p>If you're shopping for a PCIe 5 drive and your board has no cover, factor in the cost of a $15&ndash;25 passive heatsink at the time of purchase. Don't wait until you've already lost half your sequential bandwidth to throttling to figure out you needed one.</p>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="md:col-span-1">
+        <div class="sticky top-6 flex flex-col gap-5">
+
+          <!-- Tool CTA -->
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Tool</div>
+            <h4 class="font-semibold" style="color:var(--text); margin-bottom:0.5rem;">Check Your SSD Temp</h4>
+            <p style="color:var(--muted); font-size:0.83rem; line-height:1.55; margin-bottom:0.85rem;">Enter your current SSD temperature and drive type to see if you're throttling.</p>
+            <a href="../tools/ssd-health-checker.html" class="btn-check" style="display:inline-block; width:auto; text-align:center; padding:0.5rem 0.95rem; font-size:0.78rem; text-decoration:none;">
+              SSD Health Tools &rarr;
+            </a>
+          </div>
+
+          <!-- Quick reference -->
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Throttle Points</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.78rem; display:flex; flex-direction:column; gap:0.4rem;">
+              <div style="display:flex; justify-content:space-between; color:var(--muted);"><span>Healthy</span><span style="color:var(--safe);">&lt; 70&deg;C</span></div>
+              <div style="display:flex; justify-content:space-between; color:var(--muted);"><span>Mild throttle</span><span style="color:var(--warm);">70&ndash;80&deg;C</span></div>
+              <div style="display:flex; justify-content:space-between; color:var(--muted);"><span>Heavy throttle</span><span style="color:var(--hot);">80&ndash;90&deg;C</span></div>
+              <div style="display:flex; justify-content:space-between; color:var(--muted);"><span>Shutdown risk</span><span style="color:var(--critical);">&gt; 110&deg;C</span></div>
+            </div>
+          </div>
+
+          <!-- Related article -->
+          <a href="best-thermal-paste-2026.html" class="card p-5 article-card">
+            <div class="article-tag mb-2" style="background:var(--accent-soft); color:var(--accent-2);">Related</div>
+            <h4 class="font-semibold text-sm article-title" style="color:var(--text); line-height:1.4; margin-bottom:0.4rem;">Best Thermal Paste in 2026</h4>
+            <p style="color:var(--muted); font-size:0.78rem; line-height:1.5;">Cooling extends beyond the SSD &mdash; here's what to apply to your CPU.</p>
+            <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.5rem;">&rarr; Read</div>
+          </a>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Affiliate Disclosure -->
+  <div style="text-align:center; padding:0.75rem 1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--muted-2); border-top:1px solid var(--border);">
+    As an Amazon Associate TempCore earns from qualifying purchases. Affiliate links are marked and do not affect our editorial opinions.
+  </div>
+
+  <!-- Affiliate Recommendations -->
+  <div class="max-w-6xl mx-auto px-5 py-10" style="border-top:1px solid var(--border);">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Recommended SSD Cooling Products</div>
+    <div class="card p-5" style="max-width:580px;">
+      <a href="https://www.amazon.com/s?k=Thermalright+HR-09+2280+M.2+heatsink&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex; justify-content:space-between; align-items:center; padding:0.45rem 0; border-bottom:1px solid var(--border); text-decoration:none; color:var(--muted); font-size:0.82rem;"><span>Thermalright HR-09 2280 Heatsink</span><span style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted-2);">Amazon &#x2197;</span></a>
+      <a href="https://www.amazon.com/s?k=be+quiet+MC1+M.2+heatsink&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex; justify-content:space-between; align-items:center; padding:0.45rem 0; border-bottom:1px solid var(--border); text-decoration:none; color:var(--muted); font-size:0.82rem;"><span>be quiet! MC1 M.2 Heatsink</span><span style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted-2);">Amazon &#x2197;</span></a>
+      <a href="https://www.amazon.com/s?k=EKWB+M.2+heatsink+heat+pipe&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex; justify-content:space-between; align-items:center; padding:0.45rem 0; border-bottom:1px solid var(--border); text-decoration:none; color:var(--muted); font-size:0.82rem;"><span>EKWB Passive Copper Heat-pipe M.2 Heatsink</span><span style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted-2);">Amazon &#x2197;</span></a>
+      <a href="https://www.amazon.com/s?k=Sabrent+Rocket+M.2+heatsink+fan&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex; justify-content:space-between; align-items:center; padding:0.45rem 0; border-bottom:1px solid var(--border); text-decoration:none; color:var(--muted); font-size:0.82rem;"><span>Sabrent Rocket M.2 Heatsink (active fan)</span><span style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted-2);">Amazon &#x2197;</span></a>
+      <a href="https://www.amazon.com/s?k=Gelid+thermal+pad+1mm&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex; justify-content:space-between; align-items:center; padding:0.45rem 0; text-decoration:none; color:var(--muted); font-size:0.82rem;"><span>Gelid Thermal Pad (1 mm, for laptops)</span><span style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted-2);">Amazon &#x2197;</span></a>
+    </div>
+  </div>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div style="font-family:'Instrument Serif',serif; font-size:1.2rem; color:var(--text);">TempCore</div>
+          <p style="color:var(--muted-2); font-size:0.78rem; font-family:'JetBrains Mono',monospace; margin-top:0.25rem;">PC thermal guides &amp; hardware tools</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="../tools/ssd-health-checker.html" style="color:var(--muted); font-size:0.78rem; font-family:'JetBrains Mono',monospace; text-decoration:none;">SSD Tools</a>
+          <a href="../articles/gpu-temp-guide.html" style="color:var(--muted); font-size:0.78rem; font-family:'JetBrains Mono',monospace; text-decoration:none;">Guides</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:var(--muted-2); font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. Information is for guidance only. Always verify with manufacturer documentation.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/feedback.js"></script>
+  <script src="../js/layout.js"></script>
+</body>
+</html>

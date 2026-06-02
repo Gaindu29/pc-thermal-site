@@ -53,11 +53,11 @@
           t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
         }
         document.documentElement.setAttribute('data-theme', t);
-        var s = localStorage.getItem('tc_sidebar') || 'expanded';
+        var s = localStorage.getItem('tc_sidebar') || 'collapsed';
         document.documentElement.setAttribute('data-sidebar', s);
       } catch (e) {
         document.documentElement.setAttribute('data-theme', 'dark');
-        document.documentElement.setAttribute('data-sidebar', 'expanded');
+        document.documentElement.setAttribute('data-sidebar', 'collapsed');
       }
     })();
   </script>
