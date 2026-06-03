@@ -2,8 +2,9 @@
  * TempCore — FPS Estimator
  * Estimates native (no DLSS/FSR) FPS for a given GPU + CPU + settings combination.
  *
- * Base FPS = RTX 4090 @ 1440p High, native rendering, averaged across benchmarks
- * Sources: GamersNexus, Digital Foundry, Tom's Hardware, TechPowerUp, NotebookCheck 2024–2025
+ * Base FPS calibrated against RTX 4090 @ 1440p, native rendering, averaged across benchmarks.
+ * Sources: GamersNexus, Digital Foundry, Tom's Hardware, TechPowerUp, TechSpot, Hardware Times,
+ *          DSOGaming, GameGPU, PCOptimizedSettings, NotebookCheck. 2024–2026 data.
  */
 
 // ── DESKTOP GPU performance multipliers (relative to RTX 4090 @ 1440p = 1.0) ─
@@ -196,10 +197,12 @@ const RES_SCALE = { "1080p": 1.42, "1440p": 1.00, "4K": 0.55 };
 
 // ── Quality preset scaling (relative to High = 1.0) ──────────────────────────
 const QUALITY_SCALE = {
+  "Very Low":   2.20,
   "Low":        1.85,
   "Medium":     1.40,
   "High":       1.00,
   "Ultra":      0.70,
+  "Extreme":    0.45,   // super-max non-RT presets (KCD2 Experimental, ARK Cinematic)
   "Ultra + RT": 0.40,
 };
 
@@ -218,18 +221,18 @@ const RAM_MULT = {
 const GAMES = [
   // ── Heavy AAA ──────────────────────────────────────────────────────────────
   {
-    name:"Cyberpunk 2077", year:2020, genre:"RPG / Open World", base:95,
+    name:"Cyberpunk 2077", year:2020, genre:"RPG / Open World", base:195,
     cpuScale:0.9, ramSensitive:true, rtSupport:true, upscaleBoost:1.55,
-    upscaleLabel:"DLSS 4 / FSR 3",
-    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"RT Ultra",key:"Ultra + RT"}],
-    note:"Path tracing mode is GPU-intensive beyond most hardware."
+    upscaleLabel:"DLSS 4 / FSR 4 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"RT Overdrive",key:"Ultra + RT"}],
+    note:"Path tracing (RT Overdrive) is GPU-intensive even on RTX 4090 — DLSS Quality + Frame Generation strongly recommended. FSR 4 added in 2026 patch."
   },
   {
-    name:"Black Myth: Wukong", year:2024, genre:"Action RPG", base:88,
+    name:"Black Myth: Wukong", year:2024, genre:"Action RPG", base:100,
     cpuScale:0.8, ramSensitive:true, rtSupport:true, upscaleBoost:1.60,
-    upscaleLabel:"DLSS 3 / FSR 3",
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Cinematic",key:"Ultra"},{label:"Cinematic+RT",key:"Ultra + RT"}],
-    note:"Extremely GPU-heavy. DLSS 4 strongly recommended on RTX cards."
+    note:"Extremely GPU-heavy. DLSS 4 strongly recommended on RTX cards. Path Tracing (Full RT) is the most demanding option in any current PC game."
   },
   {
     name:"Alan Wake 2", year:2023, genre:"Action / Horror", base:90,
@@ -246,25 +249,25 @@ const GAMES = [
     note:"Very CPU-sensitive. 6+ fast cores strongly recommended."
   },
   {
-    name:"Hogwarts Legacy", year:2023, genre:"Action RPG", base:118,
-    cpuScale:0.9, ramSensitive:true, rtSupport:false, upscaleBoost:1.50,
-    upscaleLabel:"DLSS 3 / FSR 3",
-    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
-    note:"GPU-limited at higher settings. Runs well on mid-range hardware at 1080p."
+    name:"Hogwarts Legacy", year:2023, genre:"Action RPG", base:155,
+    cpuScale:0.9, ramSensitive:true, rtSupport:true, upscaleBoost:1.45,
+    upscaleLabel:"DLSS 3 / FSR 2 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Ultra + RT",key:"Ultra + RT"}],
+    note:"RT shadows are the heaviest setting — disabling them grants ~22% performance. Hogsmeade is the most demanding zone."
   },
   {
-    name:"Assassin's Creed Shadows", year:2024, genre:"Action / Open World", base:108,
-    cpuScale:0.8, ramSensitive:true, rtSupport:false, upscaleBoost:1.50,
+    name:"Assassin's Creed Shadows", year:2024, genre:"Action / Open World", base:120,
+    cpuScale:0.8, ramSensitive:true, rtSupport:true, upscaleBoost:1.50,
     upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
-    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
-    note:"Ubisoft's most demanding AC title. Intel Arc and AMD cards well supported."
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Extreme + RT",key:"Ultra + RT"}],
+    note:"Ubisoft's most demanding AC title — global illumination ray tracing is on by default. Selective RT for reflections/AO at the Extreme preset is heavy."
   },
   {
-    name:"Star Wars Jedi: Survivor", year:2023, genre:"Action Adventure", base:102,
-    cpuScale:0.6, ramSensitive:true, rtSupport:false, upscaleBoost:1.45,
-    upscaleLabel:"DLSS 3 / FSR 3",
-    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
-    note:"Notorious for CPU sensitivity and stuttering. High-core-count CPU recommended."
+    name:"Star Wars Jedi: Survivor", year:2023, genre:"Action Adventure", base:130,
+    cpuScale:0.6, ramSensitive:true, rtSupport:true, upscaleBoost:1.45,
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"},{label:"Epic + RT",key:"Ultra + RT"}],
+    note:"Stuttering and CPU sensitivity have improved significantly via post-launch patches. Ray-traced shadows and ambient occlusion are toggleable separately."
   },
   {
     name:"Starfield", year:2023, genre:"RPG / Open World", base:130,
@@ -288,7 +291,7 @@ const GAMES = [
     note:"CPU-bound. Even top-end CPUs struggle in large cities."
   },
   {
-    name:"Total War: Warhammer III", year:2022, genre:"Strategy / RTS", base:115,
+    name:"Total War: Warhammer III", year:2022, genre:"Strategy / RTS", base:145,
     cpuScale:0.45, ramSensitive:true, rtSupport:false, upscaleBoost:1.00,
     upscaleLabel:null,
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
@@ -359,11 +362,11 @@ const GAMES = [
     note:"Good optimisation. High-refresh play accessible on mid-range hardware."
   },
   {
-    name:"Diablo IV", year:2023, genre:"ARPG", base:168,
-    cpuScale:1.0, ramSensitive:false, rtSupport:false, upscaleBoost:1.40,
-    upscaleLabel:"DLSS 3 / FSR 3",
-    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
-    note:"Well optimised. Ultra 4K is accessible on high-end GPU."
+    name:"Diablo IV", year:2023, genre:"ARPG", base:180,
+    cpuScale:1.0, ramSensitive:false, rtSupport:true, upscaleBoost:1.40,
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Ultra + RT",key:"Ultra + RT"}],
+    note:"Well optimised. Ray-traced reflections and shadows were added in a 2024 patch."
   },
   {
     name:"Spider-Man: Miles Morales", year:2022, genre:"Action Adventure", base:205,
@@ -394,11 +397,11 @@ const GAMES = [
     note:"Well-optimised Decima engine title."
   },
   {
-    name:"Forza Horizon 5", year:2021, genre:"Racing", base:178,
-    cpuScale:1.1, ramSensitive:false, rtSupport:false, upscaleBoost:1.40,
-    upscaleLabel:"DLSS 3 / FSR 3",
-    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
-    note:"Excellent optimisation. Enjoyable on a wide range of hardware."
+    name:"Forza Horizon 5", year:2021, genre:"Racing", base:185,
+    cpuScale:1.1, ramSensitive:false, rtSupport:true, upscaleBoost:1.40,
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Extreme + RT",key:"Ultra + RT"}],
+    note:"Excellent optimisation. The Extreme preset adds real-time ray-traced reflections introduced in a free post-launch update."
   },
   {
     name:"F1 24", year:2024, genre:"Racing / Sim", base:208,
@@ -426,8 +429,8 @@ const GAMES = [
     name:"Valorant", year:2020, genre:"Tactical FPS", base:400,
     cpuScale:2.5, ramSensitive:false, rtSupport:false, upscaleBoost:1.00,
     upscaleLabel:null,
-    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
-    note:"Extremely light on GPU. CPU and RAM speed are the main performance factors. No upscaling."
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"}],
+    note:"Extremely light on GPU — CPU and RAM speed are the main performance factors. Valorant only exposes three official quality levels. No upscaling."
   },
   {
     name:"Apex Legends", year:2019, genre:"Battle Royale", base:248,
@@ -485,6 +488,187 @@ const GAMES = [
     upscaleLabel:"Iris Upscaling",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
     note:"Shader performance depends heavily on the specific shader pack. Values shown for OptiFine-tier shaders."
+  },
+  // ── 2024–2026 Heavy AAA ───────────────────────────────────────────────────
+  {
+    name:"Monster Hunter Wilds", year:2025, genre:"Action RPG", base:95,
+    cpuScale:0.7, ramSensitive:true, rtSupport:true, upscaleBoost:1.55,
+    upscaleLabel:"DLSS 4 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Ultra + RT",key:"Ultra + RT"}],
+    note:"RE Engine — heavy and CPU-sensitive. Frame generation and upscaling are strongly recommended on most hardware. 16GB VRAM recommended at Ultra."
+  },
+  {
+    name:"S.T.A.L.K.E.R. 2: Heart of Chornobyl", year:2024, genre:"FPS / Open World", base:118,
+    cpuScale:0.7, ramSensitive:true, rtSupport:false, upscaleBoost:1.60,
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
+    note:"UE5 with software Lumen — very GPU-demanding and CPU-bound on top hardware. 8GB VRAM cards struggle even with upscaling at 1440p."
+  },
+  {
+    name:"Indiana Jones and the Great Circle", year:2024, genre:"Action Adventure", base:158,
+    cpuScale:1.0, ramSensitive:true, rtSupport:true, upscaleBoost:1.50,
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Supreme",key:"Ultra"},{label:"Path Tracing",key:"Ultra + RT"}],
+    note:"id Tech 7 — exceptionally well-optimised with mandatory hardware RTGI. Path Tracing mode requires 16GB+ VRAM and a high-end RTX card."
+  },
+  {
+    name:"DOOM: The Dark Ages", year:2025, genre:"FPS", base:130,
+    cpuScale:1.1, ramSensitive:false, rtSupport:true, upscaleBoost:1.50,
+    upscaleLabel:"DLSS 4 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra Nightmare",key:"Ultra"},{label:"Path Tracing",key:"Ultra + RT"}],
+    note:"id Tech 8 — mandatory hardware ray tracing. Excellent base optimisation but preset scaling is flat. Path Tracing patch is very heavy."
+  },
+  {
+    name:"Borderlands 4", year:2025, genre:"FPS / Looter Shooter", base:100,
+    cpuScale:0.7, ramSensitive:true, rtSupport:false, upscaleBoost:1.55,
+    upscaleLabel:"DLSS 4 / FSR 4 / XeSS",
+    presets:[{label:"Very Low",key:"Very Low"},{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Badass",key:"Ultra"}],
+    note:"UE5 with Lumen and Nanite — notoriously poorly optimised at launch. Upscaling is effectively mandatory. Performance has improved with post-launch patches."
+  },
+  {
+    name:"Kingdom Come: Deliverance II", year:2025, genre:"RPG / Open World", base:140,
+    cpuScale:0.9, ramSensitive:true, rtSupport:false, upscaleBoost:1.45,
+    upscaleLabel:"DLSS 4 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Experimental",key:"Extreme"}],
+    note:"CryEngine with surprisingly strong multi-core scaling. Experimental preset is intended for future GPUs and is very heavy."
+  },
+  // ── 2024–2026 UE5 Titles ──────────────────────────────────────────────────
+  {
+    name:"The Elder Scrolls IV: Oblivion Remastered", year:2025, genre:"RPG", base:95,
+    cpuScale:0.7, ramSensitive:true, rtSupport:false, upscaleBoost:1.55,
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
+    note:"UE5 wrapper around the original Gamebryo logic. Heavy Lumen GI and Nanite usage. Stutter and shader compilation hitches are common."
+  },
+  {
+    name:"Clair Obscur: Expedition 33", year:2025, genre:"Turn-based RPG", base:112,
+    cpuScale:0.8, ramSensitive:true, rtSupport:false, upscaleBoost:1.50,
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
+    note:"UE5 with Lumen — visually striking but GPU-heavy. Frame generation strongly recommended at Epic above 1440p."
+  },
+  {
+    name:"Manor Lords", year:2024, genre:"City Builder / Strategy", base:130,
+    cpuScale:0.4, ramSensitive:true, rtSupport:false, upscaleBoost:1.40,
+    upscaleLabel:"DLSS 3 / FSR 2",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
+    note:"UE5 city builder — CPU-limited as towns grow. Late-game performance falls off even on flagship CPUs."
+  },
+  {
+    name:"ARK: Survival Ascended", year:2023, genre:"Survival", base:75,
+    cpuScale:0.6, ramSensitive:true, rtSupport:false, upscaleBoost:1.55,
+    upscaleLabel:"DLSS 3 / FSR 2",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"},{label:"Cinematic",key:"Extreme"}],
+    note:"UE5 remake — one of the most demanding open-world games on PC. 16GB VRAM helps. Frame generation strongly recommended."
+  },
+  // ── 2023–2025 Mid-weight AAA ──────────────────────────────────────────────
+  {
+    name:"Warhammer 40,000: Space Marine 2", year:2024, genre:"Action / Shooter", base:145,
+    cpuScale:1.0, ramSensitive:false, rtSupport:false, upscaleBoost:1.40,
+    upscaleLabel:"DLSS 3 / FSR 3",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
+    note:"Well optimised. Crowd scenes in Tyranid swarms are the most demanding moments."
+  },
+  {
+    name:"Lies of P", year:2023, genre:"Action RPG", base:155,
+    cpuScale:1.0, ramSensitive:false, rtSupport:false, upscaleBoost:1.35,
+    upscaleLabel:"DLSS 2 / FSR 2 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"}],
+    note:"UE4 soulslike with excellent optimisation. Only three official presets in-game."
+  },
+  {
+    name:"Sons of the Forest", year:2024, genre:"Survival / Horror", base:130,
+    cpuScale:0.8, ramSensitive:false, rtSupport:false, upscaleBoost:1.40,
+    upscaleLabel:"DLSS 2 / FSR 2",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
+    note:"UE5 survival — heavy foliage rendering. Performance improved significantly through 1.0 release."
+  },
+  {
+    name:"Final Fantasy XVI", year:2024, genre:"Action RPG", base:115,
+    cpuScale:0.7, ramSensitive:true, rtSupport:false, upscaleBoost:1.45,
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Maximum",key:"Ultra"}],
+    note:"Heavy CPU usage in dense combat. Frame generation recommended. 16GB system RAM minimum."
+  },
+  {
+    name:"Tekken 8", year:2024, genre:"Fighting", base:175,
+    cpuScale:1.2, ramSensitive:false, rtSupport:false, upscaleBoost:1.35,
+    upscaleLabel:"DLSS 3 / FSR 2",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
+    note:"UE5 fighter — gameplay is 60 FPS locked competitively, but practice and Tekken Ball modes can run higher."
+  },
+  // ── Esports / Multiplayer / Live Service ──────────────────────────────────
+  {
+    name:"Overwatch 2", year:2022, genre:"Hero Shooter", base:290,
+    cpuScale:1.8, ramSensitive:false, rtSupport:false, upscaleBoost:1.30,
+    upscaleLabel:"NVIDIA DLSS / FSR 1",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
+    note:"Very well optimised. CPU and monitor refresh rate matter more than GPU at competitive settings."
+  },
+  {
+    name:"The Finals", year:2023, genre:"FPS / Battle Royale", base:195,
+    cpuScale:1.1, ramSensitive:false, rtSupport:false, upscaleBoost:1.45,
+    upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
+    note:"UE5 with heavy destruction physics. Lumen GI is the biggest performance cost — disabling it boosts FPS significantly."
+  },
+  {
+    name:"Battlefield 6", year:2025, genre:"FPS", base:215,
+    cpuScale:1.3, ramSensitive:false, rtSupport:false, upscaleBoost:1.40,
+    upscaleLabel:"DLSS 4 / FSR 3 / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
+    note:"Frostbite engine — strong multi-core scaling and good optimisation across hardware tiers."
+  },
+  {
+    name:"Hunt: Showdown 1896", year:2024, genre:"FPS / PvPvE", base:145,
+    cpuScale:1.0, ramSensitive:false, rtSupport:false, upscaleBoost:1.40,
+    upscaleLabel:"DLSS 2 / FSR 2",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
+    note:"CryEngine 5.11 update brought a major visual overhaul. Best balance of fidelity and performance at High."
+  },
+  // ── MMO / Live Service ────────────────────────────────────────────────────
+  {
+    name:"Final Fantasy XIV: Dawntrail", year:2024, genre:"MMORPG", base:230,
+    cpuScale:1.4, ramSensitive:false, rtSupport:false, upscaleBoost:1.30,
+    upscaleLabel:"NVIDIA DLSS 3",
+    presets:[{label:"Standard",key:"Medium"},{label:"High",key:"High"},{label:"Maximum",key:"Ultra"}],
+    note:"Three official presets. Crowded hub cities are CPU-limited; instanced content runs much higher. DLSS only — no FSR."
+  },
+  {
+    name:"World of Warcraft", year:2024, genre:"MMORPG", base:200,
+    cpuScale:1.3, ramSensitive:false, rtSupport:true, upscaleBoost:1.30,
+    upscaleLabel:"DLSS / FSR / XeSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Ultra + RT",key:"Ultra + RT"}],
+    note:"In-game uses a 1–10 quality slider, mapped here to four standard tiers (1–3 Low, 4–6 Medium, 7–8 High, 9–10 Ultra). Raids and large outdoor zones are CPU-bound."
+  },
+  {
+    name:"Wuthering Waves", year:2024, genre:"Action RPG / Gacha", base:200,
+    cpuScale:1.1, ramSensitive:false, rtSupport:false, upscaleBoost:1.00,
+    upscaleLabel:null,
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Quality",key:"Ultra"}],
+    note:"UE4 anime-style action RPG. Settings menu uses Quality as the top tier. No DLSS or FSR support."
+  },
+  {
+    name:"Genshin Impact", year:2020, genre:"Action RPG / Gacha", base:320,
+    cpuScale:1.5, ramSensitive:false, rtSupport:false, upscaleBoost:1.00,
+    upscaleLabel:null,
+    presets:[{label:"Lowest",key:"Very Low"},{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Highest",key:"Ultra"}],
+    note:"Very lightweight on modern hardware. Default 60 FPS cap can be raised in-game on PC. No upscaling support."
+  },
+  // ── ARPG / Other ──────────────────────────────────────────────────────────
+  {
+    name:"Path of Exile 2", year:2024, genre:"ARPG", base:210,
+    cpuScale:1.0, ramSensitive:false, rtSupport:false, upscaleBoost:1.35,
+    upscaleLabel:"DLSS 3 / FSR 3",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
+    note:"Endgame mapping with dense effects is the most demanding scenario. Patches continue to improve optimisation."
+  },
+  {
+    name:"Last Epoch", year:2024, genre:"ARPG", base:175,
+    cpuScale:1.0, ramSensitive:false, rtSupport:false, upscaleBoost:1.30,
+    upscaleLabel:"NVIDIA DLSS",
+    presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
+    note:"Solid optimisation. Dense particle effects in late-game monoliths are the main performance bottleneck."
   },
 ];
 
