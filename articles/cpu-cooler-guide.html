@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Cooler Selection Guide 2026: Air vs AIO, Which Do You Need? | TempCore</title>
+  <meta name="description" content="Choosing the right CPU cooler in 2026. Air cooler vs AIO liquid cooler comparison with real TDP ratings, noise levels, and specific recommendations for Intel and AMD CPUs.">
+  <meta name="keywords" content="CPU cooler guide 2026, best CPU cooler, air cooler vs AIO, Noctua NH-D15, DeepCool AK620, 360mm AIO, CPU cooler TDP rating, how to choose CPU cooler">
+
+  <link rel="canonical" href="https://temp-core.com/articles/cpu-cooler-guide.html">
+
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="CPU Cooler Selection Guide 2026: Air vs AIO, Which Do You Need? | TempCore">
+  <meta property="og:description" content="Comprehensive CPU cooler guide with real TDP ratings. Find the right cooler for your Intel or AMD CPU, from budget air to high-end AIO.">
+  <meta property="og:url"         content="https://temp-core.com/articles/cpu-cooler-guide.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "CPU Cooler Selection Guide 2026: Air vs AIO, Which Do You Need?",
+    "description": "Comprehensive CPU cooler guide with real TDP ratings for Intel and AMD CPUs.",
+    "url": "https://temp-core.com/articles/cpu-cooler-guide.html",
+    "author":    { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "publisher": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-06-10",
+    "dateModified":  "2026-06-10"
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme'); if (!t) {
+          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        var s = localStorage.getItem('tc_sidebar') || 'collapsed';
+        document.documentElement.setAttribute('data-sidebar', s);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-sidebar', 'collapsed');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-bg">
+  <div id="tc-sidebar-mount"></div>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <article class="md:col-span-2 article-body">
+
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--muted); margin-bottom:1.5rem; letter-spacing:0.03em;">
+          <a href="../index.html" style="color:var(--muted); text-decoration:none;">Home</a>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">Articles</span>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">CPU Cooler Guide</span>
+        </div>
+
+        <div class="article-tag mb-3" style="background:rgba(251,146,60,0.10); color:var(--warm);">CPU Cooling Guide</div>
+        <h1 class="font-display mb-4" style="font-size:clamp(2rem, 5vw, 3.5rem); line-height:1.02; letter-spacing:-0.015em;">
+          CPU Cooler Selection Guide 2026:<br>Air vs AIO, Which Do You Need?
+        </h1>
+        <p style="color:var(--muted-2); font-size:0.85rem; font-family:'JetBrains Mono',monospace; margin-bottom:2rem;">
+          Published June 2026 &nbsp;·&nbsp; By TempCore Editorial Team &nbsp;·&nbsp; 11 min read
+        </p>
+
+        <div class="callout" style="margin-bottom:2rem;">
+          <strong style="color:var(--text);">The bottom line:</strong> For most gaming builds, a quality dual-tower air cooler (Noctua NH-D15, DeepCool AK620) matches or beats most 240mm AIOs at lower cost, with more reliability. A 360mm AIO only makes sense for the highest-power CPUs (Intel Core i9-14900K, AMD Ryzen 9 7950X) or if you prioritize aesthetics over pure performance-per-dollar.
+        </div>
+
+        <h2>Why Cooler Choice Matters More Than Ever</h2>
+        <p>Modern high-performance CPUs draw significantly more power than their predecessors. Intel's Core i9-14900K can reach <strong>253W Maximum Turbo Power (MTP)</strong> under sustained all-core load — more than triple its 65W base TDP. AMD's Ryzen 9 7950X has a default PPT (Package Power Tracking) limit of <strong>230W</strong>. Even mid-range CPUs like the Core i7-14700K reach 181W MTP.</p>
+        <p>An undersized cooler doesn't just mean higher temperatures — it means the CPU hits its thermal limit and throttles, actively reducing performance below what it's capable of. The thermal solution directly affects the performance you get from your CPU purchase.</p>
+
+        <h2>Understanding TDP Ratings (and Why They're Confusing)</h2>
+
+        <h3>Intel's TDP vs MTP Problem</h3>
+        <p>Intel's advertised TDP (e.g., 65W for Core i9-14900K) is the base clock power consumption, not the boost power. Cooler marketing often quotes "supports 65W CPUs" — which is meaningless when the same CPU pulls 253W MTP during workloads. When choosing a cooler for Intel K-series chips, use MTP as your actual thermal design point, not the base TDP.</p>
+        <p>Intel's actual sustained power figures by tier:</p>
+        <ul>
+          <li><strong>Core i9-14900K:</strong> 125W base TDP / 253W MTP</li>
+          <li><strong>Core i7-14700K:</strong> 125W base TDP / 181W MTP</li>
+          <li><strong>Core i5-14600K:</strong> 125W base TDP / 181W MTP</li>
+          <li><strong>Core i5-13400F/14400F (non-K):</strong> 65W TDP / ~100W peak — these run cool, any decent cooler works</li>
+          <li><strong>Intel Core Ultra 200S (Arrow Lake):</strong> 65W base / ~150–160W sustained</li>
+        </ul>
+
+        <h3>AMD's PPT System</h3>
+        <p>AMD uses PPT (Package Power Tracking) which limits total chip power including I/O. This is AMD's equivalent of Intel's MTP. Key values:</p>
+        <ul>
+          <li><strong>Ryzen 9 7950X:</strong> 230W PPT</li>
+          <li><strong>Ryzen 9 7900X:</strong> 170W PPT</li>
+          <li><strong>Ryzen 7 7700X:</strong> 142W PPT</li>
+          <li><strong>Ryzen 5 7600X:</strong> 142W PPT</li>
+          <li><strong>Ryzen 9 5900X:</strong> 142W PPT</li>
+          <li><strong>Ryzen 5 7600 (non-X):</strong> 88W PPT — runs noticeably cooler than the 7600X</li>
+        </ul>
+        <p>Ryzen 9000 series (AM5) ships with lower default power limits than 7000X series, making them notably easier to cool.</p>
+
+        <h2>Air Coolers: The Case for High-End Air</h2>
+
+        <h3>Why Air Coolers Are Underrated</h3>
+        <p>High-end air coolers consistently outperform or match 240mm AIOs in independent testing, despite costing less. The reason: a large dual-tower air cooler has a huge contact area with the fins, large low-speed fans, and no pump to add failure risk. A 240mm AIO's radiator is actually smaller than what a Noctua NH-D15 moves air through.</p>
+        <p>Modern thermal reviews by GN and Hardware Unboxed consistently show: Noctua NH-D15 ≈ 240mm AIO temperatures, and Noctua NH-D15 < 280mm AIO by only 1–3°C. The 280mm vs. 360mm gap is larger.</p>
+
+        <h3>Air Cooler TDP Ratings (Manufacturer-Rated)</h3>
+        <div style="overflow-x:auto; margin:1rem 0;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.82rem;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border);">
+                <th style="text-align:left; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Cooler</th>
+                <th style="text-align:center; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Rated TDP</th>
+                <th style="text-align:center; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Price</th>
+                <th style="text-align:left; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">Noctua NH-D15 G2</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--safe);">300W</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:#8888a0;">~$120</td>
+                <td style="padding:0.45rem 0.75rem; color:#b0b0c8;">Best air cooler, all CPUs</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">DeepCool AK620 Digital</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--safe);">260W</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:#8888a0;">~$75</td>
+                <td style="padding:0.45rem 0.75rem; color:#b0b0c8;">Best value high-end air</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">be quiet! Dark Rock Pro 5</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--safe);">250W</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:#8888a0;">~$90</td>
+                <td style="padding:0.45rem 0.75rem; color:#b0b0c8;">Silent-focused builds</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">Noctua NH-U12A chromax</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--warm);">200W</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:#8888a0;">~$85</td>
+                <td style="padding:0.45rem 0.75rem; color:#b0b0c8;">Tight case clearance</td>
+              </tr>
+              <tr>
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">Thermalright Peerless Assassin 120</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--warm);">240W</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:#8888a0;">~$45</td>
+                <td style="padding:0.45rem 0.75rem; color:#b0b0c8;">Best budget dual-tower</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>AIO Liquid Coolers: When They're Worth It</h2>
+
+        <h3>240mm AIO</h3>
+        <p>A 240mm AIO costs more than a quality air cooler and performs similarly or slightly worse in most temperature benchmarks. Where it wins: RAM clearance (no tall heatsink near DIMMs), CPU socket area aesthetics (head unit instead of fins), and sometimes a slight edge in extreme ambients. For most builds, the extra cost isn't justified unless you specifically need the clearance.</p>
+
+        <h3>280mm AIO</h3>
+        <p>The 280mm radiator is a genuine step up over 240mm — larger total surface area. Competes with high-end air coolers more credibly. Still costs more. Suitable for 125–170W TDP CPUs where you want quiet operation.</p>
+
+        <h3>360mm AIO — The Genuine High-End Option</h3>
+        <p>At 360mm, AIOs genuinely outperform all air coolers for extremely high-TDP CPUs (253W Intel i9-K series, 170–230W AMD Ryzen 9 series). If you're building a Core i9-14900K workstation that needs to sustain 250W for extended periods, a 360mm AIO is the right tool. For gaming loads (typically 65–140W for these same CPUs), the advantage over high-end air narrows considerably because gaming doesn't sustain maximum all-core TDP.</p>
+
+        <div style="overflow-x:auto; margin:1rem 0;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.82rem;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border);">
+                <th style="text-align:left; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Cooler</th>
+                <th style="text-align:center; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Rated TDP</th>
+                <th style="text-align:center; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">ARCTIC Liquid Freezer III 360</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--safe);">350W</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:#8888a0;">~$90</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">Noctua NH-D15 G2 (air)</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--safe);">300W</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:#8888a0;">~$120</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">Corsair H150i Elite LCD 360</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--safe);">350W</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:#8888a0;">~$200</td>
+              </tr>
+              <tr>
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">DeepCool LT720 360</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--safe);">320W</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:#8888a0;">~$110</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Matching Your CPU to the Right Cooler</h2>
+
+        <h3>Budget Gaming (Core i5-12400F/13400F, Ryzen 5 5600/7600)</h3>
+        <p>These CPUs have 65–88W TDP. Almost any cooler works. The included box cooler is often adequate. A Thermalright Assassin King 120 SE or similar $25–35 single-tower cooler gives meaningful headroom. No need for dual-tower air or an AIO unless you specifically want the quiet operation of larger fans at very low RPM.</p>
+
+        <h3>Mid-Range Gaming (Core i5-14600K, Ryzen 7 7700X/7800X3D)</h3>
+        <p>The 14600K pulls 181W MTP under all-core load (gaming typically 60–100W). The Ryzen 7 7700X hits 142W PPT but gaming is lower. A quality single-tower (Noctua NH-U12A, DeepCool AK500) handles gaming perfectly. For sustained all-core workloads: upgrade to dual-tower or 240mm AIO.</p>
+
+        <h3>High-End Gaming / Enthusiast (Core i9-14900K, Ryzen 9 7900X/9950X)</h3>
+        <p>253W MTP (Intel i9) and 170–230W PPT (AMD 9 series) require serious cooling for sustained workloads. Minimum: Noctua NH-D15 G2 (300W rated) or DeepCool AK620 (260W). For quieter sustained operation: 360mm AIO. The ARCTIC Liquid Freezer III 360 is the value pick at ~$90 with a 350W rating.</p>
+
+        <h3>AMD 3D V-Cache CPUs (7800X3D, 9800X3D)</h3>
+        <p>Special case: 3D V-Cache chips have a lower operating temperature ceiling than standard chips — AMD specifies 89°C for the 7800X3D vs 95°C for the 7700X. They also have lower default power limits. A quality mid-range cooler (DeepCool AK620, Thermalright Peerless Assassin 120) is sufficient for gaming workloads, and the 89°C thermal limit means a better cooler helps maintain peak boost clocks in warm environments.</p>
+
+        <h2>Case Clearance: Check Before You Buy</h2>
+        <p>CPU cooler height is critical — most mid-tower cases support up to 165–168mm. The Noctua NH-D15 G2 is 168mm tall and may require case-specific clearance checks. Always verify:</p>
+        <ul>
+          <li>Your case's maximum CPU cooler height spec (in the case product page)</li>
+          <li>The cooler's height in the spec sheet</li>
+          <li>RAM slot clearance: dual-tower coolers like the NH-D15 can block the first 1–2 RAM slots</li>
+        </ul>
+
+        <h2>Stock Coolers: When They're Enough</h2>
+        <p>AMD includes a Wraith Prism or Wraith Stealth with many non-X series Ryzen CPUs. The Wraith Prism is adequate for Ryzen 5 5600 and similar chips at stock settings. Intel stopped including coolers with K-series SKUs. For non-K Intel CPUs that come with the box cooler, it's adequate for light workloads but produces high noise under sustained load — a $30–50 aftermarket cooler is a worthwhile upgrade.</p>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside>
+        <div style="position:sticky; top:5rem; display:flex; flex-direction:column; gap:1.25rem;">
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Check Your Cooler</div>
+            <a href="../tools/cpu-cooler-checker.html" style="display:block; background:rgba(251,146,60,0.10); border:1px solid rgba(251,146,60,0.25); border-radius:6px; padding:0.75rem; text-decoration:none; text-align:center; color:var(--warm); font-size:0.85rem; font-weight:600; margin-bottom:0.75rem;">CPU Cooler Adequacy Tool →</a>
+            <p style="font-size:0.78rem; color:#555568; line-height:1.5;">Check if your cooler handles your specific CPU's actual TDP, with real manufacturer data.</p>
+          </div>
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Related Articles</div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <a href="../articles/cpu-temperature-guide.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; padding:0.35rem 0; border-bottom:1px solid var(--border); display:block; line-height:1.4;">Normal CPU Temperature Ranges</a>
+              <a href="../articles/case-airflow-guide.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; padding:0.35rem 0; display:block; line-height:1.4;">Case Airflow Optimization</a>
+            </div>
+          </div>
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem;">Quick Decision Guide</div>
+            <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.78rem;">
+              <div style="padding:0.5rem; border-radius:4px; background:rgba(34,212,126,0.07); border:1px solid rgba(34,212,126,0.15);">
+                <div style="color:var(--safe); font-weight:600; margin-bottom:0.2rem;">≤100W CPU</div>
+                <div style="color:#8888a0;">Any mid-range air cooler</div>
+              </div>
+              <div style="padding:0.5rem; border-radius:4px; background:rgba(251,146,60,0.07); border:1px solid rgba(251,146,60,0.15);">
+                <div style="color:var(--warm); font-weight:600; margin-bottom:0.2rem;">100–180W CPU</div>
+                <div style="color:#8888a0;">Dual-tower air or 280mm AIO</div>
+              </div>
+              <div style="padding:0.5rem; border-radius:4px; background:rgba(239,68,68,0.07); border:1px solid rgba(239,68,68,0.15);">
+                <div style="color:var(--hot); font-weight:600; margin-bottom:0.2rem;">180W+ CPU</div>
+                <div style="color:#8888a0;">High-end dual-tower or 360mm AIO</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="py-10" style="border-top:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1">TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex gap-5">
+          <a href="../tools/cpu-cooler-checker.html" class="nav-link text-xs">Cooler Tool</a>
+          <a href="../articles/cpu-temperature-guide.html" class="nav-link text-xs">CPU Temps</a>
+          <a href="../index.html" class="nav-link text-xs">Home</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. TDP ratings from manufacturer specifications. Always verify cooler height compatibility with your specific case.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/feedback.js"></script>
+  <script src="../js/layout.js"></script>
+</body>
+</html>

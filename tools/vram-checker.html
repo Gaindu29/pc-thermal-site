@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VRAM Requirements Tool — How Much VRAM Does My Game Need? | TempCore</title>
+  <meta name="description" content="Find out exactly how much VRAM your game needs at your resolution and quality settings. Based on real measured VRAM usage data from Digital Foundry, GamersNexus, and Hardware Unboxed.">
+  <meta name="keywords" content="VRAM requirements, how much VRAM do I need, 8GB VRAM enough, 12GB VRAM gaming, VRAM usage by game, Cyberpunk VRAM, RTX 4060 VRAM">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <link rel="canonical" href="https://temp-core.com/tools/vram-checker.html">
+
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="VRAM Requirements Tool — How Much VRAM Does My Game Need? | TempCore">
+  <meta property="og:description" content="Real measured VRAM usage data for 20+ games at 1080p, 1440p, and 4K. See if your GPU has enough VRAM for your target settings.">
+  <meta property="og:url"         content="https://temp-core.com/tools/vram-checker.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "VRAM Requirements Tool",
+    "url": "https://temp-core.com/tools/vram-checker.html",
+    "description": "Real measured VRAM usage data for 20+ games at 1080p, 1440p, and 4K across quality presets.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web Browser",
+    "author": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-06-10",
+    "dateModified": "2026-06-10",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme'); if (!t) {
+          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        var s = localStorage.getItem('tc_sidebar') || 'collapsed';
+        document.documentElement.setAttribute('data-sidebar', s);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-sidebar', 'collapsed');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .field-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8888a0;
+      margin-bottom: 0.5rem;
+    }
+    .field-hint {
+      font-size: 0.72rem;
+      color: #555568;
+      margin-top: 0.35rem;
+      line-height: 1.5;
+    }
+    select option, select optgroup { background: #141418; }
+    .info-strip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      font-size: 0.8rem;
+      color: #8888a0;
+      line-height: 1.6;
+    }
+    @media (min-width: 768px) {
+      .sticky-inputs { position: sticky; top: 80px; }
+    }
+  </style>
+</head>
+<body class="bg-bg">
+
+  <div id="tc-sidebar-mount"></div>
+
+  <!-- PAGE HEADER -->
+  <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <a href="../index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">&#8592; Back to Home</a>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
+        <div>
+          <div class="section-label">Tool</div>
+          <h1 class="font-display mt-1" style="font-size:clamp(2.5rem,7vw,5rem); line-height:0.92;">
+            VRAM<br><span style="color:var(--safe);">Requirements</span>
+          </h1>
+          <p style="color:#8888a0; margin-top:0.75rem; font-size:0.9rem; line-height:1.6; max-width:500px;">
+            Real measured VRAM usage for 20+ games across all resolutions and quality presets. Data sourced from Digital Foundry, GamersNexus, and Hardware Unboxed reviews.
+          </p>
+        </div>
+        <!-- VRAM tier legend -->
+        <div class="temp-strip" style="min-width:260px;">
+          <div class="temp-strip-segment" style="background:rgba(34,212,126,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--safe); font-weight:600;">3+ GB</span>
+            <span style="color:#8888a0; font-size:0.6rem;">COMFORTABLE</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(34,212,126,0.04); border-right:1px solid var(--border);">
+            <span style="color:var(--safe); font-weight:600;">1–3 GB</span>
+            <span style="color:#8888a0; font-size:0.6rem;">ADEQUATE</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,170,0,0.06); border-right:1px solid var(--border);">
+            <span style="color:var(--warm); font-weight:600;">0–1 GB</span>
+            <span style="color:#8888a0; font-size:0.6rem;">TIGHT</span>
+          </div>
+          <div class="temp-strip-segment" style="background:rgba(255,34,68,0.06);">
+            <span style="color:var(--critical); font-weight:600;">&lt;0</span>
+            <span style="color:#8888a0; font-size:0.6rem;">OVER LIMIT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+
+      <!-- INPUTS -->
+      <div class="md:col-span-2">
+        <div class="sticky-inputs flex flex-col gap-4">
+
+          <div class="card p-5">
+            <div class="section-label mb-4">Your Settings</div>
+
+            <!-- Game -->
+            <div class="mb-4">
+              <label class="field-label" for="vr-game">Game</label>
+              <select id="vr-game" class="input-field">
+                <option value="">&#8212; Select game &#8212;</option>
+              </select>
+            </div>
+
+            <!-- Resolution -->
+            <div class="mb-4">
+              <label class="field-label" for="vr-resolution">Resolution</label>
+              <select id="vr-resolution" class="input-field">
+                <option value="">&#8212; Select resolution &#8212;</option>
+                <option value="1080p">1080p (Full HD)</option>
+                <option value="1440p">1440p (2K / QHD)</option>
+                <option value="4K">4K (Ultra HD)</option>
+              </select>
+            </div>
+
+            <!-- Quality Preset -->
+            <div class="mb-5">
+              <label class="field-label" for="vr-preset">Quality Preset</label>
+              <select id="vr-preset" class="input-field">
+                <option value="">&#8212; Select game first &#8212;</option>
+              </select>
+              <div class="field-hint">Presets update based on what each game offers in-game</div>
+            </div>
+
+            <!-- Error -->
+            <div id="vr-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'JetBrains Mono',monospace; margin-bottom:0.75rem;"></div>
+
+            <!-- Submit -->
+            <button class="btn-check" onclick="checkVRAM()" style="width:100%;">
+              Check VRAM Usage
+            </button>
+          </div>
+
+          <!-- Data note -->
+          <div class="info-strip">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--safe); margin-bottom:0.4rem;">Real measured data</div>
+            All figures are <strong style="color:var(--text);">measured peak VRAM usage</strong> from published hardware reviews — not estimates. Sources include Digital Foundry, GamersNexus, Hardware Unboxed, and Tom's Hardware. Values include ~0.5–1GB of OS/driver overhead that is always present.
+          </div>
+
+          <!-- What happens when you run out -->
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--hot); margin-bottom:0.5rem;">What Happens Over VRAM Limit?</div>
+            <ul style="font-size:0.8rem; color:#8888a0; line-height:1.7; padding-left:1.1rem;">
+              <li>Textures stream in/out causing <strong style="color:var(--text);">pop-in and stuttering</strong></li>
+              <li>Some games force lower texture quality automatically</li>
+              <li>Frame pacing becomes erratic even if average FPS looks fine</li>
+              <li>In severe cases, crashes or driver timeouts</li>
+            </ul>
+            <div style="font-size:0.75rem; color:#555568; margin-top:0.5rem; line-height:1.5;">
+              Using DLSS / FSR in Quality mode typically reduces VRAM usage by 0.5–1.5GB.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+
+        <!-- Default state -->
+        <div id="vr-default" class="card p-10 flex flex-col items-center justify-center text-center" style="min-height:320px;">
+          <div style="margin-bottom:1rem; opacity:0.5;">
+            <svg width="52" height="52" viewBox="0 0 32 32" fill="none" stroke="var(--safe)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="10" width="26" height="12" rx="3"/>
+              <circle cx="26" cy="16" r="3.5"/>
+              <line x1="7" y1="14" x2="19" y2="14"/>
+              <line x1="7" y1="18" x2="19" y2="18"/>
+            </svg>
+          </div>
+          <div class="font-display text-2xl mb-2" style="color:#445566;">Select Game &amp; Settings</div>
+          <p style="color:#445566; font-size:0.85rem; max-width:300px; line-height:1.6;">
+            Pick a game, resolution, and quality preset to see exactly how much VRAM it uses — and whether your GPU has enough.
+          </p>
+        </div>
+
+        <!-- Result -->
+        <div id="vr-result" class="result-box"></div>
+
+        <!-- VRAM context cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-2">
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Is 8GB Still Enough in 2026?</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">At 1080p and most 1440p scenarios, 8GB remains sufficient for most games at High settings. However, modern UE5 titles (STALKER 2, Oblivion Remastered, MH Wilds) at 1440p Ultra can push past 8GB. Using upscaling (DLSS/FSR Quality mode) typically buys you 0.5–1.5GB headroom.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">12GB for 1440p in 2026</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">12GB is the comfortable sweet spot for 1440p gaming at High/Ultra in almost all current titles. Only the most VRAM-hungry games (path tracing modes, Alan Wake 2 at 4K) push past this. Cards like the RTX 4070 (12GB), RX 7700 XT (12GB) hit this tier.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">DLSS / FSR VRAM Impact</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Upscaling (DLSS 4, FSR 4, XeSS) renders at a lower internal resolution before upscaling to your target. This reduces VRAM usage by 0.5–2GB depending on the upscaling mode, making it a real solution for VRAM-limited systems — not just a performance boost.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Ray Tracing VRAM Cost</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Ray tracing adds 1.5–4GB of VRAM usage depending on implementation. Path tracing (full RT) in Cyberpunk 2077 or Alan Wake 2 at 4K can require 18–24GB — exceeding what most consumer cards have. Full RT at 1080p/1440p is more feasible on 12–16GB cards.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border);">
+      <div class="section-label">Related Tools &amp; Guides</div>
+      <div class="grid sm:grid-cols-3 gap-4 mt-4">
+        <a href="../tools/fps-estimator.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(0,200,255,0.08); color:var(--accent);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">FPS Estimator</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Estimate your FPS for 60+ games with your GPU and CPU.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Estimate FPS</div>
+        </a>
+        <a href="../tools/bottleneck-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">Bottleneck Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">CPU vs GPU balance at 1080p, 1440p, and 4K.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Check balance</div>
+        </a>
+        <a href="../articles/vram-guide.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Guide</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">How Much VRAM Do You Need in 2026?</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Full breakdown of what 8GB, 12GB, 16GB, and 24GB buys you.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Read guide</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <div style="text-align:center; padding:0.75rem 1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; border-top:1px solid var(--border);">
+    As an Amazon Associate TempCore earns from qualifying purchases. Affiliate links do not affect our editorial opinions.
+  </div>
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1">TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="../tools/fps-estimator.html"      class="nav-link text-xs">FPS Estimator</a>
+          <a href="../tools/bottleneck-checker.html" class="nav-link text-xs">Bottleneck</a>
+          <a href="../index.html"                    class="nav-link text-xs">All Tools</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. VRAM figures are measured from published hardware reviews. Actual usage varies by driver version, game patch, and system configuration.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/vram-checker.js"></script>
+  <script src="../js/feedback.js"></script>
+  <script src="../js/layout.js"></script>
+
+</body>
+</html>

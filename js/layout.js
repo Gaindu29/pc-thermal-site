@@ -34,7 +34,9 @@
     { href: P + 'tools/gpu-temp-checker.html',   label: 'GPU Temp',       icon: 'thermometer' },
     { href: P + 'tools/psu-calculator.html',     label: 'PSU Calculator', icon: 'bolt' },
     { href: P + 'tools/ssd-health-checker.html', label: 'SSD Health',     icon: 'database' },
-    { href: P + 'tools/bottleneck-checker.html', label: 'Bottleneck',     icon: 'link' }
+    { href: P + 'tools/bottleneck-checker.html',   label: 'Bottleneck',     icon: 'link' },
+    { href: P + 'tools/cpu-cooler-checker.html',   label: 'CPU Cooler',     icon: 'wind' },
+    { href: P + 'tools/vram-checker.html',          label: 'VRAM Check',     icon: 'layers' }
   ];
 
   var ARTICLES = [
@@ -45,7 +47,11 @@
     { href: P + 'articles/laptop-temps-guide.html',   label: 'Laptop Cooling',      icon: 'laptop' },
     { href: P + 'articles/pcie5-ssd-heatsinks.html',  label: 'PCIe 5 Heatsinks',    icon: 'shield' },
     { href: P + 'articles/best-thermal-paste-2026.html', label: 'Thermal Paste 2026', icon: 'droplet' },
-    { href: P + 'articles/is-75c-safe.html',          label: 'Is 75°C safe?',       icon: 'help' }
+    { href: P + 'articles/is-75c-safe.html',          label: 'Is 75°C safe?',        icon: 'help' },
+    { href: P + 'articles/gpu-undervolting-guide.html', label: 'GPU Undervolting',   icon: 'zap' },
+    { href: P + 'articles/vram-guide.html',            label: 'VRAM Guide 2026',     icon: 'layers' },
+    { href: P + 'articles/cpu-cooler-guide.html',      label: 'Cooler Guide 2026',   icon: 'wind' },
+    { href: P + 'articles/case-airflow-guide.html',    label: 'Case Airflow',        icon: 'air' }
   ];
 
   var EXTRAS = [
@@ -73,7 +79,11 @@
     moon:        '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
     collapse:    '<path d="M15 18l-6-6 6-6"/>',
     expand:      '<path d="M9 18l6-6-6-6"/>',
-    menu:        '<path d="M3 6h18M3 12h18M3 18h18"/>'
+    menu:        '<path d="M3 6h18M3 12h18M3 18h18"/>',
+    wind:        '<path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2M9.6 4.4A2 2 0 1 1 11 8H2M12.6 19.6A2 2 0 1 0 14 16H2"/>',
+    layers:      '<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 12l10 5 10-5"/><path d="M2 17l10 5 10-5"/>',
+    zap:         '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+    air:         '<path d="M9 5a4 4 0 0 1 4 4 4 4 0 0 1-4 4H5"/><path d="M9 13a4 4 0 0 1 4 4 4 4 0 0 1-4 4H5"/><path d="M18 10a2 2 0 0 0-2-2 2 2 0 0 0-2 2 2 2 0 0 0 2 2h8"/>'
   };
 
   function svgIcon(name) {

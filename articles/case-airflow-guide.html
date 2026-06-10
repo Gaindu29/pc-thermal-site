@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PC Case Airflow Optimization Guide 2026: Fan Placement & Pressure Explained | TempCore</title>
+  <meta name="description" content="How to optimize PC case airflow for lower temperatures. Fan placement, positive vs negative pressure, intake vs exhaust configuration, and common mistakes that hurt cooling performance.">
+  <meta name="keywords" content="PC case airflow, fan placement guide, positive pressure vs negative pressure, case intake exhaust, how to cool PC better, best airflow PC case, CPU and GPU temps lower">
+
+  <link rel="canonical" href="https://temp-core.com/articles/case-airflow-guide.html">
+
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="PC Case Airflow Optimization Guide 2026 | TempCore">
+  <meta property="og:description" content="Optimize your PC's airflow for lower CPU and GPU temperatures. Fan placement, pressure balance, and practical tips with real temperature impact data.">
+  <meta property="og:url"         content="https://temp-core.com/articles/case-airflow-guide.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "PC Case Airflow Optimization Guide 2026",
+    "description": "Fan placement, pressure balance, and practical airflow optimization for lower PC temperatures.",
+    "url": "https://temp-core.com/articles/case-airflow-guide.html",
+    "author":    { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "publisher": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-06-10",
+    "dateModified":  "2026-06-10"
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme'); if (!t) {
+          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        var s = localStorage.getItem('tc_sidebar') || 'collapsed';
+        document.documentElement.setAttribute('data-sidebar', s);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-sidebar', 'collapsed');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-bg">
+  <div id="tc-sidebar-mount"></div>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <article class="md:col-span-2 article-body">
+
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--muted); margin-bottom:1.5rem; letter-spacing:0.03em;">
+          <a href="../index.html" style="color:var(--muted); text-decoration:none;">Home</a>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">Articles</span>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">Case Airflow Guide</span>
+        </div>
+
+        <div class="article-tag mb-3" style="background:rgba(56,189,248,0.10); color:#67e8f9;">PC Cooling Guide</div>
+        <h1 class="font-display mb-4" style="font-size:clamp(2rem, 5vw, 3.5rem); line-height:1.02; letter-spacing:-0.015em;">
+          PC Case Airflow Optimization:<br>Fan Placement & Pressure
+        </h1>
+        <p style="color:var(--muted-2); font-size:0.85rem; font-family:'JetBrains Mono',monospace; margin-bottom:2rem;">
+          Published June 2026 &nbsp;·&nbsp; By TempCore Editorial Team &nbsp;·&nbsp; 10 min read
+        </p>
+
+        <div class="callout" style="margin-bottom:2rem;">
+          <strong style="color:var(--text);">Quick answer:</strong> Front and bottom intakes, rear and top exhaust. More intake than exhaust (slight positive pressure) reduces dust buildup while maintaining excellent temperatures. The single biggest improvement for most PCs is adding front intake fans if you have none — typically worth <strong style="color:var(--safe);">5–10°C</strong> on both CPU and GPU.
+        </div>
+
+        <h2>How Case Airflow Actually Works</h2>
+        <p>Your PC generates heat from the CPU, GPU, VRMs, and other components. Fans move cool air from outside the case, across hot components, and exhaust heated air outside. The goal is a consistent flow path: cool air enters one side, heats up passing through components, and exits the other side. "Dead zones" where air stagnates cause elevated temperatures.</p>
+        <p>The most important principle: <strong>air flows from high pressure to low pressure</strong>. Inside a case, you create airflow by having more air entering (intake) than leaving (exhaust), or vice versa. This is your pressure balance, and it has real temperature and dust implications.</p>
+
+        <h2>Positive vs Negative Pressure</h2>
+
+        <h3>Positive Pressure (More Intake Than Exhaust)</h3>
+        <p>When your intake fans push in more air than exhaust fans pull out, air pressure inside the case is slightly higher than outside. Excess air escapes through gaps — but crucially, air only flows <em>out</em> through those gaps, not in. This means:</p>
+        <ul>
+          <li><strong>Less dust infiltration</strong> — air only enters through filtered intake fans, not through gap leakage</li>
+          <li><strong>Marginally higher temps</strong> than extreme negative pressure — but often only 1–2°C difference in practice</li>
+          <li>Generally the preferred configuration for dust-sensitive environments</li>
+        </ul>
+
+        <h3>Negative Pressure (More Exhaust Than Intake)</h3>
+        <p>More air is being pulled out than pushed in. The case is slightly below ambient pressure. Air rushes in through every gap to compensate. This means:</p>
+        <ul>
+          <li><strong>More dust accumulation</strong> in all gaps, not just filtered intakes</li>
+          <li>Potentially slightly lower peak temps in some configurations due to higher total airflow volume</li>
+          <li>Not recommended for most builds — the dust penalty compounds over months</li>
+        </ul>
+
+        <h3>Balanced Pressure</h3>
+        <p>Equal intake and exhaust. Works well. In practice, slight positive pressure (10–20% more intake CFM) is the common recommendation from thermal reviewers.</p>
+
+        <h2>Fan Placement: The Optimal Configuration</h2>
+
+        <h3>Front Panel — Intake (Most Important Position)</h3>
+        <p>Front fans are the single most impactful position in a typical ATX case. They draw cool ambient air directly toward the GPU (which receives it first) and CPU (further back). Most ATX cases support 2–3 × 120mm or 2–3 × 140mm front fans. <strong>Larger fans at lower RPM are almost always better</strong> than smaller fans at high RPM — 3 × 140mm at 800 RPM moves more air with less noise than 3 × 120mm at 1200 RPM.</p>
+        <p>If your case has a solid front panel with poor airflow, this is a major constraint. Cases with mesh front panels outperform solid-front cases by 5–8°C on average in GPU thermal benchmarks.</p>
+
+        <h3>Top Panel — Exhaust (High Priority)</h3>
+        <p>Hot air rises. Top panel exhaust fans directly remove heated air that rises off the CPU cooler and motherboard area. A single 120mm top exhaust fan is the second most impactful fan position after front intake in most builds. Two 140mm top exhaust fans is an excellent configuration for high-power builds.</p>
+        <p>Note: If you're installing an AIO radiator at the top, configure it as exhaust — pulling hot air out. Intake at the top introduces warm case air into the radiator, reducing cooling effectiveness.</p>
+
+        <h3>Rear Panel — Exhaust (Standard)</h3>
+        <p>Virtually every ATX case includes a single 120mm rear fan mount. Always configure as exhaust. This is the classic exit point for CPU cooler exhaust air (air tower coolers blow air toward the rear). Upgrading the stock rear fan to a higher-quality 120mm is often worth it since this fan runs constantly.</p>
+
+        <h3>Bottom Panel — Intake (GPU Focused)</h3>
+        <p>Some cases support bottom-mounted fans as intake. These are very effective for GPU cooling because the GPU draws air from directly below in most blower and triple-fan card designs. Bottom fans require a case that's raised off the surface (most modern cases have legs), and dust filters are essential here.</p>
+
+        <h2>Recommended Fan Configurations by Build Type</h2>
+
+        <h3>Budget Gaming (Ryzen 5 / i5, RTX 4060 / RX 7600)</h3>
+        <p>Minimum viable: 2 × 120mm front intake + 1 × 120mm rear exhaust. Temperature result: adequate. If your case only has a rear fan slot and two fronts are empty: add the front fans first — this is the cheapest meaningful upgrade. Budget for three 120mm Thermalright TL-C12 fans ($15–20 for a 3-pack) as a complete front intake upgrade.</p>
+
+        <h3>Mid-Range Gaming (i5-K / Ryzen 7, RTX 4070 / RX 7700 XT)</h3>
+        <p>Good: 3 × 140mm front intake + 1 × 140mm top exhaust + 1 × 120mm rear exhaust. This gives abundant airflow for 200–250W combined CPU+GPU loads. Be quiet! Pure Wings 3 140mm fans are well regarded in this category.</p>
+
+        <h3>High-End Gaming (i9 / Ryzen 9, RTX 4080/4090)</h3>
+        <p>Optimal: 3 × 140mm front intake + 2 × 140mm top exhaust + 1 × 120mm rear exhaust. The GPU alone can reach 350–450W on RTX 4090; you need high total airflow to keep the case temperature from rising above ambient by more than 5–7°C. Noctua NF-A14 or Noctua NF-P14 fans here if noise is a priority.</p>
+
+        <h2>Cable Management and Its Thermal Impact</h2>
+        <p>Cable management matters more than most guides admit — a bundle of cables running across the GPU airpath can reduce GPU cooling by 3–7°C by blocking intake airflow. Practical priorities:</p>
+        <ul>
+          <li>Route cables through the motherboard tray's cable management space (behind the board) when possible</li>
+          <li>The GPU PCIe power cables are the most important to route cleanly — they run directly in front of the GPU's intake fans</li>
+          <li>The 24-pin and EPS CPU power cables are the most difficult to hide — route them up along the case edge</li>
+          <li>Don't over-obsess on perfection: cables behind the shroud have near-zero thermal impact</li>
+        </ul>
+
+        <h2>Common Airflow Mistakes</h2>
+        <ul>
+          <li><strong>All fans as exhaust:</strong> Seen in some builds with a focus on "getting hot air out." This creates extreme negative pressure and draws unfiltered air through every gap. Add intake fans.</li>
+          <li><strong>AIO radiator at top, configured as intake:</strong> The radiator receives the hottest air in the case, reducing effectiveness by 3–8°C compared to exhaust.</li>
+          <li><strong>No front fans in a front-intake case:</strong> Cases designed with mesh fronts rely on front fans to function. Empty front mounts mean the GPU directly recirculates its own hot exhaust.</li>
+          <li><strong>Forgetting to remove shipping fan covers:</strong> Some cases ship with covers over fan mounts. Easy to miss, catastrophic for airflow.</li>
+          <li><strong>Fans installed backwards:</strong> Check the arrow on the fan frame indicating both airflow direction and rotation direction. Fan blade curve faces the direction of intake.</li>
+        </ul>
+
+        <h2>Measuring Airflow Improvements</h2>
+        <p>After changing your fan configuration, measure thermal improvements properly:</p>
+        <ol>
+          <li>Run a 15-minute stress test (Prime95 + FurMark simultaneously) and record peak temperatures</li>
+          <li>Make your fan configuration change</li>
+          <li>Run the same test under the same ambient conditions</li>
+          <li>Record the delta — 5°C or more on GPU or CPU indicates a meaningful improvement</li>
+        </ol>
+        <p>Use HWiNFO64 or MSI Afterburner for accurate temperature logging. Ambient room temperature should be noted — a 3°C hotter room produces ~3°C hotter PC temperatures regardless of configuration.</p>
+
+        <h2>Fan Quality: What Matters</h2>
+        <p>Not all 120mm fans are equal. The relevant specifications:</p>
+        <ul>
+          <li><strong>CFM (Cubic Feet per Minute):</strong> Total air volume moved. Higher is better for overall cooling. Most quality 120mm fans at maximum speed: 45–70 CFM.</li>
+          <li><strong>Static pressure (mmH₂O):</strong> Ability to push air through resistance (filters, radiator fins). More important for AIO/radiator fans; less critical for open intake/exhaust positions.</li>
+          <li><strong>Noise level (dBa):</strong> Measured at a specific RPM. Compare at the same RPM, not max RPM — a fan rated 35 dBa at 1500 RPM versus 22 dBa at 1500 RPM is a meaningful difference.</li>
+          <li><strong>Bearing type:</strong> Fluid dynamic bearings (FDB) and rifle bearings last longer and run quieter than sleeve bearings. Noctua's SSO2 bearing is best-in-class longevity.</li>
+        </ul>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside>
+        <div style="position:sticky; top:5rem; display:flex; flex-direction:column; gap:1.25rem;">
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Related Tools</div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <a href="../tools/gpu-temp-checker.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; display:flex; align-items:center; gap:0.5rem; padding:0.35rem 0; border-bottom:1px solid var(--border);">
+                <span style="color:var(--hot);">→</span> GPU Temp Checker
+              </a>
+              <a href="../tools/cpu-cooler-checker.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; display:flex; align-items:center; gap:0.5rem; padding:0.35rem 0; border-bottom:1px solid var(--border);">
+                <span style="color:var(--warm);">→</span> CPU Cooler Checker
+              </a>
+              <a href="../tools/psu-calculator.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; display:flex; align-items:center; gap:0.5rem; padding:0.35rem 0;">
+                <span style="color:var(--safe);">→</span> PSU Calculator
+              </a>
+            </div>
+          </div>
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Related Articles</div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <a href="../articles/cpu-temperature-guide.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; padding:0.35rem 0; border-bottom:1px solid var(--border); display:block; line-height:1.4;">Normal CPU Temperature Ranges</a>
+              <a href="../articles/cpu-cooler-guide.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; padding:0.35rem 0; border-bottom:1px solid var(--border); display:block; line-height:1.4;">CPU Cooler Selection Guide</a>
+              <a href="../articles/gpu-undervolting-guide.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; padding:0.35rem 0; display:block; line-height:1.4;">GPU Undervolting Guide</a>
+            </div>
+          </div>
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem;">Optimal Fan Config</div>
+            <div style="font-size:0.78rem; color:#8888a0; line-height:1.8;">
+              <div style="display:flex; justify-content:space-between; padding:0.2rem 0; border-bottom:1px solid var(--border);">
+                <span>Front</span><span style="color:#67e8f9;">3× intake</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:0.2rem 0; border-bottom:1px solid var(--border);">
+                <span>Top</span><span style="color:var(--warm);">2× exhaust</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:0.2rem 0; border-bottom:1px solid var(--border);">
+                <span>Rear</span><span style="color:var(--warm);">1× exhaust</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:0.2rem 0;">
+                <span>Balance</span><span style="color:var(--safe);">Slight positive</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="py-10" style="border-top:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1">TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex gap-5">
+          <a href="../tools/cpu-cooler-checker.html" class="nav-link text-xs">Cooler Tool</a>
+          <a href="../articles/cpu-temperature-guide.html" class="nav-link text-xs">CPU Temps</a>
+          <a href="../index.html" class="nav-link text-xs">Home</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. Always verify fan orientation before closing your case.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/feedback.js"></script>
+  <script src="../js/layout.js"></script>
+</body>
+</html>

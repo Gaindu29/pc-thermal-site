@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Cooler Adequacy Checker — Is Your Cooler Enough? | TempCore</title>
+  <meta name="description" content="Free CPU cooler checker. Select your CPU and cooler to instantly find out if your cooling solution can handle your processor's thermal requirements — with real manufacturer TDP data.">
+  <meta name="keywords" content="CPU cooler checker, is my cooler enough, CPU TDP cooler, cooler adequacy, Noctua NH-D15 i9-14900K, AIO vs air cooler, CPU overheating cooler">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <link rel="canonical" href="https://temp-core.com/tools/cpu-cooler-checker.html">
+
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="CPU Cooler Adequacy Checker — Is Your Cooler Enough? | TempCore">
+  <meta property="og:description" content="Select your CPU and cooler to get a data-backed verdict on whether your cooling solution handles your processor's thermal requirements.">
+  <meta property="og:url"         content="https://temp-core.com/tools/cpu-cooler-checker.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CPU Cooler Adequacy Checker",
+    "url": "https://temp-core.com/tools/cpu-cooler-checker.html",
+    "description": "Check whether your CPU cooler can handle your processor's thermal requirements using real manufacturer TDP ratings.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web Browser",
+    "author": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-06-10",
+    "dateModified": "2026-06-10",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme'); if (!t) {
+          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        var s = localStorage.getItem('tc_sidebar') || 'collapsed';
+        document.documentElement.setAttribute('data-sidebar', s);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-sidebar', 'collapsed');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .field-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8888a0;
+      margin-bottom: 0.5rem;
+    }
+    .field-hint {
+      font-size: 0.72rem;
+      color: #555568;
+      margin-top: 0.35rem;
+      line-height: 1.5;
+    }
+    select option, select optgroup { background: #141418; }
+    .info-strip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      font-size: 0.8rem;
+      color: #8888a0;
+      line-height: 1.6;
+    }
+    @media (min-width: 768px) {
+      .sticky-inputs { position: sticky; top: 80px; }
+    }
+    /* TDP strip */
+    .tdp-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .tdp-strip-segment {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.55rem 0.5rem;
+      gap: 0.2rem;
+    }
+    .tdp-strip-segment + .tdp-strip-segment { border-left: 1px solid var(--border); }
+  </style>
+</head>
+<body class="bg-bg">
+
+  <div id="tc-sidebar-mount"></div>
+
+  <!-- PAGE HEADER -->
+  <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <a href="../index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">&#8592; Back to Home</a>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
+        <div>
+          <div class="section-label">Tool</div>
+          <h1 class="font-display mt-1" style="font-size:clamp(2.5rem,7vw,5rem); line-height:0.92;">
+            CPU Cooler<br><span style="color:var(--accent);">Checker</span>
+          </h1>
+          <p style="color:#8888a0; margin-top:0.75rem; font-size:0.9rem; line-height:1.6; max-width:480px;">
+            Select your CPU and cooler to see if your cooling solution can actually handle your processor's thermal requirements — using real manufacturer TDP ratings.
+          </p>
+        </div>
+        <!-- TDP strip legend -->
+        <div class="tdp-strip" style="min-width:260px;">
+          <div class="tdp-strip-segment" style="background:rgba(34,212,126,0.06);">
+            <span style="color:var(--safe); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:0.75rem;">+25%+</span>
+            <span style="color:#8888a0; font-size:0.6rem; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em;">EXCELLENT</span>
+          </div>
+          <div class="tdp-strip-segment" style="background:rgba(34,212,126,0.04); border-left:1px solid var(--border);">
+            <span style="color:var(--safe); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:0.75rem;">+5%</span>
+            <span style="color:#8888a0; font-size:0.6rem; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em;">ADEQUATE</span>
+          </div>
+          <div class="tdp-strip-segment" style="background:rgba(255,170,0,0.06); border-left:1px solid var(--border);">
+            <span style="color:var(--warm); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:0.75rem;">-12%</span>
+            <span style="color:#8888a0; font-size:0.6rem; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em;">BORDERLINE</span>
+          </div>
+          <div class="tdp-strip-segment" style="background:rgba(255,34,68,0.06); border-left:1px solid var(--border);">
+            <span style="color:var(--critical); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:0.75rem;">-12%+</span>
+            <span style="color:#8888a0; font-size:0.6rem; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em;">INADEQUATE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+
+      <!-- INPUTS -->
+      <div class="md:col-span-2">
+        <div class="sticky-inputs flex flex-col gap-4">
+
+          <div class="card p-5">
+            <div class="section-label mb-4">Your Setup</div>
+
+            <!-- CPU -->
+            <div class="mb-4">
+              <label class="field-label" for="cc-cpu">Your CPU</label>
+              <select id="cc-cpu" class="input-field">
+                <option value="">&#8212; Select CPU &#8212;</option>
+              </select>
+              <div class="field-hint">Covers Intel 10th–14th gen and AMD Ryzen 3000–9000</div>
+            </div>
+
+            <!-- Cooler -->
+            <div class="mb-5">
+              <label class="field-label" for="cc-cooler">Your Cooler</label>
+              <select id="cc-cooler" class="input-field">
+                <option value="">&#8212; Select Cooler &#8212;</option>
+              </select>
+              <div class="field-hint">Covers stock, budget/mid/high-end air, and 240–360mm AIOs</div>
+            </div>
+
+            <!-- Error -->
+            <div id="cc-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'JetBrains Mono',monospace; margin-bottom:0.75rem;"></div>
+
+            <!-- Submit -->
+            <button class="btn-check" onclick="checkCooler()" style="width:100%;">
+              Check Adequacy
+            </button>
+          </div>
+
+          <!-- How it works -->
+          <div class="info-strip">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">Data sources</div>
+            CPU thermal requirements use Intel MTP / AMD PPT specifications from official product pages and GamersNexus sustained load testing. Cooler TDP ratings are manufacturer-published specifications. The checker shows both <strong style="color:var(--text);">gaming load</strong> (typical sustained gaming draw) and <strong style="color:var(--text);">sustained max</strong> (worst-case all-core) for each CPU.
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+
+        <!-- Default state -->
+        <div id="cc-default" class="card p-10 flex flex-col items-center justify-center text-center" style="min-height:320px;">
+          <div style="margin-bottom:1rem; opacity:0.5;">
+            <svg width="52" height="52" viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 3v8M16 21v8M3 16h8M21 16h8"/>
+              <circle cx="16" cy="16" r="5"/>
+              <path d="M7.1 7.1l4.2 4.2M20.7 20.7l4.2 4.2M7.1 24.9l4.2-4.2M20.7 11.3l4.2-4.2"/>
+            </svg>
+          </div>
+          <div class="font-display text-2xl mb-2" style="color:#445566;">Select CPU &amp; Cooler</div>
+          <p style="color:#445566; font-size:0.85rem; max-width:300px; line-height:1.6;">
+            Pick your CPU and cooler to find out if your cooling solution is adequate — with a breakdown of gaming vs. sustained thermal requirements.
+          </p>
+        </div>
+
+        <!-- Result -->
+        <div id="cc-result" class="result-box"></div>
+
+        <!-- Context cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-2">
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Intel K-Series vs Non-K</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Intel K-series CPUs (i9-14900K, i7-13700K, etc.) can boost well beyond their base TDP. The i9-14900K's Maximum Turbo Power (MTP) is <strong style="color:var(--text);">253W</strong> — nearly 4× its 65W base. This is why these chips need premium coolers despite their modest base spec.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">AMD Ryzen 3D V-Cache</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">AMD's 3D V-Cache CPUs (7800X3D, 5800X3D) run considerably cooler than their non-3D counterparts. The V-Cache layer limits peak voltages and frequencies for thermal safety — the 7800X3D draws ~95W gaming vs 142W for the 7700X.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Gaming vs Sustained Load</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">A CPU's gaming power draw is typically 30–50% lower than its all-core sustained maximum (used for rendering, compiling, etc.). Gaming-only systems can get by with coolers rated slightly below the chip's MTP spec.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Limiting Power in BIOS</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">If your cooler is borderline, setting the CPU's PL1/PL2 power limit (Intel) or PPT limit (AMD) to 80% of max in BIOS reduces temps with minimal gaming performance loss. Most gaming workloads don't saturate all cores anyway.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related tools -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border);">
+      <div class="section-label">Related Tools &amp; Guides</div>
+      <div class="grid sm:grid-cols-3 gap-4 mt-4">
+        <a href="../tools/psu-calculator.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">PSU Wattage Calculator</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Find the right PSU for your CPU and GPU combo.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Calculate PSU</div>
+        </a>
+        <a href="../articles/cpu-temperature-guide.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(0,200,255,0.08); color:var(--accent);">Guide</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">Safe CPU Temperature Guide</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Exact safe and hot temperature ranges for every modern CPU family.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Read guide</div>
+        </a>
+        <a href="../articles/cpu-cooler-guide.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Guide</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">CPU Cooler Selection Guide 2026</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">How to choose between stock, budget air, high-end air, and AIO liquid cooling.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Read guide</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Cooler Picks -->
+  <section style="padding:3rem 0; border-top:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="section-label mb-2">Recommended Coolers</div>
+      <p style="color:#8888a0; font-size:0.85rem; margin-bottom:1.5rem; max-width:500px; line-height:1.65;">If your checker flagged an inadequate or borderline cooler, these are reliable upgrades at each tier.</p>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--safe);margin-bottom:0.75rem;">Budget Air (≤$40)</div>
+          <a href="https://amzn.to/hyper212" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--safe)'" onmouseout="this.style.color='#b0b0c8'">Cooler Master Hyper 212 Black <span style="font-size:0.7rem;color:#555568;">↗</span></a>
+          <a href="https://amzn.to/deepak400" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--safe)'" onmouseout="this.style.color='#b0b0c8'">DeepCool AK400 (220W rated) <span style="font-size:0.7rem;color:#555568;">↗</span></a>
+          <p style="font-size:0.72rem;color:#555568;margin-top:0.6rem;line-height:1.5;">Suitable for non-K Intel and 65–105W AMD Ryzen chips.</p>
+        </div>
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:0.75rem;">High-end Air ($50–$100)</div>
+          <a href="https://amzn.to/thermpas" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='#b0b0c8'">Thermalright Peerless Assassin 120 SE <span style="font-size:0.7rem;color:#555568;">↗</span></a>
+          <a href="https://amzn.to/deepak620" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='#b0b0c8'">DeepCool AK620 (260W rated) <span style="font-size:0.7rem;color:#555568;">↗</span></a>
+          <a href="https://amzn.to/noctua_d15" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='#b0b0c8'">Noctua NH-D15 (250W rated) <span style="font-size:0.7rem;color:#555568;">↗</span></a>
+          <p style="font-size:0.72rem;color:#555568;margin-top:0.6rem;line-height:1.5;">Handles i9-14900K and Ryzen 9 7950X in gaming loads.</p>
+        </div>
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;">360mm AIO ($100–$180)</div>
+          <a href="https://amzn.to/arcticlf360" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='#b0b0c8'">ARCTIC Liquid Freezer III 360 <span style="font-size:0.7rem;color:#555568;">↗</span></a>
+          <a href="https://amzn.to/corsairh150" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='#b0b0c8'">Corsair iCUE H150i Elite 360 <span style="font-size:0.7rem;color:#555568;">↗</span></a>
+          <p style="font-size:0.72rem;color:#555568;margin-top:0.6rem;line-height:1.5;">Handles i9-14900K under full all-core load and sustained workloads.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="text-align:center; padding:0.75rem 1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; border-top:1px solid var(--border);">
+    As an Amazon Associate TempCore earns from qualifying purchases. Affiliate links do not affect our editorial opinions.
+  </div>
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1">TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="../tools/psu-calculator.html" class="nav-link text-xs">PSU Calc</a>
+          <a href="../tools/bottleneck-checker.html" class="nav-link text-xs">Bottleneck</a>
+          <a href="../index.html" class="nav-link text-xs">All Tools</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. TDP ratings are manufacturer-published specifications. Actual thermal performance varies by ambient temperature, case airflow, and thermal paste quality.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/cpu-cooler.js"></script>
+  <script src="../js/feedback.js"></script>
+  <script src="../js/layout.js"></script>
+
+</body>
+</html>

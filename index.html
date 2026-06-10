@@ -106,6 +106,8 @@
         <a href="tools/bottleneck-checker.html" class="article-tag" style="background:rgba(34,212,126,0.08); color:var(--safe); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">Bottleneck</a>
         <a href="tools/psu-calculator.html"     class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">PSU Calc</a>
         <a href="articles/overclocking-guide.html#oc-selector" class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">OC Guide</a>
+        <a href="tools/cpu-cooler-checker.html" class="article-tag" style="background:rgba(251,146,60,0.08); color:var(--warm); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">Cooler Check</a>
+        <a href="tools/vram-checker.html" class="article-tag" style="background:rgba(139,92,246,0.08); color:#a78bfa; text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">VRAM Tool</a>
       </div>
     </div>
   </section>
@@ -203,7 +205,7 @@
     </div>
 
     <!-- Row 3: PSU + OC -->
-    <div class="grid md:grid-cols-2 gap-4">
+    <div class="grid md:grid-cols-2 gap-4 mb-4">
 
       <a href="tools/psu-calculator.html" class="card card-tool p-5 article-card" style="text-decoration:none;">
         <div class="flex items-start justify-between gap-2 mb-2">
@@ -227,6 +229,35 @@
         </div>
         <p style="color:#8888a0; font-size:0.8rem; line-height:1.6; margin-bottom:0.75rem;">Safe core/memory clock, power limit targets, and stress-test plan for 45+ GPU models including RTX 50 series.</p>
         <div style="color:var(--warm); font-family:'JetBrains Mono',monospace; font-size:0.72rem;">→ Find OC settings</div>
+      </a>
+
+    </div>
+
+    <!-- Row 4: CPU Cooler Checker + VRAM Checker (new tools) -->
+    <div class="grid md:grid-cols-2 gap-4">
+
+      <a href="tools/cpu-cooler-checker.html" class="card card-tool p-5 article-card" style="text-decoration:none; border-color:rgba(251,146,60,0.2);">
+        <div class="flex items-start justify-between gap-2 mb-2">
+          <div>
+            <div class="article-tag mb-2" style="background:rgba(251,146,60,0.12); color:var(--warm);">New Tool</div>
+            <h3 class="font-display text-xl tracking-wide article-title transition-colors" style="color:var(--text);">CPU Cooler Adequacy Checker</h3>
+          </div>
+          <div style="flex-shrink:0;"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--warm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7.7a2.5 2.5 0 1 1 1.8 4.3H2M11.6 4.4A2 2 0 1 1 13 8H2M14.6 22.6A2 2 0 1 0 16 19H2"/></svg></div>
+        </div>
+        <p style="color:#8888a0; font-size:0.8rem; line-height:1.6; margin-bottom:0.75rem;">Real manufacturer TDP ratings vs actual Intel MTP / AMD PPT values. Know if your cooler actually handles your CPU's power draw.</p>
+        <div style="color:var(--warm); font-family:'JetBrains Mono',monospace; font-size:0.72rem;">→ Check cooler adequacy</div>
+      </a>
+
+      <a href="tools/vram-checker.html" class="card card-tool p-5 article-card" style="text-decoration:none; border-color:rgba(139,92,246,0.2);">
+        <div class="flex items-start justify-between gap-2 mb-2">
+          <div>
+            <div class="article-tag mb-2" style="background:rgba(139,92,246,0.12); color:#a78bfa;">New Tool</div>
+            <h3 class="font-display text-xl tracking-wide article-title transition-colors" style="color:var(--text);">VRAM Requirements Tool</h3>
+          </div>
+          <div style="flex-shrink:0;"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3L3 9l13 7 13-7-13-7z"/><path d="M3 16l13 7 13-7"/><path d="M3 22l13 7 13-7"/></svg></div>
+        </div>
+        <p style="color:#8888a0; font-size:0.8rem; line-height:1.6; margin-bottom:0.75rem;">Measured peak VRAM usage for 20 games at 1080p / 1440p / 4K. See if your GPU's VRAM is enough before buying or upgrading.</p>
+        <div style="color:#a78bfa; font-family:'JetBrains Mono',monospace; font-size:0.72rem;">→ Check VRAM requirements</div>
       </a>
 
     </div>
@@ -271,6 +302,34 @@
         <div class="article-tag mb-3" style="background:rgba(255,170,0,0.08); color:var(--warm);">FAQ</div>
         <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">Is 75°C Safe for an RTX 4050?</h3>
         <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Specific guidance for RTX 4050 laptop and desktop, with temperature context and what to do if temps are higher.</p>
+        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+      </a>
+
+      <a href="articles/gpu-undervolting-guide.html" class="card p-5 article-card">
+        <div class="article-tag mb-3" style="background:rgba(34,212,126,0.08); color:var(--safe);">New Guide</div>
+        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How to Undervolt Your GPU: Lower Temps, Same FPS</h3>
+        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Step-by-step voltage/frequency curve guide for NVIDIA RTX 40/50 and AMD RX 7000. Typically saves 5–15°C at zero performance cost.</p>
+        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+      </a>
+
+      <a href="articles/vram-guide.html" class="card p-5 article-card">
+        <div class="article-tag mb-3" style="background:rgba(139,92,246,0.08); color:#a78bfa;">New Guide</div>
+        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How Much VRAM Do You Need in 2026?</h3>
+        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">8GB vs 12GB vs 16GB with real measured VRAM usage data from 20 games at 1080p, 1440p, and 4K.</p>
+        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+      </a>
+
+      <a href="articles/cpu-cooler-guide.html" class="card p-5 article-card">
+        <div class="article-tag mb-3" style="background:rgba(251,146,60,0.08); color:var(--warm);">New Guide</div>
+        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">CPU Cooler Selection Guide 2026: Air vs AIO</h3>
+        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Real TDP ratings for air coolers and AIOs vs actual Intel MTP and AMD PPT values. Find the right cooler for your CPU tier.</p>
+        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+      </a>
+
+      <a href="articles/case-airflow-guide.html" class="card p-5 article-card">
+        <div class="article-tag mb-3" style="background:rgba(56,189,248,0.08); color:#67e8f9;">New Guide</div>
+        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">PC Case Airflow Optimization Guide 2026</h3>
+        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Fan placement, positive vs negative pressure, cable management impact, and optimal configurations for budget through high-end builds.</p>
         <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
       </a>
 
