@@ -34,7 +34,6 @@
     { href: P + 'tools/gpu-temp-checker.html',   label: 'GPU Temp',       icon: 'thermometer' },
     { href: P + 'tools/psu-calculator.html',     label: 'PSU Calculator', icon: 'bolt' },
     { href: P + 'tools/ssd-health-checker.html', label: 'SSD Health',     icon: 'database' },
-    { href: P + 'tools/bottleneck-checker.html',   label: 'Bottleneck',     icon: 'link' },
     { href: P + 'tools/cpu-cooler-checker.html',   label: 'CPU Cooler',     icon: 'wind' },
     { href: P + 'tools/vram-checker.html',          label: 'VRAM Check',     icon: 'layers' }
   ];
@@ -51,7 +50,9 @@
     { href: P + 'articles/gpu-undervolting-guide.html', label: 'GPU Undervolting',   icon: 'zap' },
     { href: P + 'articles/vram-guide.html',            label: 'VRAM Guide 2026',     icon: 'layers' },
     { href: P + 'articles/cpu-cooler-guide.html',      label: 'Cooler Guide 2026',   icon: 'wind' },
-    { href: P + 'articles/case-airflow-guide.html',    label: 'Case Airflow',        icon: 'air' }
+    { href: P + 'articles/case-airflow-guide.html',       label: 'Case Airflow',        icon: 'air' },
+    { href: P + 'articles/pc-monitoring-tools-guide.html', label: 'Monitoring Tools',  icon: 'monitor' },
+    { href: P + 'articles/how-to-stress-test-pc.html',    label: 'Stress Test Guide',  icon: 'alert' }
   ];
 
   var EXTRAS = [

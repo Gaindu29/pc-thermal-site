@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Properly Stress Test Your PC: CPU, GPU & RAM Testing Guide 2026 | TempCore</title>
+  <meta name="description" content="Stress test your PC with Prime95, FurMark, Cinebench R24, and 3DMark. Verify thermal headroom, confirm stability after overclocking, and find instability before it becomes crashes.">
+  <meta name="keywords" content="how to stress test PC, Prime95 guide, FurMark stress test, Cinebench R24, 3DMark benchmark, PC stability testing, overclock stress test, GPU stress test, CPU stress test 2026">
+
+  <link rel="canonical" href="https://temp-core.com/articles/how-to-stress-test-pc.html">
+
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="How to Properly Stress Test Your PC: CPU, GPU & RAM Testing Guide | TempCore">
+  <meta property="og:description" content="Stress test your CPU, GPU, and RAM properly using Prime95, FurMark, Cinebench R24, and 3DMark. Know your thermal headroom before problems happen.">
+  <meta property="og:url"         content="https://temp-core.com/articles/how-to-stress-test-pc.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Properly Stress Test Your PC: CPU, GPU & RAM Testing Guide 2026",
+    "description": "Stress test your CPU, GPU, and RAM using Prime95, FurMark, Cinebench, and 3DMark to verify stability and thermal headroom.",
+    "url": "https://temp-core.com/articles/how-to-stress-test-pc.html",
+    "author":    { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "publisher": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-06-12",
+    "dateModified":  "2026-06-12"
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme'); if (!t) {
+          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        var s = localStorage.getItem('tc_sidebar') || 'collapsed';
+        document.documentElement.setAttribute('data-sidebar', s);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-sidebar', 'collapsed');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-bg">
+  <div id="tc-sidebar-mount"></div>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <article class="md:col-span-2 article-body">
+
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--muted); margin-bottom:1.5rem; letter-spacing:0.03em;">
+          <a href="../index.html" style="color:var(--muted); text-decoration:none;">Home</a>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">Articles</span>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">Stress Test Guide</span>
+        </div>
+
+        <div class="article-tag mb-3" style="background:rgba(239,68,68,0.10); color:var(--hot);">Performance & Stability</div>
+        <h1 class="font-display mb-4" style="font-size:clamp(2rem, 5vw, 3.5rem); line-height:1.02; letter-spacing:-0.015em;">
+          How to Properly Stress<br>Test Your PC
+        </h1>
+        <p style="color:var(--muted-2); font-size:0.85rem; font-family:'JetBrains Mono',monospace; margin-bottom:2rem;">
+          Published June 2026 &nbsp;·&nbsp; By TempCore Editorial Team &nbsp;·&nbsp; 11 min read
+        </p>
+
+        <div class="callout" style="margin-bottom:2rem;">
+          <strong style="color:var(--text);">The goal of stress testing:</strong> Push your hardware to its thermal and electrical ceiling in a controlled environment before that ceiling is hit mid-game, mid-render, or mid-workday. If your system is going to crash or throttle, you want to know now — and to know the exact temperature or voltage at which that happened.
+        </div>
+
+        <h2>When to Stress Test</h2>
+        <ul>
+          <li><strong>After a new build:</strong> Verifies that your cooler is mounted correctly, thermal paste is applied well, and no component is defective.</li>
+          <li><strong>After overclocking or undervolting:</strong> Confirms your settings are stable at the new operating point. Games crash much more gracefully than stress tests — find instability in testing, not in a 3-hour gaming session.</li>
+          <li><strong>After reseating a cooler:</strong> Thermal paste application quality varies enormously. Compare your post-reseat temperatures against your previous data.</li>
+          <li><strong>When investigating crashes or throttling:</strong> A controlled stress test with HWiNFO logging active will reveal exactly what's happening at the moment instability occurs.</li>
+          <li><strong>Before overclocking:</strong> Establish a thermal baseline so you know how much headroom you have to work with.</li>
+        </ul>
+
+        <h2>What You'll Need Alongside the Stress Tools</h2>
+        <p>Always run <strong>HWiNFO64</strong> in sensors-only mode alongside every stress test. The stress tool pushes the hardware; HWiNFO records what the hardware is actually doing. After the test, check the Maximum column for peak temperatures, the Current column for where you settled, and look for any thermal throttle flags (HWiNFO shows "TDC Limit" / "TjMax" / "Power Limit" flags in a separate column when throttling is detected).</p>
+
+        <h2>CPU Stress Testing</h2>
+
+        <h3>Cinebench R24 — Start Here</h3>
+        <p>Cinebench is the standard benchmark for CPU performance verification. It runs a 3D rendering workload across all CPU cores, which closely mimics real multi-threaded workloads. Use Cinebench <strong>R24</strong> (latest version as of 2026).</p>
+        <ul>
+          <li><strong>Single-core test:</strong> Measures peak single-thread performance. Compare against publicly published R24 scores for your exact CPU model.</li>
+          <li><strong>Multi-core test:</strong> Set it to run for <strong>10 minutes minimum</strong> (change from single run in Settings → Minimum Test Duration). This reveals thermal throttling — a CPU that throttles will show lower multi-core scores than its 1-minute peak.</li>
+          <li><strong>What to check:</strong> Does your multi-core score match published reviews for stock settings? If significantly lower, check HWiNFO for power limit throttling or thermal throttling during the run.</li>
+        </ul>
+
+        <h3>Prime95 — The Stability Standard</h3>
+        <p>Prime95 is the traditional CPU stability tool. "Small FFTs" mode is the most demanding test — it maximises CPU power draw and is hotter than most real workloads. This makes it excellent for finding cooling limits, but be aware it draws more power than games will.</p>
+
+        <p><strong>Which mode to use:</strong></p>
+        <ul>
+          <li><strong>Small FFTs:</strong> Maximum heat, maximum power consumption. Used for thermal testing. Comparable to (and often exceeds) Intel MTP and AMD PPT. Run for 15–20 minutes minimum.</li>
+          <li><strong>Large FFTs:</strong> Tests memory as well as the CPU. Useful after RAM overclocking.</li>
+          <li><strong>Blend:</strong> Tests CPU, cache, and RAM together. Slower to expose issues but more representative of real workloads.</li>
+        </ul>
+
+        <p><strong>What a pass looks like:</strong> No WHEA errors logged in HWiNFO or Windows Event Viewer, stable temperatures that plateau within the first 5 minutes and don't keep climbing, no blue screens or reboots.</p>
+
+        <p><strong>Intel Core i9 / AMD Ryzen 9 owners:</strong> Prime95 Small FFTs will likely hit your CPU's MTP/PPT limit and thermal limit simultaneously. This is normal behavior. The CPU is designed to sustain this power under a 253W (Intel i9-14900K) or 230W (Ryzen 9 7950X) ceiling. A temperature above 95°C under Prime95 Small FFTs is not necessarily alarming — check what temperatures you actually see in games, which will be 15–30°C lower.</p>
+
+        <h3>OCCT — The All-in-One Alternative</h3>
+        <p>OCCT (OverClock Checking Tool) combines CPU, GPU, and power supply stress testing in one application. The free version is sufficient for most uses. The CPU power test in OCCT is considered highly representative of real-world high-load scenarios — less artificial than Prime95 Small FFTs, more demanding than Cinebench. Run for 30 minutes minimum for a complete stability check.</p>
+
+        <h3>Expected CPU Temperatures by Tier (Gaming, Not Stress Test)</h3>
+        <div style="overflow-x:auto; margin:1rem 0;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.82rem;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border);">
+                <th style="text-align:left; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">CPU Tier</th>
+                <th style="text-align:center; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Good Cooler (Gaming)</th>
+                <th style="text-align:center; padding:0.5rem 0.75rem; font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent);">Prime95 Peak</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">Budget (65W TDP)</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--safe);">50–65°C</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--warm);">70–80°C</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">Mid-range (125W MTP)</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--safe);">60–75°C</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--hot);">85–95°C</td>
+              </tr>
+              <tr>
+                <td style="padding:0.45rem 0.75rem; color:var(--text);">High-end (180–253W MTP)</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--warm);">70–85°C</td>
+                <td style="padding:0.45rem 0.75rem; text-align:center; color:var(--hot);">90–100°C</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.78rem; color:#555568;">Prime95 temperatures are higher than games — don't panic at 95°C in Prime95 if your games run at 75°C. The relevant number for gaming is gaming temperature.</p>
+
+        <h2>GPU Stress Testing</h2>
+
+        <h3>FurMark — Thermal Ceiling Test</h3>
+        <p>FurMark is a pure GPU stress test that draws a furry sphere rendered with extreme fragment shader complexity. It's the harshest possible synthetic GPU load — more demanding than any real game. Use it specifically to test:</p>
+        <ul>
+          <li>GPU cooler adequacy under absolute maximum thermal load</li>
+          <li>GPU stability after undervolting (crashes under FurMark = voltage is too low)</li>
+          <li>GPU fan behavior and noise at max thermal output</li>
+        </ul>
+        <p>Run at your native resolution, 4× MSAA, for <strong>15 minutes</strong>. If no crash and temperatures plateau (stop rising) within the first 5 minutes, your cooling is working correctly. If temperatures keep climbing past 95°C without plateauing, your cooler has an airflow, mounting, or degradation issue.</p>
+        <p>Note: FurMark often triggers GPU power limit throttling because it's unrealistically demanding. Seeing "Power Limit" in HWiNFO during FurMark is normal — it means the GPU hit its power ceiling and throttled slightly. This would not happen in games, which don't sustain this shader complexity.</p>
+
+        <h3>3DMark — Performance Benchmarking</h3>
+        <p>3DMark is the standard GPU performance benchmark. The free version on Steam gives access to several tests. Use it to:</p>
+        <ul>
+          <li><strong>Establish a baseline score</strong> to compare against after driver updates, overclocking, or undervolting</li>
+          <li><strong>Compare against community results</strong> for your exact GPU — if your score is 15%+ below average, investigate thermal throttling or driver issues</li>
+          <li><strong>Time Spy (DirectX 12):</strong> Best overall modern benchmark</li>
+          <li><strong>Fire Strike (DirectX 11):</strong> Good for comparing against older results</li>
+          <li><strong>Port Royal:</strong> Ray tracing specific performance</li>
+        </ul>
+
+        <h3>Unigine Superposition / Heaven</h3>
+        <p>Superposition is a more recent and demanding GPU benchmark from Unigine. Unlike FurMark, it uses a real game engine and produces scenes that look like actual games. This makes it a more representative GPU stress test than FurMark for validating gaming stability. Run at "1080p High" preset for 5–10 minutes.</p>
+
+        <h2>RAM Stress Testing</h2>
+
+        <h3>MemTest86 — The Definitive RAM Test</h3>
+        <p>MemTest86 runs from a USB drive at boot (outside of Windows) and tests your RAM with multiple different memory patterns. It's the most thorough RAM tester available. Download from <strong>memtest86.com</strong>, write to a USB drive, boot from it.</p>
+        <ul>
+          <li>1 full pass covers all installed RAM — takes 30–60 minutes depending on RAM capacity</li>
+          <li>Run <strong>2 full passes minimum</strong> for basic stability verification</li>
+          <li>Run overnight for overclocked or XMP profiles to confirm long-term stability</li>
+          <li>0 errors = pass. Even 1 error means investigate the RAM or settings.</li>
+        </ul>
+
+        <h3>Windows Memory Diagnostic (Quick Check)</h3>
+        <p>For a faster check: Windows key → "Windows Memory Diagnostic" → Restart and check for problems. Takes 5–10 minutes and catches obvious memory faults, though less thorough than MemTest86. Useful as a first check; use MemTest86 for anything requiring confidence.</p>
+
+        <h2>Full Stress Test Protocol (After a New Build or OC)</h2>
+        <ol>
+          <li><strong>CPU-Z:</strong> Confirm XMP/EXPO is active and RAM is running at its rated speed</li>
+          <li><strong>Cinebench R24 (10 min multi-core):</strong> Establish CPU baseline score, check for throttling</li>
+          <li><strong>FurMark (15 min):</strong> GPU thermal ceiling test. Monitor in HWiNFO — check peak GPU temp and VRAM temp</li>
+          <li><strong>3DMark Time Spy (full run):</strong> Record baseline score</li>
+          <li><strong>Prime95 Small FFTs (20 min):</strong> CPU thermal and stability ceiling. If no errors and temps plateau, cooler is adequate</li>
+          <li><strong>MemTest86 (2 passes, boot from USB):</strong> RAM integrity check, especially important after XMP enable or RAM OC</li>
+        </ol>
+        <p>Total time: approximately 2–3 hours for a complete protocol. If everything passes, your system is stable at its current operating point.</p>
+
+        <h2>Interpreting Results: Common Failure Modes</h2>
+        <ul>
+          <li><strong>Blue screen during Prime95:</strong> Most likely RAM instability (if recently enabled XMP/EXPO) or CPU voltage too low (if recently undervolted). Disable XMP or increase CPU voltage slightly.</li>
+          <li><strong>Game crash but Prime95 stable:</strong> GPU issue. Run FurMark; if it crashes, it's a GPU voltage or driver issue. If FurMark is stable, the game has a specific resource issue (VRAM, shader compilation, DirectX hook).</li>
+          <li><strong>Temperatures keep climbing without plateauing:</strong> Cooler mounting issue, dried thermal paste, or blocked airflow. Check that your cooler's retention screws are properly tightened.</li>
+          <li><strong>Significantly lower Cinebench score than expected:</strong> Power limit throttling. Check BIOS for PL1/PL2 limits on Intel, PPT limit on AMD. Some B-series motherboards apply lower power limits than Z-series.</li>
+          <li><strong>GPU score 15%+ below community average:</strong> Check if thermal throttling is occurring (GPU hits TJ Max and reduces clocks). May also be a driver issue — try a fresh driver install via DDU (Display Driver Uninstaller).</li>
+        </ul>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside>
+        <div style="position:sticky; top:5rem; display:flex; flex-direction:column; gap:1.25rem;">
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Tools for This Guide</div>
+            <div style="display:flex; flex-direction:column; gap:0.55rem;">
+              <a href="https://www.hwinfo.com/download/" target="_blank" rel="noopener" style="font-size:0.82rem; color:var(--safe); text-decoration:none; padding:0.3rem 0; border-bottom:1px solid var(--border); display:block;">HWiNFO64 (sensors)</a>
+              <a href="https://www.maxon.net/cinebench" target="_blank" rel="noopener" style="font-size:0.82rem; color:var(--safe); text-decoration:none; padding:0.3rem 0; border-bottom:1px solid var(--border); display:block;">Cinebench R24</a>
+              <a href="https://www.mersenne.org/software/" target="_blank" rel="noopener" style="font-size:0.82rem; color:var(--safe); text-decoration:none; padding:0.3rem 0; border-bottom:1px solid var(--border); display:block;">Prime95</a>
+              <a href="https://geeks3d.com/furmark/" target="_blank" rel="noopener" style="font-size:0.82rem; color:var(--safe); text-decoration:none; padding:0.3rem 0; border-bottom:1px solid var(--border); display:block;">FurMark</a>
+              <a href="https://www.3dmark.com/" target="_blank" rel="noopener" style="font-size:0.82rem; color:var(--safe); text-decoration:none; padding:0.3rem 0; border-bottom:1px solid var(--border); display:block;">3DMark (free on Steam)</a>
+              <a href="https://www.memtest86.com/" target="_blank" rel="noopener" style="font-size:0.82rem; color:var(--safe); text-decoration:none; padding:0.3rem 0; display:block;">MemTest86</a>
+            </div>
+          </div>
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Related Articles</div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <a href="../articles/pc-monitoring-tools-guide.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; padding:0.35rem 0; border-bottom:1px solid var(--border); display:block; line-height:1.4;">PC Monitoring Tools Setup Guide</a>
+              <a href="../articles/gpu-undervolting-guide.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; padding:0.35rem 0; border-bottom:1px solid var(--border); display:block; line-height:1.4;">GPU Undervolting Guide</a>
+              <a href="../articles/cpu-temperature-guide.html" style="font-size:0.82rem; color:#b0b0c8; text-decoration:none; padding:0.35rem 0; display:block; line-height:1.4;">Normal CPU Temperature Ranges</a>
+            </div>
+          </div>
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem;">Pass/Fail Quick Reference</div>
+            <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.78rem;">
+              <div style="padding:0.4rem 0; border-bottom:1px solid var(--border);">
+                <div style="color:var(--safe); font-weight:600; margin-bottom:0.1rem;">CPU passes</div>
+                <div style="color:#555568;">Temps plateau, no WHEA errors</div>
+              </div>
+              <div style="padding:0.4rem 0; border-bottom:1px solid var(--border);">
+                <div style="color:var(--safe); font-weight:600; margin-bottom:0.1rem;">GPU passes</div>
+                <div style="color:#555568;">Temps plateau, no crash, no artifacts</div>
+              </div>
+              <div style="padding:0.4rem 0;">
+                <div style="color:var(--safe); font-weight:600; margin-bottom:0.1rem;">RAM passes</div>
+                <div style="color:#555568;">MemTest86: 0 errors after 2 passes</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="py-10" style="border-top:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1">TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex gap-5">
+          <a href="../articles/pc-monitoring-tools-guide.html" class="nav-link text-xs">Monitoring Guide</a>
+          <a href="../tools/cpu-cooler-checker.html" class="nav-link text-xs">Cooler Check</a>
+          <a href="../index.html" class="nav-link text-xs">Home</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. Always monitor temperatures during stress testing. Stop immediately if temperatures exceed safe limits for your hardware.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/feedback.js"></script>
+  <script src="../js/layout.js"></script>
+</body>
+</html>
