@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PC Game FPS Estimator — How Many FPS Will I Get? | TempCore</title>
+  <title>PC Game FPS Estimator - How Many FPS Will I Get? | TempCore</title>
   <meta name="description" content="Free FPS estimator. Select your GPU, CPU, and RAM, search any game, and get an estimated frame rate at your chosen resolution and quality settings.">
   <meta name="keywords" content="FPS estimator, how many FPS will I get, PC gaming FPS calculator, GPU benchmark estimator, laptop gaming FPS, Cyberpunk FPS calculator, RTX 4070 FPS">
 
@@ -21,7 +21,7 @@
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
   <meta property="og:site_name"   content="TempCore">
-  <meta property="og:title"       content="PC Game FPS Estimator — How Many FPS Will I Get? | TempCore">
+  <meta property="og:title"       content="PC Game FPS Estimator - How Many FPS Will I Get? | TempCore">
   <meta property="og:description" content="Free FPS estimator for desktop and laptop GPUs. Select your hardware, choose a game, and get an estimated frame rate at any resolution and quality setting.">
   <meta property="og:url"         content="https://temp-core.com/tools/fps-estimator.html">
 
@@ -57,7 +57,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* Pre-paint theme + sidebar state — prevents flash on load */
+    /* Pre-paint theme + sidebar state - prevents flash on load */
     (function () {
       try {
         var t = localStorage.getItem('tc_theme'); if (!t) {
@@ -121,7 +121,7 @@
     .fps-chip.active { border-color: var(--accent); background: rgba(0,200,255,0.08); color: var(--accent); }
     .fps-chip.active.hot { border-color: var(--hot); background: rgba(255,100,34,0.1); color: var(--hot); }
 
-    /* Platform toggle — larger chips */
+    /* Platform toggle - larger chips */
     .platform-chip {
       padding: 0.5rem 1.1rem;
       background: var(--surface2);
@@ -169,7 +169,7 @@
             Game FPS<br><span style="color:var(--accent);">Estimator</span>
           </h1>
           <p style="color:#8888a0; margin-top:0.75rem; font-size:0.9rem; line-height:1.6; max-width:460px;">
-            Search any game, select your desktop or laptop hardware and settings, and get an estimated native FPS — with and without upscaling.
+            Search any game, select your desktop or laptop hardware and settings, and get an estimated native FPS - with and without upscaling.
           </p>
           <p style="margin-top:0.6rem; font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:#555568;">
             Published Feb 2026 &nbsp;·&nbsp; Updated May 2026 &nbsp;·&nbsp;
@@ -233,7 +233,7 @@
             <div id="laptop-model-wrap" style="display:none; margin-bottom:1rem;">
               <label class="field-label">
                 Laptop Model
-                <span style="color:#555568; font-weight:400; text-transform:none; letter-spacing:0; font-size:0.65rem; margin-left:0.3rem;">optional — enables TGP-accurate estimates</span>
+                <span style="color:#555568; font-weight:400; text-transform:none; letter-spacing:0; font-size:0.65rem; margin-left:0.3rem;">optional - enables TGP-accurate estimates</span>
               </label>
               <div class="search-wrap">
                 <input
@@ -471,7 +471,7 @@
                 <button class="fps-chip" id="rtype-ddr5" onclick="setChip('rtype','DDR5',this)">DDR5</button>
               </div>
               <input type="hidden" id="fps-rtype" value="DDR4">
-              <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; margin-top:0.35rem; line-height:1.5;">DDR5 improves CPU-limited frame rates by ~6% — mainly noticeable in esports &amp; high-FPS titles</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; margin-top:0.35rem; line-height:1.5;">DDR5 improves CPU-limited frame rates by ~6% - mainly noticeable in esports &amp; high-FPS titles</div>
             </div>
           </div>
 
@@ -515,7 +515,7 @@
           <div style="margin-bottom:1rem;"><svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6;"><rect x="3" y="18" width="6" height="11" rx="1.5"/><rect x="13" y="11" width="6" height="18" rx="1.5"/><rect x="23" y="5" width="6" height="24" rx="1.5"/></svg></div>
           <div class="font-display text-2xl mb-2" style="color:#445566;">Select Hardware &amp; Game</div>
           <p style="color:#445566; font-size:0.85rem; max-width:300px; line-height:1.65;">
-            Search for any game, choose Desktop or Laptop, select your GPU, CPU, and RAM — then hit Estimate FPS to see how your rig handles it.
+            Search for any game, choose Desktop or Laptop, select your GPU, CPU, and RAM - then hit Estimate FPS to see how your rig handles it.
           </p>
           <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:center;">
             <button onclick="quickFill('Cyberpunk 2077')" style="background:var(--surface2); border:1px solid var(--border); color:#8888a0; font-family:'JetBrains Mono',monospace; font-size:0.7rem; padding:0.3rem 0.6rem; border-radius:4px; cursor:pointer;">Cyberpunk 2077</button>
@@ -532,11 +532,11 @@
         <div class="grid sm:grid-cols-2 gap-4 mt-2">
           <div class="card p-4">
             <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Native vs Upscaled</div>
-            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">These estimates are for <strong style="color:var(--text);">native resolution</strong> — no DLSS, FSR, or XeSS. Quality mode upscaling typically adds 40–65% more frames. On laptops, upscaling is <strong style="color:var(--text);">especially recommended</strong> to offset thermal constraints.</p>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">These estimates are for <strong style="color:var(--text);">native resolution</strong> - no DLSS, FSR, or XeSS. Quality mode upscaling typically adds 40–65% more frames. On laptops, upscaling is <strong style="color:var(--text);">especially recommended</strong> to offset thermal constraints.</p>
           </div>
           <div class="card p-4">
             <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--warm); margin-bottom:0.5rem;">Laptop GPU Note</div>
-            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Laptop GPU estimates use average TGP configs. <strong style="color:var(--text);">Performance varies ±20%</strong> depending on OEM cooling solution and power limit settings — some laptops downclock aggressively under sustained load.</p>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Laptop GPU estimates use average TGP configs. <strong style="color:var(--text);">Performance varies ±20%</strong> depending on OEM cooling solution and power limit settings - some laptops downclock aggressively under sustained load.</p>
           </div>
         </div>
       </div>
@@ -561,7 +561,7 @@
         <a href="../articles/overclocking-guide.html" class="card p-5 article-card">
           <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">Guide</div>
           <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Overclocking Guide</h3>
-          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Push your GPU further — safely.</p>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Push your GPU further - safely.</p>
           <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Read</div>
         </a>
       </div>
@@ -704,7 +704,7 @@
                        unstable:"Unstable / inconsistent", cpu_limit:"CPU-limited differently",
                        thermal:"Thermal throttling", scene:"Scene-dependent variance" };
 
-        subject = "TempCore — FPS Calibration [" + lastEstimate.game + " / " + lastEstimate.gpu + "]";
+        subject = "TempCore - FPS Calibration [" + lastEstimate.game + " / " + lastEstimate.gpu + "]";
         message =
           "FEEDBACK TYPE: FPS Calibration Report\n" +
           "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
@@ -740,7 +740,7 @@
           return;
         }
 
-        subject = "TempCore — Missing Hardware: " + hwModel;
+        subject = "TempCore - Missing Hardware: " + hwModel;
         message =
           "FEEDBACK TYPE: Missing Hardware Report\n" +
           "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
@@ -758,7 +758,7 @@
           statusEl.style.color = "var(--critical)";
           return;
         }
-        subject = "TempCore — " + genType + " Feedback";
+        subject = "TempCore - " + genType + " Feedback";
         message =
           "FEEDBACK TYPE: " + genType + "\n" +
           "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +

@@ -1,5 +1,5 @@
 /**
- * TempCore — CPU Cooler Adequacy Checker
+ * TempCore - CPU Cooler Adequacy Checker
  *
  * Data sources:
  *   CPU thermal requirements: Intel ARK, AMD product pages, GamersNexus sustained load testing 2023–2026
@@ -17,7 +17,7 @@
 const CPU_COOLING = {
   // ── Intel Core Ultra 200 (Arrow Lake) ─────────────────────────────────────
   "Core Ultra 9 285K":  { req: 250, gaming: 180, note: "PL2/MTP can reach 250W in sustained all-core workloads." },
-  "Core Ultra 7 265K":  { req: 250, gaming: 155, note: "Same MTP as 285K — large cooler recommended." },
+  "Core Ultra 7 265K":  { req: 250, gaming: 155, note: "Same MTP as 285K - large cooler recommended." },
   "Core Ultra 7 265KF": { req: 250, gaming: 155 },
   "Core Ultra 5 245K":  { req: 159, gaming: 125 },
   "Core Ultra 5 245KF": { req: 159, gaming: 125 },
@@ -76,16 +76,16 @@ const CPU_COOLING = {
   "Ryzen 9 9950X":     { req: 200, gaming: 130, note: "PPT limit 200W (170W TDP). Strong air cooler or 280mm+ AIO recommended." },
   "Ryzen 9 9900X":     { req: 162, gaming: 95 },
   "Ryzen 7 9800X3D":   { req: 120, gaming: 80, note: "3D V-Cache limits peak boost for thermal safety. Runs significantly cooler than 9950X." },
-  "Ryzen 7 9700X":     { req: 88,  gaming: 65, note: "65W TDP / 88W PPT. Runs cool — most mid-range air coolers are more than adequate." },
+  "Ryzen 7 9700X":     { req: 88,  gaming: 65, note: "65W TDP / 88W PPT. Runs cool - most mid-range air coolers are more than adequate." },
   "Ryzen 5 9600X":     { req: 88,  gaming: 65 },
 
   // ── AMD Ryzen 7000 (Zen 4) ────────────────────────────────────────────────
-  "Ryzen 9 7950X3D":   { req: 162, gaming: 120, note: "PPT 162W. 3D V-Cache on one CCD is kept cool — the other CCD can boost harder." },
-  "Ryzen 9 7950X":     { req: 230, gaming: 170, note: "PPT 230W. One of the hottest AMD chips — 280mm AIO minimum." },
+  "Ryzen 9 7950X3D":   { req: 162, gaming: 120, note: "PPT 162W. 3D V-Cache on one CCD is kept cool - the other CCD can boost harder." },
+  "Ryzen 9 7950X":     { req: 230, gaming: 170, note: "PPT 230W. One of the hottest AMD chips - 280mm AIO minimum." },
   "Ryzen 9 7900X3D":   { req: 162, gaming: 120 },
   "Ryzen 9 7900X":     { req: 230, gaming: 170 },
   "Ryzen 9 7900":      { req: 88,  gaming: 65, note: "65W TDP/88W PPT. Runs cool with even a budget air cooler." },
-  "Ryzen 7 7800X3D":   { req: 120, gaming: 95, note: "3D V-Cache limits boost. Runs much cooler than standard Zen 4 — a quality single-tower is sufficient." },
+  "Ryzen 7 7800X3D":   { req: 120, gaming: 95, note: "3D V-Cache limits boost. Runs much cooler than standard Zen 4 - a quality single-tower is sufficient." },
   "Ryzen 7 7700X":     { req: 142, gaming: 105 },
   "Ryzen 7 7700":      { req: 88,  gaming: 65 },
   "Ryzen 5 7600X":     { req: 142, gaming: 105 },
@@ -95,7 +95,7 @@ const CPU_COOLING = {
   // ── AMD Ryzen 5000 (Zen 3) ────────────────────────────────────────────────
   "Ryzen 9 5950X":     { req: 142, gaming: 105 },
   "Ryzen 9 5900X":     { req: 142, gaming: 105 },
-  "Ryzen 7 5800X3D":   { req: 105, gaming: 105, note: "3D V-Cache prevents voltage/frequency curve optimisation — stays within 105W PPT." },
+  "Ryzen 7 5800X3D":   { req: 105, gaming: 105, note: "3D V-Cache prevents voltage/frequency curve optimisation - stays within 105W PPT." },
   "Ryzen 7 5800X":     { req: 105, gaming: 105 },
   "Ryzen 7 5700X":     { req: 88,  gaming: 65 },
   "Ryzen 5 5600X":     { req: 88,  gaming: 65 },
@@ -150,7 +150,7 @@ const COOLERS = [
   { name: "Noctua NH-U12A (triple 120mm push-pull)",type:"air",   tdp: 250, note:"Three fans in push-pull. Competitive with 240mm AIOs." },
   { name: "DeepCool AK620 (dual 120mm)",            type:"air",   tdp: 260, note:"Excellent price-to-performance. Handles i9-14900K in gaming loads." },
   { name: "Thermalright Phantom Spirit 120 SE",     type:"air",   tdp: 260 },
-  { name: "Thermalright Peerless Assassin 120 SE",  type:"air",   tdp: 260, note:"Outstanding value — consistently outperforms many 240mm AIOs." },
+  { name: "Thermalright Peerless Assassin 120 SE",  type:"air",   tdp: 260, note:"Outstanding value - consistently outperforms many 240mm AIOs." },
   { name: "Thermalright Silver Soul 135 (dual 135mm)", type:"air",tdp: 280 },
   { name: "be quiet! Dark Rock Pro 4 (dual 135mm)", type:"air",   tdp: 250, note:"Silent operation. Excellent for silent builds with high-TDP CPUs." },
   { name: "Scythe Fuma 3 (dual 120mm)",             type:"air",   tdp: 260 },
@@ -189,7 +189,7 @@ const COOLERS = [
 // cooler_tdp vs cpu_req
 //   > req * 1.25 → EXCELLENT  (25%+ headroom)
 //   > req * 1.05 → GOOD       (5–25% headroom)
-//   > req * 0.88 → BORDERLINE (within 12% — may throttle under sustained stress)
+//   > req * 0.88 → BORDERLINE (within 12% - may throttle under sustained stress)
 //   ≤ req * 0.88 → INADEQUATE (will throttle; not recommended)
 function getVerdict(coolerTDP, cpuReq) {
   if (coolerTDP >= cpuReq * 1.25) return "excellent";
@@ -207,25 +207,25 @@ const VERDICT_STYLES = {
 
 const VERDICT_TIPS = {
   excellent: [
-    "Plenty of thermal headroom — you can even overclock or remove power limits if desired.",
+    "Plenty of thermal headroom - you can even overclock or remove power limits if desired.",
     "Fans can run at lower speeds while maintaining safe temperatures, keeping your system quiet.",
     "This combination leaves room for a future CPU upgrade on the same socket.",
   ],
   good: [
     "Normal gaming sessions will keep temps well under TJ Max.",
-    "Long-duration workloads (compiling, rendering, stress tests) may push temps higher — consider setting a manual fan curve.",
+    "Long-duration workloads (compiling, rendering, stress tests) may push temps higher - consider setting a manual fan curve.",
     "If you push AVX loads (e.g., Handbrake, Blender), monitor temps in HWiNFO64 to confirm stability.",
   ],
   borderline: [
-    "For gaming-only use this pairing is usually fine — gaming TDP is lower than the sustained max.",
+    "For gaming-only use this pairing is usually fine - gaming TDP is lower than the sustained max.",
     "Avoid running stress test tools like Prime95 for extended periods without monitoring.",
-    "Consider reducing the CPU's power limit (PL1/PL2 on Intel, PPT on AMD) to 80% — same gaming performance, lower temps.",
+    "Consider reducing the CPU's power limit (PL1/PL2 on Intel, PPT on AMD) to 80% - same gaming performance, lower temps.",
     "Ensure case airflow is good: the cooler needs fresh, cool air to work near its rated limit.",
     "Reapplying quality thermal paste (Noctua NT-H2, Thermal Grizzly Kryonaut) can help by 3–6°C.",
   ],
   inadequate: [
     "Upgrade your cooler before extended gaming or workload sessions.",
-    "The CPU will thermal throttle — clock speeds drop to protect the chip, reducing performance.",
+    "The CPU will thermal throttle - clock speeds drop to protect the chip, reducing performance.",
     "A mid-range air cooler (e.g., DeepCool AK400, Thermalright Peerless Assassin 120 SE) costs $35–50 and resolves this completely.",
     "In the meantime: reduce the CPU's power limit. On Intel, disable PL2/Turbo Boost. On AMD, reduce PPT in BIOS.",
   ],
@@ -236,7 +236,7 @@ const VERDICT_TIPS = {
 function getGamingNote(coolerTDP, cpuGaming, cpuReq) {
   if (coolerTDP >= cpuGaming * 1.2) {
     if (coolerTDP < cpuReq * 1.05) {
-      return "For gaming specifically, your cooler should perform well — gaming power draw is lower than sustained all-core TDP.";
+      return "For gaming specifically, your cooler should perform well - gaming power draw is lower than sustained all-core TDP.";
     }
   } else if (coolerTDP >= cpuGaming) {
     return "Gaming sessions should be manageable, but keep an eye on temps. Sustained non-gaming workloads may throttle.";
@@ -346,7 +346,7 @@ function checkCooler() {
 
     <div style="font-size:0.7rem; color:#555568; margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border); line-height:1.6;">
       TDP ratings are manufacturer-published specifications. Real-world performance varies by ambient temperature, case airflow, and thermal paste quality.
-      CPU "Sustained Max" = Intel MTP / AMD PPT — the worst-case sustained power draw.
+      CPU "Sustained Max" = Intel MTP / AMD PPT - the worst-case sustained power draw.
       "Gaming Load" = typical sustained gaming power draw, which is usually significantly lower than the max spec.
     </div>
   `;

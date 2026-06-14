@@ -1,5 +1,5 @@
 /**
- * TempCore — Global Feedback System
+ * TempCore - Global Feedback System
  * Self-contained: injects button + modal into any page automatically.
  * Set WEB3FORMS_KEY after registering at https://web3forms.com
  */
@@ -140,7 +140,7 @@
             '</select>',
           '</div>',
           '<div class="fb-field">',
-            '<label class="fb-label">Notes <span style="text-transform:none;letter-spacing:0;font-family:\'Inter\',sans-serif;font-weight:400;">(optional — MUX switch state, driver, thermals...)</span></label>',
+            '<label class="fb-label">Notes <span style="text-transform:none;letter-spacing:0;font-family:\'Inter\',sans-serif;font-weight:400;">(optional - MUX switch state, driver, thermals...)</span></label>',
             '<textarea id="fb-cal-notes" class="fb-textarea" rows="2" placeholder="e.g. MUX was off, temps hit 95°C after 10 min, single-channel RAM..."></textarea>',
           '</div>',
         '</div>',
@@ -341,7 +341,7 @@
       if (d.success) {
         submitBtn.textContent = 'Sent';
         statusEl.style.color = '#22d47e';
-        statusEl.textContent = 'Thanks — every submission is reviewed.';
+        statusEl.textContent = 'Thanks - every submission is reviewed.';
         setTimeout(window.closeFB, 2800);
       } else {
         throw new Error('API error');

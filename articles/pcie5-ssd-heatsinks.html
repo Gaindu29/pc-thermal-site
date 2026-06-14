@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Do PCIe 5.0 SSDs Need a Heatsink? (2026 Guide) | TempCore</title>
-  <meta name="description" content="PCIe 5.0 SSDs run hotter than any consumer drive ever made — often 80°C+ under load. Here's exactly when you need a heatsink, when the motherboard's is enough, and which heatsinks actually work.">
+  <meta name="description" content="PCIe 5.0 SSDs run hotter than any consumer drive ever made - often 80°C+ under load. Here's exactly when you need a heatsink, when the motherboard's is enough, and which heatsinks actually work.">
   <meta name="keywords" content="PCIe 5 SSD heatsink, PCIe 5.0 SSD cooling, M.2 heatsink, do PCIe 5 SSDs need heatsink, Crucial T705 cooling, Samsung 9100 Pro heatsink, NVMe thermal throttling">
 
   <link rel="canonical" href="https://temp-core.com/articles/pcie5-ssd-heatsinks.html">
@@ -42,7 +42,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* Pre-paint theme + sidebar state — prevents flash on load */
+    /* Pre-paint theme + sidebar state - prevents flash on load */
     (function () {
       try {
         var t = localStorage.getItem('tc_theme'); if (!t) {
@@ -89,11 +89,11 @@
 
         <!-- Quick answer callout -->
         <div class="callout" style="margin-bottom:2rem;">
-          <strong style="color:var(--text);">Quick answer:</strong> Yes &mdash; PCIe 5 SSDs need <em>some</em> form of cooling, but you almost certainly don't need to buy a fancy aftermarket one. The heatsink built into your motherboard's M.2 slot is enough for 90% of users. You only need a dedicated heatsink if your board has no M.2 cover, you run sustained large file transfers, or you're putting a PCIe 5 drive in a laptop.
+          <strong style="color:var(--text);">Quick answer:</strong> Yes - PCIe 5 SSDs need <em>some</em> form of cooling, but you almost certainly don't need to buy a fancy aftermarket one. The heatsink built into your motherboard's M.2 slot is enough for 90% of users. You only need a dedicated heatsink if your board has no M.2 cover, you run sustained large file transfers, or you're putting a PCIe 5 drive in a laptop.
         </div>
 
         <h2>Why PCIe 5 SSDs Run So Hot</h2>
-        <p>Every PCIe generation doubles the bandwidth of the last. PCIe 5 NVMe drives push <strong>14,000+ MB/s</strong> &mdash; roughly 2x a PCIe 4 drive and 4x a PCIe 3 drive. That speed comes from two things, both of which generate heat:</p>
+        <p>Every PCIe generation doubles the bandwidth of the last. PCIe 5 NVMe drives push <strong>14,000+ MB/s</strong> - roughly 2x a PCIe 4 drive and 4x a PCIe 3 drive. That speed comes from two things, both of which generate heat:</p>
         <ul>
           <li><strong>The controller.</strong> Faster signalling on the controller chip means more switching activity per second, more power draw, more waste heat. Phison's E26 controller (the chip inside the Crucial T705, Corsair MP700, and many other PCIe 5 drives) draws roughly 8&ndash;11 W under full load. For comparison, a Samsung 990 Pro controller (PCIe 4) draws around 5&ndash;7 W.</li>
           <li><strong>Denser NAND running faster.</strong> The flash chips themselves run hotter when written to at peak speed.</li>
@@ -114,29 +114,29 @@
             <tr><td>&gt; 110&deg;C</td><td>Emergency shutdown to protect the drive.</td></tr>
           </tbody>
         </table>
-        <p>For everyday use &mdash; opening apps, loading games, browsing &mdash; you'll never hit these temps. The drive only gets hot during <em>sustained sequential workloads</em>: copying huge files (50+ GB), unpacking archives, transcoding video to the SSD, or running storage benchmarks back-to-back.</p>
+        <p>For everyday use - opening apps, loading games, browsing - you'll never hit these temps. The drive only gets hot during <em>sustained sequential workloads</em>: copying huge files (50+ GB), unpacking archives, transcoding video to the SSD, or running storage benchmarks back-to-back.</p>
 
         <h2>Three Cooling Options, From Cheapest to Most Effective</h2>
 
         <h3>1. The motherboard's built-in M.2 heatsink (free)</h3>
-        <p>Most motherboards released after early 2024 ship with a metal cover over at least one M.2 slot &mdash; usually the top one. On mid-range and higher boards, that cover is a real heatsink: an aluminium block with a thermal pad on the underside that touches the SSD's controller and NAND.</p>
-        <p>This is genuinely effective. In testing, a decent stock M.2 heatsink can keep a Phison E26 drive at <strong>~65&ndash;72&deg;C</strong> under full sequential load &mdash; well clear of throttling. If your board has one, use it. Don't replace it with a third-party heatsink unless you've measured your temps and found them lacking.</p>
+        <p>Most motherboards released after early 2024 ship with a metal cover over at least one M.2 slot - usually the top one. On mid-range and higher boards, that cover is a real heatsink: an aluminium block with a thermal pad on the underside that touches the SSD's controller and NAND.</p>
+        <p>This is genuinely effective. In testing, a decent stock M.2 heatsink can keep a Phison E26 drive at <strong>~65&ndash;72&deg;C</strong> under full sequential load - well clear of throttling. If your board has one, use it. Don't replace it with a third-party heatsink unless you've measured your temps and found them lacking.</p>
 
         <h3>2. A passive aftermarket heatsink</h3>
         <p>If your motherboard doesn't have a built-in cover (older or budget boards), or if you've installed your PCIe 5 SSD in a secondary slot without one, a passive heatsink solves the problem cheaply. Look for:</p>
         <ul>
-          <li><strong>Aluminium body with finned design</strong> &mdash; more surface area dissipates more heat.</li>
-          <li><strong>Pre-cut thermal pads</strong> &mdash; one for the top of the chips, sometimes a thinner one for the bottom (which helps a lot on double-sided drives).</li>
-          <li><strong>~22 mm tall maximum</strong> &mdash; taller heatsinks can hit your GPU or graphics card backplate.</li>
+          <li><strong>Aluminium body with finned design</strong> - more surface area dissipates more heat.</li>
+          <li><strong>Pre-cut thermal pads</strong> - one for the top of the chips, sometimes a thinner one for the bottom (which helps a lot on double-sided drives).</li>
+          <li><strong>~22 mm tall maximum</strong> - taller heatsinks can hit your GPU or graphics card backplate.</li>
         </ul>
-        <p>A passive heatsink typically gets a PCIe 5 SSD to <strong>~70&ndash;78&deg;C</strong> under load &mdash; not as good as a board-integrated heatsink with active airflow, but plenty for non-pro workloads.</p>
+        <p>A passive heatsink typically gets a PCIe 5 SSD to <strong>~70&ndash;78&deg;C</strong> under load - not as good as a board-integrated heatsink with active airflow, but plenty for non-pro workloads.</p>
 
         <h3>3. Active cooling (heatsink + tiny fan)</h3>
-        <p>The "extreme" option: a heatsink with a small 20&ndash;30 mm fan bolted on. These look ridiculous on a motherboard but they work &mdash; an active heatsink can keep a PCIe 5 SSD below <strong>60&deg;C</strong> in any workload.</p>
+        <p>The "extreme" option: a heatsink with a small 20&ndash;30 mm fan bolted on. These look ridiculous on a motherboard but they work - an active heatsink can keep a PCIe 5 SSD below <strong>60&deg;C</strong> in any workload.</p>
         <p>You only need active cooling if you're running database workloads, professional video editing on a scratch drive, or 3D scene baking where the SSD writes for hours straight. For gaming and general PC use, this is overkill and adds another noise source to your case.</p>
 
         <div class="callout" style="margin:1.5rem 0;">
-          <strong style="color:var(--text);">Don't stack heatsinks.</strong> If your motherboard already covers the M.2 slot, removing that cover to install a taller third-party heatsink doesn't help &mdash; the airflow inside the chassis already passes over the board heatsink. The third-party one only wins when it has direct airflow from a case fan blowing on it. Otherwise it just blocks the airflow that was working.
+          <strong style="color:var(--text);">Don't stack heatsinks.</strong> If your motherboard already covers the M.2 slot, removing that cover to install a taller third-party heatsink doesn't help - the airflow inside the chassis already passes over the board heatsink. The third-party one only wins when it has direct airflow from a case fan blowing on it. Otherwise it just blocks the airflow that was working.
         </div>
 
         <h2>When You Definitely Need a Dedicated Heatsink</h2>
@@ -145,25 +145,25 @@
           <li><strong>Your board has no M.2 cover at all.</strong> Budget boards (under ~$150) often only cover the primary slot, or none.</li>
           <li><strong>You're using the secondary M.2 slot for a PCIe 5 drive.</strong> Second and third slots usually don't have integrated heatsinks.</li>
           <li><strong>Your case has poor airflow.</strong> A board heatsink relies on passive convection plus case airflow. If you've got a sealed-glass case with minimal intake, even a "good" board cover may not be enough.</li>
-          <li><strong>You're putting a PCIe 5 SSD in a laptop.</strong> Most laptop M.2 slots have a tiny thermal pad against the chassis as their entire cooling solution. PCIe 5 drives in laptops throttle severely &mdash; many users see them hit ~95&deg;C during normal Windows updates. A low-profile thin graphite pad replacement (or just sticking with a PCIe 4 drive) is the realistic fix.</li>
+          <li><strong>You're putting a PCIe 5 SSD in a laptop.</strong> Most laptop M.2 slots have a tiny thermal pad against the chassis as their entire cooling solution. PCIe 5 drives in laptops throttle severely - many users see them hit ~95&deg;C during normal Windows updates. A low-profile thin graphite pad replacement (or just sticking with a PCIe 4 drive) is the realistic fix.</li>
         </ul>
 
         <h2>How to Check Your SSD's Temperature</h2>
         <p>You can't tell if you need a heatsink without measuring. Use any of these:</p>
         <ul>
-          <li><strong>CrystalDiskInfo</strong> (free, Windows) &mdash; shows live temp on the main screen for every drive.</li>
-          <li><strong>HWiNFO64</strong> (free) &mdash; shows controller temp, NAND temp, and composite temp separately. The "Composite" reading is what triggers throttling on most drives.</li>
-          <li><strong>The TempCore <a href="../tools/ssd-health-checker.html">SSD Health Checker</a></strong> &mdash; enter your temp and drive type and get an instant verdict on whether it's in safe range.</li>
+          <li><strong>CrystalDiskInfo</strong> (free, Windows) - shows live temp on the main screen for every drive.</li>
+          <li><strong>HWiNFO64</strong> (free) - shows controller temp, NAND temp, and composite temp separately. The "Composite" reading is what triggers throttling on most drives.</li>
+          <li><strong>The TempCore <a href="../tools/ssd-health-checker.html">SSD Health Checker</a></strong> - enter your temp and drive type and get an instant verdict on whether it's in safe range.</li>
         </ul>
         <p>Take readings during a real workload, not at idle. Copy a 50 GB file from one folder to another (or run CrystalDiskMark's sequential write test) and watch the temp during the write. If "Composite" stays under 75&deg;C, you don't need anything more. If it crosses 80&deg;C, you have throttling headroom problems.</p>
 
         <h2>What to Buy if You Need One</h2>
         <p>A few solid choices in 2026, ordered by use case:</p>
         <ul>
-          <li><strong>For a desktop secondary slot</strong> &mdash; any 22&ndash;28 mm aluminium-finned heatsink with quality thermal pads will do the job. The Thermalright HR-09 2280 and the be quiet! MC1 are both popular and inexpensive.</li>
-          <li><strong>For a board with no M.2 cover at all</strong> &mdash; the EKWB-style passive heatsinks with copper heat pipes work noticeably better than pure aluminium blocks under sustained load. Worth the small price bump.</li>
-          <li><strong>If you're a creator or run benchmarks</strong> &mdash; the Sabrent Rocket Heatsink (active) or Cool Adapt for active M.2 are the most aggressive consumer options. Loud, but effective.</li>
-          <li><strong>For laptops</strong> &mdash; don't buy a heatsink. The chassis won't close. Replace the existing thermal pad with a slightly thicker thermal-conductive pad (1&ndash;1.5 mm Gelid or Thermalright pad), or move to a PCIe 4 drive which generates roughly half the heat with negligible real-world speed difference.</li>
+          <li><strong>For a desktop secondary slot</strong> - any 22&ndash;28 mm aluminium-finned heatsink with quality thermal pads will do the job. The Thermalright HR-09 2280 and the be quiet! MC1 are both popular and inexpensive.</li>
+          <li><strong>For a board with no M.2 cover at all</strong> - the EKWB-style passive heatsinks with copper heat pipes work noticeably better than pure aluminium blocks under sustained load. Worth the small price bump.</li>
+          <li><strong>If you're a creator or run benchmarks</strong> - the Sabrent Rocket Heatsink (active) or Cool Adapt for active M.2 are the most aggressive consumer options. Loud, but effective.</li>
+          <li><strong>For laptops</strong> - don't buy a heatsink. The chassis won't close. Replace the existing thermal pad with a slightly thicker thermal-conductive pad (1&ndash;1.5 mm Gelid or Thermalright pad), or move to a PCIe 4 drive which generates roughly half the heat with negligible real-world speed difference.</li>
         </ul>
 
         <h2>The Bottom Line</h2>
@@ -201,7 +201,7 @@
           <a href="best-thermal-paste-2026.html" class="card p-5 article-card">
             <div class="article-tag mb-2" style="background:var(--accent-soft); color:var(--accent-2);">Related</div>
             <h4 class="font-semibold text-sm article-title" style="color:var(--text); line-height:1.4; margin-bottom:0.4rem;">Best Thermal Paste in 2026</h4>
-            <p style="color:var(--muted); font-size:0.78rem; line-height:1.5;">Cooling extends beyond the SSD &mdash; here's what to apply to your CPU.</p>
+            <p style="color:var(--muted); font-size:0.78rem; line-height:1.5;">Cooling extends beyond the SSD - here's what to apply to your CPU.</p>
             <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.5rem;">&rarr; Read</div>
           </a>
 

@@ -43,7 +43,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* Pre-paint theme + sidebar state — prevents flash on load */
+    /* Pre-paint theme + sidebar state - prevents flash on load */
     (function () {
       try {
         var t = localStorage.getItem('tc_theme'); if (!t) {
@@ -93,7 +93,7 @@
         <div class="article-body">
 
           <h2>The Four Temperature Zones</h2>
-          <p>GPU temperatures while gaming fall into four distinct zones. Understanding which zone your GPU is in tells you whether action is needed — and how urgently.</p>
+          <p>GPU temperatures while gaming fall into four distinct zones. Understanding which zone your GPU is in tells you whether action is needed - and how urgently.</p>
 
           <table class="temp-table mb-6">
             <thead>
@@ -107,7 +107,7 @@
               <tr>
                 <td style="color:var(--safe); font-weight:600;">Safe</td>
                 <td>≤ 75°C</td>
-                <td>Excellent — no action needed</td>
+                <td>Excellent - no action needed</td>
               </tr>
               <tr>
                 <td style="color:var(--warm); font-weight:600;">Warm</td>
@@ -138,7 +138,7 @@
           <p>RTX 30 cards have a notably higher TJ Max of <strong>93°C</strong>. This gives them slightly more thermal headroom, so running at 83–85°C on an RTX 3080 or 3060 under load is within spec, though still worth monitoring.</p>
 
           <h3>AMD RX 6000 and RX 7000 Series</h3>
-          <p>AMD GPUs are often misread as "overheating" because their TJ Max is <strong>110°C</strong>. Seeing 88–92°C on an RX 6700 XT or RX 7800 XT is perfectly normal and intentional — AMD designed these chips to run hotter for sustained boost clock performance. <strong>Don't panic at 90°C on an AMD card.</strong></p>
+          <p>AMD GPUs are often misread as "overheating" because their TJ Max is <strong>110°C</strong>. Seeing 88–92°C on an RX 6700 XT or RX 7800 XT is perfectly normal and intentional - AMD designed these chips to run hotter for sustained boost clock performance. <strong>Don't panic at 90°C on an AMD card.</strong></p>
 
           <div class="callout" style="border-left-color:var(--warm);">
             <strong style="color:var(--text);">AMD Hotspot vs Edge Temperature:</strong> AMD GPUs report both an "edge" temperature (the overall card temp) and a "hotspot" temperature (the hottest point on the die). The hotspot can read 20–30°C higher than the edge. A hotspot of 95°C on an RX 7900 XT is normal operating territory.
@@ -146,15 +146,15 @@
 
           <h2>What Causes High GPU Temperatures?</h2>
 
-          <p>Before reaching for cooling paste or a new case fan, run through this checklist — the cause is often simpler than you think.</p>
+          <p>Before reaching for cooling paste or a new case fan, run through this checklist - the cause is often simpler than you think.</p>
 
           <ul>
-            <li><strong>Dust accumulation</strong> — the number one culprit. Dust acts as insulation on the GPU heatsink fins and fans. Even 6 months of normal use can cause a 5–10°C increase.</li>
-            <li><strong>Poor case airflow</strong> — a case with more exhaust fans than intake fans creates negative pressure and pulls hot air back in through gaps.</li>
-            <li><strong>Dried thermal paste</strong> — the thermal pad between the GPU die and heatsink degrades over time, especially under sustained high temperatures. Typical lifespan is 3–5 years.</li>
-            <li><strong>Ambient room temperature</strong> — a 30°C room vs a 20°C room can add 8–10°C to your GPU temperatures without anything changing on the PC itself.</li>
-            <li><strong>GPU fan curve too conservative</strong> — many AIB partner GPU fan curves run very quiet at the expense of temperature. Manually adjusting the fan curve in MSI Afterburner is the easiest fix.</li>
-            <li><strong>Intensive workloads</strong> — ray tracing, 4K, or compute tasks push GPUs harder than standard 1080p gaming, resulting in higher sustained temperatures.</li>
+            <li><strong>Dust accumulation</strong> - the number one culprit. Dust acts as insulation on the GPU heatsink fins and fans. Even 6 months of normal use can cause a 5–10°C increase.</li>
+            <li><strong>Poor case airflow</strong> - a case with more exhaust fans than intake fans creates negative pressure and pulls hot air back in through gaps.</li>
+            <li><strong>Dried thermal paste</strong> - the thermal pad between the GPU die and heatsink degrades over time, especially under sustained high temperatures. Typical lifespan is 3–5 years.</li>
+            <li><strong>Ambient room temperature</strong> - a 30°C room vs a 20°C room can add 8–10°C to your GPU temperatures without anything changing on the PC itself.</li>
+            <li><strong>GPU fan curve too conservative</strong> - many AIB partner GPU fan curves run very quiet at the expense of temperature. Manually adjusting the fan curve in MSI Afterburner is the easiest fix.</li>
+            <li><strong>Intensive workloads</strong> - ray tracing, 4K, or compute tasks push GPUs harder than standard 1080p gaming, resulting in higher sustained temperatures.</li>
           </ul>
 
           <h2>How to Lower GPU Temperatures</h2>
@@ -169,15 +169,15 @@
           <p>In MSI Afterburner (NVIDIA/AMD) or AMD Adrenalin, manually set the GPU fan curve to spin up earlier and faster. A simple fix: set the fan to reach 70% speed at 75°C instead of 80–85°C.</p>
 
           <h3>4. Undervolt Your GPU</h3>
-          <p>Undervolting reduces the voltage supplied to the GPU core while maintaining or even improving clock stability. This is one of the most effective ways to reduce heat — many GPUs can drop 10–15°C with a proper undervolt. Use MSI Afterburner's Voltage/Frequency curve editor (Ctrl+F).</p>
+          <p>Undervolting reduces the voltage supplied to the GPU core while maintaining or even improving clock stability. This is one of the most effective ways to reduce heat - many GPUs can drop 10–15°C with a proper undervolt. Use MSI Afterburner's Voltage/Frequency curve editor (Ctrl+F).</p>
 
           <h3>5. Repaste the GPU</h3>
-          <p>If your GPU is 3+ years old and running hot after cleaning, consider replacing the thermal compound. This requires disassembling the cooler — use a quality paste like Thermal Grizzly Kryonaut or Arctic MX-6. Expect a 5–15°C improvement on older cards.</p>
+          <p>If your GPU is 3+ years old and running hot after cleaning, consider replacing the thermal compound. This requires disassembling the cooler - use a quality paste like Thermal Grizzly Kryonaut or Arctic MX-6. Expect a 5–15°C improvement on older cards.</p>
 
           <h2>What Temperature Actually Damages a GPU?</h2>
-          <p>Modern GPUs are designed to throttle (reduce clock speeds) well before reaching temperatures that cause damage. The TJ Max value is the absolute thermal ceiling — sustained operation at or above TJ Max for extended periods can degrade the GPU die over time.</p>
+          <p>Modern GPUs are designed to throttle (reduce clock speeds) well before reaching temperatures that cause damage. The TJ Max value is the absolute thermal ceiling - sustained operation at or above TJ Max for extended periods can degrade the GPU die over time.</p>
 
-          <p>In practice, thermal damage from gaming is rare on a functioning system. The GPU will thermal throttle and reduce heat output before damage occurs. The bigger risk is <strong>thermal cycling stress</strong> — repeated rapid heat-up/cool-down cycles that can eventually affect solder joints.</p>
+          <p>In practice, thermal damage from gaming is rare on a functioning system. The GPU will thermal throttle and reduce heat output before damage occurs. The bigger risk is <strong>thermal cycling stress</strong> - repeated rapid heat-up/cool-down cycles that can eventually affect solder joints.</p>
 
           <p>For long-term GPU health, aim to keep sustained gaming temperatures <strong>at least 10°C below TJ Max</strong>.</p>
 

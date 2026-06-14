@@ -81,13 +81,13 @@
         </p>
 
         <div class="callout" style="margin-bottom:2rem;">
-          <strong style="color:var(--text);">The goal of stress testing:</strong> Push your hardware to its thermal and electrical ceiling in a controlled environment before that ceiling is hit mid-game, mid-render, or mid-workday. If your system is going to crash or throttle, you want to know now — and to know the exact temperature or voltage at which that happened.
+          <strong style="color:var(--text);">The goal of stress testing:</strong> Push your hardware to its thermal and electrical ceiling in a controlled environment before that ceiling is hit mid-game, mid-render, or mid-workday. If your system is going to crash or throttle, you want to know now - and to know the exact temperature or voltage at which that happened.
         </div>
 
         <h2>When to Stress Test</h2>
         <ul>
           <li><strong>After a new build:</strong> Verifies that your cooler is mounted correctly, thermal paste is applied well, and no component is defective.</li>
-          <li><strong>After overclocking or undervolting:</strong> Confirms your settings are stable at the new operating point. Games crash much more gracefully than stress tests — find instability in testing, not in a 3-hour gaming session.</li>
+          <li><strong>After overclocking or undervolting:</strong> Confirms your settings are stable at the new operating point. Games crash much more gracefully than stress tests - find instability in testing, not in a 3-hour gaming session.</li>
           <li><strong>After reseating a cooler:</strong> Thermal paste application quality varies enormously. Compare your post-reseat temperatures against your previous data.</li>
           <li><strong>When investigating crashes or throttling:</strong> A controlled stress test with HWiNFO logging active will reveal exactly what's happening at the moment instability occurs.</li>
           <li><strong>Before overclocking:</strong> Establish a thermal baseline so you know how much headroom you have to work with.</li>
@@ -98,16 +98,16 @@
 
         <h2>CPU Stress Testing</h2>
 
-        <h3>Cinebench R24 — Start Here</h3>
+        <h3>Cinebench R24 - Start Here</h3>
         <p>Cinebench is the standard benchmark for CPU performance verification. It runs a 3D rendering workload across all CPU cores, which closely mimics real multi-threaded workloads. Use Cinebench <strong>R24</strong> (latest version as of 2026).</p>
         <ul>
           <li><strong>Single-core test:</strong> Measures peak single-thread performance. Compare against publicly published R24 scores for your exact CPU model.</li>
-          <li><strong>Multi-core test:</strong> Set it to run for <strong>10 minutes minimum</strong> (change from single run in Settings → Minimum Test Duration). This reveals thermal throttling — a CPU that throttles will show lower multi-core scores than its 1-minute peak.</li>
+          <li><strong>Multi-core test:</strong> Set it to run for <strong>10 minutes minimum</strong> (change from single run in Settings → Minimum Test Duration). This reveals thermal throttling - a CPU that throttles will show lower multi-core scores than its 1-minute peak.</li>
           <li><strong>What to check:</strong> Does your multi-core score match published reviews for stock settings? If significantly lower, check HWiNFO for power limit throttling or thermal throttling during the run.</li>
         </ul>
 
-        <h3>Prime95 — The Stability Standard</h3>
-        <p>Prime95 is the traditional CPU stability tool. "Small FFTs" mode is the most demanding test — it maximises CPU power draw and is hotter than most real workloads. This makes it excellent for finding cooling limits, but be aware it draws more power than games will.</p>
+        <h3>Prime95 - The Stability Standard</h3>
+        <p>Prime95 is the traditional CPU stability tool. "Small FFTs" mode is the most demanding test - it maximises CPU power draw and is hotter than most real workloads. This makes it excellent for finding cooling limits, but be aware it draws more power than games will.</p>
 
         <p><strong>Which mode to use:</strong></p>
         <ul>
@@ -118,10 +118,10 @@
 
         <p><strong>What a pass looks like:</strong> No WHEA errors logged in HWiNFO or Windows Event Viewer, stable temperatures that plateau within the first 5 minutes and don't keep climbing, no blue screens or reboots.</p>
 
-        <p><strong>Intel Core i9 / AMD Ryzen 9 owners:</strong> Prime95 Small FFTs will likely hit your CPU's MTP/PPT limit and thermal limit simultaneously. This is normal behavior. The CPU is designed to sustain this power under a 253W (Intel i9-14900K) or 230W (Ryzen 9 7950X) ceiling. A temperature above 95°C under Prime95 Small FFTs is not necessarily alarming — check what temperatures you actually see in games, which will be 15–30°C lower.</p>
+        <p><strong>Intel Core i9 / AMD Ryzen 9 owners:</strong> Prime95 Small FFTs will likely hit your CPU's MTP/PPT limit and thermal limit simultaneously. This is normal behavior. The CPU is designed to sustain this power under a 253W (Intel i9-14900K) or 230W (Ryzen 9 7950X) ceiling. A temperature above 95°C under Prime95 Small FFTs is not necessarily alarming - check what temperatures you actually see in games, which will be 15–30°C lower.</p>
 
-        <h3>OCCT — The All-in-One Alternative</h3>
-        <p>OCCT (OverClock Checking Tool) combines CPU, GPU, and power supply stress testing in one application. The free version is sufficient for most uses. The CPU power test in OCCT is considered highly representative of real-world high-load scenarios — less artificial than Prime95 Small FFTs, more demanding than Cinebench. Run for 30 minutes minimum for a complete stability check.</p>
+        <h3>OCCT - The All-in-One Alternative</h3>
+        <p>OCCT (OverClock Checking Tool) combines CPU, GPU, and power supply stress testing in one application. The free version is sufficient for most uses. The CPU power test in OCCT is considered highly representative of real-world high-load scenarios - less artificial than Prime95 Small FFTs, more demanding than Cinebench. Run for 30 minutes minimum for a complete stability check.</p>
 
         <h3>Expected CPU Temperatures by Tier (Gaming, Not Stress Test)</h3>
         <div style="overflow-x:auto; margin:1rem 0;">
@@ -152,25 +152,25 @@
             </tbody>
           </table>
         </div>
-        <p style="font-size:0.78rem; color:#555568;">Prime95 temperatures are higher than games — don't panic at 95°C in Prime95 if your games run at 75°C. The relevant number for gaming is gaming temperature.</p>
+        <p style="font-size:0.78rem; color:#555568;">Prime95 temperatures are higher than games - don't panic at 95°C in Prime95 if your games run at 75°C. The relevant number for gaming is gaming temperature.</p>
 
         <h2>GPU Stress Testing</h2>
 
-        <h3>FurMark — Thermal Ceiling Test</h3>
-        <p>FurMark is a pure GPU stress test that draws a furry sphere rendered with extreme fragment shader complexity. It's the harshest possible synthetic GPU load — more demanding than any real game. Use it specifically to test:</p>
+        <h3>FurMark - Thermal Ceiling Test</h3>
+        <p>FurMark is a pure GPU stress test that draws a furry sphere rendered with extreme fragment shader complexity. It's the harshest possible synthetic GPU load - more demanding than any real game. Use it specifically to test:</p>
         <ul>
           <li>GPU cooler adequacy under absolute maximum thermal load</li>
           <li>GPU stability after undervolting (crashes under FurMark = voltage is too low)</li>
           <li>GPU fan behavior and noise at max thermal output</li>
         </ul>
         <p>Run at your native resolution, 4× MSAA, for <strong>15 minutes</strong>. If no crash and temperatures plateau (stop rising) within the first 5 minutes, your cooling is working correctly. If temperatures keep climbing past 95°C without plateauing, your cooler has an airflow, mounting, or degradation issue.</p>
-        <p>Note: FurMark often triggers GPU power limit throttling because it's unrealistically demanding. Seeing "Power Limit" in HWiNFO during FurMark is normal — it means the GPU hit its power ceiling and throttled slightly. This would not happen in games, which don't sustain this shader complexity.</p>
+        <p>Note: FurMark often triggers GPU power limit throttling because it's unrealistically demanding. Seeing "Power Limit" in HWiNFO during FurMark is normal - it means the GPU hit its power ceiling and throttled slightly. This would not happen in games, which don't sustain this shader complexity.</p>
 
-        <h3>3DMark — Performance Benchmarking</h3>
+        <h3>3DMark - Performance Benchmarking</h3>
         <p>3DMark is the standard GPU performance benchmark. The free version on Steam gives access to several tests. Use it to:</p>
         <ul>
           <li><strong>Establish a baseline score</strong> to compare against after driver updates, overclocking, or undervolting</li>
-          <li><strong>Compare against community results</strong> for your exact GPU — if your score is 15%+ below average, investigate thermal throttling or driver issues</li>
+          <li><strong>Compare against community results</strong> for your exact GPU - if your score is 15%+ below average, investigate thermal throttling or driver issues</li>
           <li><strong>Time Spy (DirectX 12):</strong> Best overall modern benchmark</li>
           <li><strong>Fire Strike (DirectX 11):</strong> Good for comparing against older results</li>
           <li><strong>Port Royal:</strong> Ray tracing specific performance</li>
@@ -181,10 +181,10 @@
 
         <h2>RAM Stress Testing</h2>
 
-        <h3>MemTest86 — The Definitive RAM Test</h3>
+        <h3>MemTest86 - The Definitive RAM Test</h3>
         <p>MemTest86 runs from a USB drive at boot (outside of Windows) and tests your RAM with multiple different memory patterns. It's the most thorough RAM tester available. Download from <strong>memtest86.com</strong>, write to a USB drive, boot from it.</p>
         <ul>
-          <li>1 full pass covers all installed RAM — takes 30–60 minutes depending on RAM capacity</li>
+          <li>1 full pass covers all installed RAM - takes 30–60 minutes depending on RAM capacity</li>
           <li>Run <strong>2 full passes minimum</strong> for basic stability verification</li>
           <li>Run overnight for overclocked or XMP profiles to confirm long-term stability</li>
           <li>0 errors = pass. Even 1 error means investigate the RAM or settings.</li>
@@ -197,7 +197,7 @@
         <ol>
           <li><strong>CPU-Z:</strong> Confirm XMP/EXPO is active and RAM is running at its rated speed</li>
           <li><strong>Cinebench R24 (10 min multi-core):</strong> Establish CPU baseline score, check for throttling</li>
-          <li><strong>FurMark (15 min):</strong> GPU thermal ceiling test. Monitor in HWiNFO — check peak GPU temp and VRAM temp</li>
+          <li><strong>FurMark (15 min):</strong> GPU thermal ceiling test. Monitor in HWiNFO - check peak GPU temp and VRAM temp</li>
           <li><strong>3DMark Time Spy (full run):</strong> Record baseline score</li>
           <li><strong>Prime95 Small FFTs (20 min):</strong> CPU thermal and stability ceiling. If no errors and temps plateau, cooler is adequate</li>
           <li><strong>MemTest86 (2 passes, boot from USB):</strong> RAM integrity check, especially important after XMP enable or RAM OC</li>
@@ -210,7 +210,7 @@
           <li><strong>Game crash but Prime95 stable:</strong> GPU issue. Run FurMark; if it crashes, it's a GPU voltage or driver issue. If FurMark is stable, the game has a specific resource issue (VRAM, shader compilation, DirectX hook).</li>
           <li><strong>Temperatures keep climbing without plateauing:</strong> Cooler mounting issue, dried thermal paste, or blocked airflow. Check that your cooler's retention screws are properly tightened.</li>
           <li><strong>Significantly lower Cinebench score than expected:</strong> Power limit throttling. Check BIOS for PL1/PL2 limits on Intel, PPT limit on AMD. Some B-series motherboards apply lower power limits than Z-series.</li>
-          <li><strong>GPU score 15%+ below community average:</strong> Check if thermal throttling is occurring (GPU hits TJ Max and reduces clocks). May also be a driver issue — try a fresh driver install via DDU (Display Driver Uninstaller).</li>
+          <li><strong>GPU score 15%+ below community average:</strong> Check if thermal throttling is occurring (GPU hits TJ Max and reduces clocks). May also be a driver issue - try a fresh driver install via DDU (Display Driver Uninstaller).</li>
         </ul>
 
       </article>

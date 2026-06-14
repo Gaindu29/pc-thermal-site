@@ -1,11 +1,11 @@
 /**
- * TempCore — GPU Temperature Checker Logic
+ * TempCore - GPU Temperature Checker Logic
  * gpu-checker.js
  */
 
 // GPU database: model → { label, tjMax, safeGaming, warnGaming }
 const GPU_DATA = {
-  // NVIDIA RTX 50 Series (Blackwell) — GDDR7
+  // NVIDIA RTX 50 Series (Blackwell) - GDDR7
   // TJ Max 90°C across all 50-series desktop models
   "RTX 5090":    { tjMax: 90, safeGaming: 80, warnGaming: 85 },
   "RTX 5080":    { tjMax: 90, safeGaming: 82, warnGaming: 86 },
@@ -92,32 +92,32 @@ const TIERS = {
 const SUGGESTIONS = {
   safe: [
     "Your GPU is running at a healthy temperature. No action needed.",
-    "Thermals are well within the safe zone — keep up the good airflow.",
+    "Thermals are well within the safe zone - keep up the good airflow.",
     "Performance is not being thermally throttled at this temperature.",
     "Continue monitoring over long gaming sessions to ensure temps stay stable.",
   ],
   warm: [
     "Temperatures are elevated but within acceptable limits for most GPUs.",
-    "Check that your case has adequate airflow — at least one intake and one exhaust fan.",
+    "Check that your case has adequate airflow - at least one intake and one exhaust fan.",
     "Consider cleaning dust filters and GPU heatsink fins with compressed air.",
     "Reapplying quality thermal paste to the GPU die can lower temps by 5–10°C.",
     "Undervolting your GPU in MSI Afterburner can reduce heat without losing performance.",
   ],
   hot: [
     "Your GPU is running hot and may start thermal throttling to protect itself.",
-    "Immediately check case airflow — poor cable management blocks air circulation.",
+    "Immediately check case airflow - poor cable management blocks air circulation.",
     "Clean all dust from GPU fans, heatsink, and case filters right away.",
     "Ramp up GPU fan speed manually in MSI Afterburner or AMD Adrenalin.",
     "Consider an undervolt: reduces heat output while maintaining clock speeds.",
-    "Check for a power limit setting — reducing TDP by 10–15% can significantly lower temps.",
+    "Check for a power limit setting - reducing TDP by 10–15% can significantly lower temps.",
     "If on a laptop, use a quality cooling pad and ensure vents are unobstructed.",
   ],
   critical: [
     "STOP gaming immediately. This temperature risks permanent GPU damage.",
-    "Ensure the GPU fans are spinning — a failed fan can cause thermal shutdown.",
+    "Ensure the GPU fans are spinning - a failed fan can cause thermal shutdown.",
     "Check if any heatsink screws are loose, which can break thermal contact.",
     "The thermal paste on the GPU die may have dried out and needs immediate replacement.",
-    "Clean the entire GPU and case of dust buildup — this is likely contributing heavily.",
+    "Clean the entire GPU and case of dust buildup - this is likely contributing heavily.",
     "If the problem persists after cleaning, the GPU cooler may need replacement.",
     "Reduce in-game settings to lower GPU workload while you diagnose the issue.",
   ],
@@ -152,7 +152,7 @@ function getThermoColor(tier) {
 }
 
 /**
- * Main check function — called by the form
+ * Main check function - called by the form
  */
 function checkTemperature() {
   const gpuSelect = document.getElementById("gpu-select");

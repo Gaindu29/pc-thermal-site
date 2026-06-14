@@ -1,5 +1,5 @@
 /**
- * TempCore — PSU Wattage Calculator
+ * TempCore - PSU Wattage Calculator
  * psu-calc.js
  *
  * Power draw values based on:
@@ -10,7 +10,7 @@
  */
 
 // ── CPU GAMING POWER DRAW (watts) ─────────────────────────────────────────────
-// Realistic sustained gaming load — NOT idle, NOT base TDP, NOT burst/turbo max
+// Realistic sustained gaming load - NOT idle, NOT base TDP, NOT burst/turbo max
 // Intel K-series genuinely draw 150–250W during sustained gaming due to boost
 const CPU_W = {
   // ── Intel 14th Gen ───────────────────────────────────────────────────────
@@ -56,7 +56,7 @@ const CPU_W = {
   "Core i5-10400":     65,
   "Core i5-10400F":    65,
   // ── AMD Ryzen 7000 (Zen 4) ────────────────────────────────────────────────
-  "Ryzen 9 7950X3D":  120,  // 3D V-Cache limits boost — runs cooler
+  "Ryzen 9 7950X3D":  120,  // 3D V-Cache limits boost - runs cooler
   "Ryzen 9 7950X":    170,
   "Ryzen 9 7900X3D":  120,
   "Ryzen 9 7900X":    170,
@@ -97,16 +97,16 @@ const CPU_W = {
 };
 
 // ── GPU POWER DRAW (watts) ────────────────────────────────────────────────────
-// Manufacturer rated TDP — this is the sustained gaming power draw
+// Manufacturer rated TDP - this is the sustained gaming power draw
 // Sources: NVIDIA/AMD product pages + hardware review measurements
 const GPU_W = {
-  // ── NVIDIA RTX 50 Series (Blackwell) — Official TDP ────────────────────────
+  // ── NVIDIA RTX 50 Series (Blackwell) - Official TDP ────────────────────────
   // Source: NVIDIA official specs, GamersNexus Jan 2025
-  "RTX 5090":         575,  // Official NVIDIA spec — highest consumer GPU TDP ever
+  "RTX 5090":         575,  // Official NVIDIA spec - highest consumer GPU TDP ever
   "RTX 5080":         360,  // Official NVIDIA spec
   "RTX 5070 Ti":      300,  // Official NVIDIA spec
   "RTX 5070":         250,  // Official NVIDIA spec
-  "RTX 5060 Ti 16GB": 165,  // Same TDP as RTX 4060 Ti — GDDR7 offsets performance gains
+  "RTX 5060 Ti 16GB": 165,  // Same TDP as RTX 4060 Ti - GDDR7 offsets performance gains
   "RTX 5060 Ti":      165,
   "RTX 5060":         145,  // Estimated based on lineup position
 
@@ -237,7 +237,7 @@ const PSU_DB = [
     wattage: "1000W",
     picks: [
       { name: "Seasonic Focus GX-1000",    rating: "80+ Gold",     modular: "Fully Modular", price: "~$170", link: "https://www.amazon.com/s?k=Seasonic+Focus+GX+1000&tag=tempcore-20", note: "Best value 1000W Gold option" },
-      { name: "Corsair HX1000",            rating: "80+ Platinum", modular: "Fully Modular", price: "~$185", link: "https://www.amazon.com/s?k=Corsair+HX1000&tag=tempcore-20",          note: "Platinum efficiency — worth it for high-draw builds" },
+      { name: "Corsair HX1000",            rating: "80+ Platinum", modular: "Fully Modular", price: "~$185", link: "https://www.amazon.com/s?k=Corsair+HX1000&tag=tempcore-20",          note: "Platinum efficiency - worth it for high-draw builds" },
       { name: "be quiet! Dark Power 13 1000W", rating: "80+ Titanium", modular: "Fully Modular", price: "~$240", link: "https://www.amazon.com/s?k=be+quiet+Dark+Power+13+1000W&tag=tempcore-20", note: "Premium build, near-silent, Titanium rated" },
     ]
   },
@@ -246,7 +246,7 @@ const PSU_DB = [
     wattage: "1200W+",
     picks: [
       { name: "Corsair HX1200",        rating: "80+ Platinum", modular: "Fully Modular", price: "~$230", link: "https://www.amazon.com/s?k=Corsair+HX1200&tag=tempcore-20",          note: "Recommended for RTX 4090 overclocked systems" },
-      { name: "Seasonic Prime TX-1000", rating: "80+ Titanium", modular: "Fully Modular", price: "~$280", link: "https://www.amazon.com/s?k=Seasonic+Prime+TX+1000&tag=tempcore-20",   note: "Tier-1 Titanium — the best efficiency available" },
+      { name: "Seasonic Prime TX-1000", rating: "80+ Titanium", modular: "Fully Modular", price: "~$280", link: "https://www.amazon.com/s?k=Seasonic+Prime+TX+1000&tag=tempcore-20",   note: "Tier-1 Titanium - the best efficiency available" },
       { name: "be quiet! Dark Power Pro 12 1200W", rating: "80+ Titanium", modular: "Fully Modular", price: "~$300", link: "https://www.amazon.com/s?k=be+quiet+Dark+Power+Pro+12+1200W&tag=tempcore-20", note: "Extreme headroom for workstation / dual-GPU builds" },
     ]
   },
@@ -449,7 +449,7 @@ function calcPSU() {
     <!-- Why 30% headroom explainer -->
     <div style="background:rgba(34,212,126,0.05); border:1px solid rgba(34,212,126,0.15); border-left:3px solid var(--safe); border-radius:6px; padding:0.75rem 1rem; font-size:0.8rem; color:#b0b0c8; margin-bottom:1.25rem; line-height:1.65;">
       <strong style="color:var(--text);">Why 30% headroom?</strong> PSUs are most efficient at 50–80% load. 
-      A ${recommendedW}W PSU runs at <strong style="color:var(--text);">${Math.round(totalW/recommendedW*100)}% load</strong> with your build — 
+      A ${recommendedW}W PSU runs at <strong style="color:var(--text);">${Math.round(totalW/recommendedW*100)}% load</strong> with your build - 
       ideal for efficiency, longevity, and quiet operation. Under 50% load, efficiency drops; over 80%, thermals and noise increase.
     </div>
 

@@ -1,11 +1,11 @@
 /* ==========================================================================
-   TempCore — PC Builder Recommendation Engine
+   TempCore - PC Builder Recommendation Engine
    --------------------------------------------------------------------------
    This file contains the recommendation logic only.
    Component data (prices, specs, affiliate links) lives in components.js,
    which must be loaded BEFORE this file via a separate <script> tag.
 
-   Status: BETA — released May 2026.
+   Status: BETA - released May 2026.
    ========================================================================== */
 
 if (!window.COMPONENTS_DATA) {
@@ -70,7 +70,7 @@ function pickCheapest(list, predicate) {
   return null;
 }
 
-/* Sort helper — returns a price-ascending copy. */
+/* Sort helper - returns a price-ascending copy. */
 function byPrice(arr) {
   return arr.slice().sort(function(a, b) { return a.price - b.price; });
 }
@@ -144,12 +144,12 @@ function pickRAM(budget, prefs) {
   var sorted = byPrice(RAMS);
   var pred = function(r) {
     // AM5 / LGA1700 with K-series modern -> DDR5. AM4 / 12th-gen non-K -> DDR4 OK.
-    // Simplification: AM5 = DDR5 only. LGA1700 = either (depends on mobo) — we picked DDR4 mobos for cheap LGA1700.
+    // Simplification: AM5 = DDR5 only. LGA1700 = either (depends on mobo) - we picked DDR4 mobos for cheap LGA1700.
     if (prefs.cpuSocket === "AM5" && r.type !== "DDR5") return false;
     if (prefs.cpuSocket === "AM4" && r.type !== "DDR4") return false;
     if (prefs.cpuSocket === "LGA1700") {
       // Allow DDR4 for cheap builds; allow DDR5 if mobo supports it (we'd need richer mobo data).
-      // Simplification: tie to mobo name — DDR4 mobos in our list have "D4" or "DDR4" in name.
+      // Simplification: tie to mobo name - DDR4 mobos in our list have "D4" or "DDR4" in name.
       if (prefs.moboDDR4 && r.type !== "DDR4") return false;
       if (!prefs.moboDDR4 && r.type !== "DDR5") return false;
     }
@@ -213,7 +213,7 @@ function pickCooler(budget, prefs) {
 }
 
 function pickPSU(budget, prefs) {
-  // PSU isn't a "spend more for more performance" component — pick the cheapest
+  // PSU isn't a "spend more for more performance" component - pick the cheapest
   // quality unit that comfortably meets the watts requirement. We compute the
   // headroom-included requirement (25% over peak draw) and prefer the smallest
   // common-tier PSU that hits it.
@@ -256,11 +256,11 @@ function buildPC(input) {
     };
   }
 
-  // Goal-vs-budget feasibility checks — block clearly impossible combinations early
+  // Goal-vs-budget feasibility checks - block clearly impossible combinations early
   if (goal === "gaming" && resolution === "4k" && budget < 1500) {
     return {
       ok: false,
-      reason: "4K gaming is not realistic under $1500 with May 2026 component prices. A capable 4K GPU (RTX 5070 Ti / RX 9070 XT or better) alone runs $700+ and leaves no room for the rest of the system. Try 1440p at this budget — it will give a much better experience for the money — or raise the budget to $1800+ for an entry-level 4K build."
+      reason: "4K gaming is not realistic under $1500 with May 2026 component prices. A capable 4K GPU (RTX 5070 Ti / RX 9070 XT or better) alone runs $700+ and leaves no room for the rest of the system. Try 1440p at this budget - it will give a much better experience for the money - or raise the budget to $1800+ for an entry-level 4K build."
     };
   }
   if (goal === "gaming" && resolution === "1440p" && budget < 900) {
@@ -301,7 +301,7 @@ function buildPC(input) {
   var gpuBudget = budget * alloc.gpu;
   var gpu = null;
   if (goal === "productivity" && budget < 700 && cpu.igpu) {
-    // Skip discrete GPU for low-budget productivity builds — use iGPU instead
+    // Skip discrete GPU for low-budget productivity builds - use iGPU instead
     gpu = null;
   } else {
     gpu = pickGPU(gpuBudget, { goal: goal });
@@ -441,17 +441,17 @@ function buildPC(input) {
       if (picks.gpu.vram < 8) {
         warnings.push("Under 8 GB VRAM is borderline at 1440p in modern AAA games. Expect to use Medium textures in the newest titles.");
       } else if (picks.gpu.vram === 8 && picks.gpu.price < 400) {
-        warnings.push("8 GB VRAM is getting tight at 1440p in the newest AAA titles — expect Medium-High textures rather than Ultra. Fine for esports and most games up through 2024.");
+        warnings.push("8 GB VRAM is getting tight at 1440p in the newest AAA titles - expect Medium-High textures rather than Ultra. Fine for esports and most games up through 2024.");
       } else if (picks.gpu.price < 350) {
         warnings.push("This GPU is entry-tier for 1440p. Plan on the Medium-High preset rather than Ultra in newer AAA games to keep 60+ FPS.");
       }
     } else if (resolution === "1080p" && picks.gpu.price < 250) {
-      warnings.push("This is a budget GPU — solid for esports and older AAA titles at 1080p High, but expect to drop to Medium in the newest releases.");
+      warnings.push("This is a budget GPU - solid for esports and older AAA titles at 1080p High, but expect to drop to Medium in the newest releases.");
     }
   }
 
   if (goal === "ai_ml" && picks.gpu && picks.gpu.vram < 16) {
-    warnings.push("This GPU has " + picks.gpu.vram + " GB VRAM — enough for Stable Diffusion 1.5/SDXL with optimizations and 7B LLMs (quantized). Larger models (13B+ unquantized, full SD3, fine-tuning) want 24 GB+. A 24 GB card (RTX 4090 / 5090) typically starts around $1700.");
+    warnings.push("This GPU has " + picks.gpu.vram + " GB VRAM - enough for Stable Diffusion 1.5/SDXL with optimizations and 7B LLMs (quantized). Larger models (13B+ unquantized, full SD3, fine-tuning) want 24 GB+. A 24 GB card (RTX 4090 / 5090) typically starts around $1700.");
   }
 
   if (goal === "streaming" && picks.cpu.price < 200) {
@@ -463,12 +463,12 @@ function buildPC(input) {
   }
 
   if (picks.cooler && picks.cpu.tdp >= 105 && (picks.cooler.maxTdp - picks.cpu.tdp) < 30) {
-    warnings.push("CPU cooler is rated " + picks.cooler.maxTdp + "W vs. a " + picks.cpu.tdp + "W CPU — workable but with little thermal headroom. Expect higher temps under sustained load; a beefier cooler would let the CPU boost longer.");
+    warnings.push("CPU cooler is rated " + picks.cooler.maxTdp + "W vs. a " + picks.cpu.tdp + "W CPU - workable but with little thermal headroom. Expect higher temps under sustained load; a beefier cooler would let the CPU boost longer.");
   }
 
   if (picks.ram && picks.ram.size === 16 && (goal === "creation" || goal === "ai_ml" || goal === "streaming")) {
     var workName = goal === "ai_ml" ? "AI/ML" : (goal === "creation" ? "content creation" : "streaming");
-    warnings.push("16 GB RAM is tight for " + workName + " work once you have multiple apps and browser tabs open. 32 GB is the practical baseline — a RAM upgrade is a good first-year purchase.");
+    warnings.push("16 GB RAM is tight for " + workName + " work once you have multiple apps and browser tabs open. 32 GB is the practical baseline - a RAM upgrade is a good first-year purchase.");
   }
 
   // Calculate total power draw for the PSU info display
@@ -735,16 +735,16 @@ function pcb_render(result) {
       '</div>' +
       '<div>' +
         '<div style="font-family:\'JetBrains Mono\',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.2rem;">PSU Capacity</div>' +
-        '<div style="font-family:\'Bebas Neue\',sans-serif; font-size:1.5rem; color:var(--text);">' + (picks.psu ? picks.psu.watts + " W" : "—") + '</div>' +
+        '<div style="font-family:\'Bebas Neue\',sans-serif; font-size:1.5rem; color:var(--text);">' + (picks.psu ? picks.psu.watts + " W" : "-") + '</div>' +
       '</div>' +
     '</div>' +
 
-    /* Price volatility warning (prominent — fires on every successful build) */
+    /* Price volatility warning (prominent - fires on every successful build) */
     '<div style="margin-top:1.25rem; padding:0.9rem 1.1rem; background:rgba(255,100,34,0.07); border:1px solid rgba(255,100,34,0.3); border-radius:8px; display:flex; gap:0.7rem; align-items:flex-start;">' +
       '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--hot)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' +
       '<div style="flex:1;">' +
         '<div style="font-family:\'JetBrains Mono\',monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--hot); margin-bottom:0.3rem; font-weight:600;">Verify prices before buying</div>' +
-        '<div style="font-size:0.82rem; color:#b0b0c8; line-height:1.55;">Prices last updated <strong style="color:#d0d0e0;">' + result.dataLastUpdated + '</strong>. The ongoing AI-driven DRAM and NAND shortage means RAM, SSDs, and GPUs can move &plusmn;20% week-to-week. Click each component to check the live Amazon price before purchasing — your final build total may differ from the estimate shown.</div>' +
+        '<div style="font-size:0.82rem; color:#b0b0c8; line-height:1.55;">Prices last updated <strong style="color:#d0d0e0;">' + result.dataLastUpdated + '</strong>. The ongoing AI-driven DRAM and NAND shortage means RAM, SSDs, and GPUs can move &plusmn;20% week-to-week. Click each component to check the live Amazon price before purchasing - your final build total may differ from the estimate shown.</div>' +
       '</div>' +
     '</div>' +
 

@@ -1,5 +1,5 @@
 /**
- * TempCore — PC Bottleneck Checker (v2)
+ * TempCore - PC Bottleneck Checker (v2)
  *
  * DATA SOURCE: Approximate average FPS from aggregated hardware reviews
  * (Tom's Hardware, GamersNexus, TechPowerUp, Digital Foundry).
@@ -72,7 +72,7 @@ const CPU_FPS = {
   "Ryzen 9 7900X3D":   244,
   "Ryzen 9 7900X":     215,
   "Ryzen 9 7900":      205,
-  "Ryzen 7 7800X3D":   260,   // Best gaming CPU — 3D V-Cache + Zen 4
+  "Ryzen 7 7800X3D":   260,   // Best gaming CPU - 3D V-Cache + Zen 4
   "Ryzen 7 7700X":     212,
   "Ryzen 7 7700":      205,
   "Ryzen 5 7600X":     208,
@@ -82,7 +82,7 @@ const CPU_FPS = {
   // ── AMD Ryzen 5000 (Zen 3) ────────────────────────────────────────────────
   "Ryzen 9 5950X":     192,
   "Ryzen 9 5900X":     188,
-  "Ryzen 7 5800X3D":   248,   // 3D V-Cache — best Zen 3 gaming CPU
+  "Ryzen 7 5800X3D":   248,   // 3D V-Cache - best Zen 3 gaming CPU
   "Ryzen 7 5800X":     182,
   "Ryzen 7 5700X":     175,
   "Ryzen 5 5600X":     185,
@@ -229,21 +229,21 @@ function calcBottleneck(cpuFPS, gpuFPS) {
 }
 
 // ── Result tier ───────────────────────────────────────────────────────────────
-// GPU-limited is the normal, expected state — framed neutrally/positively.
-// CPU bottleneck is the concerning state — framed as a problem.
+// GPU-limited is the normal, expected state - framed neutrally/positively.
+// CPU bottleneck is the concerning state - framed as a problem.
 function getTier(type, pct) {
   if (type === "gpu_limited") {
     // GPU-limited = GPU is the active renderer. This is the DESIRED state.
     // Only flag it as a concern when the GPU is dramatically slower than the CPU.
     if (pct <= 15) return { label: "WELL MATCHED",            cssClass: "safe",     color: "var(--safe)",     summary: "Both components are evenly matched. Excellent balance." };
-    if (pct <= 40) return { label: "GPU-LIMITED",              cssClass: "safe",     color: "var(--safe)",     summary: "Your GPU is the active limiter — this is the expected, healthy state for gaming." };
+    if (pct <= 40) return { label: "GPU-LIMITED",              cssClass: "safe",     color: "var(--safe)",     summary: "Your GPU is the active limiter - this is the expected, healthy state for gaming." };
     if (pct <= 60) return { label: "GPU-LIMITED",              cssClass: "warm",     color: "var(--warm)",     summary: "GPU is a notable constraint at this resolution. Upgrading the GPU gives more FPS." };
     if (pct <= 75) return { label: "GPU UPGRADE RECOMMENDED",  cssClass: "hot",      color: "var(--hot)",      summary: "Your CPU has significant unused headroom. A GPU upgrade would be the highest-impact change." };
     return               { label: "GPU FAR TOO SLOW",         cssClass: "critical", color: "var(--critical)", summary: "The GPU is severely holding back this CPU. Upgrade the GPU as a priority." };
   } else {
     // CPU bottleneck = CPU is preventing the GPU from reaching its potential. Concerning.
-    if (pct <= 10) return { label: "WELL MATCHED",       cssClass: "safe",     color: "var(--safe)",     summary: "Very close match. Negligible CPU limitation — within normal range." };
-    if (pct <= 20) return { label: "MILD CPU LIMIT",     cssClass: "safe",     color: "var(--safe)",     summary: "Minor CPU limitation. Common at 1080p with fast GPUs — not a meaningful concern." };
+    if (pct <= 10) return { label: "WELL MATCHED",       cssClass: "safe",     color: "var(--safe)",     summary: "Very close match. Negligible CPU limitation - within normal range." };
+    if (pct <= 20) return { label: "MILD CPU LIMIT",     cssClass: "safe",     color: "var(--safe)",     summary: "Minor CPU limitation. Common at 1080p with fast GPUs - not a meaningful concern." };
     if (pct <= 35) return { label: "CPU BOTTLENECK",     cssClass: "warm",     color: "var(--warm)",     summary: "CPU is noticeably limiting GPU output. A CPU upgrade would unlock more FPS." };
     if (pct <= 55) return { label: "HEAVY CPU LIMIT",    cssClass: "hot",      color: "var(--hot)",      summary: "CPU is a significant bottleneck. Considerable GPU performance is going unused." };
     return               { label: "SEVERE CPU LIMIT",   cssClass: "critical", color: "var(--critical)", summary: "The CPU is critically bottlenecking this GPU. Prioritise a CPU upgrade." };
@@ -318,12 +318,12 @@ function buildAdvice(cpuKey, gpuKey, useCase, r1080, r1440, r4k) {
     tips.push(`The CPU bottleneck is most visible at 1080p. Playing at 1440p would shift more load to the GPU and reduce this gap significantly.`);
   }
   if (r1440.type === "cpu_bottleneck" && r1440.pct > 20) {
-    tips.push(`Even at 1440p your CPU is limiting FPS — this means your GPU is waiting on the CPU rather than rendering at full potential. Frames-per-second gains from a GPU upgrade would be partially offset.`);
+    tips.push(`Even at 1440p your CPU is limiting FPS - this means your GPU is waiting on the CPU rather than rendering at full potential. Frames-per-second gains from a GPU upgrade would be partially offset.`);
   }
 
   // ── GPU-limited tips ────────────────────────────────────────────────────
   if (r1080.type === "gpu_limited" && r1080.pct > 0) {
-    tips.push(`At 1080p your GPU is the active limiter — this is the expected state. Your CPU has headroom, which means frame times are stable and consistent.`);
+    tips.push(`At 1080p your GPU is the active limiter - this is the expected state. Your CPU has headroom, which means frame times are stable and consistent.`);
   }
   if (severeGPULimit >= 2) {
     tips.push(`Your <strong style="color:var(--text);">${gpuKey}</strong> is significantly constraining this CPU across multiple resolutions. A GPU upgrade is the highest-impact way to improve FPS.`);
@@ -331,7 +331,7 @@ function buildAdvice(cpuKey, gpuKey, useCase, r1080, r1440, r4k) {
 
   // ── 4K note ─────────────────────────────────────────────────────────────
   if (r4k.type === "gpu_limited") {
-    tips.push(`At 4K every GPU becomes the bottleneck — this is completely normal. CPU choice barely affects 4K frame rates; your GPU is doing all the work.`);
+    tips.push(`At 4K every GPU becomes the bottleneck - this is completely normal. CPU choice barely affects 4K frame rates; your GPU is doing all the work.`);
   }
 
   // ── VRAM note ───────────────────────────────────────────────────────────
@@ -345,7 +345,7 @@ function buildAdvice(cpuKey, gpuKey, useCase, r1080, r1440, r4k) {
     tips.push(`Streaming has ${cStr} CPU bottleneck by consuming ~18% of CPU capacity for encoding. A 6-core or better CPU handles this well; 4-core CPUs may drop frames.`);
   }
   if (useCase === "editing") {
-    tips.push(`For video editing and rendering, CPU core count and RAM speed matter more than gaming metrics. GPU encode acceleration (NVENC, AMD VCE) also contributes — check if your GPU supports hardware encoding.`);
+    tips.push(`For video editing and rendering, CPU core count and RAM speed matter more than gaming metrics. GPU encode acceleration (NVENC, AMD VCE) also contributes - check if your GPU supports hardware encoding.`);
   }
 
   // ── Balanced note ───────────────────────────────────────────────────────
@@ -356,7 +356,7 @@ function buildAdvice(cpuKey, gpuKey, useCase, r1080, r1440, r4k) {
   // ── Always: explain the GPU-limited normal state ─────────────────────────
   if (!tips.some(t => t.includes("GPU-limited") || t.includes("active limiter") || t.includes("all the work"))) {
     if (r1440.type === "gpu_limited" && r1440.pct <= 30) {
-      tips.push(`Being "GPU-limited" at 1440p is the desired state — it means your GPU is fully utilised and your CPU isn't wasting cycles waiting. This is what good PC balance looks like.`);
+      tips.push(`Being "GPU-limited" at 1440p is the desired state - it means your GPU is fully utilised and your CPU isn't wasting cycles waiting. This is what good PC balance looks like.`);
     }
   }
 
@@ -410,7 +410,7 @@ function checkBottleneck() {
 
     <!-- Balance bar at 1440p -->
     <div style="margin-bottom:1.25rem;">
-      <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.35rem;">Balance at 1440p — marker left = CPU limits; right = GPU limits</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.35rem;">Balance at 1440p - marker left = CPU limits; right = GPU limits</div>
       ${bar}
     </div>
 

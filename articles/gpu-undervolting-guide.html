@@ -81,28 +81,28 @@
         </p>
 
         <div class="callout" style="margin-bottom:2rem;">
-          <strong style="color:var(--text);">Quick answer:</strong> GPU undervolting reduces the voltage your GPU uses at a given clock speed. Less voltage = less heat = lower temperatures, quieter fans, and in some cases <em>better</em> sustained performance. Most NVIDIA cards drop <strong style="color:var(--safe);">5–10°C</strong>, AMD cards <strong style="color:var(--safe);">8–15°C</strong>. Performance loss is typically <strong style="color:var(--safe);">0–2%</strong> — often zero.
+          <strong style="color:var(--text);">Quick answer:</strong> GPU undervolting reduces the voltage your GPU uses at a given clock speed. Less voltage = less heat = lower temperatures, quieter fans, and in some cases <em>better</em> sustained performance. Most NVIDIA cards drop <strong style="color:var(--safe);">5–10°C</strong>, AMD cards <strong style="color:var(--safe);">8–15°C</strong>. Performance loss is typically <strong style="color:var(--safe);">0–2%</strong> - often zero.
         </div>
 
         <h2>Why Undervolting Works</h2>
-        <p>Modern GPUs ship with conservative voltage settings that guarantee stability across thousands of different chips, ambient temperatures, and use cases. Your specific chip may need significantly less voltage than the spec to achieve the same clock speed — but NVIDIA and AMD don't know that about your individual GPU at the factory.</p>
+        <p>Modern GPUs ship with conservative voltage settings that guarantee stability across thousands of different chips, ambient temperatures, and use cases. Your specific chip may need significantly less voltage than the spec to achieve the same clock speed - but NVIDIA and AMD don't know that about your individual GPU at the factory.</p>
         <p>This is called <strong>silicon lottery variation</strong>: two identical RTX 4080s can require meaningfully different voltages to run at the same frequency. Undervolting finds the minimum voltage <em>your</em> chip needs, rather than accepting the conservative maximum NVIDIA set for the worst-case unit.</p>
 
         <h2>What You Actually Gain</h2>
         <ul>
           <li><strong>Lower temperatures:</strong> Typically 5–15°C at load, depending on GPU and how aggressively you undervolt.</li>
           <li><strong>Quieter fans:</strong> Lower temps mean the fan curve activates later and spins slower. This is often the most noticeable real-world benefit.</li>
-          <li><strong>Better sustained clocks:</strong> Some GPUs thermal throttle under sustained load. With lower thermals, boost clocks stay higher for longer — meaning you can actually gain performance in some scenarios.</li>
+          <li><strong>Better sustained clocks:</strong> Some GPUs thermal throttle under sustained load. With lower thermals, boost clocks stay higher for longer - meaning you can actually gain performance in some scenarios.</li>
           <li><strong>Lower power consumption:</strong> 10–20W reduction is common, which matters for energy costs over time and for laptops on battery.</li>
         </ul>
 
         <h2>Tools You Need</h2>
         <ul>
-          <li><strong>MSI Afterburner</strong> (free) — works on all NVIDIA and AMD cards; the standard tool for both undervolting and overclocking on Windows.</li>
-          <li><strong>AMD Adrenalin</strong> (AMD only) — AMD's own software has a built-in Tuning section that can undervolt without a separate app.</li>
-          <li><strong>HWiNFO64</strong> (free) — for monitoring real-time GPU voltage, temperature, clock speeds, and power draw during testing.</li>
-          <li><strong>3DMark</strong> (the free Benchmark tier works) — for stress testing and comparing before/after results objectively.</li>
-          <li><strong>FurMark</strong> — pure GPU stress test. Run for 10–15 minutes to confirm stability after undervolting.</li>
+          <li><strong>MSI Afterburner</strong> (free) - works on all NVIDIA and AMD cards; the standard tool for both undervolting and overclocking on Windows.</li>
+          <li><strong>AMD Adrenalin</strong> (AMD only) - AMD's own software has a built-in Tuning section that can undervolt without a separate app.</li>
+          <li><strong>HWiNFO64</strong> (free) - for monitoring real-time GPU voltage, temperature, clock speeds, and power draw during testing.</li>
+          <li><strong>3DMark</strong> (the free Benchmark tier works) - for stress testing and comparing before/after results objectively.</li>
+          <li><strong>FurMark</strong> - pure GPU stress test. Run for 10–15 minutes to confirm stability after undervolting.</li>
         </ul>
 
         <h2>Step-by-Step: NVIDIA GPUs (RTX 30 / 40 / 50 Series)</h2>
@@ -122,9 +122,9 @@
         <p>In the curve editor, find the point on the graph corresponding to your target frequency. You'll move this point to the left (lower voltage) while keeping the same or slightly lower frequency. The standard approach:</p>
         <ol>
           <li>Press <strong>Ctrl+F</strong> in the curve editor to select all points</li>
-          <li>Use the <strong>up/down arrow keys</strong> to lower all frequencies together — this isn't what you want here, so undo that</li>
+          <li>Use the <strong>up/down arrow keys</strong> to lower all frequencies together - this isn't what you want here, so undo that</li>
           <li>Instead, find the specific voltage point you want (e.g., 900 mV) and drag the curve so that your target frequency sits at that voltage</li>
-          <li>Everything above that point gets "flat-lined" — you drag the right side of the curve down so it doesn't boost higher than your target</li>
+          <li>Everything above that point gets "flat-lined" - you drag the right side of the curve down so it doesn't boost higher than your target</li>
         </ol>
         <p>A common starting approach for NVIDIA RTX 40 series:</p>
         <ul>
@@ -154,10 +154,10 @@
           <li>Open AMD Adrenalin → Performance → Tuning</li>
           <li>Select your GPU and set "Tuning Control" to <strong>Manual</strong></li>
           <li>Under "GPU Tuning", enable <strong>Advanced Control</strong></li>
-          <li>You'll see a Voltage/Frequency slider — reduce it by 10–15% as a starting point</li>
+          <li>You'll see a Voltage/Frequency slider - reduce it by 10–15% as a starting point</li>
           <li>Click Apply and run FurMark to test stability</li>
         </ol>
-        <p>AMD's automatic undervolting in Adrenalin (the Eco Mode button on newer cards) can reduce power by 10–15% automatically with a single click — try this first before manual tuning.</p>
+        <p>AMD's automatic undervolting in Adrenalin (the Eco Mode button on newer cards) can reduce power by 10–15% automatically with a single click - try this first before manual tuning.</p>
 
         <h3>MSI Afterburner for AMD (More Control)</h3>
         <p>Afterburner also works on AMD cards. The voltage/frequency curve editor approach is the same as for NVIDIA. AMD RX 7000 series typically shows larger temperature improvements from undervolting than NVIDIA, often 10–15°C.</p>
@@ -207,11 +207,11 @@
             </tbody>
           </table>
         </div>
-        <p style="font-size:0.8rem; color:#555568;">Starting values — your chip may need more or less voltage. Always test stability after each change.</p>
+        <p style="font-size:0.8rem; color:#555568;">Starting values - your chip may need more or less voltage. Always test stability after each change.</p>
 
         <h2>Is Undervolting Safe?</h2>
-        <p>Yes — undervolting only reduces voltage, which is the opposite of what damages hardware. The risks are zero in terms of hardware damage. The only failure mode is instability (crashes or driver resets), which you resolve by increasing voltage slightly. You cannot damage a GPU by giving it less voltage than it needs — it will simply crash, not fry.</p>
-        <p>It does not void your warranty in any meaningful way that manufacturers enforce — you're not increasing voltage, power limits, or temperatures beyond spec. Even if it did, simply resetting Afterburner to defaults removes all settings.</p>
+        <p>Yes - undervolting only reduces voltage, which is the opposite of what damages hardware. The risks are zero in terms of hardware damage. The only failure mode is instability (crashes or driver resets), which you resolve by increasing voltage slightly. You cannot damage a GPU by giving it less voltage than it needs - it will simply crash, not fry.</p>
+        <p>It does not void your warranty in any meaningful way that manufacturers enforce - you're not increasing voltage, power limits, or temperatures beyond spec. Even if it did, simply resetting Afterburner to defaults removes all settings.</p>
 
         <h2>Troubleshooting</h2>
         <ul>
@@ -222,7 +222,7 @@
         </ul>
 
         <h2>Combining Undervolt with a Fan Curve</h2>
-        <p>For the best result, pair your undervolt with a custom fan curve in Afterburner. The GPU will run cooler, so you can set fans to spin slower — the combo gives you both lower temps and less noise than stock settings. A typical aggressive-quiet curve: stay at 0% until 50°C, ramp to 60% by 70°C, reach 100% at 85°C.</p>
+        <p>For the best result, pair your undervolt with a custom fan curve in Afterburner. The GPU will run cooler, so you can set fans to spin slower - the combo gives you both lower temps and less noise than stock settings. A typical aggressive-quiet curve: stay at 0% until 50°C, ramp to 60% by 70°C, reach 100% at 85°C.</p>
 
       </article>
 

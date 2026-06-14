@@ -1,4 +1,4 @@
-/* TempCore — Layout
+/* TempCore - Layout
    ─────────────────────────────────────────────────────────────
    Renders the sidebar, theme toggle, collapse control, and mobile
    drawer on every page. The HTML for each page only needs:
@@ -38,21 +38,39 @@
     { href: P + 'tools/vram-checker.html',          label: 'VRAM Check',     icon: 'layers' }
   ];
 
-  var ARTICLES = [
-    { href: P + 'articles/overclocking-guide.html',   label: 'Overclocking Guide',  icon: 'book' },
-    { href: P + 'articles/cpu-temperature-guide.html', label: 'CPU Temperatures',   icon: 'cpu-small' },
-    { href: P + 'articles/gpu-temp-guide.html',       label: 'GPU Temperatures',    icon: 'flame' },
-    { href: P + 'articles/gpu-damage-temps.html',     label: 'GPU Damage Temps',    icon: 'alert' },
-    { href: P + 'articles/laptop-temps-guide.html',   label: 'Laptop Cooling',      icon: 'laptop' },
-    { href: P + 'articles/pcie5-ssd-heatsinks.html',  label: 'PCIe 5 Heatsinks',    icon: 'shield' },
-    { href: P + 'articles/best-thermal-paste-2026.html', label: 'Thermal Paste 2026', icon: 'droplet' },
-    { href: P + 'articles/is-75c-safe.html',          label: 'Is 75°C safe?',        icon: 'help' },
-    { href: P + 'articles/gpu-undervolting-guide.html', label: 'GPU Undervolting',   icon: 'zap' },
-    { href: P + 'articles/vram-guide.html',            label: 'VRAM Guide 2026',     icon: 'layers' },
-    { href: P + 'articles/cpu-cooler-guide.html',      label: 'Cooler Guide 2026',   icon: 'wind' },
-    { href: P + 'articles/case-airflow-guide.html',       label: 'Case Airflow',        icon: 'air' },
-    { href: P + 'articles/pc-monitoring-tools-guide.html', label: 'Monitoring Tools',  icon: 'monitor' },
-    { href: P + 'articles/how-to-stress-test-pc.html',    label: 'Stress Test Guide',  icon: 'alert' }
+  var ARTICLE_GROUPS = [
+    {
+      label: 'Trending',
+      items: [
+        { href: P + 'articles/rtx-5060-8gb-vram.html', label: 'RTX 5060 8GB VRAM', icon: 'zap' },
+        { href: P + 'articles/amd-vs-intel-2026.html',  label: 'AMD vs Intel 2026', icon: 'cpu' },
+        { href: P + 'articles/ddr5-vs-ddr4-2026.html',  label: 'DDR5 vs DDR4',      icon: 'database' }
+      ]
+    },
+    {
+      label: 'Guides',
+      items: [
+        { href: P + 'articles/gpu-undervolting-guide.html',       label: 'GPU Undervolting',  icon: 'zap' },
+        { href: P + 'articles/vram-guide.html',                    label: 'VRAM Guide',         icon: 'layers' },
+        { href: P + 'articles/cpu-cooler-guide.html',              label: 'CPU Cooler Guide',   icon: 'wind' },
+        { href: P + 'articles/case-airflow-guide.html',            label: 'Case Airflow',       icon: 'air' },
+        { href: P + 'articles/pc-monitoring-tools-guide.html',     label: 'Monitoring Tools',   icon: 'monitor' },
+        { href: P + 'articles/how-to-stress-test-pc.html',         label: 'Stress Testing',     icon: 'alert' },
+        { href: P + 'articles/overclocking-guide.html',            label: 'Overclocking',       icon: 'book' },
+        { href: P + 'articles/best-thermal-paste-2026.html',       label: 'Thermal Paste',      icon: 'droplet' },
+        { href: P + 'articles/pcie5-ssd-heatsinks.html',           label: 'PCIe 5 Heatsinks',   icon: 'shield' }
+      ]
+    },
+    {
+      label: 'Temperatures',
+      items: [
+        { href: P + 'articles/cpu-temperature-guide.html', label: 'CPU Temperatures', icon: 'cpu-small' },
+        { href: P + 'articles/gpu-temp-guide.html',         label: 'GPU Temperatures', icon: 'flame' },
+        { href: P + 'articles/is-75c-safe.html',            label: 'Is 75°C Safe?',    icon: 'help' },
+        { href: P + 'articles/laptop-temps-guide.html',     label: 'Laptop Thermals',  icon: 'laptop' },
+        { href: P + 'articles/gpu-damage-temps.html',       label: 'GPU Damage Temps', icon: 'alert' }
+      ]
+    }
   ];
 
   var EXTRAS = [
@@ -98,8 +116,8 @@
     return current === target;
   }
 
-  function renderLink(item) {
-    var cls = 'tc-sidebar-link' + (isActive(item.href) ? ' active' : '');
+  function renderLink(item, extraClass) {
+    var cls = 'tc-sidebar-link' + (extraClass ? ' ' + extraClass : '') + (isActive(item.href) ? ' active' : '');
     return '<a href="' + item.href + '" class="' + cls + '" title="' + item.label + '">' +
              svgIcon(item.icon) +
              '<span class="tc-sidebar-label">' + item.label + '</span>' +
@@ -132,12 +150,16 @@
     TOOLS.forEach(function (i) { html += renderLink(i); });
     html += '</div>';
 
-    // ARTICLES group (separated by a visible divider, even when collapsed)
+    // ARTICLES: grouped by category
     html += '<hr class="tc-sidebar-divider" aria-hidden="true">';
-    html += '<div class="tc-sidebar-group">';
-    html +=   '<div class="tc-sidebar-section tc-sidebar-label">Articles</div>';
-    ARTICLES.forEach(function (i) { html += renderLink(i); });
-    html += '</div>';
+    html += '<div class="tc-sidebar-section tc-sidebar-label" style="padding-bottom:2px;">Articles</div>';
+    ARTICLE_GROUPS.forEach(function (group, idx) {
+      if (idx > 0) html += '<div class="tc-sidebar-subgroup-divider" aria-hidden="true"></div>';
+      html += '<div class="tc-article-group">';
+      html +=   '<div class="tc-sidebar-subgroup-label tc-sidebar-label">' + group.label + '</div>';
+      group.items.forEach(function (i) { html += renderLink(i, 'tc-article-link'); });
+      html += '</div>';
+    });
 
     html += '<div class="tc-sidebar-spacer"></div>';
 

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TempCore — PC Builder Component Database
+   TempCore - PC Builder Component Database
    --------------------------------------------------------------------------
    This file contains all component data (prices, specs, affiliate links).
    It is intentionally separated from the recommendation engine so prices
@@ -34,13 +34,13 @@ window.COMPONENTS_DATA = {
 
   /* ---------- CPU DATABASE ---------- */
   CPUS: [
-    // Entry — AM4
+    // Entry - AM4
     { name: "AMD Ryzen 5 5500",          brand: "amd",   socket: "AM4",     price: 100, perf: 55,  tdp: 65,  igpu: false, confidence: "high",   aff: "https://www.amazon.com/s?k=AMD+Ryzen+5+5500&tag=tempcore-20" },
     { name: "AMD Ryzen 5 5600",          brand: "amd",   socket: "AM4",     price: 130, perf: 62,  tdp: 65,  igpu: false, confidence: "high",   aff: "https://www.amazon.com/s?k=AMD+Ryzen+5+5600&tag=tempcore-20" },
     { name: "Intel Core i3-13100F",      brand: "intel", socket: "LGA1700", price: 110, perf: 56,  tdp: 60,  igpu: false, confidence: "medium", aff: "https://www.amazon.com/s?k=Intel+Core+i3-13100F&tag=tempcore-20" },
     { name: "Intel Core i5-12400F",      brand: "intel", socket: "LGA1700", price: 140, perf: 64,  tdp: 65,  igpu: false, confidence: "high",   aff: "https://www.amazon.com/s?k=Intel+Core+i5-12400F&tag=tempcore-20" },
 
-    // Mid — AM5 / LGA1700
+    // Mid - AM5 / LGA1700
     { name: "AMD Ryzen 5 7600",          brand: "amd",   socket: "AM5",     price: 185, perf: 75,  tdp: 65,  igpu: true,  confidence: "high",   aff: "https://amzn.to/4u9w4CC" },
     { name: "AMD Ryzen 5 7600X",         brand: "amd",   socket: "AM5",     price: 210, perf: 78,  tdp: 105, igpu: true,  confidence: "high",   aff: "https://www.amazon.com/s?k=AMD+Ryzen+5+7600X&tag=tempcore-20" },
     { name: "Intel Core i5-13400F",      brand: "intel", socket: "LGA1700", price: 175, perf: 72,  tdp: 65,  igpu: false, confidence: "medium", aff: "https://www.amazon.com/s?k=Intel+Core+i5-13400F&tag=tempcore-20" },
@@ -58,7 +58,7 @@ window.COMPONENTS_DATA = {
     { name: "Intel Core i7-14700K",      brand: "intel", socket: "LGA1700", price: 385, perf: 95,  tdp: 125, igpu: true,  confidence: "high",   aff: "https://www.amazon.com/s?k=Intel+Core+i7-14700K&tag=tempcore-20" },
     { name: "Intel Core Ultra 7 265K",   brand: "intel", socket: "LGA1851", price: 395, perf: 97,  tdp: 125, igpu: true,  confidence: "high",   aff: "https://www.amazon.com/s?k=Intel+Core+Ultra+7+265K&tag=tempcore-20" },
 
-    // High — gaming-focused X3D
+    // High - gaming-focused X3D
     { name: "AMD Ryzen 7 7800X3D",       brand: "amd",   socket: "AM5",     price: 360, perf: 96,  tdp: 120, igpu: true,  confidence: "high",   aff: "https://www.amazon.com/s?k=AMD+Ryzen+7+7800X3D&tag=tempcore-20" },
     { name: "AMD Ryzen 7 9800X3D",       brand: "amd",   socket: "AM5",     price: 440, perf: 105, tdp: 120, igpu: true,  confidence: "high",   aff: "https://www.amazon.com/s?k=AMD+Ryzen+7+9800X3D&tag=tempcore-20" },
     { name: "AMD Ryzen 9 7900X",         brand: "amd",   socket: "AM5",     price: 400, perf: 94,  tdp: 170, igpu: true,  confidence: "medium", aff: "https://www.amazon.com/s?k=AMD+Ryzen+9+7900X&tag=tempcore-20" },
@@ -89,7 +89,7 @@ window.COMPONENTS_DATA = {
     { name: "AMD Radeon RX 7700 XT",     price: 460,  perf: 70,  vram: 12, tdp: 245, confidence: "high",   aff: "https://amzn.to/4fQwxpG" },
     { name: "AMD Radeon RX 7800 XT",     price: 480,  perf: 80,  vram: 16, tdp: 263, confidence: "high",   aff: "https://www.amazon.com/s?k=AMD+Radeon+RX+7800+XT&tag=tempcore-20" },
 
-    // Upper Mid — sweet spot
+    // Upper Mid - sweet spot
     { name: "AMD Radeon RX 9070",        price: 580,  perf: 92,  vram: 16, tdp: 220, confidence: "high",   aff: "https://www.amazon.com/s?k=AMD+Radeon+RX+9070&tag=tempcore-20" },
     { name: "NVIDIA RTX 5070",           price: 640,  perf: 88,  vram: 12, tdp: 250, confidence: "high",   aff: "https://www.amazon.com/s?k=NVIDIA+RTX+5070&tag=tempcore-20" },
     { name: "AMD Radeon RX 9070 XT",     price: 660,  perf: 100, vram: 16, tdp: 304, confidence: "high",   aff: "https://www.amazon.com/s?k=AMD+Radeon+RX+9070+XT&tag=tempcore-20" },
@@ -111,22 +111,22 @@ window.COMPONENTS_DATA = {
 
   /* ---------- MOTHERBOARD DATABASE ---------- */
   MOBOS: [
-    // AM4 — entry/legacy
+    // AM4 - entry/legacy
     { name: "MSI A520M-A PRO",              price: 75,  socket: "AM4",     formFactor: "mATX", wifi: false, tier: 1, confidence: "medium", aff: "https://www.amazon.com/s?k=MSI+A520M-A+PRO&tag=tempcore-20" },
     { name: "ASUS PRIME B450M-A II",        price: 85,  socket: "AM4",     formFactor: "mATX", wifi: false, tier: 1, confidence: "medium", aff: "https://www.amazon.com/s?k=ASUS+PRIME+B450M-A+II&tag=tempcore-20" },
     { name: "MSI B550M PRO-VDH WiFi",       price: 120, socket: "AM4",     formFactor: "mATX", wifi: true,  tier: 2, confidence: "medium", aff: "https://www.amazon.com/s?k=MSI+B550M+PRO-VDH+WiFi&tag=tempcore-20" },
     { name: "ASRock B550 Phantom Gaming 4", price: 115, socket: "AM4",     formFactor: "ATX",  wifi: false, tier: 2, confidence: "medium", aff: "https://www.amazon.com/s?k=ASRock+B550+Phantom+Gaming+4&tag=tempcore-20" },
 
-    // LGA1700 — mid
+    // LGA1700 - mid
     { name: "MSI PRO B760M-A WiFi DDR4",    price: 140, socket: "LGA1700", formFactor: "mATX", wifi: true,  tier: 2, confidence: "medium", aff: "https://www.amazon.com/s?k=MSI+PRO+B760M-A+WiFi+DDR4&tag=tempcore-20" },
     { name: "MSI MAG B760 TOMAHAWK WiFi",   price: 200, socket: "LGA1700", formFactor: "ATX",  wifi: true,  tier: 3, confidence: "medium", aff: "https://www.amazon.com/s?k=MSI+MAG+B760+TOMAHAWK+WiFi&tag=tempcore-20" },
     { name: "ASUS ROG STRIX Z790-A WiFi",   price: 380, socket: "LGA1700", formFactor: "ATX",  wifi: true,  tier: 4, confidence: "medium", aff: "https://www.amazon.com/s?k=ASUS+ROG+STRIX+Z790-A+WiFi&tag=tempcore-20" },
 
-    // LGA1851 — current Intel
+    // LGA1851 - current Intel
     { name: "MSI PRO B860-A WiFi",          price: 220, socket: "LGA1851", formFactor: "ATX",  wifi: true,  tier: 3, confidence: "medium", aff: "https://www.amazon.com/s?k=MSI+PRO+B860-A+WiFi&tag=tempcore-20" },
     { name: "ASUS ROG STRIX Z890-A WiFi",   price: 420, socket: "LGA1851", formFactor: "ATX",  wifi: true,  tier: 4, confidence: "medium", aff: "https://www.amazon.com/s?k=ASUS+ROG+STRIX+Z890-A+WiFi&tag=tempcore-20" },
 
-    // AM5 — current AMD
+    // AM5 - current AMD
     { name: "MSI PRO B650M-A WiFi",         price: 165, socket: "AM5",     formFactor: "mATX", wifi: true,  tier: 2, confidence: "medium", aff: "https://www.amazon.com/s?k=MSI+PRO+B650M-A+WiFi&tag=tempcore-20" },
     { name: "ASRock B650M Pro RS",          price: 145, socket: "AM5",     formFactor: "mATX", wifi: false, tier: 2, confidence: "medium", aff: "https://www.amazon.com/s?k=ASRock+B650M+Pro+RS&tag=tempcore-20" },
     { name: "MSI MAG B650 TOMAHAWK WiFi",   price: 230, socket: "AM5",     formFactor: "ATX",  wifi: true,  tier: 3, confidence: "medium", aff: "https://www.amazon.com/s?k=MSI+MAG+B650+TOMAHAWK+WiFi&tag=tempcore-20" },
@@ -151,7 +151,7 @@ window.COMPONENTS_DATA = {
 
   /* ---------- STORAGE DATABASE ----------
      2026 NAND crisis: NVMe SSDs ~2-3x mid-2024 levels.
-     Crucial brand wound down consumer market in Feb 2026 — listings remain
+     Crucial brand wound down consumer market in Feb 2026 - listings remain
      in channel stock but priced higher than equivalent Samsung/WD. */
   SSDS: [
     { name: "WD Blue SN570 500GB NVMe",         price: 75,  size: 500,  type: "NVMe",  tier: 1, confidence: "medium", aff: "https://www.amazon.com/s?k=WD+Blue+SN570+500GB+NVMe&tag=tempcore-20" },

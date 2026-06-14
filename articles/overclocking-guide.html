@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GPU Overclocking Guide 2026 — Safe Settings, Best Temps & Per-GPU Data | TempCore</title>
-  <meta name="description" content="The complete GPU overclocking guide. Learn step-by-step how to overclock safely, what temperatures to target, and get specific core/memory clock settings for every major GPU — RTX 40, RTX 30, AMD RX 7000/6000, and GTX.">
+  <title>GPU Overclocking Guide 2026 - Safe Settings, Best Temps & Per-GPU Data | TempCore</title>
+  <meta name="description" content="The complete GPU overclocking guide. Learn step-by-step how to overclock safely, what temperatures to target, and get specific core/memory clock settings for every major GPU - RTX 40, RTX 30, AMD RX 7000/6000, and GTX.">
   <meta name="keywords" content="GPU overclocking guide, how to overclock GPU, safe GPU overclock temps, RTX 4090 overclock, RTX 3080 overclock settings, AMD RX 6800 XT overclock, MSI Afterburner guide, GPU OC safe temperature">
 
 
@@ -13,7 +13,7 @@
   <!-- Open Graph -->
   <meta property="og:type"        content="article">
   <meta property="og:site_name"   content="TempCore">
-  <meta property="og:title"       content="GPU Overclocking Guide 2026 — Safe Settings, Best Temps & Per-GPU Data | TempCore">
+  <meta property="og:title"       content="GPU Overclocking Guide 2026 - Safe Settings, Best Temps & Per-GPU Data | TempCore">
   <meta property="og:description" content="Step-by-step GPU OC guide with safe core/memory clock targets for 45+ GPUs including RTX 50 series.">
   <meta property="og:url"         content="https://temp-core.com/articles/overclocking-guide.html">
 
@@ -43,7 +43,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* Pre-paint theme + sidebar state — prevents flash on load */
+    /* Pre-paint theme + sidebar state - prevents flash on load */
     (function () {
       try {
         var t = localStorage.getItem('tc_theme'); if (!t) {
@@ -324,7 +324,7 @@
           Published January 2026 &nbsp;·&nbsp; Updated May 2026 &nbsp;·&nbsp; By TempCore Editorial Team &nbsp;·&nbsp; 15 min read
         </p>
         <p style="color:#b0b0c8; font-size:0.95rem; line-height:1.7; margin-bottom:2rem; max-width:580px;">
-          A complete, accurate guide to safely overclocking your GPU — from understanding the tools, to stress testing, to specific recommended settings for every major NVIDIA and AMD card.
+          A complete, accurate guide to safely overclocking your GPU - from understanding the tools, to stress testing, to specific recommended settings for every major NVIDIA and AMD card.
         </p>
 
         <!-- TOC (mobile-friendly) -->
@@ -342,21 +342,21 @@
         <div class="article-body">
 
           <!-- ── SECTION 1 ── -->
-          <h2 id="what-is-oc">01 — What Is GPU Overclocking?</h2>
-          <p>GPU overclocking is the process of pushing your graphics card's core clock and memory clock speeds beyond their factory defaults. Modern GPUs boost dynamically, meaning they already run faster than their base clock in real-time — overclocking extends this ceiling further.</p>
+          <h2 id="what-is-oc">01 - What Is GPU Overclocking?</h2>
+          <p>GPU overclocking is the process of pushing your graphics card's core clock and memory clock speeds beyond their factory defaults. Modern GPUs boost dynamically, meaning they already run faster than their base clock in real-time - overclocking extends this ceiling further.</p>
           <p>The two primary levers are:</p>
           <ul>
             <li><strong>Core Clock (GPU clock):</strong> Controls how fast the shader processors, rasterizers, and compute units run. A higher core clock directly increases frame rates in GPU-bound scenarios.</li>
             <li><strong>Memory Clock (VRAM clock):</strong> Controls the speed of the video memory. Faster memory increases bandwidth, which matters significantly at higher resolutions (1440p, 4K) and in bandwidth-limited games and applications.</li>
           </ul>
-          <p>A well-executed overclock typically yields <strong>5–15% more performance</strong> with no financial cost — just time and some patience. On a high-end GPU, that can translate to 10–20 extra frames per second in demanding titles.</p>
+          <p>A well-executed overclock typically yields <strong>5–15% more performance</strong> with no financial cost - just time and some patience. On a high-end GPU, that can translate to 10–20 extra frames per second in demanding titles.</p>
 
           <div class="warning-box">
-            <strong style="color:var(--critical);">Important:</strong> Overclocking is safe when done incrementally and tested properly. However, it can void warranties on some cards and carries a small risk of instability (crashes, black screens) if pushed too far. This guide focuses on <strong style="color:var(--text);">conservative, daily-driver overclocks</strong> — not record-chasing extreme OC.
+            <strong style="color:var(--critical);">Important:</strong> Overclocking is safe when done incrementally and tested properly. However, it can void warranties on some cards and carries a small risk of instability (crashes, black screens) if pushed too far. This guide focuses on <strong style="color:var(--text);">conservative, daily-driver overclocks</strong> - not record-chasing extreme OC.
           </div>
 
           <!-- ── SECTION 2 ── -->
-          <h2 id="tools">02 — Tools You Need</h2>
+          <h2 id="tools">02 - Tools You Need</h2>
           <p>You need three things: an overclocking utility, a temperature/stats monitor, and a stress testing tool. All of the following are free.</p>
 
           <table class="temp-table mb-2">
@@ -370,32 +370,32 @@
             <tbody>
               <tr>
                 <td style="color:var(--text); font-weight:500;">MSI Afterburner</td>
-                <td style="color:#b0b0c8;">Overclock utility — adjust core/memory clock, power limit, fan curve, voltage</td>
+                <td style="color:#b0b0c8;">Overclock utility - adjust core/memory clock, power limit, fan curve, voltage</td>
                 <td style="color:#8888a0; font-size:0.8rem;">NVIDIA + AMD</td>
               </tr>
               <tr>
                 <td style="color:var(--text); font-weight:500;">AMD Adrenalin</td>
-                <td style="color:#b0b0c8;">AMD's native OC tool — clean, built-in, good for AMD-only users</td>
+                <td style="color:#b0b0c8;">AMD's native OC tool - clean, built-in, good for AMD-only users</td>
                 <td style="color:#8888a0; font-size:0.8rem;">AMD only</td>
               </tr>
               <tr>
                 <td style="color:var(--text); font-weight:500;">HWiNFO64</td>
-                <td style="color:#b0b0c8;">Real-time monitoring — temps, clock speeds, power draw, fan RPM</td>
+                <td style="color:#b0b0c8;">Real-time monitoring - temps, clock speeds, power draw, fan RPM</td>
                 <td style="color:#8888a0; font-size:0.8rem;">NVIDIA + AMD</td>
               </tr>
               <tr>
                 <td style="color:var(--text); font-weight:500;">3DMark (Free)</td>
-                <td style="color:#b0b0c8;">GPU benchmark — use TimeSpy or FireStrike to stress test and measure gains</td>
+                <td style="color:#b0b0c8;">GPU benchmark - use TimeSpy or FireStrike to stress test and measure gains</td>
                 <td style="color:#8888a0; font-size:0.8rem;">NVIDIA + AMD</td>
               </tr>
               <tr>
                 <td style="color:var(--text); font-weight:500;">Unigine Superposition</td>
-                <td style="color:#b0b0c8;">Intense GPU stress test — pushes harder than most games</td>
+                <td style="color:#b0b0c8;">Intense GPU stress test - pushes harder than most games</td>
                 <td style="color:#8888a0; font-size:0.8rem;">NVIDIA + AMD</td>
               </tr>
               <tr>
                 <td style="color:var(--text); font-weight:500;">GPU-Z</td>
-                <td style="color:#b0b0c8;">Detailed GPU info — verify clock speeds, TDP, VRAM details</td>
+                <td style="color:#b0b0c8;">Detailed GPU info - verify clock speeds, TDP, VRAM details</td>
                 <td style="color:#8888a0; font-size:0.8rem;">NVIDIA + AMD</td>
               </tr>
             </tbody>
@@ -408,8 +408,8 @@
           <!-- ── SECTION 3 ── -->
           <p style="margin-bottom:1.5rem;">Before overclocking, ensure your cooling is solid. Reapplying thermal paste (<a href="https://amzn.to/4u9MdrV" target="_blank" rel="nofollow noopener">Thermal Grizzly Kryonaut</a>, <a href="https://amzn.to/49pWQPO" target="_blank" rel="nofollow noopener">Arctic MX-6</a>) is one of the most impactful steps if your card is over a year old. A better CPU cooler (<a href="https://amzn.to/3RDUuqr" target="_blank" rel="nofollow noopener">Thermalright Peerless Assassin 120 SE</a>, <a href="https://amzn.to/4dDr985" target="_blank" rel="nofollow noopener">Noctua NH-D15</a>) frees up case airflow for the GPU too.</p>
 
-          <h2 id="safe-temps">03 — Safe Overclocking Temperature Targets</h2>
-          <p>The most important rule in GPU overclocking: <strong>the goal is performance, not heat</strong>. If your overclock produces temperatures that are uncomfortably close to TJ Max, it's not a good overclock — it's a throttling overclock.</p>
+          <h2 id="safe-temps">03 - Safe Overclocking Temperature Targets</h2>
+          <p>The most important rule in GPU overclocking: <strong>the goal is performance, not heat</strong>. If your overclock produces temperatures that are uncomfortably close to TJ Max, it's not a good overclock - it's a throttling overclock.</p>
 
           <table class="temp-table mb-4">
             <thead>
@@ -457,7 +457,7 @@
           <p><strong>GDDR6X Memory Junction Temperature:</strong> On cards with GDDR6X VRAM (RTX 3080, 3080 Ti, 3090, 3090 Ti, 4080, 4090), HWiNFO64 will show a "GPU Memory Junction Temperature" sensor. This can run 20–30°C above the core temperature. Keep it below 100°C during overclocked loads. This is the primary limiting factor for memory overclocks on these cards.</p>
 
           <!-- ── SECTION 4 ── -->
-          <h2 id="step-by-step">04 — Step-by-Step Overclocking Process</h2>
+          <h2 id="step-by-step">04 - Step-by-Step Overclocking Process</h2>
 
           <div class="step-block">
             <div class="step-num">1</div>
@@ -471,7 +471,7 @@
             <div class="step-num">2</div>
             <div class="step-content">
               <h3>Increase Power Limit First</h3>
-              <p>In MSI Afterburner, raise the Power Limit slider to its maximum (usually +10 to +25% depending on card). This alone can free up several MHz of boost clock that the card was previously throttling to stay within TDP. Run your benchmark again — some cards gain 2–5% here with zero other changes.</p>
+              <p>In MSI Afterburner, raise the Power Limit slider to its maximum (usually +10 to +25% depending on card). This alone can free up several MHz of boost clock that the card was previously throttling to stay within TDP. Run your benchmark again - some cards gain 2–5% here with zero other changes.</p>
             </div>
           </div>
 
@@ -486,16 +486,16 @@
           <div class="step-block">
             <div class="step-num">4</div>
             <div class="step-content">
-              <h3>Overclock Core Clock — Incrementally</h3>
-              <p>Start with a <strong>+100 MHz</strong> core clock offset in Afterburner. Click Apply, then run Superposition for 10 minutes or play a demanding game for 20–30 minutes. If stable, increase by +25 MHz and repeat. Keep going until you hit a crash, artifact (visual glitch), or driver timeout. Then back off by 25–50 MHz — that's your stable core overclock.</p>
+              <h3>Overclock Core Clock - Incrementally</h3>
+              <p>Start with a <strong>+100 MHz</strong> core clock offset in Afterburner. Click Apply, then run Superposition for 10 minutes or play a demanding game for 20–30 minutes. If stable, increase by +25 MHz and repeat. Keep going until you hit a crash, artifact (visual glitch), or driver timeout. Then back off by 25–50 MHz - that's your stable core overclock.</p>
             </div>
           </div>
 
           <div class="step-block">
             <div class="step-num">5</div>
             <div class="step-content">
-              <h3>Overclock Memory Clock — Separately</h3>
-              <p>With core stable, reset core to stock and start pushing memory. Increase in <strong>+100 MHz steps</strong> for GDDR6X or <strong>+200 MHz steps</strong> for GDDR6. Artifacts often appear as texture flickering or coloured pixels before a crash — these are your warning signs. Back off 100–200 MHz from the point of artifacts.</p>
+              <h3>Overclock Memory Clock - Separately</h3>
+              <p>With core stable, reset core to stock and start pushing memory. Increase in <strong>+100 MHz steps</strong> for GDDR6X or <strong>+200 MHz steps</strong> for GDDR6. Artifacts often appear as texture flickering or coloured pixels before a crash - these are your warning signs. Back off 100–200 MHz from the point of artifacts.</p>
             </div>
           </div>
 
@@ -516,8 +516,8 @@
           </div>
 
           <!-- ── SECTION 5 ── -->
-          <h2 id="stress-testing">05 — Stress Testing Your Overclock</h2>
-          <p>An overclock that crashes once in 100 hours isn't stable — it will crash at the worst time. Proper stress testing gives confidence before relying on an OC daily.</p>
+          <h2 id="stress-testing">05 - Stress Testing Your Overclock</h2>
+          <p>An overclock that crashes once in 100 hours isn't stable - it will crash at the worst time. Proper stress testing gives confidence before relying on an OC daily.</p>
 
           <table class="temp-table mb-4">
             <thead>
@@ -539,7 +539,7 @@
               <tr>
                 <td style="color:var(--text);">FurMark (burn-in)</td>
                 <td>10–15 min</td>
-                <td style="color:#b0b0c8;">Extreme thermal stress — unrealistically harsh</td>
+                <td style="color:#b0b0c8;">Extreme thermal stress - unrealistically harsh</td>
                 <td style="color:var(--critical);">Very High</td>
               </tr>
               <tr>
@@ -556,22 +556,22 @@
           </div>
 
           <!-- ── SECTION 6 ── -->
-          <h2 id="instability-signs">06 — Signs of an Unstable Overclock</h2>
+          <h2 id="instability-signs">06 - Signs of an Unstable Overclock</h2>
           <ul>
-            <li><strong>Driver timeout / black screen recovery</strong> — Windows "Display driver stopped responding and has recovered" — your most common instability signal. Reduce core or memory by 25–50 MHz.</li>
-            <li><strong>Texture artifacts / pixel flickering</strong> — coloured dots, striped patterns, or texture errors. Usually a sign of memory OC being too high. Back off memory immediately.</li>
-            <li><strong>Hard crash / BSOD</strong> — blue screen or complete system freeze. Usually indicates too aggressive a core clock or power limit. Reduce core offset by 50 MHz.</li>
-            <li><strong>Lower benchmark scores under OC</strong> — if your score drops compared to stock, the GPU is likely thermal throttling under the overclock. Check peak temperatures in HWiNFO64.</li>
-            <li><strong>Random game crashes that weren't happening before</strong> — the most common user-reported sign. Don't ignore these; track when they started relative to OC changes.</li>
+            <li><strong>Driver timeout / black screen recovery</strong> - Windows "Display driver stopped responding and has recovered" - your most common instability signal. Reduce core or memory by 25–50 MHz.</li>
+            <li><strong>Texture artifacts / pixel flickering</strong> - coloured dots, striped patterns, or texture errors. Usually a sign of memory OC being too high. Back off memory immediately.</li>
+            <li><strong>Hard crash / BSOD</strong> - blue screen or complete system freeze. Usually indicates too aggressive a core clock or power limit. Reduce core offset by 50 MHz.</li>
+            <li><strong>Lower benchmark scores under OC</strong> - if your score drops compared to stock, the GPU is likely thermal throttling under the overclock. Check peak temperatures in HWiNFO64.</li>
+            <li><strong>Random game crashes that weren't happening before</strong> - the most common user-reported sign. Don't ignore these; track when they started relative to OC changes.</li>
           </ul>
 
           <div class="warning-box">
-            <strong style="color:var(--critical);">GDDR6X Memory Warning:</strong> On RTX 3080, 3090, 4080, and 4090, excessive memory overclocking causes VRAM temperatures to spike. If Memory Junction Temperature (visible in HWiNFO64) exceeds <strong>100°C</strong>, reduce the memory offset — thermal damage to GDDR6X chips is possible with sustained operation above this threshold.
+            <strong style="color:var(--critical);">GDDR6X Memory Warning:</strong> On RTX 3080, 3090, 4080, and 4090, excessive memory overclocking causes VRAM temperatures to spike. If Memory Junction Temperature (visible in HWiNFO64) exceeds <strong>100°C</strong>, reduce the memory offset - thermal damage to GDDR6X chips is possible with sustained operation above this threshold.
           </div>
 
-          <!-- ── SECTION 7 — THE INTERACTIVE WIDGET ── -->
-          <h2 id="oc-selector">07 — Per-GPU Recommended Settings</h2>
-          <p>These settings represent well-tested, conservative starting points based on community benchmarks and hardware reviews. Due to the <strong>silicon lottery</strong>, individual results will vary — some cards can push further, others less. Use these as a safe baseline, not a guarantee.</p>
+          <!-- ── SECTION 7 - THE INTERACTIVE WIDGET ── -->
+          <h2 id="oc-selector">07 - Per-GPU Recommended Settings</h2>
+          <p>These settings represent well-tested, conservative starting points based on community benchmarks and hardware reviews. Due to the <strong>silicon lottery</strong>, individual results will vary - some cards can push further, others less. Use these as a safe baseline, not a guarantee.</p>
 
         </div>
 
@@ -588,7 +588,7 @@
 
             <div class="oc-select-wrap mb-6">
               <select id="oc-gpu-select" class="oc-select" onchange="showOCSettings()">
-                <option value="">— Select your GPU —</option>
+                <option value="">- Select your GPU -</option>
                 <optgroup label="NVIDIA RTX 40 Series">
                   <option value="RTX 4090">RTX 4090</option>
                   <option value="RTX 4080 Super">RTX 4080 Super</option>
@@ -657,7 +657,7 @@
         <div class="article-body">
 
           <h2>Undervolting: The Hidden Win</h2>
-          <p>Most overclock guides focus purely on pushing clocks up — but <strong>undervolting</strong> is often a better strategy, especially on power-limited or thermally constrained builds.</p>
+          <p>Most overclock guides focus purely on pushing clocks up - but <strong>undervolting</strong> is often a better strategy, especially on power-limited or thermally constrained builds.</p>
           <p>Undervolting reduces the voltage supplied to the GPU while maintaining the same (or even higher) clock speeds. This results in:</p>
           <ul>
             <li>Lower temperatures (5–15°C reduction is common)</li>
@@ -671,16 +671,16 @@
           <h2>Frequently Asked Questions</h2>
 
           <h3>Does overclocking reduce GPU lifespan?</h3>
-          <p>A conservative overclock within safe temperature limits has a negligible effect on GPU lifespan. Modern GPUs have thermal and voltage protections that prevent truly damaging conditions under normal overclocking. The greater lifespan risk comes from sustained high temperatures — which is why monitoring and maintaining safe temps while overclocking is essential.</p>
+          <p>A conservative overclock within safe temperature limits has a negligible effect on GPU lifespan. Modern GPUs have thermal and voltage protections that prevent truly damaging conditions under normal overclocking. The greater lifespan risk comes from sustained high temperatures - which is why monitoring and maintaining safe temps while overclocking is essential.</p>
 
           <h3>Does overclocking void my GPU warranty?</h3>
           <p>This varies by manufacturer. EVGA had a warranty-friendly OC policy before exiting the GPU market. Most other AIBs (ASUS, Gigabyte, MSI, Sapphire, ZOTAC) technically allow overclocking but reserve the right to deny warranty claims for damage deemed caused by OC. In practice, if a GPU fails under a mild overclock with no visible signs of damage, most RMA processes proceed normally. Extreme overclocking (unlocked BIOS, excessive voltage) is higher risk for warranty denial.</p>
 
           <h3>Why does my score go down when I overclock?</h3>
-          <p>If benchmark scores decrease after applying an overclock, the GPU is almost certainly thermal throttling — running too hot to sustain the boosted clocks. The overclock adds more heat than the cooler can dissipate, causing the GPU to reduce clocks below even stock performance. Fix: lower the overclock, improve case airflow, or adjust the fan curve to be more aggressive.</p>
+          <p>If benchmark scores decrease after applying an overclock, the GPU is almost certainly thermal throttling - running too hot to sustain the boosted clocks. The overclock adds more heat than the cooler can dissipate, causing the GPU to reduce clocks below even stock performance. Fix: lower the overclock, improve case airflow, or adjust the fan curve to be more aggressive.</p>
 
           <h3>What is the silicon lottery?</h3>
-          <p>GPUs (and CPUs) are manufactured with slight variations in the quality of each individual chip. Some chips, even from the same production batch, can achieve significantly higher stable clocks at the same voltage — these are "high lottery" chips. Others max out at lower clocks. This is why overclocking results can vary by 100 MHz or more between two identical GPU models. The recommended settings in this guide represent <strong>safe conservative baselines</strong> that the vast majority of chips should achieve without issue.</p>
+          <p>GPUs (and CPUs) are manufactured with slight variations in the quality of each individual chip. Some chips, even from the same production batch, can achieve significantly higher stable clocks at the same voltage - these are "high lottery" chips. Others max out at lower clocks. This is why overclocking results can vary by 100 MHz or more between two identical GPU models. The recommended settings in this guide represent <strong>safe conservative baselines</strong> that the vast majority of chips should achieve without issue.</p>
 
         </div>
 
@@ -772,7 +772,7 @@
         </div>
       </div>
       <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
-        © 2026 TempCore. OC settings are conservative baselines, not guarantees — silicon lottery applies. Overclock at your own risk.
+        © 2026 TempCore. OC settings are conservative baselines, not guarantees - silicon lottery applies. Overclock at your own risk.
       </div>
     </div>
   </footer>
@@ -791,11 +791,11 @@
       mem:   { conservative: "+400 MHz", aggressive: "+800 MHz", start: "+400 MHz" },
       tool: "MSI Afterburner + Voltage Curve (Ctrl+F)",
       notes: [
-        "575W TDP is the highest ever for a consumer GPU — ensure your PSU has at least 1000W before overclocking.",
-        "GDDR7 memory runs cooler than GDDR6X and has more OC headroom — but be patient with increments.",
+        "575W TDP is the highest ever for a consumer GPU - ensure your PSU has at least 1000W before overclocking.",
+        "GDDR7 memory runs cooler than GDDR6X and has more OC headroom - but be patient with increments.",
         "Power limit increase is highly impactful on Blackwell; try +10% before touching clocks.",
         "Early community data suggests voltage curve optimisation yields better results than raw clock offsets.",
-        "DLSS 4 Multi-Frame Generation means real-world gains feel smaller — OC helps most in non-DLSS scenarios.",
+        "DLSS 4 Multi-Frame Generation means real-world gains feel smaller - OC helps most in non-DLSS scenarios.",
       ],
       stressTest: "Superposition 4K Optimised (30 min), 3DMark TimeSpy Extreme",
     },
@@ -807,9 +807,9 @@
       tool: "MSI Afterburner",
       notes: [
         "RTX 5080 has similar OC characteristics to the 5090 but lower thermal stress at 360W TDP.",
-        "GDDR7 memory OC is the primary bandwidth gain lever — 256-bit bus benefits from higher VRAM clocks.",
+        "GDDR7 memory OC is the primary bandwidth gain lever - 256-bit bus benefits from higher VRAM clocks.",
         "Power limit raise from 360W base is meaningful; prioritise this before clock adjustments.",
-        "Core OC headroom on Blackwell is moderate — expect +100–130 MHz stable on most samples.",
+        "Core OC headroom on Blackwell is moderate - expect +100–130 MHz stable on most samples.",
       ],
       stressTest: "Superposition 1080p Extreme (30 min), 3DMark TimeSpy",
     },
@@ -820,7 +820,7 @@
       mem:   { conservative: "+500 MHz", aggressive: "+900 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Excellent 1440p OC candidate — runs cool relative to its performance tier.",
+        "Excellent 1440p OC candidate - runs cool relative to its performance tier.",
         "GDDR7 with 256-bit bus: memory OC has noticeable impact at 1440p and above.",
         "+150 MHz core is a well-supported starting target across early community testing.",
         "Adjust fan curve before overclocking to maintain temperatures under 82°C.",
@@ -834,9 +834,9 @@
       mem:   { conservative: "+500 MHz", aggressive: "+1000 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Efficient Blackwell mid-range — runs cool, giving good OC headroom at 250W TDP.",
+        "Efficient Blackwell mid-range - runs cool, giving good OC headroom at 250W TDP.",
         "GDDR7 memory with 192-bit bus: memory OC is impactful at 1440p.",
-        "Good first OC target for the RTX 50 generation — forgiving and well-behaved.",
+        "Good first OC target for the RTX 50 generation - forgiving and well-behaved.",
         "+125–150 MHz core is a safe conservative target based on early samples.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark TimeSpy",
@@ -848,10 +848,10 @@
       mem:   { conservative: "+500 MHz", aggressive: "+1200 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "16GB GDDR7 with 128-bit bus — memory OC is especially impactful here due to the narrow bus.",
+        "16GB GDDR7 with 128-bit bus - memory OC is especially impactful here due to the narrow bus.",
         "GDDR7 has more generous OC headroom than GDDR6; push memory further than RTX 40-series counterparts.",
-        "128-bit bus is the main performance constraint at 1440p — memory OC helps close the gap.",
-        "Beginner-friendly Blackwell OC target — conservative, stable, and good community documentation.",
+        "128-bit bus is the main performance constraint at 1440p - memory OC helps close the gap.",
+        "Beginner-friendly Blackwell OC target - conservative, stable, and good community documentation.",
       ],
       stressTest: "Superposition 1080p High, 3DMark FireStrike Ultra",
     },
@@ -862,9 +862,9 @@
       mem:   { conservative: "+500 MHz", aggressive: "+1200 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Same silicon as 5060 Ti 16GB — OC headroom is identical, only VRAM capacity differs.",
-        "8GB VRAM at 1440p can limit some modern titles — memory OC helps with bandwidth but not capacity.",
-        "GDDR7 runs cooler and overclocks better than GDDR6X — push memory confidently in small increments.",
+        "Same silicon as 5060 Ti 16GB - OC headroom is identical, only VRAM capacity differs.",
+        "8GB VRAM at 1440p can limit some modern titles - memory OC helps with bandwidth but not capacity.",
+        "GDDR7 runs cooler and overclocks better than GDDR6X - push memory confidently in small increments.",
         "Excellent first OC target for the RTX 50 series.",
       ],
       stressTest: "Superposition 1080p High, 3DMark FireStrike Ultra",
@@ -876,7 +876,7 @@
       mem:   { conservative: "+500 MHz", aggressive: "+1200 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Entry Blackwell — efficient 145W TDP gives good thermal headroom for OC.",
+        "Entry Blackwell - efficient 145W TDP gives good thermal headroom for OC.",
         "GDDR7 on a 128-bit bus: memory OC is the highest-impact change for 1080p gaming.",
         "One of the most beginner-friendly OC cards of the Blackwell generation.",
         "+150 MHz core / +800 MHz memory is a conservative, stable starting point.",
@@ -892,11 +892,11 @@
       mem:   { conservative: "+500 MHz", aggressive: "+1000 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner + Ctrl+F Voltage Curve",
       notes: [
-        "GDDR6X VRAM runs very hot — monitor Memory Junction Temp in HWiNFO64 (keep under 100°C).",
+        "GDDR6X VRAM runs very hot - monitor Memory Junction Temp in HWiNFO64 (keep under 100°C).",
         "Power limit increase is the single highest-impact change; try +20% before touching clocks.",
         "RTX 4090 benefits significantly from Voltage/Frequency curve optimisation (undervolting at ~1.05V).",
         "Fan is already aggressive on most AIB coolers; raising the fan curve further reduces temps by 3–5°C.",
-        "Memory OC headroom varies significantly between chip binning — some see +1500MHz, others hit artefacts at +600MHz.",
+        "Memory OC headroom varies significantly between chip binning - some see +1500MHz, others hit artefacts at +600MHz.",
       ],
       stressTest: "Superposition 4K Optimised (30 min), then 3DMark TimeSpy Extreme",
     },
@@ -907,7 +907,7 @@
       mem:   { conservative: "+500 MHz", aggressive: "+900 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner + Voltage Curve (Ctrl+F)",
       notes: [
-        "Very similar silicon to the 4080 — moderate headroom due to already-high factory boost clocks.",
+        "Very similar silicon to the 4080 - moderate headroom due to already-high factory boost clocks.",
         "Monitor GDDR6X Memory Junction Temp. This card's memory typically runs 80–90°C before OC.",
         "A +150 MHz core + +700 MHz memory is a widely stable target for most samples.",
         "Power limit increase lets the GPU sustain its highest boost bins for longer.",
@@ -923,7 +923,7 @@
       notes: [
         "The RTX 4080 has relatively tight OC headroom due to its high factory boost clock (2505 MHz base).",
         "Most gains come from power limit increase + an optimised voltage/frequency curve, not raw clock offsets.",
-        "GDDR6X memory junction temperature should be your primary watchpoint — keep under 100°C.",
+        "GDDR6X memory junction temperature should be your primary watchpoint - keep under 100°C.",
         "A conservative +100 core / +600 memory is reliable across most AIB variants.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark TimeSpy",
@@ -935,10 +935,10 @@
       mem:   { conservative: "+600 MHz", aggressive: "+1000 MHz", start: "+600 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Excellent OC candidate — good silicon headroom on the 4070 Ti Super die.",
+        "Excellent OC candidate - good silicon headroom on the 4070 Ti Super die.",
         "Many samples achieve +180–200 MHz core stable without needing voltage adjustments.",
         "Memory OC is impactful at 1440p and 4K due to the 256-bit bus width.",
-        "Raises base power from 285W — ensure your PSU has adequate headroom (+50W buffer).",
+        "Raises base power from 285W - ensure your PSU has adequate headroom (+50W buffer).",
       ],
       stressTest: "Superposition 1080p Extreme (25 min), 3DMark TimeSpy",
     },
@@ -949,10 +949,10 @@
       mem:   { conservative: "+500 MHz", aggressive: "+900 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "192-bit memory bus means memory OC matters — it noticeably helps at 4K.",
+        "192-bit memory bus means memory OC matters - it noticeably helps at 4K.",
         "Power limit is capped at a relatively low figure; this limits maximum OC potential.",
         "Core and memory combined OC typically yields 8–10% improvement in GPU-bound scenarios.",
-        "Runs cool with good AIB coolers — aim to stay under 78°C under OC load.",
+        "Runs cool with good AIB coolers - aim to stay under 78°C under OC load.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark TimeSpy",
     },
@@ -963,7 +963,7 @@
       mem:   { conservative: "+500 MHz", aggressive: "+900 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Good OC headroom — considered one of the better-value OC targets of the RTX 40 line.",
+        "Good OC headroom - considered one of the better-value OC targets of the RTX 40 line.",
         "Most samples handle +150–200 MHz core stable; back off if score doesn't improve.",
         "192-bit GDDR6X bus: memory OC is worthwhile at 1440p and above.",
         "Fan curve adjustment is recommended before applying core OC.",
@@ -977,9 +977,9 @@
       mem:   { conservative: "+500 MHz", aggressive: "+800 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Efficient chip — runs cool at stock, which gives headroom for OC without thermal issues.",
+        "Efficient chip - runs cool at stock, which gives headroom for OC without thermal issues.",
         "Core OC more impactful than memory for 1080p; memory OC helps more at 1440p+.",
-        "Power limit increase from 200W base is important — enable it before testing clocks.",
+        "Power limit increase from 200W base is important - enable it before testing clocks.",
         "+150 MHz core / +700 MHz memory is a common stable point across most samples.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark FireStrike Extreme",
@@ -992,9 +992,9 @@
       tool: "MSI Afterburner",
       notes: [
         "GDDR6 (not GDDR6X) means memory runs much cooler and has more OC headroom.",
-        "128-bit memory bus is a bandwidth constraint — memory OC has above-average impact here.",
+        "128-bit memory bus is a bandwidth constraint - memory OC has above-average impact here.",
         "Many samples reach +200 MHz core stable; above-average silicon consistency on 4060 Ti.",
-        "16GB variant has same OC headroom as 8GB — only differs in VRAM capacity.",
+        "16GB variant has same OC headroom as 8GB - only differs in VRAM capacity.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark FireStrike Ultra",
     },
@@ -1005,9 +1005,9 @@
       mem:   { conservative: "+750 MHz", aggressive: "+1500 MHz", start: "+750 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Excellent OC chip — typically well-binned from the Ada Lovelace die.",
+        "Excellent OC chip - typically well-binned from the Ada Lovelace die.",
         "GDDR6 with 128-bit bus: memory OC noticeably improves 1080p bandwidth-limited performance.",
-        "Small card that runs cool — thermal headroom is good under most OC scenarios.",
+        "Small card that runs cool - thermal headroom is good under most OC scenarios.",
         "One of the friendliest GPUs for first-time overclockers due to stability and predictable results.",
       ],
       stressTest: "Superposition 1080p High, 3DMark FireStrike",
@@ -1021,9 +1021,9 @@
       mem:   { conservative: "+300 MHz", aggressive: "+600 MHz", start: "+300 MHz" },
       tool: "MSI Afterburner + Voltage Curve",
       notes: [
-        "Extremely hot card by default — GDDR6X memory junction often reaches 90–100°C at stock under full load.",
+        "Extremely hot card by default - GDDR6X memory junction often reaches 90–100°C at stock under full load.",
         "Memory OC headroom is limited compared to the 3090 due to already-high factory VRAM clocks.",
-        "Monitor Memory Junction Temp as primary constraint — reduce memory OC if it exceeds 100°C.",
+        "Monitor Memory Junction Temp as primary constraint - reduce memory OC if it exceeds 100°C.",
         "Core OC headroom is modest; power and thermals are the main limiting factors.",
         "Requires a high-quality case airflow setup for safe sustained overclocking.",
       ],
@@ -1036,7 +1036,7 @@
       mem:   { conservative: "+300 MHz", aggressive: "+700 MHz", start: "+300 MHz" },
       tool: "MSI Afterburner + Voltage Curve (Ctrl+F)",
       notes: [
-        "Widely regarded as a good OC chip — most samples push well over stock with patience.",
+        "Widely regarded as a good OC chip - most samples push well over stock with patience.",
         "GDDR6X memory junction temperature is the primary constraint. Check it in HWiNFO64.",
         "Memory OC greatly benefits 4K gaming due to the 384-bit bus amplifying bandwidth gains.",
         "Voltage curve optimisation (undervolting to ~1.0V) reduces heat while maintaining clocks.",
@@ -1051,9 +1051,9 @@
       mem:   { conservative: "+300 MHz", aggressive: "+600 MHz", start: "+300 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Similar die to 3090 — OC characteristics are very close to the 3090.",
+        "Similar die to 3090 - OC characteristics are very close to the 3090.",
         "GDDR6X memory junction temperature is critical to monitor (keep under 100°C).",
-        "Power limit of +20% raises TDP to ~420W — ensure PSU has 100W+ headroom above PC total draw.",
+        "Power limit of +20% raises TDP to ~420W - ensure PSU has 100W+ headroom above PC total draw.",
         "Core voltage curve flattening at 1.025V is an effective way to reduce heat without losing clocks.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark TimeSpy Extreme",
@@ -1065,7 +1065,7 @@
       mem:   { conservative: "+300 MHz", aggressive: "+600 MHz", start: "+300 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "GDDR6X memory — monitor Memory Junction Temperature. This card's memory runs hot.",
+        "GDDR6X memory - monitor Memory Junction Temperature. This card's memory runs hot.",
         "384-bit bus means memory OC is impactful, but GDDR6X heat limits how far you can push it.",
         "Core OC headroom is good; most samples achieve +150–200 MHz with the power limit raised.",
         "A clean memory OC (+400–500 MHz) is safer than chasing maximum memory speed on GDDR6X.",
@@ -1079,9 +1079,9 @@
       mem:   { conservative: "+300 MHz", aggressive: "+600 MHz", start: "+300 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Original 3080 launch model — excellent OC chip with proven headroom across the community.",
+        "Original 3080 launch model - excellent OC chip with proven headroom across the community.",
         "GDDR6X memory junction temperature: treat 95°C as your absolute ceiling.",
-        "Power limit increase from 320W base is important — gives the GPU more boost headroom.",
+        "Power limit increase from 320W base is important - gives the GPU more boost headroom.",
         "+150 core / +400 memory is a conservative, well-tested starting point with broad community support.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark TimeSpy",
@@ -1093,7 +1093,7 @@
       mem:   { conservative: "+300 MHz", aggressive: "+500 MHz", start: "+300 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "GDDR6X on an 8GB buffer — memory OC is limited; prioritise core clock for gains.",
+        "GDDR6X on an 8GB buffer - memory OC is limited; prioritise core clock for gains.",
         "256-bit bus means memory bandwidth is already constrained; additional OC has diminishing returns.",
         "Runs cooler than 3080 tier; good thermal headroom for sustained overclocking.",
         "+150 MHz core with modest memory OC is a clean, stable starting point.",
@@ -1107,9 +1107,9 @@
       mem:   { conservative: "+600 MHz", aggressive: "+1200 MHz", start: "+600 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "GDDR6 (not GDDR6X) — runs much cooler and has significantly more memory OC headroom than 3070 Ti.",
+        "GDDR6 (not GDDR6X) - runs much cooler and has significantly more memory OC headroom than 3070 Ti.",
         "One of the best OC/performance-per-dollar chips in the RTX 30 lineup.",
-        "Many 3070 samples achieve +200 MHz core stable — above-average silicon consistency.",
+        "Many 3070 samples achieve +200 MHz core stable - above-average silicon consistency.",
         "Memory OC to +1000–1200 MHz is achievable on good samples with stable GDDR6.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark TimeSpy",
@@ -1122,9 +1122,9 @@
       tool: "MSI Afterburner",
       notes: [
         "Widely praised as one of the best-value OC GPUs of its generation.",
-        "GDDR6 means memory runs cool and OC headroom is generous — +1000 MHz+ is often achievable.",
+        "GDDR6 means memory runs cool and OC headroom is generous - +1000 MHz+ is often achievable.",
         "Core OC of +150–200 MHz is very common across the community on this chip.",
-        "Excellent first OC target — very forgiving and hard to damage with conservative settings.",
+        "Excellent first OC target - very forgiving and hard to damage with conservative settings.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark FireStrike Ultra",
     },
@@ -1135,9 +1135,9 @@
       mem:   { conservative: "+600 MHz", aggressive: "+1200 MHz", start: "+600 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "12GB GDDR6 with 192-bit bus — memory OC noticeably helps at higher resolutions.",
+        "12GB GDDR6 with 192-bit bus - memory OC noticeably helps at higher resolutions.",
         "Modest TDP (170W) means power limit headroom is limited, but core boost is still meaningful.",
-        "Generally well-binned silicon — most samples push +150–200 MHz core reliably.",
+        "Generally well-binned silicon - most samples push +150–200 MHz core reliably.",
         "A popular and forgiving OC target for beginners.",
       ],
       stressTest: "Superposition 1080p High, 3DMark FireStrike Extreme",
@@ -1149,7 +1149,7 @@
       mem:   { conservative: "+500 MHz", aggressive: "+1000 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Entry-level Ampere — lower TDP and power delivery means OC ceiling is reduced.",
+        "Entry-level Ampere - lower TDP and power delivery means OC ceiling is reduced.",
         "128-bit bus: memory OC has noticeable bandwidth impact, worth doing.",
         "Conservative +75–100 MHz core is a safe and reliable improvement.",
         "Good first OC card due to low-stakes nature of entry-level chips.",
@@ -1165,11 +1165,11 @@
       mem:   { conservative: "+400 MHz", aggressive: "+700 MHz", start: "+400 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Still a capable overclocker — Pascal architecture has excellent OC headroom.",
-        "GDDR5X doesn't have a reported memory junction temperature — monitor overall card temp.",
-        "Many 1080 Ti samples achieve +200 MHz+ core stable — very strong silicon.",
+        "Still a capable overclocker - Pascal architecture has excellent OC headroom.",
+        "GDDR5X doesn't have a reported memory junction temperature - monitor overall card temp.",
+        "Many 1080 Ti samples achieve +200 MHz+ core stable - very strong silicon.",
         "Power limit increase from 250W base is highly recommended before touching clocks.",
-        "Older thermal paste may have dried — repasting before OC can drop temps 8–12°C on used cards.",
+        "Older thermal paste may have dried - repasting before OC can drop temps 8–12°C on used cards.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark FireStrike Ultra",
     },
@@ -1180,10 +1180,10 @@
       mem:   { conservative: "+400 MHz", aggressive: "+600 MHz", start: "+400 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Pascal has excellent OC scalability — core gains are very consistent.",
+        "Pascal has excellent OC scalability - core gains are very consistent.",
         "GDDR5X memory OC has moderate headroom; don't push beyond +600 MHz.",
         "+150 MHz core / +400 MHz memory is a reliable 7–10% performance gain.",
-        "Fan curve adjustment is especially important on older cards — default curves are conservative.",
+        "Fan curve adjustment is especially important on older cards - default curves are conservative.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark FireStrike Ultra",
     },
@@ -1194,10 +1194,10 @@
       mem:   { conservative: "+500 MHz", aggressive: "+900 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "GDDR5 memory with more OC headroom than GDDR5X — push memory confidently.",
-        "Locked boost clocks on 1070 Ti mean core OC works differently than other Pascal cards — don't be put off.",
+        "GDDR5 memory with more OC headroom than GDDR5X - push memory confidently.",
+        "Locked boost clocks on 1070 Ti mean core OC works differently than other Pascal cards - don't be put off.",
         "One of the better Pascal OC targets due to the locked clock restriction being worked around by offset.",
-        "Check that fans are working at full spec — aged GTX cards often have fan degradation.",
+        "Check that fans are working at full spec - aged GTX cards often have fan degradation.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark FireStrike Extreme",
     },
@@ -1208,10 +1208,10 @@
       mem:   { conservative: "+500 MHz", aggressive: "+1000 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "GDDR5 with generous OC headroom — one of the most forgiving cards to overclock.",
+        "GDDR5 with generous OC headroom - one of the most forgiving cards to overclock.",
         "Memory OC to +800–1000 MHz is commonly stable on GTX 1070 samples.",
         "Runs relatively cool at stock, giving good thermal headroom for OC.",
-        "Repasting is recommended if the card is 5+ years old — thermal paste dries out noticeably on Pascal.",
+        "Repasting is recommended if the card is 5+ years old - thermal paste dries out noticeably on Pascal.",
       ],
       stressTest: "Superposition 1080p High, 3DMark FireStrike Extreme",
     },
@@ -1222,8 +1222,8 @@
       mem:   { conservative: "+600 MHz", aggressive: "+1200 MHz", start: "+600 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Turing Lite architecture — OC headroom is moderate but consistent.",
-        "GDDR6 memory is a step up from older GTX cards — runs cooler, more OC potential.",
+        "Turing Lite architecture - OC headroom is moderate but consistent.",
+        "GDDR6 memory is a step up from older GTX cards - runs cooler, more OC potential.",
         "+150 MHz core is a stable, frequently achieved target on this chip.",
         "192-bit bus means memory OC has noticeable impact at 1080p.",
       ],
@@ -1236,7 +1236,7 @@
       mem:   { conservative: "+600 MHz", aggressive: "+1200 MHz", start: "+600 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Very similar OC profile to the 1660 Ti — GDDR6 memory is a key shared advantage.",
+        "Very similar OC profile to the 1660 Ti - GDDR6 memory is a key shared advantage.",
         "Budget-friendly card that responds well to even modest overclocks.",
         "+150 MHz core / +800 MHz memory is a clean target that most samples hit.",
         "Good starter GPU for learning the OC process due to low stakes and predictable behaviour.",
@@ -1250,9 +1250,9 @@
       mem:   { conservative: "+500 MHz", aggressive: "+900 MHz", start: "+500 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Pascal chip — great OC lineage with wide community documentation.",
+        "Pascal chip - great OC lineage with wide community documentation.",
         "GDDR5 memory has generous headroom; +700–900 MHz is commonly achieved.",
-        "Widely tested across the community — forum resources for GTX 1060 OC are extensive.",
+        "Widely tested across the community - forum resources for GTX 1060 OC are extensive.",
         "One of the easiest first OC experiences due to massive community support.",
       ],
       stressTest: "Superposition 1080p Medium, 3DMark FireStrike",
@@ -1264,10 +1264,10 @@
       mem:   { conservative: "+400 MHz", aggressive: "+700 MHz", start: "+400 MHz" },
       tool: "MSI Afterburner",
       notes: [
-        "Entry-level Pascal with limited power delivery — OC gains are modest but real.",
+        "Entry-level Pascal with limited power delivery - OC gains are modest but real.",
         "75W TDP card: power limit increase is small but still helps core boost headroom.",
         "+100 MHz core is a reliable target; pushing beyond +150 requires testing.",
-        "Great beginner OC card — low-stakes and easy to learn the process with.",
+        "Great beginner OC card - low-stakes and easy to learn the process with.",
       ],
       stressTest: "Superposition 1080p Medium, 3DMark FireStrike",
     },
@@ -1280,10 +1280,10 @@
       mem:   { conservative: "+100 MHz", aggressive: "+250 MHz", start: "+100 MHz" },
       tool: "AMD Adrenalin → Performance → Tuning",
       notes: [
-        "RDNA3 chips launch with very high factory boost clocks — OC headroom is intentionally tighter than RDNA2.",
+        "RDNA3 chips launch with very high factory boost clocks - OC headroom is intentionally tighter than RDNA2.",
         "AMD recommends OC via Adrenalin Performance Tuning rather than Afterburner for best results.",
         "Edge temperature target ≤85°C; Hotspot (junction) ≤100°C. Hotspot will always read 20–30°C above Edge.",
-        "Power limit increase has significant impact — AMD's default power cap is conservative on flagship cards.",
+        "Power limit increase has significant impact - AMD's default power cap is conservative on flagship cards.",
         "Manual voltage/frequency tuning in Adrenalin can yield better results than clock offset alone.",
       ],
       stressTest: "Superposition 4K Optimised, 3DMark TimeSpy Extreme",
@@ -1295,9 +1295,9 @@
       mem:   { conservative: "+100 MHz", aggressive: "+200 MHz", start: "+100 MHz" },
       tool: "AMD Adrenalin → Performance → Tuning",
       notes: [
-        "Similar OC profile to 7900 XTX — same die, lower factory clocks, slightly more headroom.",
-        "Hotspot temperature is the key metric — keep under 100°C during sustained OC.",
-        "Power limit is the most accessible first step — many users gain 4–6% here alone.",
+        "Similar OC profile to 7900 XTX - same die, lower factory clocks, slightly more headroom.",
+        "Hotspot temperature is the key metric - keep under 100°C during sustained OC.",
+        "Power limit is the most accessible first step - many users gain 4–6% here alone.",
         "GDDR6 memory (not HBM) has moderate OC headroom; memory OC impacts bandwidth at 4K.",
       ],
       stressTest: "Superposition 4K, 3DMark TimeSpy Extreme",
@@ -1309,9 +1309,9 @@
       mem:   { conservative: "+100 MHz", aggressive: "+250 MHz", start: "+100 MHz" },
       tool: "AMD Adrenalin",
       notes: [
-        "Very popular 1440p card — community OC data is widely available.",
+        "Very popular 1440p card - community OC data is widely available.",
         "RDNA3 with good efficiency; thermal headroom is reasonable for OC on most AIB coolers.",
-        "Edge temp ≤85°C / Hotspot ≤100°C — hotspot is typically 20–25°C above edge on this chip.",
+        "Edge temp ≤85°C / Hotspot ≤100°C - hotspot is typically 20–25°C above edge on this chip.",
         "A modest +50–75 MHz core + power limit increase is a safe, tested starting point.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark TimeSpy",
@@ -1323,7 +1323,7 @@
       mem:   { conservative: "+100 MHz", aggressive: "+200 MHz", start: "+100 MHz" },
       tool: "AMD Adrenalin",
       notes: [
-        "Mid-range RDNA3 — OC profile mirrors the 7800 XT at lower power draw.",
+        "Mid-range RDNA3 - OC profile mirrors the 7800 XT at lower power draw.",
         "192-bit GDDR6 bus; memory OC has meaningful impact at 1440p.",
         "Hotspot temperature runs ~20°C above the reported GPU edge temperature.",
         "Adrenalin Performance Tuning is the recommended path for AMD GPU overclocking.",
@@ -1337,10 +1337,10 @@
       mem:   { conservative: "+100 MHz", aggressive: "+200 MHz", start: "+100 MHz" },
       tool: "AMD Adrenalin",
       notes: [
-        "Entry-level RDNA3 with a modest 165W TDP — power headroom is limited.",
-        "128-bit GDDR6 bus — memory OC is worthwhile at 1080p.",
+        "Entry-level RDNA3 with a modest 165W TDP - power headroom is limited.",
+        "128-bit GDDR6 bus - memory OC is worthwhile at 1080p.",
         "Edge temps run cool; this card has reasonable headroom for conservative OC.",
-        "Good first AMD overclock — Adrenalin's guided OC mode walks beginners through the process.",
+        "Good first AMD overclock - Adrenalin's guided OC mode walks beginners through the process.",
       ],
       stressTest: "Superposition 1080p High, 3DMark FireStrike Extreme",
     },
@@ -1353,10 +1353,10 @@
       mem:   { conservative: "+50 MHz", aggressive: "+125 MHz", start: "+50 MHz" },
       tool: "AMD Adrenalin (recommended) or MSI Afterburner",
       notes: [
-        "RDNA2 flagship — OC headroom is well-documented with extensive community data.",
-        "128MB AMD Infinity Cache reduces bandwidth sensitivity to memory OC — core clocks matter more.",
+        "RDNA2 flagship - OC headroom is well-documented with extensive community data.",
+        "128MB AMD Infinity Cache reduces bandwidth sensitivity to memory OC - core clocks matter more.",
         "Edge temp ≤85°C; Hotspot ≤100°C. AMD's TJ Max of 110°C means 90°C edge is acceptable but unnecessary.",
-        "Smart Access Memory (SAM/Resizable BAR) provides 5–15% gains for free — enable it in BIOS before OCing.",
+        "Smart Access Memory (SAM/Resizable BAR) provides 5–15% gains for free - enable it in BIOS before OCing.",
         "Power limit is highly effective on RDNA2; many samples gain 5–7% from power alone.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark TimeSpy",
@@ -1369,10 +1369,10 @@
       tool: "AMD Adrenalin",
       notes: [
         "Considered by many as the best OC value in the RX 6000 lineup.",
-        "Good thermal design on AIB cards — edge temps often stay well below 85°C even overclocked.",
+        "Good thermal design on AIB cards - edge temps often stay well below 85°C even overclocked.",
         "Infinity Cache means memory OC is less impactful than on traditional architectures.",
-        "Enable SAM / Resizable BAR in BIOS before benchmarking — it's a free ~10% boost in supported titles.",
-        "Power limit raise is the first step — AMD factory limits are conservative on RDNA2.",
+        "Enable SAM / Resizable BAR in BIOS before benchmarking - it's a free ~10% boost in supported titles.",
+        "Power limit raise is the first step - AMD factory limits are conservative on RDNA2.",
       ],
       stressTest: "Superposition 1080p Extreme, 3DMark TimeSpy",
     },
@@ -1383,7 +1383,7 @@
       mem:   { conservative: "+50 MHz", aggressive: "+100 MHz", start: "+50 MHz" },
       tool: "AMD Adrenalin",
       notes: [
-        "Same die as 6800 XT with conservative factory clocks — often excellent OC candidate.",
+        "Same die as 6800 XT with conservative factory clocks - often excellent OC candidate.",
         "Many 6800 samples can match or approach 6800 XT performance after overclocking.",
         "Infinity Cache architecture means memory OC has less bandwidth impact than on non-AMD cards.",
         "Enable SAM in BIOS for free performance before applying any OC settings.",
@@ -1397,10 +1397,10 @@
       mem:   { conservative: "+50 MHz", aggressive: "+100 MHz", start: "+50 MHz" },
       tool: "AMD Adrenalin",
       notes: [
-        "Refreshed RDNA2 midrange — same chiplet as 6700 XT with slightly higher factory clocks.",
+        "Refreshed RDNA2 midrange - same chiplet as 6700 XT with slightly higher factory clocks.",
         "96MB Infinity Cache reduces bandwidth pressure, limiting memory OC benefits.",
         "Core OC is the primary avenue for performance gains on this card.",
-        "Runs efficiently — one of the better thermal OC targets in the RDNA2 midrange.",
+        "Runs efficiently - one of the better thermal OC targets in the RDNA2 midrange.",
       ],
       stressTest: "Superposition 1080p High, 3DMark TimeSpy",
     },
@@ -1412,7 +1412,7 @@
       tool: "AMD Adrenalin",
       notes: [
         "Excellent 1080p–1440p OC card with well-documented community headroom.",
-        "96MB Infinity Cache provides strong bandwidth — memory OC matters less.",
+        "96MB Infinity Cache provides strong bandwidth - memory OC matters less.",
         "Core OC of +50–100 MHz with power limit raise gives ~5–10% in most workloads.",
         "Hotspot (junction) temp will run ~20°C above the displayed edge temperature.",
       ],
@@ -1425,8 +1425,8 @@
       mem:   { conservative: "+50 MHz", aggressive: "+100 MHz", start: "+50 MHz" },
       tool: "AMD Adrenalin",
       notes: [
-        "Lower TDP than 6700 XT — OC headroom is slightly reduced due to tighter power budget.",
-        "80MB Infinity Cache vs 6700 XT's 96MB — minor bandwidth difference, similar OC behaviour.",
+        "Lower TDP than 6700 XT - OC headroom is slightly reduced due to tighter power budget.",
+        "80MB Infinity Cache vs 6700 XT's 96MB - minor bandwidth difference, similar OC behaviour.",
         "A clean power limit increase often nets 3–5% before touching clocks.",
         "Conservative but worthwhile OC target for the mid-range RDNA2 bracket.",
       ],
@@ -1440,7 +1440,7 @@
       tool: "AMD Adrenalin",
       notes: [
         "Refreshed RDNA2 entry-midrange with higher factory clocks than 6600 XT.",
-        "32MB Infinity Cache — less cache means memory OC has more bandwidth impact vs upper-tier RDNA2.",
+        "32MB Infinity Cache - less cache means memory OC has more bandwidth impact vs upper-tier RDNA2.",
         "Runs efficiently with good thermals; solid OC headroom at modest wattage.",
         "+75 MHz core / power limit raise is a clean starting point for most samples.",
       ],
@@ -1453,10 +1453,10 @@
       mem:   { conservative: "+50 MHz", aggressive: "+100 MHz", start: "+50 MHz" },
       tool: "AMD Adrenalin",
       notes: [
-        "Well-regarded 1080p OC chip — RDNA2 efficiency at lower power.",
-        "128-bit GDDR6 bus without large Infinity Cache — memory OC has real bandwidth impact.",
+        "Well-regarded 1080p OC chip - RDNA2 efficiency at lower power.",
+        "128-bit GDDR6 bus without large Infinity Cache - memory OC has real bandwidth impact.",
         "Core OC + power limit raise is the recommended first move.",
-        "Runs cool on most AIB coolers — good thermal headroom for sustained OC.",
+        "Runs cool on most AIB coolers - good thermal headroom for sustained OC.",
       ],
       stressTest: "Superposition 1080p High, 3DMark FireStrike Ultra",
     },
@@ -1467,9 +1467,9 @@
       mem:   { conservative: "+50 MHz", aggressive: "+100 MHz", start: "+50 MHz" },
       tool: "AMD Adrenalin",
       notes: [
-        "Entry-level RDNA2 — 100W card with good OC-to-power-budget ratio.",
+        "Entry-level RDNA2 - 100W card with good OC-to-power-budget ratio.",
         "32MB Infinity Cache: less cache than upper RDNA2 cards, so memory speed matters more.",
-        "Beginner-friendly AMD OC target — Adrenalin's interface is well-suited for first-time AMD overclockers.",
+        "Beginner-friendly AMD OC target - Adrenalin's interface is well-suited for first-time AMD overclockers.",
         "+75 MHz core / +75 MHz memory is a reliable, community-tested baseline.",
       ],
       stressTest: "Superposition 1080p Medium, 3DMark FireStrike",

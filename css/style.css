@@ -1,4 +1,4 @@
-/* TempCore — Stylesheet
+/* TempCore - Stylesheet
    ─────────────────────────────────────────────────────────────
    Architecture
      · Theme tokens via [data-theme="dark"|"light"] on <html>.
@@ -92,7 +92,7 @@ body {
 .font-heading { font-family: 'Geist', 'Inter', system-ui, sans-serif; font-weight: 600; letter-spacing: -0.015em; }
 
 /* ── Legacy aesthetic neutralisation ──────────────────────── */
-/* Old design used these for the gamey thermal look — kept as
+/* Old design used these for the gamey thermal look - kept as
    no-ops so existing markup parses cleanly. */
 body::before { content: none; }
 .scanlines, .hero-grid, .hero-glow {
@@ -161,11 +161,14 @@ body::before { content: none; }
 .tc-collapse-btn {
   background: transparent;
   border: 1px solid var(--sidebar-border);
-  flex-shrink: 0;
+  /* Lock all flex sizing so nothing can stretch this button */
+  flex: 0 0 34px !important;
+  width: 34px !important;
+  min-width: 34px !important;
+  max-width: 34px !important;
+  height: 34px;
   padding: 7px !important;
   gap: 0 !important;
-  width: 34px !important;  /* must beat .tc-sidebar-link { width: 100% } */
-  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,6 +189,11 @@ body::before { content: none; }
   gap: 1px;
 }
 
+/* Tool links: inset shadow on hover (no layout shift unlike border-left) */
+.tc-sidebar-group > .tc-sidebar-link:hover {
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
 /* Visible separator between Tools and Articles */
 .tc-sidebar-divider {
   border: none;
@@ -202,6 +210,32 @@ body::before { content: none; }
   color: var(--muted-2);
   padding: 6px 10px 6px;
   white-space: nowrap;
+}
+
+/* Article sub-group container */
+.tc-article-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Sub-group category label (Trending / Guides / Temperatures) */
+.tc-sidebar-subgroup-label {
+  font-size: 0.57rem !important;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  opacity: 0.55;
+  padding: 9px 10px 2px !important;
+  white-space: nowrap;
+}
+
+/* Thin separator between article sub-groups */
+.tc-sidebar-subgroup-divider {
+  height: 1px;
+  background: var(--sidebar-border);
+  margin: 6px 10px;
+  opacity: 0.5;
 }
 
 /* Nav links (anchors and toggle buttons share this class) */
@@ -234,6 +268,20 @@ body::before { content: none; }
   opacity: 1;
 }
 
+/* Article links are more compact than tool links */
+.tc-article-link {
+  font-size: 0.8rem;
+  padding: 5px 9px;
+  opacity: 0.6;
+}
+.tc-article-link:hover { opacity: 1; }
+.tc-article-link.active { opacity: 1; }
+.tc-article-link svg {
+  width: 14px !important;
+  height: 14px !important;
+  stroke-width: 1.6;
+}
+
 .tc-sidebar-link svg {
   width: 17px;
   height: 17px;
@@ -256,7 +304,9 @@ body::before { content: none; }
 
 /* ── Collapsed state ──────────────────────────────────────── */
 [data-sidebar="collapsed"] .tc-sidebar-label,
-[data-sidebar="collapsed"] .tc-sidebar-section { display: none; }
+[data-sidebar="collapsed"] .tc-sidebar-section,
+[data-sidebar="collapsed"] .tc-sidebar-subgroup-label,
+[data-sidebar="collapsed"] .tc-sidebar-subgroup-divider { display: none; }
 
 [data-sidebar="collapsed"] .tc-sidebar-link {
   justify-content: center;
@@ -330,10 +380,12 @@ body::before { content: none; }
     transform: translateX(-100%);
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
   }
-  /* On mobile, the drawer always shows full labels — collapsed state
+  /* On mobile, the drawer always shows full labels - collapsed state
      is a desktop affordance only. */
   [data-sidebar] .tc-sidebar-label,
-  [data-sidebar] .tc-sidebar-section { display: block; }
+  [data-sidebar] .tc-sidebar-section,
+  [data-sidebar] .tc-sidebar-subgroup-label,
+  [data-sidebar] .tc-sidebar-subgroup-divider { display: block; }
   [data-sidebar] .tc-sidebar-link {
     justify-content: flex-start;
     padding: 8px 10px;
@@ -617,8 +669,17 @@ body::before { content: none; }
    ARTICLES
    ════════════════════════════════════════════════════════════ */
 
-.article-card { text-decoration: none; display: block; }
+.article-card {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
 .article-card:hover .article-title { color: var(--accent); }
+.article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+.article-card > p { flex: 1; }
 
 .article-tag {
   display: inline-block;

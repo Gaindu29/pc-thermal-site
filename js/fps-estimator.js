@@ -1,5 +1,5 @@
 /**
- * TempCore — FPS Estimator
+ * TempCore - FPS Estimator
  * Estimates native (no DLSS/FSR) FPS for a given GPU + CPU + settings combination.
  *
  * Base FPS calibrated against RTX 4090 @ 1440p, native rendering, averaged across benchmarks.
@@ -140,46 +140,46 @@ const CPU_FPS = {
 // Laptop CPUs are thermally constrained. HX chips approach desktop; H/HS are lower.
 // V-Cache (3D) variants get a meaningful gaming uplift even on laptop.
 const LAPTOP_CPU_FPS = {
-  // Intel Core Ultra 200 Series (Arrow Lake-H / HX) — 2024
+  // Intel Core Ultra 200 Series (Arrow Lake-H / HX) - 2024
   "Core Ultra 9 285HX": 210, "Core Ultra 9 285H":  185,
   "Core Ultra 7 265HX": 198, "Core Ultra 7 265H":  172, "Core Ultra 7 255H": 165,
   "Core Ultra 5 245HX": 182, "Core Ultra 5 245H":  158, "Core Ultra 5 235H": 150,
-  // Intel Core Ultra 100 Series (Meteor Lake) — 2023
+  // Intel Core Ultra 100 Series (Meteor Lake) - 2023
   "Core Ultra 9 185H":  172, "Core Ultra 7 165H":  158, "Core Ultra 7 155H": 152,
   "Core Ultra 5 135H":  145, "Core Ultra 5 125H":  138,
-  // Intel 14th Gen H/HX — 2024
+  // Intel 14th Gen H/HX - 2024
   "Core i9-14900HX":    215, "Core i7-14700HX":    205, "Core i7-14650HX":   198,
   "Core i5-14500HX":    188, "Core i5-14450HX":    178, "Core i9-14900H":    188,
   "Core i7-14700H":     175, "Core i5-14500H":     162,
-  // Intel 13th Gen H/HX — 2023
+  // Intel 13th Gen H/HX - 2023
   "Core i9-13980HX":    210, "Core i9-13950HX":    213, "Core i9-13900HX":   205,
   "Core i9-13900H":     182, "Core i7-13700HX":    200, "Core i7-13800H":    170,
   "Core i7-13700H":     165, "Core i7-13650HX":    170, "Core i7-13620H":    148,
   "Core i5-13600HX":    178, "Core i5-13500H":     155, "Core i5-13450HX":   175,
   "Core i5-13420H":     142,
-  // Intel 12th Gen H/HX — 2022
+  // Intel 12th Gen H/HX - 2022
   "Core i9-12900HX":    192, "Core i9-12900H":    178, "Core i7-12700HX":    182, "Core i7-12700H":    158, "Core i7-12650H":    150,
   "Core i5-12600H":     142, "Core i5-12500H":     138, "Core i5-12450H":    128,
-  // AMD Ryzen 9000 HX (Fire Range) — 2025
+  // AMD Ryzen 9000 HX (Fire Range) - 2025
   "Ryzen 9 9955HX":     215, "Ryzen 7 9855HX":     202, "Ryzen 5 9655HX":    188,
-  // AMD Ryzen AI 300 (Strix Point) — 2024
+  // AMD Ryzen AI 300 (Strix Point) - 2024
   "Ryzen AI 9 HX 370":  185, "Ryzen AI 9 365":     175, "Ryzen AI 7 350":    165,
-  // AMD Ryzen 7000 HX (Dragon Range) — 2023
+  // AMD Ryzen 7000 HX (Dragon Range) - 2023
   "Ryzen 9 7945HX3D":   228, "Ryzen 9 7945HX":     212,
   "Ryzen 7 7745HX":     195, "Ryzen 5 7645HX":     178,
-  // AMD Ryzen 8000 H/HS Hawk Point (Zen 4) — 2024
+  // AMD Ryzen 8000 H/HS Hawk Point (Zen 4) - 2024
   "Ryzen 9 8945HS":     185, "Ryzen 7 8845HS":     172, "Ryzen 5 8645HS":    158,
-  // AMD Ryzen 7000 HS Phoenix (Zen 4) — 2023
+  // AMD Ryzen 7000 HS Phoenix (Zen 4) - 2023
   "Ryzen 9 7940HS":     182, "Ryzen 7 7840HS":     175, "Ryzen 7 7745HS":     170, "Ryzen 7 7745H":     172,
   "Ryzen 7 7435HS":     158, "Ryzen 5 7640HS":     158, "Ryzen 5 7640H":     155,
-  // AMD Ryzen 7000 H/HS Rembrandt-R (Zen 3+) — 2023 — rebranded Zen 3+ with higher clocks
+  // AMD Ryzen 7000 H/HS Rembrandt-R (Zen 3+) - 2023 - rebranded Zen 3+ with higher clocks
   "Ryzen 9 7935HS":     188, "Ryzen 7 7735HS":     168, "Ryzen 7 7735H":     165,
   "Ryzen 5 7535HS":     152, "Ryzen 5 7535H":      148,
-  // AMD Ryzen 6000 H/HS Rembrandt (Zen 3+) — 2022
+  // AMD Ryzen 6000 H/HS Rembrandt (Zen 3+) - 2022
   "Ryzen 9 6980HX":     178, "Ryzen 9 6900HX":     172, "Ryzen 9 6900HS":    174,
   "Ryzen 7 6800H":      162,
   "Ryzen 7 6800HS":     160, "Ryzen 5 6600H":      148, "Ryzen 5 6600HS":    146,
-  // AMD Ryzen 5000 H (Cezanne) — 2021
+  // AMD Ryzen 5000 H (Cezanne) - 2021
   "Ryzen 9 5900HX":     165, "Ryzen 7 5800H":      155, "Ryzen 5 5600H":     142,
 };
 
@@ -188,7 +188,7 @@ const LAPTOP_CPU_FPS = {
 // scenarios is negligible. Effect scales with a game's CPU sensitivity (cpuScale).
 // Baseline values: flat ~6% uplift on CPU ceiling; gpuFPS is unaffected.
 const RAM_TYPE_MULT = {
-  "DDR4": 1.00,   // baseline — most 2019-2022 systems
+  "DDR4": 1.00,   // baseline - most 2019-2022 systems
   "DDR5": 1.06,   // ~6% avg gaming uplift on CPU ceiling; more visible in esports/high-FPS titles
 };
 
@@ -225,7 +225,7 @@ const GAMES = [
     cpuScale:0.9, ramSensitive:true, rtSupport:true, upscaleBoost:1.55,
     upscaleLabel:"DLSS 4 / FSR 4 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"RT Overdrive",key:"Ultra + RT"}],
-    note:"Path tracing (RT Overdrive) is GPU-intensive even on RTX 4090 — DLSS Quality + Frame Generation strongly recommended. FSR 4 added in 2026 patch."
+    note:"Path tracing (RT Overdrive) is GPU-intensive even on RTX 4090 - DLSS Quality + Frame Generation strongly recommended. FSR 4 added in 2026 patch."
   },
   {
     name:"Black Myth: Wukong", year:2024, genre:"Action RPG", base:100,
@@ -253,14 +253,14 @@ const GAMES = [
     cpuScale:0.9, ramSensitive:true, rtSupport:true, upscaleBoost:1.45,
     upscaleLabel:"DLSS 3 / FSR 2 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Ultra + RT",key:"Ultra + RT"}],
-    note:"RT shadows are the heaviest setting — disabling them grants ~22% performance. Hogsmeade is the most demanding zone."
+    note:"RT shadows are the heaviest setting - disabling them grants ~22% performance. Hogsmeade is the most demanding zone."
   },
   {
     name:"Assassin's Creed Shadows", year:2024, genre:"Action / Open World", base:120,
     cpuScale:0.8, ramSensitive:true, rtSupport:true, upscaleBoost:1.50,
     upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Extreme + RT",key:"Ultra + RT"}],
-    note:"Ubisoft's most demanding AC title — global illumination ray tracing is on by default. Selective RT for reflections/AO at the Extreme preset is heavy."
+    note:"Ubisoft's most demanding AC title - global illumination ray tracing is on by default. Selective RT for reflections/AO at the Extreme preset is heavy."
   },
   {
     name:"Star Wars Jedi: Survivor", year:2023, genre:"Action Adventure", base:130,
@@ -274,7 +274,7 @@ const GAMES = [
     cpuScale:0.6, ramSensitive:true, rtSupport:false, upscaleBoost:1.45,
     upscaleLabel:"AMD FSR 2",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
-    note:"Heavy CPU workload in dense areas. 32GB RAM reduces stutter. FSR only — no DLSS."
+    note:"Heavy CPU workload in dense areas. 32GB RAM reduces stutter. FSR only - no DLSS."
   },
   {
     name:"Microsoft Flight Simulator 2024", year:2024, genre:"Simulation", base:82,
@@ -430,7 +430,7 @@ const GAMES = [
     cpuScale:2.5, ramSensitive:false, rtSupport:false, upscaleBoost:1.00,
     upscaleLabel:null,
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"}],
-    note:"Extremely light on GPU — CPU and RAM speed are the main performance factors. Valorant only exposes three official quality levels. No upscaling."
+    note:"Extremely light on GPU - CPU and RAM speed are the main performance factors. Valorant only exposes three official quality levels. No upscaling."
   },
   {
     name:"Apex Legends", year:2019, genre:"Battle Royale", base:248,
@@ -495,35 +495,35 @@ const GAMES = [
     cpuScale:0.7, ramSensitive:true, rtSupport:true, upscaleBoost:1.55,
     upscaleLabel:"DLSS 4 / FSR 3 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"},{label:"Ultra + RT",key:"Ultra + RT"}],
-    note:"RE Engine — heavy and CPU-sensitive. Frame generation and upscaling are strongly recommended on most hardware. 16GB VRAM recommended at Ultra."
+    note:"RE Engine - heavy and CPU-sensitive. Frame generation and upscaling are strongly recommended on most hardware. 16GB VRAM recommended at Ultra."
   },
   {
     name:"S.T.A.L.K.E.R. 2: Heart of Chornobyl", year:2024, genre:"FPS / Open World", base:118,
     cpuScale:0.7, ramSensitive:true, rtSupport:false, upscaleBoost:1.60,
     upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
-    note:"UE5 with software Lumen — very GPU-demanding and CPU-bound on top hardware. 8GB VRAM cards struggle even with upscaling at 1440p."
+    note:"UE5 with software Lumen - very GPU-demanding and CPU-bound on top hardware. 8GB VRAM cards struggle even with upscaling at 1440p."
   },
   {
     name:"Indiana Jones and the Great Circle", year:2024, genre:"Action Adventure", base:158,
     cpuScale:1.0, ramSensitive:true, rtSupport:true, upscaleBoost:1.50,
     upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Supreme",key:"Ultra"},{label:"Path Tracing",key:"Ultra + RT"}],
-    note:"id Tech 7 — exceptionally well-optimised with mandatory hardware RTGI. Path Tracing mode requires 16GB+ VRAM and a high-end RTX card."
+    note:"id Tech 7 - exceptionally well-optimised with mandatory hardware RTGI. Path Tracing mode requires 16GB+ VRAM and a high-end RTX card."
   },
   {
     name:"DOOM: The Dark Ages", year:2025, genre:"FPS", base:130,
     cpuScale:1.1, ramSensitive:false, rtSupport:true, upscaleBoost:1.50,
     upscaleLabel:"DLSS 4 / FSR 3 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra Nightmare",key:"Ultra"},{label:"Path Tracing",key:"Ultra + RT"}],
-    note:"id Tech 8 — mandatory hardware ray tracing. Excellent base optimisation but preset scaling is flat. Path Tracing patch is very heavy."
+    note:"id Tech 8 - mandatory hardware ray tracing. Excellent base optimisation but preset scaling is flat. Path Tracing patch is very heavy."
   },
   {
     name:"Borderlands 4", year:2025, genre:"FPS / Looter Shooter", base:100,
     cpuScale:0.7, ramSensitive:true, rtSupport:false, upscaleBoost:1.55,
     upscaleLabel:"DLSS 4 / FSR 4 / XeSS",
     presets:[{label:"Very Low",key:"Very Low"},{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Badass",key:"Ultra"}],
-    note:"UE5 with Lumen and Nanite — notoriously poorly optimised at launch. Upscaling is effectively mandatory. Performance has improved with post-launch patches."
+    note:"UE5 with Lumen and Nanite - notoriously poorly optimised at launch. Upscaling is effectively mandatory. Performance has improved with post-launch patches."
   },
   {
     name:"Kingdom Come: Deliverance II", year:2025, genre:"RPG / Open World", base:140,
@@ -545,21 +545,21 @@ const GAMES = [
     cpuScale:0.8, ramSensitive:true, rtSupport:false, upscaleBoost:1.50,
     upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
-    note:"UE5 with Lumen — visually striking but GPU-heavy. Frame generation strongly recommended at Epic above 1440p."
+    note:"UE5 with Lumen - visually striking but GPU-heavy. Frame generation strongly recommended at Epic above 1440p."
   },
   {
     name:"Manor Lords", year:2024, genre:"City Builder / Strategy", base:130,
     cpuScale:0.4, ramSensitive:true, rtSupport:false, upscaleBoost:1.40,
     upscaleLabel:"DLSS 3 / FSR 2",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
-    note:"UE5 city builder — CPU-limited as towns grow. Late-game performance falls off even on flagship CPUs."
+    note:"UE5 city builder - CPU-limited as towns grow. Late-game performance falls off even on flagship CPUs."
   },
   {
     name:"ARK: Survival Ascended", year:2023, genre:"Survival", base:75,
     cpuScale:0.6, ramSensitive:true, rtSupport:false, upscaleBoost:1.55,
     upscaleLabel:"DLSS 3 / FSR 2",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"},{label:"Cinematic",key:"Extreme"}],
-    note:"UE5 remake — one of the most demanding open-world games on PC. 16GB VRAM helps. Frame generation strongly recommended."
+    note:"UE5 remake - one of the most demanding open-world games on PC. 16GB VRAM helps. Frame generation strongly recommended."
   },
   // ── 2023–2025 Mid-weight AAA ──────────────────────────────────────────────
   {
@@ -581,7 +581,7 @@ const GAMES = [
     cpuScale:0.8, ramSensitive:false, rtSupport:false, upscaleBoost:1.40,
     upscaleLabel:"DLSS 2 / FSR 2",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
-    note:"UE5 survival — heavy foliage rendering. Performance improved significantly through 1.0 release."
+    note:"UE5 survival - heavy foliage rendering. Performance improved significantly through 1.0 release."
   },
   {
     name:"Final Fantasy XVI", year:2024, genre:"Action RPG", base:115,
@@ -595,7 +595,7 @@ const GAMES = [
     cpuScale:1.2, ramSensitive:false, rtSupport:false, upscaleBoost:1.35,
     upscaleLabel:"DLSS 3 / FSR 2",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
-    note:"UE5 fighter — gameplay is 60 FPS locked competitively, but practice and Tekken Ball modes can run higher."
+    note:"UE5 fighter - gameplay is 60 FPS locked competitively, but practice and Tekken Ball modes can run higher."
   },
   // ── Esports / Multiplayer / Live Service ──────────────────────────────────
   {
@@ -610,14 +610,14 @@ const GAMES = [
     cpuScale:1.1, ramSensitive:false, rtSupport:false, upscaleBoost:1.45,
     upscaleLabel:"DLSS 3 / FSR 3 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Epic",key:"Ultra"}],
-    note:"UE5 with heavy destruction physics. Lumen GI is the biggest performance cost — disabling it boosts FPS significantly."
+    note:"UE5 with heavy destruction physics. Lumen GI is the biggest performance cost - disabling it boosts FPS significantly."
   },
   {
     name:"Battlefield 6", year:2025, genre:"FPS", base:215,
     cpuScale:1.3, ramSensitive:false, rtSupport:false, upscaleBoost:1.40,
     upscaleLabel:"DLSS 4 / FSR 3 / XeSS",
     presets:[{label:"Low",key:"Low"},{label:"Medium",key:"Medium"},{label:"High",key:"High"},{label:"Ultra",key:"Ultra"}],
-    note:"Frostbite engine — strong multi-core scaling and good optimisation across hardware tiers."
+    note:"Frostbite engine - strong multi-core scaling and good optimisation across hardware tiers."
   },
   {
     name:"Hunt: Showdown 1896", year:2024, genre:"FPS / PvPvE", base:145,
@@ -632,7 +632,7 @@ const GAMES = [
     cpuScale:1.4, ramSensitive:false, rtSupport:false, upscaleBoost:1.30,
     upscaleLabel:"NVIDIA DLSS 3",
     presets:[{label:"Standard",key:"Medium"},{label:"High",key:"High"},{label:"Maximum",key:"Ultra"}],
-    note:"Three official presets. Crowded hub cities are CPU-limited; instanced content runs much higher. DLSS only — no FSR."
+    note:"Three official presets. Crowded hub cities are CPU-limited; instanced content runs much higher. DLSS only - no FSR."
   },
   {
     name:"World of Warcraft", year:2024, genre:"MMORPG", base:200,
@@ -676,7 +676,7 @@ const GAMES = [
 const GAME_LIST = GAMES.filter((g, i, arr) => arr.findIndex(x => x.name === g.name) === i);
 
 // ── GPU Max TGP (watts) ───────────────────────────────────────────────────────
-// Maximum advertised TGP for each laptop GPU — the baseline our LAPTOP_GPU_MULT is calibrated to.
+// Maximum advertised TGP for each laptop GPU - the baseline our LAPTOP_GPU_MULT is calibrated to.
 const GPU_MAX_TGP = {
   "RTX 5090 Laptop":175,"RTX 5080 Laptop":150,"RTX 5070 Ti Laptop":115,
   "RTX 5070 Laptop":115,"RTX 5060 Laptop":115,
@@ -703,11 +703,11 @@ function tgpScaleFactor(tgp, gpuKey) {
 // ── Laptop model database ─────────────────────────────────────────────────────
 const LAPTOP_MODELS = [
   // ━━ LENOVO LOQ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // APH9 variant — Ryzen 7 7745HX (Dragon Range HX)
+  // APH9 variant - Ryzen 7 7745HX (Dragon Range HX)
   {brand:"Lenovo",model:"LOQ 15 APH9 (RTX 4050 / Ryzen 7 7745HX)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 7 7745HX",tgp:60,note:"All LOQ 15 GPUs are capped at 60W. Significant gap vs full-TGP laptops."},
-  // ARP9 variant — Ryzen 7 7735HS (Rembrandt-R Zen 3+) ← confirmed common config
+  // ARP9 variant - Ryzen 7 7735HS (Rembrandt-R Zen 3+) ← confirmed common config
   {brand:"Lenovo",model:"LOQ 15 ARP9 (RTX 4050 / Ryzen 7 7735HS)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 7 7735HS",tgp:60,note:"60W TGP. The Ryzen 7 7735HS is Zen 3+ (Rembrandt-R), not the newer Zen 4 7745HX variant."},
-  // ARP9 base variant — Ryzen 5 7535HS
+  // ARP9 base variant - Ryzen 5 7535HS
   {brand:"Lenovo",model:"LOQ 15 ARP9 (RTX 4050 / Ryzen 5 7535HS)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:60,note:"60W TGP. Base Rembrandt-R config."},
   // IRH9 Intel variant
   {brand:"Lenovo",model:"LOQ 15 IRH9 (RTX 4050 / Core i5-13420H)",gpu:"RTX 4050 Laptop",cpu:"Core i5-13420H",tgp:60},
@@ -737,7 +737,7 @@ const LAPTOP_MODELS = [
   {brand:"Lenovo",model:"Legion 7 Gen 9 (RTX 4090 / Ryzen 9 7945HX)",gpu:"RTX 4090 Laptop",cpu:"Ryzen 9 7945HX",tgp:175},
   {brand:"Lenovo",model:"Legion Pro 7i Gen 8 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:175,note:"One of the highest TGP laptop configurations available."},
   {brand:"Lenovo",model:"Legion Pro 7i Gen 8 (RTX 4090 / Core i9-13900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175},
-  {brand:"Lenovo",model:"Legion 9i Gen 8 (RTX 4090 / Core i9-13900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175,note:"Flagship Legion — liquid metal thermal compound, sustained 175W."},
+  {brand:"Lenovo",model:"Legion 9i Gen 8 (RTX 4090 / Core i9-13900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:175,note:"Flagship Legion - liquid metal thermal compound, sustained 175W."},
   {brand:"Lenovo",model:"Legion Slim 5 Gen 8 (RTX 4060 / Core i7-13700H)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700H",tgp:65,note:"Thin-and-light design limits TGP to 65W."},
 
   // ━━ ASUS TUF GAMING ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -774,11 +774,11 @@ const LAPTOP_MODELS = [
   {brand:"ASUS",model:"ROG Zephyrus G14 2023 (RTX 4060 / Ryzen 9 7940HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:80,note:"Switched back to NVIDIA in 2023. Thin chassis caps TGP at 80W."},
   {brand:"ASUS",model:"ROG Zephyrus G14 2023 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
   {brand:"ASUS",model:"ROG Zephyrus G14 2024 (RTX 4070 / Ryzen AI 9 HX 370)",gpu:"RTX 4070 Laptop",cpu:"Ryzen AI 9 HX 370",tgp:100},
-  {brand:"ASUS",model:"ROG Zephyrus G16 2024 (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:100,note:"2024 G16 (GU605) uses Intel Meteor Lake — not Raptor Lake. Thin chassis at 100W TGP."},
+  {brand:"ASUS",model:"ROG Zephyrus G16 2024 (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:100,note:"2024 G16 (GU605) uses Intel Meteor Lake - not Raptor Lake. Thin chassis at 100W TGP."},
   {brand:"ASUS",model:"ROG Zephyrus G16 2024 (RTX 4080 / Core Ultra 9 185H)",gpu:"RTX 4080 Laptop",cpu:"Core Ultra 9 185H",tgp:120,note:"2024 G16 Meteor Lake. 120W TGP for RTX 4080 in the slim chassis."},
   {brand:"ASUS",model:"ROG Zephyrus G16 2025 (RTX 5080 / Core Ultra 9 285H)",gpu:"RTX 5080 Laptop",cpu:"Core Ultra 9 285H",tgp:150},
   {brand:"ASUS",model:"ROG Zephyrus M16 (RTX 4090 / Core i9-13900H)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900H",tgp:150},
-  {brand:"ASUS",model:"ROG Flow X13 (RTX 4060 / Ryzen 9 7940HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:65,note:"Ultra-thin convertible — 65W TGP."},
+  {brand:"ASUS",model:"ROG Flow X13 (RTX 4060 / Ryzen 9 7940HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:65,note:"Ultra-thin convertible - 65W TGP."},
   {brand:"ASUS",model:"ROG Flow X13 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:75},
 
   // ━━ MSI (AMD GPU) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -803,22 +803,22 @@ const LAPTOP_MODELS = [
   {brand:"HP",model:"OMEN 16 (RX 6600M / Ryzen 7 6800H)",gpu:"RX 6600M",cpu:"Ryzen 7 6800H",tgp:80,note:"HP's AMD discrete GPU option. 80W TGP is below the RX 6600M's 100W max."},
 
   // ━━ HP (NVIDIA) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  {brand:"HP",model:"Victus 15 (RTX 4050 / Ryzen 5 7535HS)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:60,note:"Budget gaming — 60W TGP, same constraint as Lenovo LOQ."},
+  {brand:"HP",model:"Victus 15 (RTX 4050 / Ryzen 5 7535HS)",gpu:"RTX 4050 Laptop",cpu:"Ryzen 5 7535HS",tgp:60,note:"Budget gaming - 60W TGP, same constraint as Lenovo LOQ."},
   {brand:"HP",model:"Victus 15 (RTX 4060 / Ryzen 5 7535HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7535HS",tgp:80},
   {brand:"HP",model:"Victus 16 (RTX 4060 / Ryzen 5 7535HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7535HS",tgp:80},
-  {brand:"HP",model:"Victus 16 (RTX 4070 / Ryzen 7 7745HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HS",tgp:80,note:"HP caps the RTX 4070 at 80W on Victus — notably lower than most at 115W+."},
+  {brand:"HP",model:"Victus 16 (RTX 4070 / Ryzen 7 7745HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HS",tgp:80,note:"HP caps the RTX 4070 at 80W on Victus - notably lower than most at 115W+."},
   {brand:"HP",model:"OMEN 16 (RTX 4060 / Ryzen 7 7745HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HS",tgp:100},
   {brand:"HP",model:"OMEN 16 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:115},
   {brand:"HP",model:"OMEN 17 (RTX 4070 / Core i9-13900HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:125},
   {brand:"HP",model:"OMEN 17 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
-  {brand:"HP",model:"OMEN Transcend 16 (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:100,note:"Thin OMEN uses Meteor Lake (Core Ultra 9 185H) — different architecture from standard H-series. 100W TGP."},
+  {brand:"HP",model:"OMEN Transcend 16 (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:100,note:"Thin OMEN uses Meteor Lake (Core Ultra 9 185H) - different architecture from standard H-series. 100W TGP."},
 
   // ━━ DELL (AMD GPU) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  {brand:"Dell",model:"G15 5525 (RX 6700M / Ryzen 7 6800H)",gpu:"RX 6700M",cpu:"Ryzen 7 6800H",tgp:80,note:"Dell's AMD GPU G15 variant. 80W TGP — same cap as the NVIDIA G15 models."},
+  {brand:"Dell",model:"G15 5525 (RX 6700M / Ryzen 7 6800H)",gpu:"RX 6700M",cpu:"Ryzen 7 6800H",tgp:80,note:"Dell's AMD GPU G15 variant. 80W TGP - same cap as the NVIDIA G15 models."},
 
   // ━━ DELL / ALIENWARE (NVIDIA) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  {brand:"Dell",model:"G15 5530 (RTX 4060 / Core i7-13650HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell caps G15 at 80W — noticeably slower than RTX 4060 laptops at 100-115W."},
-  {brand:"Dell",model:"G15 5530 (RTX 4070 / Core i7-13650HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell G15 caps RTX 4070 at 80W — large gap vs competitors at 115W+."},
+  {brand:"Dell",model:"G15 5530 (RTX 4060 / Core i7-13650HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell caps G15 at 80W - noticeably slower than RTX 4060 laptops at 100-115W."},
+  {brand:"Dell",model:"G15 5530 (RTX 4070 / Core i7-13650HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13650HX",tgp:80,note:"Dell G15 caps RTX 4070 at 80W - large gap vs competitors at 115W+."},
   {brand:"Dell",model:"G16 7630 (RTX 4060 / Core i7-13650HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:100},
   {brand:"Dell",model:"G16 7630 (RTX 4070 / Core i7-13650HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13650HX",tgp:105},
   {brand:"Alienware",model:"m16 R2 (RTX 4070 / Core i7-13700HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700HX",tgp:125},
@@ -846,12 +846,12 @@ const LAPTOP_MODELS = [
   // ━━ RAZER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"Razer",model:"Blade 14 (RTX 4060 / Ryzen 9 7940HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 9 7940HS",tgp:80},
   {brand:"Razer",model:"Blade 14 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100},
-  {brand:"Razer",model:"Blade 15 (RTX 4070 / Core i7-13800H)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13800H",tgp:100,note:"Premium slim chassis — 100W is a good balance for the Blade's thin design."},
+  {brand:"Razer",model:"Blade 15 (RTX 4070 / Core i7-13800H)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13800H",tgp:100,note:"Premium slim chassis - 100W is a good balance for the Blade's thin design."},
   {brand:"Razer",model:"Blade 15 (RTX 4080 / Core i9-13900H)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900H",tgp:120},
   {brand:"Razer",model:"Blade 15 (RTX 4090 / Core i9-13900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13900HX",tgp:150},
   {brand:"Razer",model:"Blade 16 (RTX 4080 / Core i9-13980HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:120},
   {brand:"Razer",model:"Blade 16 (RTX 4090 / Core i9-13980HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13980HX",tgp:150},
-  {brand:"Razer",model:"Blade 16 2025 (RTX 5090 / Core Ultra 9 285HX)",gpu:"RTX 5090 Laptop",cpu:"Core Ultra 9 285HX",tgp:150,note:"2025 Blade 16 — thermal-limited to 150W despite RTX 5090 chip."},
+  {brand:"Razer",model:"Blade 16 2025 (RTX 5090 / Core Ultra 9 285HX)",gpu:"RTX 5090 Laptop",cpu:"Core Ultra 9 285HX",tgp:150,note:"2025 Blade 16 - thermal-limited to 150W despite RTX 5090 chip."},
 
   // ━━ GIGABYTE / AORUS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"Gigabyte",model:"G5 KF (RTX 4060 / Core i5-12500H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-12500H",tgp:80},
@@ -862,82 +862,82 @@ const LAPTOP_MODELS = [
   {brand:"Gigabyte",model:"AORUS 17 (RTX 4080 / Core i9-13900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13900HX",tgp:150},
 
   // ━━ FRAMEWORK ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  {brand:"Framework",model:"Framework 16 (RX 7700S / Ryzen 7 7840HS)",gpu:"RX 7700S",cpu:"Ryzen 7 7840HS",tgp:100,note:"Modular open-source laptop. RX 7700S GPU module at 100W. Uses Phoenix Ryzen 7 7840HS — NOT Dragon Range HX."},
+  {brand:"Framework",model:"Framework 16 (RX 7700S / Ryzen 7 7840HS)",gpu:"RX 7700S",cpu:"Ryzen 7 7840HS",tgp:100,note:"Modular open-source laptop. RX 7700S GPU module at 100W. Uses Phoenix Ryzen 7 7840HS - NOT Dragon Range HX."},
   {brand:"Framework",model:"Framework 16 (RX 7600M XT / Ryzen 9 7940HS)",gpu:"RX 7600M XT",cpu:"Ryzen 9 7940HS",tgp:100,note:"Higher-CPU config. RX 7600M XT at 100W. Framework 16 uses Phoenix HS chips, not Dragon Range HX."},
 
   // ━━ SAMSUNG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  {brand:"Samsung",model:"Galaxy Book4 Ultra (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:65,note:"Professional ultrabook — 65W TGP, much lower than gaming laptops."},
+  {brand:"Samsung",model:"Galaxy Book4 Ultra (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:65,note:"Professional ultrabook - 65W TGP, much lower than gaming laptops."},
 
-  // ━━ LENOVO — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ━━ LENOVO - additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"Lenovo",model:"LOQ 15 Gen 2 Intel (RTX 4060 / Core i5-14450HX)",gpu:"RTX 4060 Laptop",cpu:"Core i5-14450HX",tgp:60,note:"2024 LOQ 15 Gen 2 still caps GPU at 60W. RTX 4060 here performs significantly below other RTX 4060 laptops."},
   {brand:"Lenovo",model:"LOQ 15 Gen 2 Intel (RTX 4070 / Core i7-14650HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-14650HX",tgp:80},
   {brand:"Lenovo",model:"IdeaPad Gaming 3i (RTX 3060 / Core i5-12500H)",gpu:"RTX 3060 Laptop",cpu:"Core i5-12500H",tgp:80},
   {brand:"Lenovo",model:"Legion 5i Gen 8 (RTX 3070 Ti / Core i7-12700H)",gpu:"RTX 3070 Ti Laptop",cpu:"Core i7-12700H",tgp:125},
   {brand:"Lenovo",model:"Legion 5i Gen 9 (RTX 4060 / Core i7-13700HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700HX",tgp:115},
   {brand:"Lenovo",model:"Legion 5i Gen 9 (RTX 4070 / Core i7-13700HX)",gpu:"RTX 4070 Laptop",cpu:"Core i7-13700HX",tgp:115},
-  {brand:"Lenovo",model:"Legion Slim 7 Gen 8 (RTX 4060 / Ryzen 7 7840HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7840HS",tgp:80,note:"Thin Legion — 80W TGP to maintain the ultraslim chassis."},
-  {brand:"Lenovo",model:"Legion Slim 7 Gen 8 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100,note:"Higher CPU tier Slim 7. 100W — acceptable for a premium slim gaming laptop."},
+  {brand:"Lenovo",model:"Legion Slim 7 Gen 8 (RTX 4060 / Ryzen 7 7840HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7840HS",tgp:80,note:"Thin Legion - 80W TGP to maintain the ultraslim chassis."},
+  {brand:"Lenovo",model:"Legion Slim 7 Gen 8 (RTX 4070 / Ryzen 9 7940HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7940HS",tgp:100,note:"Higher CPU tier Slim 7. 100W - acceptable for a premium slim gaming laptop."},
   {brand:"Lenovo",model:"Legion 7 Gen 10 (RTX 5080 / Ryzen 9 9955HX)",gpu:"RTX 5080 Laptop",cpu:"Ryzen 9 9955HX",tgp:150},
   {brand:"Lenovo",model:"Legion 5 Gen 10 (RTX 5060 / Core i7-14650HX)",gpu:"RTX 5060 Laptop",cpu:"Core i7-14650HX",tgp:80},
   {brand:"Lenovo",model:"Legion 5 Gen 10 (RTX 5070 Ti / Core i9-14900HX)",gpu:"RTX 5070 Ti Laptop",cpu:"Core i9-14900HX",tgp:115},
 
-  // ━━ ASUS — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ━━ ASUS - additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"ASUS",model:"ROG Strix G16 2025 (RTX 5080 / Core i9-14900HX)",gpu:"RTX 5080 Laptop",cpu:"Core i9-14900HX",tgp:150},
   {brand:"ASUS",model:"ROG Strix G18 2025 (RTX 5090 / Core i9-14900HX)",gpu:"RTX 5090 Laptop",cpu:"Core i9-14900HX",tgp:175},
   {brand:"ASUS",model:"ROG Zephyrus G14 2025 (RTX 5070 / Ryzen AI 9 HX 370)",gpu:"RTX 5070 Laptop",cpu:"Ryzen AI 9 HX 370",tgp:100,note:"2025 G14 pairs Strix Point with Blackwell GPU. 100W in the thin chassis."},
   {brand:"ASUS",model:"ROG Strix SCAR 18 2025 (RTX 5090 / Core i9-14900HX)",gpu:"RTX 5090 Laptop",cpu:"Core i9-14900HX",tgp:175},
   {brand:"ASUS",model:"TUF Gaming A15 2024 (RTX 4060 / Ryzen 7 7435HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7435HS",tgp:100,note:"Budget-tier TUF A15 uses the Ryzen 7 7435HS. Still a solid performer at 100W GPU TGP."},
-  {brand:"ASUS",model:"VivoBook Pro 16X OLED (RTX 4060 / Core i9-13980HX)",gpu:"RTX 4060 Laptop",cpu:"Core i9-13980HX",tgp:60,note:"Content-creator laptop — flagship CPU but GPU severely power-limited at 60W for battery/thermals."},
-  {brand:"ASUS",model:"ProArt Studiobook 16 (RTX 4070 / Core i9-13980HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:80,note:"Workstation laptop — GPU TGP kept low for quiet sustained operation."},
+  {brand:"ASUS",model:"VivoBook Pro 16X OLED (RTX 4060 / Core i9-13980HX)",gpu:"RTX 4060 Laptop",cpu:"Core i9-13980HX",tgp:60,note:"Content-creator laptop - flagship CPU but GPU severely power-limited at 60W for battery/thermals."},
+  {brand:"ASUS",model:"ProArt Studiobook 16 (RTX 4070 / Core i9-13980HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:80,note:"Workstation laptop - GPU TGP kept low for quiet sustained operation."},
 
-  // ━━ MSI — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  {brand:"MSI",model:"Titan GT78 HX 2024 (RTX 4090 / Core i9-14900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-14900HX",tgp:175,note:"Desktop-replacement — no thermal compromises."},
+  // ━━ MSI - additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"MSI",model:"Titan GT78 HX 2024 (RTX 4090 / Core i9-14900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-14900HX",tgp:175,note:"Desktop-replacement - no thermal compromises."},
   {brand:"MSI",model:"Vector GP78 HX (RTX 4070 / Core i9-14900HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-14900HX",tgp:115},
   {brand:"MSI",model:"Vector GP78 HX (RTX 4080 / Core i9-14900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-14900HX",tgp:150},
-  {brand:"MSI",model:"Creator Z17 HX Studio (RTX 4070 / Core i9-13980HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:100,note:"Creator workstation — 100W TGP for sustained quiet operation."},
+  {brand:"MSI",model:"Creator Z17 HX Studio (RTX 4070 / Core i9-13980HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13980HX",tgp:100,note:"Creator workstation - 100W TGP for sustained quiet operation."},
   {brand:"MSI",model:"Sword 15 (RTX 4060 / Core i7-13620H)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13620H",tgp:100,note:"Mid-range MSI gaming laptop. Good value at 100W TGP."},
   {brand:"MSI",model:"Raider GE66 (RTX 3080 Ti / Core i9-12900H)",gpu:"RTX 3080 Ti Laptop",cpu:"Core i9-12900H",tgp:150},
 
-  // ━━ HP — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  {brand:"HP",model:"OMEN Max 16 (RTX 4090 / Core i9-14900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-14900HX",tgp:175,note:"HP flagship — full 175W TGP, no compromises."},
+  // ━━ HP - additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {brand:"HP",model:"OMEN Max 16 (RTX 4090 / Core i9-14900HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-14900HX",tgp:175,note:"HP flagship - full 175W TGP, no compromises."},
   {brand:"HP",model:"OMEN 16 Intel (RTX 4060 / Core i7-13700HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13700HX",tgp:100},
   {brand:"HP",model:"OMEN 16 Intel (RTX 4070 / Core i9-13900HX)",gpu:"RTX 4070 Laptop",cpu:"Core i9-13900HX",tgp:115},
   {brand:"HP",model:"Victus 15 Intel (RTX 4060 / Core i5-13420H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:80},
   {brand:"HP",model:"Victus 16 Intel (RTX 4060 / Core i5-13420H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:80},
   {brand:"HP",model:"OMEN 16 2025 (RTX 5070 Ti / Core Ultra 7 255H)",gpu:"RTX 5070 Ti Laptop",cpu:"Core Ultra 7 255H",tgp:115},
 
-  // ━━ DELL / ALIENWARE — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ━━ DELL / ALIENWARE - additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"Dell",model:"G15 5535 AMD (RTX 4060 / Ryzen 5 7640HS)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 5 7640HS",tgp:80,note:"AMD G15 variant with lower-tier CPU. Same 80W TGP constraint as Intel G15."},
   {brand:"Dell",model:"G15 5535 AMD (RTX 4070 / Ryzen 7 7745HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:80,note:"AMD G15 with Dragon Range CPU. GPU still capped at 80W."},
-  {brand:"Dell",model:"XPS 15 9530 (RTX 4060 / Core i9-13900H)",gpu:"RTX 4060 Laptop",cpu:"Core i9-13900H",tgp:80,note:"Premium ultraslim — GPU heavily constrained at 80W for the thin chassis."},
+  {brand:"Dell",model:"XPS 15 9530 (RTX 4060 / Core i9-13900H)",gpu:"RTX 4060 Laptop",cpu:"Core i9-13900H",tgp:80,note:"Premium ultraslim - GPU heavily constrained at 80W for the thin chassis."},
   {brand:"Alienware",model:"m16 R2 AMD (RTX 4070 / Ryzen 9 7945HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 7945HX",tgp:125},
 
-  // ━━ ACER — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ━━ ACER - additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"Acer",model:"Nitro V 15 Intel (RTX 4060 / Core i5-13420H)",gpu:"RTX 4060 Laptop",cpu:"Core i5-13420H",tgp:80},
   {brand:"Acer",model:"Nitro 5 AMD (RTX 4060 / Ryzen 7 7745HX)",gpu:"RTX 4060 Laptop",cpu:"Ryzen 7 7745HX",tgp:85},
   {brand:"Acer",model:"Nitro 5 AMD (RTX 4070 / Ryzen 7 7745HX)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 7 7745HX",tgp:115},
   {brand:"Acer",model:"Predator Triton Neo 16 (RTX 4070 / Core Ultra 9 185H)",gpu:"RTX 4070 Laptop",cpu:"Core Ultra 9 185H",tgp:100,note:"Thin Predator using Meteor Lake. 100W is solid for the slim chassis."},
   {brand:"Acer",model:"Predator Triton Neo 16 (RTX 4080 / Core Ultra 9 185H)",gpu:"RTX 4080 Laptop",cpu:"Core Ultra 9 185H",tgp:120},
 
-  // ━━ RAZER — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ━━ RAZER - additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"Razer",model:"Blade 14 2024 (RTX 4070 / Ryzen 9 8945HS)",gpu:"RTX 4070 Laptop",cpu:"Ryzen 9 8945HS",tgp:100,note:"2024 Blade 14 upgrades to Hawk Point (Ryzen 9 8945HS). Same 100W TGP."},
-  {brand:"Razer",model:"Blade 18 (RTX 4090 / Core i9-13950HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13950HX",tgp:175,note:"Desktop-replacement Razer Blade 18 — full 175W TGP, no thermal compromise."},
+  {brand:"Razer",model:"Blade 18 (RTX 4090 / Core i9-13950HX)",gpu:"RTX 4090 Laptop",cpu:"Core i9-13950HX",tgp:175,note:"Desktop-replacement Razer Blade 18 - full 175W TGP, no thermal compromise."},
   {brand:"Razer",model:"Blade 16 2025 (RTX 5090 / Core Ultra 9 285HX)",gpu:"RTX 5090 Laptop",cpu:"Core Ultra 9 285HX",tgp:150},
 
-  // ━━ GIGABYTE — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ━━ GIGABYTE - additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"Gigabyte",model:"AORUS Master 16 (RTX 4080 / Core i9-14900HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-14900HX",tgp:150},
   {brand:"Gigabyte",model:"AORUS 16X (RTX 4080 / Core i9-13980HX)",gpu:"RTX 4080 Laptop",cpu:"Core i9-13980HX",tgp:150},
   {brand:"Gigabyte",model:"G7 KF (RTX 4060 / Core i7-13650HX)",gpu:"RTX 4060 Laptop",cpu:"Core i7-13650HX",tgp:100},
 
-  // ━━ SAMSUNG — additional ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ━━ SAMSUNG - additional ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"Samsung",model:"Galaxy Book4 Ultra (RTX 4080 / Core Ultra 9 185H)",gpu:"RTX 4080 Laptop",cpu:"Core Ultra 9 185H",tgp:80,note:"Even the RTX 4080 is limited to 80W in this ultra-slim chassis. Prioritises battery life."},
 
-  // ━━ AMD GPU — additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ━━ AMD GPU - additional configs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   {brand:"ASUS",model:"ROG Strix SCAR 16 2024 AMD (RX 7900M / Ryzen 9 7945HX)",gpu:"RX 7900M",cpu:"Ryzen 9 7945HX",tgp:150,note:"All-AMD flagship. RX 7900M at 150W is competitive with RTX 4080 Laptop."},
-  {brand:"Lenovo",model:"Legion 5 Gen 7 AMD (RX 6700M / Ryzen 7 6800H)",gpu:"RX 6700M",cpu:"Ryzen 7 6800H",tgp:100,note:"2022 all-AMD Legion — solid 1080p/1440p performer."},
-  {brand:"Lenovo",model:"Legion 5 Gen 8 AMD (RX 7600M XT / Ryzen 7 7745HX)",gpu:"RX 7600M XT",cpu:"Ryzen 7 7745HX",tgp:120,note:"2023 all-AMD — RX 7600M XT is a capable 1080p/1440p GPU."},
-  {brand:"HP",model:"OMEN 16 2022 AMD (RX 6650M / Ryzen 7 6800H)",gpu:"RX 6600M",cpu:"Ryzen 7 6800H",tgp:80,note:"2022 all-AMD OMEN. RX 6650M performs similarly to RX 6600M — mapped to closest available key."},
-  {brand:"MSI",model:"Bravo 15 B7ED (RX 7600M / Ryzen 7 7745HX)",gpu:"RX 7600M",cpu:"Ryzen 7 7745HX",tgp:80,note:"2023 all-AMD MSI. RX 7600M at 80W — solid budget gaming GPU."},
+  {brand:"Lenovo",model:"Legion 5 Gen 7 AMD (RX 6700M / Ryzen 7 6800H)",gpu:"RX 6700M",cpu:"Ryzen 7 6800H",tgp:100,note:"2022 all-AMD Legion - solid 1080p/1440p performer."},
+  {brand:"Lenovo",model:"Legion 5 Gen 8 AMD (RX 7600M XT / Ryzen 7 7745HX)",gpu:"RX 7600M XT",cpu:"Ryzen 7 7745HX",tgp:120,note:"2023 all-AMD - RX 7600M XT is a capable 1080p/1440p GPU."},
+  {brand:"HP",model:"OMEN 16 2022 AMD (RX 6650M / Ryzen 7 6800H)",gpu:"RX 6600M",cpu:"Ryzen 7 6800H",tgp:80,note:"2022 all-AMD OMEN. RX 6650M performs similarly to RX 6600M - mapped to closest available key."},
+  {brand:"MSI",model:"Bravo 15 B7ED (RX 7600M / Ryzen 7 7745HX)",gpu:"RX 7600M",cpu:"Ryzen 7 7745HX",tgp:80,note:"2023 all-AMD MSI. RX 7600M at 80W - solid budget gaming GPU."},
   {brand:"Acer",model:"Nitro 5 2022 AMD (RX 6600M / Ryzen 7 6800H)",gpu:"RX 6600M",cpu:"Ryzen 7 6800H",tgp:80},
 
   // ━━ 2025 HIGH-END MODELS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -984,7 +984,7 @@ function estimateFPS(gpuKey, cpuKey, ramKey, ramType, resolution, qualityKey, ga
   }
 
   // CPU ceiling for this game/resolution.
-  // RAM type (DDR4 vs DDR5) applied here — bandwidth feeds CPU throughput; effect is
+  // RAM type (DDR4 vs DDR5) applied here - bandwidth feeds CPU throughput; effect is
   // meaningful in CPU-limited/esports titles, invisible when the GPU is the bottleneck.
   const cpuResFactor = resolution === "1080p" ? 1.5 : resolution === "4K" ? 0.5 : 1.0;
   const cpuCeiling = cpuFPS * game.cpuScale * cpuResFactor * (isLaptop ? 0.93 : 1.0) * ramTMult;
@@ -1066,7 +1066,7 @@ function handleModelSearch() {
 
   var results = searchLaptopModels(q);
   if (results.length === 0) {
-    box.innerHTML = '<div style="padding:0.75rem 1rem; font-size:0.82rem; color:#8888a0;">No matching models found — select your GPU manually and results will assume max TGP.</div>';
+    box.innerHTML = '<div style="padding:0.75rem 1rem; font-size:0.82rem; color:#8888a0;">No matching models found - select your GPU manually and results will assume max TGP.</div>';
     box.style.display = "block";
     return;
   }
@@ -1244,7 +1244,7 @@ function runFPSEstimate() {
       if (tgpPct > 5) {
         tgpNote = '<div style="background:rgba(0,200,255,0.05); border:1px solid rgba(0,200,255,0.2); border-left:3px solid var(--accent); ' +
           'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
-          '<span style="display:inline-block;font-family:monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;background:rgba(0,0,0,0.2);border:1px solid var(--accent);color:var(--accent);border-radius:3px;padding:0.1rem 0.35rem;margin-right:0.4rem;vertical-align:middle;">INFO</span><strong style="color:var(--accent);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> — ' +
+          '<span style="display:inline-block;font-family:monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;background:rgba(0,0,0,0.2);border:1px solid var(--accent);color:var(--accent);border-radius:3px;padding:0.1rem 0.35rem;margin-right:0.4rem;vertical-align:middle;">INFO</span><strong style="color:var(--accent);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> - ' +
           'GPU TGP: <strong>' + selectedLaptopModel.tgp + 'W</strong> (max is ' + maxTGP + 'W). ' +
           'A <strong>' + tgpPct + '% performance adjustment</strong> has been applied to reflect your laptop\'s actual power limit.' +
           (selectedLaptopModel.note ? ' <em style="color:#555568;">' + selectedLaptopModel.note + '</em>' : '') +
@@ -1252,15 +1252,15 @@ function runFPSEstimate() {
       } else {
         tgpNote = '<div style="background:rgba(34,212,126,0.05); border:1px solid rgba(34,212,126,0.2); border-left:3px solid var(--safe); ' +
           'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
-          '<span style="display:inline-block;font-family:monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;background:rgba(0,0,0,0.2);border:1px solid var(--safe);color:var(--safe);border-radius:3px;padding:0.1rem 0.35rem;margin-right:0.4rem;vertical-align:middle;">OK</span><strong style="color:var(--safe);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> — ' +
+          '<span style="display:inline-block;font-family:monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;background:rgba(0,0,0,0.2);border:1px solid var(--safe);color:var(--safe);border-radius:3px;padding:0.1rem 0.35rem;margin-right:0.4rem;vertical-align:middle;">OK</span><strong style="color:var(--safe);">Model matched: ' + selectedLaptopModel.brand + ' ' + selectedLaptopModel.model + '</strong> - ' +
           'GPU running at full <strong>' + selectedLaptopModel.tgp + 'W TGP</strong>. Estimate is well-calibrated for your configuration.' +
           '</div>';
       }
     } else {
-      // No model specified — warn about TGP assumption
+      // No model specified - warn about TGP assumption
       tgpNote = '<div style="background:rgba(255,170,0,0.05); border:1px solid rgba(255,170,0,0.2); border-left:3px solid var(--warm); ' +
         'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
-        '<span style="display:inline-block;font-family:monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;background:rgba(0,0,0,0.2);border:1px solid var(--warn);color:var(--warn);border-radius:3px;padding:0.1rem 0.35rem;margin-right:0.4rem;vertical-align:middle;">WARN</span><strong style="color:var(--warm);">No laptop model specified</strong> — estimate assumes near-maximum TGP for this GPU. ' +
+        '<span style="display:inline-block;font-family:monospace;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;background:rgba(0,0,0,0.2);border:1px solid var(--warn);color:var(--warn);border-radius:3px;padding:0.1rem 0.35rem;margin-right:0.4rem;vertical-align:middle;">WARN</span><strong style="color:var(--warm);">No laptop model specified</strong> - estimate assumes near-maximum TGP for this GPU. ' +
         'Budget and mid-range gaming laptops often run GPUs at 30–40% below their maximum TGP, which can reduce real-world FPS significantly. ' +
         '<strong style="color:var(--warm);">Enter your laptop model above</strong> for a more accurate, TGP-adjusted estimate.' +
         '</div>';
@@ -1309,7 +1309,7 @@ function runFPSEstimate() {
       '<div style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.2); border-left:3px solid var(--accent); ' +
       'border-radius:6px; padding:0.75rem 1rem; font-size:0.82rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">' +
       '<strong style="color:var(--accent);">With ' + upLabel + ' Quality Mode:</strong> ~' + est.dlssFPS +
-      ' FPS — upscaling from a lower resolution delivers significantly more frames with minimal visual impact.' +
+      ' FPS - upscaling from a lower resolution delivers significantly more frames with minimal visual impact.' +
       (isLaptop ? ' <strong style="color:var(--accent);">Highly recommended on laptops</strong> to recover performance lost to thermal constraints.' : ' Strongly recommended for this title.') +
       '</div>';
   }
@@ -1366,7 +1366,7 @@ function runFPSEstimate() {
       '<strong style="color:var(--text);">About ' + selectedGame.name + ':</strong> ' + selectedGame.note + '</div>' +
     '<div style="font-size:0.7rem; color:#555568; margin-top:0.875rem; line-height:1.6; padding-top:0.75rem; border-top:1px solid var(--border);">' +
       'Estimates based on aggregated benchmark data at native resolution without upscaling. ' +
-      (isLaptop ? 'Laptop estimates use average TGP configurations — actual performance varies ±20% based on OEM cooling and power limits. ' : '') +
+      (isLaptop ? 'Laptop estimates use average TGP configurations - actual performance varies ±20% based on OEM cooling and power limits. ' : '') +
       'Actual performance varies by scene, driver version, and system configuration. Numbers are approximate ±10–15%.</div>' +
 
     // ── Accuracy feedback bar ──────────────────────────────────────────────
@@ -1413,7 +1413,7 @@ function handleThumbsUp() {
   var bar = document.getElementById("fps-thumbs-bar");
   if (bar) bar.innerHTML =
     '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:var(--safe);">' +
-    '✓ Thanks — helps us validate our data!</span>';
+    '✓ Thanks - helps us validate our data!</span>';
 }
 // handleThumbsDown is wired directly to window.openFB in the result HTML
 
@@ -1433,7 +1433,7 @@ document.addEventListener("click", function(e) {
 function handleThumbsUp() {
   var bar = document.getElementById("fps-thumbs-bar");
   var inline = document.getElementById("fps-inline-feedback");
-  if (bar) bar.innerHTML = '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:var(--safe);"> Thanks — helps us validate our data!</span>';
+  if (bar) bar.innerHTML = '<span style="font-family:\'JetBrains Mono\',monospace; font-size:0.72rem; color:var(--safe);"> Thanks - helps us validate our data!</span>';
   if (inline) inline.style.display = "none";
   // Send a silent positive signal (no email needed)
 }
@@ -1500,10 +1500,10 @@ function submitInlineFeedback() {
   statusEl.textContent = "Sending...";
   statusEl.style.color = "#8888a0";
 
-  sendToWeb3Forms("TempCore — FPS Calibration Report [" + lastEstimate.game + " / " + lastEstimate.gpu + "]", message, function(ok) {
+  sendToWeb3Forms("TempCore - FPS Calibration Report [" + lastEstimate.game + " / " + lastEstimate.gpu + "]", message, function(ok) {
     if (ok) {
       document.getElementById("fps-inline-feedback").innerHTML =
-        '<div style="padding:0.5rem 0; font-family:\'JetBrains Mono\',monospace; font-size:0.78rem; color:var(--safe);"> Sent — thank you! This helps us calibrate the ' + lastEstimate.gpu + ' multiplier.</div>';
+        '<div style="padding:0.5rem 0; font-family:\'JetBrains Mono\',monospace; font-size:0.78rem; color:var(--safe);"> Sent - thank you! This helps us calibrate the ' + lastEstimate.gpu + ' multiplier.</div>';
       var bar = document.getElementById("fps-thumbs-bar");
       if (bar) bar.style.display = "none";
     } else {

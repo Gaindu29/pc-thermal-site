@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About TempCore — Methodology, Data Sources & Team | TempCore</title>
+  <title>About TempCore - Methodology, Data Sources & Team | TempCore</title>
   <meta name="description" content="How TempCore gathers benchmark data, calculates FPS estimates, and validates accuracy. Full methodology, source list, and example validation comparisons.">
   <meta name="keywords" content="TempCore methodology, GPU benchmark sources, FPS estimator accuracy, PC hardware data sources, TempCore team">
 
@@ -13,7 +13,7 @@
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
   <meta property="og:site_name"   content="TempCore">
-  <meta property="og:title"       content="About TempCore — Methodology, Data Sources & Team | TempCore">
+  <meta property="og:title"       content="About TempCore - Methodology, Data Sources & Team | TempCore">
   <meta property="og:description" content="How TempCore gathers benchmark data, calculates FPS estimates, and validates accuracy.">
   <meta property="og:url"         content="https://temp-core.com/about.html">
 
@@ -46,7 +46,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* Pre-paint theme + sidebar state — prevents flash on load */
+    /* Pre-paint theme + sidebar state - prevents flash on load */
     (function () {
       try {
         var t = localStorage.getItem('tc_theme'); if (!t) {
@@ -121,7 +121,7 @@
           <h2 class="font-display text-3xl">Built by Enthusiasts,<br>for Gamers</h2>
         </div>
         <div class="md:col-span-2" style="color:#b0b0c8; line-height:1.8; font-size:0.9rem;">
-          <p style="margin-bottom:1rem;">TempCore is an independent PC hardware resource maintained by a team of hardware enthusiasts and gamers. We built the tools we wanted to exist — a straightforward FPS estimator that actually accounts for CPU ceilings and laptop TGP limits, a GPU temperature checker based on real thermal spec sheets, and guides grounded in real benchmark data rather than anecdote.</p>
+          <p style="margin-bottom:1rem;">TempCore is an independent PC hardware resource maintained by a team of hardware enthusiasts and gamers. We built the tools we wanted to exist - a straightforward FPS estimator that actually accounts for CPU ceilings and laptop TGP limits, a GPU temperature checker based on real thermal spec sheets, and guides grounded in real benchmark data rather than anecdote.</p>
           <p style="margin-bottom:1rem;">All tools are free, ad-free, and have no paywalls. We generate no revenue from product recommendations. Our only goal is to help people understand their hardware.</p>
           <p>This About page documents exactly how each tool works, where the numbers come from, and the limitations you should be aware of. If you spot an error or a missing model, the feedback link in the footer is the fastest way to reach us.</p>
         </div>
@@ -139,19 +139,19 @@
         <div class="card p-5">
           <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Step 1</div>
           <h3 class="font-semibold text-base mb-2" style="color:var(--text);">GPU Performance Multipliers</h3>
-          <p style="color:#8888a0; font-size:0.82rem; line-height:1.65;">Each desktop GPU is assigned a multiplier relative to the RTX 4090 at 1440p High (= 1.0). These are weighted averages derived from aggregated benchmark data across GamersNexus, Digital Foundry, TechPowerUp, and HardwareUnboxed reviews — typically 6–10 titles per GPU. We do not cherry-pick scenes or use synthetic benchmarks.</p>
+          <p style="color:#8888a0; font-size:0.82rem; line-height:1.65;">Each desktop GPU is assigned a multiplier relative to the RTX 4090 at 1440p High (= 1.0). These are weighted averages derived from aggregated benchmark data across GamersNexus, Digital Foundry, TechPowerUp, and HardwareUnboxed reviews - typically 6–10 titles per GPU. We do not cherry-pick scenes or use synthetic benchmarks.</p>
         </div>
 
         <!-- Step 2: CPU Ceiling -->
         <div class="card p-5">
           <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--warm); margin-bottom:0.5rem;">Step 2</div>
           <h3 class="font-semibold text-base mb-2" style="color:var(--text);">CPU Gaming Ceiling</h3>
-          <p style="color:#8888a0; font-size:0.82rem; line-height:1.65;">Each CPU has a maximum gaming FPS ceiling — the point beyond which the GPU can't push frames faster regardless of GPU tier. Values are derived from GPU-bottleneck-excluded benchmarks (pairs like i9-14900K + RTX 4090 at 1080p Low) sourced from GamersNexus and TechPowerUp CPU gaming charts. The final FPS = min(gpuFPS, cpuCeiling).</p>
+          <p style="color:#8888a0; font-size:0.82rem; line-height:1.65;">Each CPU has a maximum gaming FPS ceiling - the point beyond which the GPU can't push frames faster regardless of GPU tier. Values are derived from GPU-bottleneck-excluded benchmarks (pairs like i9-14900K + RTX 4090 at 1080p Low) sourced from GamersNexus and TechPowerUp CPU gaming charts. The final FPS = min(gpuFPS, cpuCeiling).</p>
         </div>
 
         <!-- Step 3: Laptop TGP -->
         <div class="card p-5">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--hot); margin-bottom:0.5rem;">Step 3 — Laptop</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--hot); margin-bottom:0.5rem;">Step 3 - Laptop</div>
           <h3 class="font-semibold text-base mb-2" style="color:var(--text);">Laptop TGP Scaling</h3>
           <p style="color:#8888a0; font-size:0.82rem; line-height:1.65;">Laptop GPU multipliers are calibrated at maximum TGP. When a specific laptop model is entered, the actual manufacturer TGP (sourced from NotebookCheck.net and official spec sheets) is applied via an empirical formula: <code style="color:var(--accent); font-size:0.8em;">scale = 0.45 + 0.55 × (tgp / maxTGP)</code>. This reflects the non-linear relationship between power limit and GPU performance observed across 50+ laptop reviews.</p>
         </div>
@@ -180,7 +180,7 @@
 
       <!-- Validation table -->
       <div>
-        <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.75rem;">Validation — Estimates vs Real Benchmarks</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#8888a0; margin-bottom:0.75rem;">Validation - Estimates vs Real Benchmarks</div>
         <p style="color:#8888a0; font-size:0.82rem; margin-bottom:1rem; line-height:1.6;">Sample comparisons between TempCore estimates and published benchmark averages (averaged across GamersNexus, TechPowerUp, and Digital Foundry where all three cover the config). Native resolution, no upscaling.</p>
         <div class="card overflow-hidden">
           <table class="val-table">
@@ -357,7 +357,7 @@
       <div class="grid md:grid-cols-2 gap-8">
         <div style="color:#b0b0c8; font-size:0.88rem; line-height:1.8;">
           <p style="margin-bottom:1rem;">GPU safe-temperature ranges in the checker tool are derived from manufacturer TJ Max specifications (the point at which thermal throttling begins, per official data sheets) combined with community-validated safe gaming thresholds from TechPowerUp and Gamers Nexus thermal testing.</p>
-          <p>Junction temperature (hotspot) data for modern Ampere, Ada Lovelace, and RDNA 2/3 GPUs is sourced from TechPowerUp reviews and NVIDIA/AMD documentation. Hotspot temps can run 10–20°C above core temperature — our checker accounts for this when flagging hotspot warnings.</p>
+          <p>Junction temperature (hotspot) data for modern Ampere, Ada Lovelace, and RDNA 2/3 GPUs is sourced from TechPowerUp reviews and NVIDIA/AMD documentation. Hotspot temps can run 10–20°C above core temperature - our checker accounts for this when flagging hotspot warnings.</p>
         </div>
         <div>
           <div class="card p-5">
@@ -389,7 +389,7 @@
     <div class="about-section">
       <div class="section-label mb-2">Feedback</div>
       <h2 class="font-display text-3xl mb-4">Found an Error? Missing a GPU?</h2>
-      <p style="color:#8888a0; font-size:0.88rem; line-height:1.7; max-width:580px; margin-bottom:1.5rem;">Our databases are maintained manually. If you spot a wrong CPU spec in the laptop database, an incorrect TGP value, a missing GPU model, or a game FPS estimate that's clearly off — please let us know. Use the thumbs-down button in any tool, or mention the specific config (GPU + game + resolution + actual FPS you're seeing).</p>
+      <p style="color:#8888a0; font-size:0.88rem; line-height:1.7; max-width:580px; margin-bottom:1.5rem;">Our databases are maintained manually. If you spot a wrong CPU spec in the laptop database, an incorrect TGP value, a missing GPU model, or a game FPS estimate that's clearly off - please let us know. Use the thumbs-down button in any tool, or mention the specific config (GPU + game + resolution + actual FPS you're seeing).</p>
       <div class="card p-5" style="max-width:480px; border-color:rgba(0,200,255,0.2);">
         <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Data Update Policy</div>
         <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">New GPU and laptop models are added within 4–6 weeks of release once sufficient benchmark data is available from at least two independent sources. Database updates are noted in the tool's "Last Updated" date.</p>

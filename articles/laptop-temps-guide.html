@@ -43,7 +43,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* Pre-paint theme + sidebar state — prevents flash on load */
+    /* Pre-paint theme + sidebar state - prevents flash on load */
     (function () {
       try {
         var t = localStorage.getItem('tc_theme'); if (!t) {
@@ -82,13 +82,13 @@
         <p style="color:#8888a0; font-size:0.85rem; font-family:'JetBrains Mono',monospace; margin-bottom:2rem;">Published January 2026 &nbsp;·&nbsp; Updated May 2026 &nbsp;·&nbsp; By TempCore Editorial Team &nbsp;·&nbsp; 10 min read</p>
 
         <div class="callout" style="background:rgba(0,200,255,0.06); border-left-color:var(--accent); margin-bottom:2rem;">
-          <strong style="color:var(--text);">Short answer:</strong> Gaming laptop CPUs running 85–95°C and GPUs running 80–88°C during gaming are normal — not a problem. Thermal throttling is the real signal to watch for, not the number itself.
+          <strong style="color:var(--text);">Short answer:</strong> Gaming laptop CPUs running 85–95°C and GPUs running 80–88°C during gaming are normal - not a problem. Thermal throttling is the real signal to watch for, not the number itself.
         </div>
 
         <div class="article-body">
 
           <h2>Why Laptops Run Hotter Than Desktops</h2>
-          <p>Gaming laptops are fundamentally constrained by their chassis. A desktop RTX 4080 sits in an ATX case with 150mm+ fans, centimetres of airflow clearance, and up to 500W of dedicated cooling. A laptop RTX 4080 operates inside a chassis roughly 20mm thick, with heat pipes routing thermal energy to two small exhaust vents. The engineering challenge is immense — and the result is that laptop components run <strong>5–15°C hotter</strong> than their desktop equivalents under the same workload.</p>
+          <p>Gaming laptops are fundamentally constrained by their chassis. A desktop RTX 4080 sits in an ATX case with 150mm+ fans, centimetres of airflow clearance, and up to 500W of dedicated cooling. A laptop RTX 4080 operates inside a chassis roughly 20mm thick, with heat pipes routing thermal energy to two small exhaust vents. The engineering challenge is immense - and the result is that laptop components run <strong>5–15°C hotter</strong> than their desktop equivalents under the same workload.</p>
           <p>This is not a failure of design. It is the inevitable physics of packing high-performance silicon into a portable form factor. Manufacturers design laptop GPUs and CPUs with higher TJ Max values specifically to account for this thermal reality.</p>
 
           <h2>Normal Temperature Ranges for Gaming Laptops</h2>
@@ -140,8 +140,8 @@
             <strong style="color:var(--text);">Note on laptop CPUs:</strong> Laptop CPUs routinely reach 95–100°C during gaming. This is within spec. Intel's 12th/13th Gen laptop parts have a TJ Max of 100°C and will boost up to that limit. Unlike desktops where 90°C is concerning, 95°C is normal behaviour for a laptop CPU under load.
           </div>
 
-          <h2>What Is Thermal Throttling — and How to Detect It</h2>
-          <p>Thermal throttling is when the processor or GPU <strong>reduces its clock speed</strong> to lower heat output and stay within safe operating bounds. The temperature itself is not the problem — throttling is. A laptop running at 88°C without throttling is performing better than a laptop at 80°C that is throttled.</p>
+          <h2>What Is Thermal Throttling - and How to Detect It</h2>
+          <p>Thermal throttling is when the processor or GPU <strong>reduces its clock speed</strong> to lower heat output and stay within safe operating bounds. The temperature itself is not the problem - throttling is. A laptop running at 88°C without throttling is performing better than a laptop at 80°C that is throttled.</p>
 
           <h3>Signs of active throttling</h3>
           <ul>
@@ -155,13 +155,13 @@
           <p>To verify throttling: open HWiNFO64, enable the sensors panel, and watch the CPU/GPU clock speeds during a gaming session. If the CPU is rated for 4.5 GHz boost and sustains only 3.2 GHz, it is thermally limited.</p>
 
           <h2>Performance Modes: The Biggest Variable</h2>
-          <p>Most gaming laptops ship with vendor software offering performance mode toggles — ASUS Armoury Crate, MSI Center, Lenovo Vantage, and others. These modes directly control the power limits (TDP) given to the CPU and GPU:</p>
+          <p>Most gaming laptops ship with vendor software offering performance mode toggles - ASUS Armoury Crate, MSI Center, Lenovo Vantage, and others. These modes directly control the power limits (TDP) given to the CPU and GPU:</p>
           <ul>
             <li><strong>Silent / Eco mode:</strong> Low TDP, lower temps, noticeably reduced performance. Good for browsing, not gaming.</li>
             <li><strong>Balanced mode:</strong> Moderate TDP. A practical daily-driver for lighter gaming.</li>
             <li><strong>Performance / Turbo mode:</strong> Full TDP. Maximum performance, maximum heat and fan noise.</li>
           </ul>
-          <p>Switching from Balanced to Turbo mode can increase gaming performance by 15–25% on the same hardware — and will raise temperatures by 5–10°C. This is a worthwhile trade on a well-cooled laptop; on a thermally challenged one, Balanced mode may actually yield better sustained performance due to less throttling.</p>
+          <p>Switching from Balanced to Turbo mode can increase gaming performance by 15–25% on the same hardware - and will raise temperatures by 5–10°C. This is a worthwhile trade on a well-cooled laptop; on a thermally challenged one, Balanced mode may actually yield better sustained performance due to less throttling.</p>
 
           <h2>Every Cooling Method Ranked by Effectiveness</h2>
 
@@ -222,20 +222,20 @@
           </table>
 
           <h3>Repasting: The Highest-Impact Fix</h3>
-          <p>Gaming laptops often ship with mediocre thermal compound that degrades over 12–24 months of regular use. Replacing it with quality paste (<a href="https://amzn.to/4u9MdrV" target="_blank" rel="nofollow noopener">Thermal Grizzly Kryonaut</a>, <a href="https://amzn.to/49pWQPO" target="_blank" rel="nofollow noopener">Arctic MX-6</a>) can recover 8–15°C on laptops that are 1–2 years old. This requires full disassembly — if you're not comfortable doing this, many laptop repair shops offer repasting as a service.</p>
+          <p>Gaming laptops often ship with mediocre thermal compound that degrades over 12–24 months of regular use. Replacing it with quality paste (<a href="https://amzn.to/4u9MdrV" target="_blank" rel="nofollow noopener">Thermal Grizzly Kryonaut</a>, <a href="https://amzn.to/49pWQPO" target="_blank" rel="nofollow noopener">Arctic MX-6</a>) can recover 8–15°C on laptops that are 1–2 years old. This requires full disassembly - if you're not comfortable doing this, many laptop repair shops offer repasting as a service.</p>
 
           <h3>Cooling Pads: What Actually Works</h3>
-          <p>Cooling pads like the <a href="https://amzn.to/3QeBC0J" target="_blank" rel="nofollow noopener">Cooler Master NotePal X3</a> and <a href="https://amzn.to/3SbxbnS" target="_blank" rel="nofollow noopener">laptop cooling pad</a> are most effective on laptops that have <strong>bottom intake vents</strong> — the fans draw in cool air from below. If your laptop vents only on the sides or rear, a cooling pad will have minimal impact. Check your laptop's vent location before purchasing.</p>
-          <p>Avoid thin passive pads that only elevate the laptop — they provide minimal benefit over a book. Look for pads with at least two 140mm+ fans (Cooler Master Notepal series, KLIM Wind) that actively force cool air into the intake vents.</p>
+          <p>Cooling pads like the <a href="https://amzn.to/3QeBC0J" target="_blank" rel="nofollow noopener">Cooler Master NotePal X3</a> and <a href="https://amzn.to/3SbxbnS" target="_blank" rel="nofollow noopener">laptop cooling pad</a> are most effective on laptops that have <strong>bottom intake vents</strong> - the fans draw in cool air from below. If your laptop vents only on the sides or rear, a cooling pad will have minimal impact. Check your laptop's vent location before purchasing.</p>
+          <p>Avoid thin passive pads that only elevate the laptop - they provide minimal benefit over a book. Look for pads with at least two 140mm+ fans (Cooler Master Notepal series, KLIM Wind) that actively force cool air into the intake vents.</p>
 
           <h2>When Should You Actually Be Worried?</h2>
           <p>Worry if you see:</p>
           <ul>
             <li><strong>Sustained CPU temperatures above 100°C</strong> causing hard throttling that reduces gaming performance below 30 FPS</li>
-            <li><strong>Sudden shutdowns</strong> mid-game — this indicates the thermal protection system has triggered a hard cutoff</li>
-            <li><strong>Temps rising over time</strong> in the same game at the same settings — suggests dust accumulation or paste degradation</li>
-            <li><strong>Fan grinding or irregular noises</strong> — a failing fan is a thermal emergency</li>
-            <li><strong>The laptop chassis is uncomfortably hot to the touch</strong> during gaming — external case temps above 50°C are unusual and indicate poor thermal dissipation</li>
+            <li><strong>Sudden shutdowns</strong> mid-game - this indicates the thermal protection system has triggered a hard cutoff</li>
+            <li><strong>Temps rising over time</strong> in the same game at the same settings - suggests dust accumulation or paste degradation</li>
+            <li><strong>Fan grinding or irregular noises</strong> - a failing fan is a thermal emergency</li>
+            <li><strong>The laptop chassis is uncomfortably hot to the touch</strong> during gaming - external case temps above 50°C are unusual and indicate poor thermal dissipation</li>
           </ul>
 
           <p>Don't worry about: a CPU hitting 95°C on Intel mobile, a GPU at 83°C, high fan noise at full load, or temps being higher than you expected compared to reviews. These are normal characteristics of gaming laptops.</p>

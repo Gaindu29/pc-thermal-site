@@ -1,5 +1,5 @@
 /**
- * TempCore — SSD Health Checker (v2)
+ * TempCore - SSD Health Checker (v2)
  * Inputs: drive type + temperature only
  */
 
@@ -45,7 +45,7 @@ const TIERS = {
 
 const SUGGESTIONS = {
   safe: [
-    "SSD temperature is in the healthy operating range — no action needed.",
+    "SSD temperature is in the healthy operating range - no action needed.",
     "Read and write speeds are at full capacity with no thermal throttling.",
     "Continue monitoring temperature during intensive tasks like large file transfers.",
   ],
@@ -53,10 +53,10 @@ const SUGGESTIONS = {
     "Temperature is elevated. Ensure good airflow over the SSD or its heatsink.",
     "For NVMe drives: a passive aluminium M.2 heatsink can drop temps by 10–20°C.",
     "Check that case fans are directing airflow past the M.2 slot.",
-    "Reduce ambient room temperature if possible — it directly affects SSD temps.",
+    "Reduce ambient room temperature if possible - it directly affects SSD temps.",
   ],
   hot: [
-    "SSD may be thermally throttling — this directly reduces read and write speeds.",
+    "SSD may be thermally throttling - this directly reduces read and write speeds.",
     "Add or replace an NVMe heatsink immediately. Single-sided aluminium models work well.",
     "Improve overall case airflow: add a front intake fan directed toward the motherboard.",
     "Check if a nearby GPU or other component is radiating heat toward the drive.",
@@ -66,8 +66,8 @@ const SUGGESTIONS = {
   critical: [
     "CRITICAL: Stop intensive disk activity immediately. Thermal throttling is severe.",
     "Sustained operation at this temperature risks data corruption and hardware damage.",
-    "Add an M.2 heatsink as the first priority — bare NVMe at this temp is unsustainable.",
-    "Check BIOS thermal throttle settings — some boards have NVMe thermal limits you can review.",
+    "Add an M.2 heatsink as the first priority - bare NVMe at this temp is unsustainable.",
+    "Check BIOS thermal throttle settings - some boards have NVMe thermal limits you can review.",
     "If a heatsink is already fitted, check that the thermal pad has full contact with the drive.",
     "Back up your data immediately in case of drive failure.",
   ],
@@ -448,7 +448,7 @@ function checkLifespan() {
           '</div>' +
           '<div>' +
             '<div style="font-family:\'IBM Plex Mono\',monospace; font-size:0.6rem; text-transform:uppercase; color:#8888a0; margin-bottom:0.2rem;">Est. Remaining</div>' +
-            '<div style="font-family:\'IBM Plex Mono\',monospace; font-size:1rem; color:' + tier.color + ';">' + (remainTB > 0 ? remainYears.toFixed(1) + ' yrs' : '—') + '</div>' +
+            '<div style="font-family:\'IBM Plex Mono\',monospace; font-size:1rem; color:' + tier.color + ';">' + (remainTB > 0 ? remainYears.toFixed(1) + ' yrs' : '-') + '</div>' +
             '<div style="font-size:0.7rem; color:#555568;">of rated endurance</div>' +
           '</div>' +
         '</div>' +
@@ -475,12 +475,12 @@ function checkLifespan() {
   // NAND note
   var nandNote = "";
   if (ssd.nand === "3D QLC") {
-    nandNote = '<div style="background:rgba(255,170,0,0.06); border:1px solid rgba(255,170,0,0.2); border-left:3px solid var(--warm); border-radius:6px; padding:0.75rem 1rem; font-size:0.8rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;"> This drive uses <strong style="color:var(--text);">QLC NAND</strong>, which has lower write endurance than TLC. The rated TBW reflects this — stay within it more carefully than with a TLC drive.</div>';
+    nandNote = '<div style="background:rgba(255,170,0,0.06); border:1px solid rgba(255,170,0,0.2); border-left:3px solid var(--warm); border-radius:6px; padding:0.75rem 1rem; font-size:0.8rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;"> This drive uses <strong style="color:var(--text);">QLC NAND</strong>, which has lower write endurance than TLC. The rated TBW reflects this - stay within it more carefully than with a TLC drive.</div>';
   }
 
   // Beyond TBW note
   var beyondNote = usedPct > 100
-    ? '<div style="background:rgba(255,34,68,0.06); border:1px solid rgba(255,34,68,0.2); border-left:3px solid var(--critical); border-radius:6px; padding:0.75rem 1rem; font-size:0.8rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">This drive has written more than its rated TBW. Many drives continue operating beyond this point — SSDs regularly outlast their ratings. However, you should treat this drive as end-of-life: maintain a current backup and replace it at your earliest convenience.</div>'
+    ? '<div style="background:rgba(255,34,68,0.06); border:1px solid rgba(255,34,68,0.2); border-left:3px solid var(--critical); border-radius:6px; padding:0.75rem 1rem; font-size:0.8rem; color:#b0b0c8; line-height:1.6; margin-bottom:1rem;">This drive has written more than its rated TBW. Many drives continue operating beyond this point - SSDs regularly outlast their ratings. However, you should treat this drive as end-of-life: maintain a current backup and replace it at your earliest convenience.</div>'
     : "";
 
   resultEl.innerHTML =

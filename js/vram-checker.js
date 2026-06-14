@@ -1,5 +1,5 @@
 /**
- * TempCore — VRAM Requirements Tool
+ * TempCore - VRAM Requirements Tool
  *
  * All VRAM usage figures are measured values from published hardware reviews.
  * Primary sources: Digital Foundry, GamersNexus, Tom's Hardware, Hardware Unboxed
@@ -25,7 +25,7 @@ const VRAM_DATA = [
       "4K":     { "Low": 5.8, "Medium": 8.2, "High": 12.0, "Ultra": 15.6, "Ultra + RT": 20.0 }
     },
     sources: "Digital Foundry, Hardware Unboxed, Tom's Hardware",
-    note: "Ultra + RT uses RT Overdrive (Path Tracing). 4K path tracing regularly exceeds 20GB — only RTX 4090 / 5090 have enough VRAM. DLSS 4 / FSR 4 reduce VRAM by 0.5–1.5GB at higher quality modes."
+    note: "Ultra + RT uses RT Overdrive (Path Tracing). 4K path tracing regularly exceeds 20GB - only RTX 4090 / 5090 have enough VRAM. DLSS 4 / FSR 4 reduce VRAM by 0.5–1.5GB at higher quality modes."
   },
 
   // ── Alan Wake 2 ─────────────────────────────────────────────────────────────
@@ -53,7 +53,7 @@ const VRAM_DATA = [
       "4K":     { "Low": 5.5, "Medium": 7.5, "High": 10.5, "Ultra": 13.5, "Ultra + RT": 17.0 }
     },
     sources: "Hardware Unboxed, Tom's Hardware",
-    note: "VRAM usage spikes in Hogsmeade and areas with many NPCs. 8GB cards can struggle at 1440p Ultra due to exceeding available VRAM — texture pop-in becomes visible."
+    note: "VRAM usage spikes in Hogsmeade and areas with many NPCs. 8GB cards can struggle at 1440p Ultra due to exceeding available VRAM - texture pop-in becomes visible."
   },
 
   // ── Red Dead Redemption 2 ────────────────────────────────────────────────────
@@ -95,7 +95,7 @@ const VRAM_DATA = [
       "4K":     { "Low": 7.5, "Medium": 10.0, "High": 14.0, "Epic": 18.0 }
     },
     sources: "Hardware Unboxed, Digital Foundry",
-    note: "UE5 with software Lumen — one of the most VRAM-intensive games on PC. 8GB cards struggle at 1080p High. 16GB is the recommended minimum for 1440p High/Epic settings. Upscaling is effectively mandatory."
+    note: "UE5 with software Lumen - one of the most VRAM-intensive games on PC. 8GB cards struggle at 1080p High. 16GB is the recommended minimum for 1440p High/Epic settings. Upscaling is effectively mandatory."
   },
 
   // ── The Witcher 3 (Next Gen) ─────────────────────────────────────────────────
