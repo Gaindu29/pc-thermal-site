@@ -325,15 +325,12 @@ body::before { content: none; }
 }
 
 [data-sidebar="collapsed"] .tc-sidebar-logo {
-  justify-content: center;
-  padding: 4px 0;
-  flex: none;
-  width: 100%;
+  display: none;
 }
 
 [data-sidebar="collapsed"] .tc-sidebar-header {
-  flex-direction: column;
-  gap: 8px;
+  justify-content: center;
+  padding-bottom: 10px;
 }
 
 [data-sidebar="collapsed"] .tc-sidebar-divider {
