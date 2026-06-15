@@ -157,29 +157,39 @@ body::before { content: none; }
   flex-shrink: 0;
 }
 
-/* Collapse/expand button sits at top-right of the header */
+/* Collapse/expand button — standalone, no shared class with .tc-sidebar-link */
 .tc-collapse-btn {
-  background: transparent;
-  border: 1px solid var(--sidebar-border);
-  /* Lock all flex sizing so nothing can stretch this button */
-  flex: 0 0 34px !important;
-  width: 34px !important;
-  min-width: 34px !important;
-  max-width: 34px !important;
-  height: 34px;
-  padding: 7px !important;
-  gap: 0 !important;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 34px;
+  width: 34px;
+  min-width: 34px;
+  max-width: 34px;
+  height: 34px;
+  padding: 7px;
+  gap: 0;
+  background: transparent;
+  border: 1px solid var(--sidebar-border);
+  border-radius: 7px;
+  cursor: pointer;
+  color: var(--text);
+  opacity: 0.7;
+  transition: background 0.15s, opacity 0.15s;
 }
-
+.tc-collapse-btn:hover {
+  background: var(--sidebar-hover);
+  opacity: 1;
+}
 [data-sidebar="collapsed"] .tc-collapse-btn {
   align-self: center;
 }
 .tc-collapse-btn svg {
-  width: 14px !important;
-  height: 14px !important;
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  flex-shrink: 0;
 }
 
 /* Section group container */

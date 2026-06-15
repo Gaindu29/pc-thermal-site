@@ -139,7 +139,7 @@
     html +=   '<a href="' + P + 'index.html" class="tc-sidebar-logo" title="TempCore home">';
     html +=     '<span class="tc-sidebar-dot"></span><span class="tc-sidebar-label">TempCore</span>';
     html +=   '</a>';
-    html +=   '<button type="button" class="tc-sidebar-link tc-collapse-btn tc-desktop-only" id="tc-collapse-toggle" title="Expand sidebar" aria-label="Toggle sidebar">' +
+    html +=   '<button type="button" class="tc-collapse-btn tc-desktop-only" id="tc-collapse-toggle" title="Expand sidebar" aria-label="Toggle sidebar">' +
                 '<span class="tc-sidebar-link-icon" id="tc-collapse-toggle-icon">' + svgIcon('expand') + '</span>' +
               '</button>';
     html += '</div>';
