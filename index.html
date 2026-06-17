@@ -47,18 +47,13 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    /* Pre-paint theme + sidebar state - prevents flash on load */
     (function () {
       try {
-        var t = localStorage.getItem('tc_theme'); if (!t) {
-          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
-        }
+        var t = localStorage.getItem('tc_theme');
+        if (!t) t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', t);
-        var s = localStorage.getItem('tc_sidebar') || 'collapsed';
-        document.documentElement.setAttribute('data-sidebar', s);
       } catch (e) {
         document.documentElement.setAttribute('data-theme', 'dark');
-        document.documentElement.setAttribute('data-sidebar', 'collapsed');
       }
     })();
   </script>
@@ -66,309 +61,376 @@
 </head>
 <body class="bg-bg">
 
-  <!-- NAV -->
-  <!-- TempCore sidebar (rendered by js/layout.js) -->
+  <!-- Navbar rendered by layout.js -->
   <div id="tc-sidebar-mount"></div>
-<!-- HERO -->
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════════════════════ -->
   <section class="hero">
-    <div class="max-w-6xl mx-auto px-5 relative z-10">
+    <div class="max-w-6xl mx-auto px-5">
+
       <div class="hero-badge">
-        <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>
         Free PC Gaming Toolkit
       </div>
+
       <h1 class="hero-title">
         Know Your<br>
         <span class="accent">Rig.</span><br>
         Push It Further.
       </h1>
+
       <p class="hero-sub">
-        VRAM requirements from real benchmark data, CPU cooler adequacy using actual TDP specs, PSU sizing, temperature references, and practical guides - all free, all built on real data.
+        Real benchmark data, CPU cooler TDP specs, PSU sizing, temperature references, and practical guides — all free, all built on real data.
       </p>
+
       <div class="flex flex-wrap gap-3 mt-8">
         <a href="tools/vram-checker.html"
-           class="btn-check inline-flex items-center gap-2 px-6 py-3 rounded-lg font-display text-lg tracking-wider"
-           style="width:auto; background:#7c3aed; color:#fff;">
+           style="background:#7c3aed; color:#fff; border-radius:9px; font-weight:600; font-size:0.95rem; letter-spacing:0.01em;"
+           class="inline-flex items-center gap-2 px-6 py-3">
           Check VRAM
         </a>
-        <a href="tools/cpu-cooler-checker.html"
-           style="background:var(--surface); border:1px solid var(--border); color:var(--text);"
-           class="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-mono text-sm tracking-wider transition-all hover:border-gray-500">
-          Check Cooler →
+        <a href="tools/pc-builder.html"
+           style="background:var(--surface); border:1px solid var(--border); color:var(--text); border-radius:9px; font-size:0.9rem;"
+           class="inline-flex items-center gap-2 px-6 py-3 transition-all hover:border-gray-500">
+          Build My PC →
         </a>
       </div>
 
-      <!-- Tool quick-links strip -->
-      <div class="flex flex-wrap gap-2 mt-8">
-        <a href="tools/vram-checker.html"       class="article-tag" style="background:rgba(139,92,246,0.08); color:#a78bfa; text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">VRAM Tool</a>
-        <a href="tools/cpu-cooler-checker.html" class="article-tag" style="background:rgba(251,146,60,0.08); color:var(--warm); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">Cooler Check</a>
-        <a href="tools/gpu-temp-checker.html"   class="article-tag" style="background:rgba(255,100,34,0.08); color:var(--hot); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">GPU Temp</a>
-        <a href="tools/psu-calculator.html"     class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">PSU Calc</a>
-        <a href="tools/pc-builder.html"          class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">PC Builder</a>
-        <a href="articles/pc-monitoring-tools-guide.html" class="article-tag" style="background:rgba(34,212,126,0.08); color:var(--safe); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">Monitoring Guide</a>
-        <a href="articles/overclocking-guide.html#oc-selector" class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">OC Guide</a>
-        <a href="articles/rtx-5060-8gb-vram.html" class="article-tag" style="background:rgba(239,68,68,0.08); color:var(--hot); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">RTX 5060 VRAM</a>
-        <a href="articles/amd-vs-intel-2026.html" class="article-tag" style="background:rgba(34,212,126,0.08); color:var(--safe); text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">AMD vs Intel</a>
-        <a href="articles/ddr5-vs-ddr4-2026.html" class="article-tag" style="background:rgba(56,189,248,0.08); color:#67e8f9; text-decoration:none; padding:0.3rem 0.7rem; border-radius:5px;">DDR5 vs DDR4</a>
+      <!-- Trust stats -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">20+</span>
+          <span class="stat-lbl">Games Tested</span>
+        </div>
+        <span class="stat-sep"></span>
+        <div class="stat-item">
+          <span class="stat-num">7</span>
+          <span class="stat-lbl">Free Tools</span>
+        </div>
+        <span class="stat-sep"></span>
+        <div class="stat-item">
+          <span class="stat-num">60+</span>
+          <span class="stat-lbl">GPU Models</span>
+        </div>
+        <span class="stat-sep"></span>
+        <div class="stat-item">
+          <span class="stat-num">Real</span>
+          <span class="stat-lbl">Benchmark Data</span>
+        </div>
       </div>
+
     </div>
   </section>
 
-  <!-- TOOLS -->
+  <!-- ═══════════════════════════════════════════════════════════
+       TOOLS
+       ═══════════════════════════════════════════════════════════ -->
   <section class="py-16 max-w-6xl mx-auto px-5">
-    <div class="section-label">Free Tools</div>
-    <h2 class="font-display text-4xl mb-8">Everything Your PC Needs</h2>
 
-    <!-- Row 1: VRAM Tool - featured full width -->
-    <div class="mb-4">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Free Tools</div>
+        <h2 class="font-display text-4xl">Everything Your PC Needs</h2>
+      </div>
+    </div>
+
+    <!-- Featured row: VRAM + PC Builder -->
+    <div class="grid md:grid-cols-2 gap-4 mb-4">
+
       <a href="tools/vram-checker.html" class="card card-tool p-6 article-card block" style="text-decoration:none; border-color:rgba(139,92,246,0.25);">
         <div class="flex items-start justify-between gap-4 mb-3">
-          <div>
-            <div class="article-tag mb-2" style="background:rgba(139,92,246,0.12); color:#a78bfa;">Data-Driven Tool</div>
-            <h3 class="font-display text-3xl tracking-wide article-title transition-colors" style="color:var(--text);">VRAM Requirements Tool</h3>
-            <p style="color:#8888a0; font-size:0.9rem; line-height:1.6; margin-top:0.5rem; max-width:560px;">
-              Measured peak VRAM usage for 20 games at 1080p, 1440p, and 4K - from published hardware reviews (Digital Foundry, GamersNexus, Hardware Unboxed). See if your GPU's VRAM is actually enough for specific games and settings, not an estimate.
+          <div style="flex:1;">
+            <div class="article-tag mb-2" style="background:rgba(139,92,246,0.12); color:#a78bfa;">Data-Driven</div>
+            <h3 class="font-display text-2xl tracking-wide article-title transition-colors" style="color:var(--text);">VRAM Requirements Tool</h3>
+            <p style="color:var(--muted); font-size:0.875rem; line-height:1.65; margin-top:0.5rem;">
+              Measured peak VRAM usage for 20+ games at 1080p, 1440p, and 4K from Digital Foundry, GamersNexus, and Hardware Unboxed. See if your GPU's VRAM is actually enough.
             </p>
           </div>
-          <div style="flex-shrink:0;opacity:0.85;"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M16 3L3 9l13 7 13-7-13-7z"/><path d="M3 16l13 7 13-7"/><path d="M3 22l13 7 13-7"/></svg></div>
+          <div style="flex-shrink:0; padding:8px; background:rgba(139,92,246,0.08); border-radius:10px;">
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3L3 9l13 7 13-7-13-7z"/><path d="M3 16l13 7 13-7"/><path d="M3 22l13 7 13-7"/></svg>
+          </div>
         </div>
-        <div class="flex flex-wrap gap-2 mb-3">
-          <span class="article-tag" style="background:rgba(139,92,246,0.08); color:#a78bfa;">20 Games</span>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="article-tag" style="background:rgba(139,92,246,0.08); color:#a78bfa;">20+ Games</span>
           <span class="article-tag" style="background:rgba(139,92,246,0.08); color:#a78bfa;">Measured Data</span>
-          <span class="article-tag" style="background:rgba(139,92,246,0.08); color:#a78bfa;">1080p · 1440p · 4K</span>
-          <span class="article-tag" style="background:rgba(139,92,246,0.08); color:#a78bfa;">All VRAM Tiers</span>
+          <span class="article-tag" style="background:rgba(139,92,246,0.08); color:#a78bfa;">All Resolutions</span>
         </div>
-        <div style="color:#a78bfa; font-family:'JetBrains Mono',monospace; font-size:0.8rem; letter-spacing:0.05em;">→ Check VRAM Requirements</div>
+        <div style="color:#a78bfa; font-family:'JetBrains Mono',monospace; font-size:0.78rem; letter-spacing:0.04em;">→ Check VRAM requirements</div>
       </a>
-    </div>
 
-    <!-- Row 1b: Build Your PC (featured) -->
-    <div class="mb-4">
       <a href="tools/pc-builder.html" class="card card-tool p-6 article-card block" style="text-decoration:none; border-color:rgba(255,170,0,0.25);">
         <div class="flex items-start justify-between gap-4 mb-3">
-          <div>
-            <div class="article-tag mb-2" style="background:rgba(255,170,0,0.12); color:var(--warm);">New Tool &middot; BETA</div>
-            <h3 class="font-display text-3xl tracking-wide article-title transition-colors" style="color:var(--text);">Build Your PC</h3>
-            <p style="color:#8888a0; font-size:0.9rem; line-height:1.6; margin-top:0.5rem; max-width:560px;">
-              Enter your budget and use case - gaming, content creation, streaming, productivity, or AI/ML. Get a complete, balanced component list with CPU, GPU, motherboard, RAM, storage, cooling, case, and PSU picks within your budget.
+          <div style="flex:1;">
+            <div class="article-tag mb-2" style="background:rgba(255,170,0,0.12); color:var(--warm);">New &middot; BETA</div>
+            <h3 class="font-display text-2xl tracking-wide article-title transition-colors" style="color:var(--text);">Build Your PC</h3>
+            <p style="color:var(--muted); font-size:0.875rem; line-height:1.65; margin-top:0.5rem;">
+              Enter your budget and use case — gaming, content creation, streaming, or AI/ML. Get a complete, balanced build with CPU, GPU, RAM, storage, cooling, and PSU.
             </p>
           </div>
-          <div style="flex-shrink:0;opacity:0.85;"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--warm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="7" y="3" width="18" height="26" rx="2"/><line x1="11" y1="9" x2="21" y2="9"/><line x1="11" y1="14" x2="21" y2="14"/><rect x="11" y="19" width="10" height="6" rx="1"/><circle cx="14" cy="22" r="0.8" fill="var(--warm)" stroke="none"/></svg></div>
+          <div style="flex-shrink:0; padding:8px; background:rgba(255,170,0,0.08); border-radius:10px;">
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="var(--warm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="18" height="26" rx="2"/><line x1="11" y1="9" x2="21" y2="9"/><line x1="11" y1="14" x2="21" y2="14"/><rect x="11" y="19" width="10" height="6" rx="1"/></svg>
+          </div>
         </div>
-        <div class="flex flex-wrap gap-2 mb-3">
+        <div class="flex flex-wrap gap-2 mb-4">
           <span class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm);">Budget-Aware</span>
-          <span class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm);">Gaming · Creation · AI/ML</span>
           <span class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm);">8 Components</span>
-          <span class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm);">Compatibility-Checked</span>
+          <span class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm);">All Use Cases</span>
         </div>
-        <div style="color:var(--warm); font-family:'JetBrains Mono',monospace; font-size:0.8rem; letter-spacing:0.05em;">→ Build My PC</div>
-      </a>
-    </div>
-
-    <!-- Row 2: GPU Temp + SSD Health + CPU Cooler -->
-    <div class="grid md:grid-cols-3 gap-4 mb-4">
-
-      <a href="tools/gpu-temp-checker.html" class="card card-tool p-5 article-card" style="text-decoration:none;">
-        <div class="flex items-start justify-between gap-2 mb-2">
-          <div>
-            <div class="article-tag mb-2" style="background:rgba(255,100,34,0.1); color:var(--hot);">Tool</div>
-            <h3 class="font-display text-xl tracking-wide article-title transition-colors" style="color:var(--text);">GPU TJ Max Reference</h3>
-          </div>
-          <div style="flex-shrink:0;"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="13" y="3" width="6" height="17" rx="3"/><circle cx="16" cy="25" r="4"/><line x1="11" y1="8" x2="13" y2="8"/><line x1="11" y1="13" x2="13" y2="13"/><line x1="11" y1="18" x2="13" y2="18"/></svg></div>
-        </div>
-        <p style="color:#8888a0; font-size:0.8rem; line-height:1.6; margin-bottom:0.75rem;">Official TJ Max spec for 60+ GPU models. Enter your HWiNFO temp to see exactly where you stand.</p>
-        <div style="color:var(--hot); font-family:'JetBrains Mono',monospace; font-size:0.72rem;">→ Look up TJ Max</div>
-      </a>
-
-      <a href="tools/ssd-health-checker.html" class="card card-tool p-5 article-card" style="text-decoration:none;">
-        <div class="flex items-start justify-between gap-2 mb-2">
-          <div>
-            <div class="article-tag mb-2" style="background:rgba(0,200,255,0.1); color:var(--accent);">Tool</div>
-            <h3 class="font-display text-xl tracking-wide article-title transition-colors" style="color:var(--text);">SSD Health Tools</h3>
-          </div>
-          <div style="flex-shrink:0;"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="10" width="26" height="12" rx="3"/><circle cx="26" cy="16" r="3.5"/><line x1="7" y1="14" x2="19" y2="14"/><line x1="7" y1="18" x2="19" y2="18"/></svg></div>
-        </div>
-        <p style="color:#8888a0; font-size:0.8rem; line-height:1.6; margin-bottom:0.75rem;">Temperature check + lifespan estimator using real TBW data for 65+ models.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem;">→ Check SSD</div>
-      </a>
-
-      <a href="tools/cpu-cooler-checker.html" class="card card-tool p-5 article-card" style="text-decoration:none; border-color:rgba(251,146,60,0.15);">
-        <div class="flex items-start justify-between gap-2 mb-2">
-          <div>
-            <div class="article-tag mb-2" style="background:rgba(251,146,60,0.12); color:var(--warm);">Tool</div>
-            <h3 class="font-display text-xl tracking-wide article-title transition-colors" style="color:var(--text);">CPU Cooler Check</h3>
-          </div>
-          <div style="flex-shrink:0;"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--warm)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M20 7.7a2.5 2.5 0 1 1 1.8 4.3H2M11.6 4.4A2 2 0 1 1 13 8H2M14.6 22.6A2 2 0 1 0 16 19H2"/></svg></div>
-        </div>
-        <p style="color:#8888a0; font-size:0.8rem; line-height:1.6; margin-bottom:0.75rem;">Real manufacturer TDP ratings vs actual Intel MTP / AMD PPT. Know if your cooler actually handles your CPU.</p>
-        <div style="color:var(--warm); font-family:'JetBrains Mono',monospace; font-size:0.72rem;">→ Check adequacy</div>
+        <div style="color:var(--warm); font-family:'JetBrains Mono',monospace; font-size:0.78rem; letter-spacing:0.04em;">→ Start building</div>
       </a>
 
     </div>
 
-    <!-- Row 3: PSU + FPS Estimator -->
-    <div class="grid md:grid-cols-2 gap-4">
+    <!-- Secondary tools: 5 cards -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
 
-      <a href="tools/psu-calculator.html" class="card card-tool p-5 article-card" style="text-decoration:none;">
-        <div class="flex items-start justify-between gap-2 mb-2">
-          <div>
-            <div class="article-tag mb-2" style="background:rgba(255,170,0,0.12); color:var(--warm);">Tool</div>
-            <h3 class="font-display text-xl tracking-wide article-title transition-colors" style="color:var(--text);">PSU Wattage Calculator</h3>
+      <a href="tools/gpu-temp-checker.html" class="card card-tool p-4 article-card" style="text-decoration:none;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.6rem;">
+          <div style="padding:6px; background:rgba(255,100,34,0.1); border-radius:7px; flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--hot)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4 4 0 1 0 5 0z"/></svg>
           </div>
-          <div style="flex-shrink:0;"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="4" y="10" width="24" height="14" rx="3"/><line x1="13" y1="4" x2="13" y2="10"/><line x1="19" y1="4" x2="19" y2="10"/><path d="M18 15l-3 5h4l-3 5"/></svg></div>
+          <div class="article-tag" style="background:rgba(255,100,34,0.08); color:var(--hot); padding:0.15rem 0.4rem;">Tool</div>
         </div>
-        <p style="color:#8888a0; font-size:0.8rem; line-height:1.6; margin-bottom:0.75rem;">Exact power draw using real TDP data, with min/recommended/future-proof PSU sizing and specific unit picks.</p>
-        <div style="color:var(--warm); font-family:'JetBrains Mono',monospace; font-size:0.72rem;">→ Calculate PSU</div>
+        <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.35;">GPU TJ Max Reference</h3>
+        <p style="color:var(--muted); font-size:0.75rem; line-height:1.55; margin-bottom:0.6rem; flex:1;">Official TJ Max for 60+ GPU models.</p>
+        <div style="color:var(--hot); font-family:'JetBrains Mono',monospace; font-size:0.68rem;">→ Look up</div>
       </a>
 
-      <a href="tools/fps-estimator.html" class="card card-tool p-5 article-card" style="text-decoration:none;">
-        <div class="flex items-start justify-between gap-2 mb-2">
-          <div>
-            <div class="article-tag mb-2" style="background:rgba(0,200,255,0.08); color:#6b7280;">Rough Estimate</div>
-            <h3 class="font-display text-xl tracking-wide article-title transition-colors" style="color:var(--text);">FPS Estimator</h3>
+      <a href="tools/ssd-health-checker.html" class="card card-tool p-4 article-card" style="text-decoration:none;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.6rem;">
+          <div style="padding:6px; background:rgba(0,200,255,0.08); border-radius:7px; flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6"/></svg>
           </div>
-          <div style="flex-shrink:0;"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="18" width="6" height="11" rx="1.5"/><rect x="13" y="11" width="6" height="18" rx="1.5"/><rect x="23" y="5" width="6" height="24" rx="1.5"/></svg></div>
+          <div class="article-tag" style="background:rgba(0,200,255,0.08); color:var(--accent); padding:0.15rem 0.4rem;">Tool</div>
         </div>
-        <p style="color:#8888a0; font-size:0.8rem; line-height:1.6; margin-bottom:0.75rem;">GPU benchmark-based FPS ranges for 40+ games. Useful for broad comparisons - verify specific numbers with YouTube benchmarks.</p>
-        <div style="color:#6b7280; font-family:'JetBrains Mono',monospace; font-size:0.72rem;">→ Rough FPS range</div>
+        <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.35;">SSD Health Tools</h3>
+        <p style="color:var(--muted); font-size:0.75rem; line-height:1.55; margin-bottom:0.6rem; flex:1;">Temp check + lifespan using TBW data for 65+ models.</p>
+        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.68rem;">→ Check SSD</div>
+      </a>
+
+      <a href="tools/cpu-cooler-checker.html" class="card card-tool p-4 article-card" style="text-decoration:none; border-color:rgba(251,146,60,0.15);">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.6rem;">
+          <div style="padding:6px; background:rgba(251,146,60,0.1); border-radius:7px; flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--warm)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2M9.6 4.4A2 2 0 1 1 11 8H2M12.6 19.6A2 2 0 1 0 14 16H2"/></svg>
+          </div>
+          <div class="article-tag" style="background:rgba(251,146,60,0.1); color:var(--warm); padding:0.15rem 0.4rem;">Tool</div>
+        </div>
+        <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.35;">CPU Cooler Check</h3>
+        <p style="color:var(--muted); font-size:0.75rem; line-height:1.55; margin-bottom:0.6rem; flex:1;">Real TDP ratings vs Intel MTP / AMD PPT.</p>
+        <div style="color:var(--warm); font-family:'JetBrains Mono',monospace; font-size:0.68rem;">→ Check adequacy</div>
+      </a>
+
+      <a href="tools/psu-calculator.html" class="card card-tool p-4 article-card" style="text-decoration:none;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.6rem;">
+          <div style="padding:6px; background:rgba(255,170,0,0.08); border-radius:7px; flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--warm)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="24" height="14" rx="3"/><line x1="13" y1="4" x2="13" y2="10"/><line x1="19" y1="4" x2="19" y2="10"/><path d="M18 15l-3 5h4l-3 5"/></svg>
+          </div>
+          <div class="article-tag" style="background:rgba(255,170,0,0.08); color:var(--warm); padding:0.15rem 0.4rem;">Tool</div>
+        </div>
+        <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.35;">PSU Wattage Calc</h3>
+        <p style="color:var(--muted); font-size:0.75rem; line-height:1.55; margin-bottom:0.6rem; flex:1;">Exact draw using real TDP data with unit picks.</p>
+        <div style="color:var(--warm); font-family:'JetBrains Mono',monospace; font-size:0.68rem;">→ Calculate PSU</div>
+      </a>
+
+      <a href="tools/fps-estimator.html" class="card card-tool p-4 article-card" style="text-decoration:none;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.6rem;">
+          <div style="padding:6px; background:rgba(0,200,255,0.06); border-radius:7px; flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="18" width="6" height="11" rx="1.5"/><rect x="13" y="11" width="6" height="18" rx="1.5"/><rect x="23" y="5" width="6" height="24" rx="1.5"/></svg>
+          </div>
+          <div class="article-tag" style="background:rgba(0,200,255,0.06); color:#6b7280; padding:0.15rem 0.4rem;">Estimate</div>
+        </div>
+        <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.35;">FPS Estimator</h3>
+        <p style="color:var(--muted); font-size:0.75rem; line-height:1.55; margin-bottom:0.6rem; flex:1;">Benchmark-based FPS ranges for 40+ games.</p>
+        <div style="color:#6b7280; font-family:'JetBrains Mono',monospace; font-size:0.68rem;">→ Rough FPS range</div>
       </a>
 
     </div>
   </section>
 
-  <!-- ARTICLES -->
-  <section class="py-8 pb-20 max-w-6xl mx-auto px-5">
-    <div class="section-label">Guides &amp; Articles</div>
-    <h2 class="font-display text-4xl mb-8">PC Hardware Knowledge Base</h2>
+  <!-- ═══════════════════════════════════════════════════════════
+       ARTICLES
+       ═══════════════════════════════════════════════════════════ -->
+  <section style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+    <div class="py-16 max-w-6xl mx-auto px-5">
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Guides &amp; Articles</div>
+          <h2 class="font-display text-4xl">PC Hardware Knowledge Base</h2>
+        </div>
+      </div>
 
-      <a href="articles/overclocking-guide.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(255,100,34,0.1); color:var(--hot);">Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">Complete GPU Overclocking Guide 2025</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Step-by-step OC process, safe temps, stress testing, and specific settings for 45+ GPUs including RTX 50 series.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-      <a href="articles/gpu-temp-guide.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(255,100,34,0.08); color:var(--hot);">Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">What Is a Good GPU Temperature While Gaming?</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Safe, warm, and dangerous GPU temp ranges. Covers RTX 40/50, AMD RX 6000/7000, and GTX.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <!-- Trending -->
+        <a href="articles/rtx-5060-8gb-vram.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(239,68,68,0.10); color:var(--hot);">Trending</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">RTX 5060 8GB VRAM: Is It Enough for Gaming in 2026?</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">NVIDIA ships 8GB in 2026 while AMD's RX 9060 XT has 12GB. We break down exactly what games hit the limit.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/laptop-temps-guide.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(0,200,255,0.08); color:var(--accent);">Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How Hot Is Too Hot for a Gaming Laptop?</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Laptop thermal limits, throttling signs, and every cooling method ranked by effectiveness.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/amd-vs-intel-2026.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(34,212,126,0.10); color:var(--safe);">Trending</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">AMD vs Intel CPUs in 2026: Which Should You Buy?</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Ryzen 9000X3D vs Arrow Lake for gaming and productivity. Real benchmark data and recommendations by use case.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/gpu-damage-temps.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(255,34,68,0.08); color:var(--critical);">Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">What GPU Temperature Actually Causes Damage?</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">TJ Max, thermal throttling, GDDR6X memory temps, and what actually shortens GPU lifespan.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/ddr5-vs-ddr4-2026.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(56,189,248,0.10); color:#67e8f9;">Trending</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">DDR5 vs DDR4 in 2026: Is the Upgrade Worth It for Gaming?</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Real benchmark data: how much DDR5 improves FPS, when it matters, and what speed to target.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/is-75c-safe.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(255,170,0,0.08); color:var(--warm);">FAQ</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">Is 75°C Safe for an RTX 4050?</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Specific guidance for RTX 4050 laptop and desktop, with temperature context and what to do if temps are higher.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <!-- Guides -->
+        <a href="articles/gpu-undervolting-guide.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(34,212,126,0.08); color:var(--safe);">New Guide</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How to Undervolt Your GPU: Lower Temps, Same FPS</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Step-by-step voltage/frequency guide for NVIDIA RTX 40/50 and AMD RX 7000. Typically saves 5–15°C.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/gpu-undervolting-guide.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(34,212,126,0.08); color:var(--safe);">New Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How to Undervolt Your GPU: Lower Temps, Same FPS</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Step-by-step voltage/frequency curve guide for NVIDIA RTX 40/50 and AMD RX 7000. Typically saves 5–15°C at zero performance cost.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/vram-guide.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(139,92,246,0.08); color:#a78bfa;">New Guide</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How Much VRAM Do You Need in 2026?</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">8GB vs 12GB vs 16GB with real measured VRAM usage from 20 games at 1080p, 1440p, and 4K.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/vram-guide.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(139,92,246,0.08); color:#a78bfa;">New Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How Much VRAM Do You Need in 2026?</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">8GB vs 12GB vs 16GB with real measured VRAM usage data from 20 games at 1080p, 1440p, and 4K.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/cpu-cooler-guide.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(251,146,60,0.08); color:var(--warm);">New Guide</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">CPU Cooler Selection Guide 2026: Air vs AIO</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Real TDP ratings for air coolers and AIOs vs actual Intel MTP and AMD PPT values.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/cpu-cooler-guide.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(251,146,60,0.08); color:var(--warm);">New Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">CPU Cooler Selection Guide 2026: Air vs AIO</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Real TDP ratings for air coolers and AIOs vs actual Intel MTP and AMD PPT values. Find the right cooler for your CPU tier.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/case-airflow-guide.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(56,189,248,0.08); color:#67e8f9;">New Guide</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">PC Case Airflow Optimization Guide 2026</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Fan placement, positive vs negative pressure, cable management impact, and optimal configurations.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/case-airflow-guide.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(56,189,248,0.08); color:#67e8f9;">New Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">PC Case Airflow Optimization Guide 2026</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Fan placement, positive vs negative pressure, cable management impact, and optimal configurations for budget through high-end builds.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/pc-monitoring-tools-guide.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(34,212,126,0.08); color:var(--safe);">Essential</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">Free PC Monitoring Tools: HWiNFO, MSI Afterburner & GPU-Z</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">How to set up the tools that show your actual temperatures, voltages, and performance data.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/pc-monitoring-tools-guide.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(34,212,126,0.08); color:var(--safe);">Essential Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">Free PC Monitoring Tools: HWiNFO, MSI Afterburner & GPU-Z Setup</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">How to set up the tools that show your actual temperatures, voltages, and performance data - what r/buildapc recommends every time someone asks about temps.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/how-to-stress-test-pc.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(239,68,68,0.08); color:var(--hot);">Essential</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How to Properly Stress Test Your PC: CPU, GPU & RAM</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Prime95, FurMark, Cinebench R24, 3DMark, and MemTest86. Find instability before it causes crashes.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/how-to-stress-test-pc.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(239,68,68,0.08); color:var(--hot);">Essential Guide</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How to Properly Stress Test Your PC: CPU, GPU & RAM</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Prime95, FurMark, Cinebench R24, 3DMark, and MemTest86. Find instability and thermal limits in controlled testing before they cause crashes.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/overclocking-guide.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(255,100,34,0.1); color:var(--hot);">Guide</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">Complete GPU Overclocking Guide 2025</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Step-by-step OC process, safe temps, stress testing, and specific settings for 45+ GPUs.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/rtx-5060-8gb-vram.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(239,68,68,0.10); color:var(--hot);">Trending</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">RTX 5060 8GB VRAM: Is It Enough for Gaming in 2026?</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">NVIDIA ships 8GB in 2026 while AMD's RX 9060 XT has 12GB. We break down exactly what games hit the limit and who should skip it.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <!-- Temperatures -->
+        <a href="articles/gpu-temp-guide.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(255,100,34,0.08); color:var(--hot);">Guide</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">What Is a Good GPU Temperature While Gaming?</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Safe, warm, and dangerous GPU temp ranges for RTX 40/50, AMD RX 6000/7000, and GTX.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/amd-vs-intel-2026.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(34,212,126,0.10); color:var(--safe);">Trending</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">AMD vs Intel CPUs in 2026: Which Should You Buy?</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Ryzen 9000X3D vs Arrow Lake for gaming and productivity. Real benchmark data, platform longevity, and our recommendations by use case.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/laptop-temps-guide.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(0,200,255,0.08); color:var(--accent);">Guide</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">How Hot Is Too Hot for a Gaming Laptop?</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Laptop thermal limits, throttling signs, and every cooling method ranked by effectiveness.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
-      <a href="articles/ddr5-vs-ddr4-2026.html" class="card p-5 article-card">
-        <div class="article-tag mb-3" style="background:rgba(56,189,248,0.10); color:#67e8f9;">Trending</div>
-        <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">DDR5 vs DDR4 in 2026: Is the Upgrade Worth It for Gaming?</h3>
-        <p style="color:#8888a0; font-size:0.82rem; line-height:1.6;">Real benchmark data: how much does DDR5 improve FPS, when does it matter, and what speed to target on AMD AM5 vs Intel platforms.</p>
-        <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
-      </a>
+        <a href="articles/gpu-damage-temps.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(255,34,68,0.08); color:var(--critical);">Guide</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">What GPU Temperature Actually Causes Damage?</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">TJ Max, thermal throttling, GDDR6X memory temps, and what actually shortens GPU lifespan.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
 
+        <a href="articles/is-75c-safe.html" class="card p-5 article-card" style="text-decoration:none;">
+          <div class="article-tag mb-3" style="background:rgba(255,170,0,0.08); color:var(--warm);">FAQ</div>
+          <h3 class="font-semibold text-base mb-2 article-title transition-colors" style="color:var(--text); line-height:1.4;">Is 75°C Safe for an RTX 4050?</h3>
+          <p style="color:var(--muted); font-size:0.82rem; line-height:1.6; flex:1;">Specific guidance for RTX 4050 laptop and desktop, with temperature context and what to do if temps are higher.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.75rem;">→ Read guide</div>
+        </a>
+
+      </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-
-  <!-- Affiliate Disclosure -->
-  <div style="text-align:center; padding:0.75rem 1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; border-top:1px solid var(--border);">
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="affiliate-bar">
     As an Amazon Associate TempCore earns from qualifying purchases. Affiliate links are marked and do not affect our editorial opinions.
   </div>
-  <footer class="py-10">
+
+  <footer class="py-12">
     <div class="max-w-6xl mx-auto px-5">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+
+      <div class="footer-grid">
+
+        <!-- Brand -->
         <div>
-          <div class="nav-logo mb-1">TempCore</div>
-          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+          <a href="index.html" class="footer-logo">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0;"></span>
+            TempCore
+          </a>
+          <p class="footer-tagline">Free PC hardware tools and guides for gamers and builders. Real data, zero fluff.</p>
         </div>
-        <div class="flex flex-wrap gap-5">
-          <a href="tools/pc-builder.html"        class="nav-link text-xs">PC Builder</a>
-          <a href="tools/vram-checker.html"       class="nav-link text-xs">VRAM Tool</a>
-          <a href="tools/gpu-temp-checker.html"   class="nav-link text-xs">GPU Temp</a>
-          <a href="tools/ssd-health-checker.html" class="nav-link text-xs">SSD Health</a>
-          <a href="tools/cpu-cooler-checker.html" class="nav-link text-xs">Cooler Check</a>
-          <a href="tools/psu-calculator.html"     class="nav-link text-xs">PSU Calc</a>
-          <a href="about.html"                       class="nav-link text-xs" style="color:var(--accent);">About</a>
+
+        <!-- Tools -->
+        <div>
+          <div class="footer-col-title">Tools</div>
+          <a href="tools/vram-checker.html"       class="footer-link">VRAM Check</a>
+          <a href="tools/pc-builder.html"          class="footer-link">PC Builder</a>
+          <a href="tools/gpu-temp-checker.html"    class="footer-link">GPU Temp</a>
+          <a href="tools/cpu-cooler-checker.html"  class="footer-link">CPU Cooler</a>
+          <a href="tools/psu-calculator.html"      class="footer-link">PSU Calculator</a>
+          <a href="tools/ssd-health-checker.html"  class="footer-link">SSD Health</a>
+          <a href="tools/fps-estimator.html"       class="footer-link">FPS Estimator</a>
         </div>
+
+        <!-- Articles -->
+        <div>
+          <div class="footer-col-title">Top Guides</div>
+          <a href="articles/gpu-undervolting-guide.html"   class="footer-link">GPU Undervolting</a>
+          <a href="articles/vram-guide.html"               class="footer-link">VRAM Guide</a>
+          <a href="articles/overclocking-guide.html"       class="footer-link">GPU Overclocking</a>
+          <a href="articles/cpu-cooler-guide.html"         class="footer-link">CPU Cooler Guide</a>
+          <a href="articles/case-airflow-guide.html"       class="footer-link">Case Airflow</a>
+          <a href="articles/pc-monitoring-tools-guide.html" class="footer-link">Monitoring Tools</a>
+          <a href="articles/how-to-stress-test-pc.html"   class="footer-link">Stress Testing</a>
+        </div>
+
+        <!-- Site -->
+        <div>
+          <div class="footer-col-title">Temperatures</div>
+          <a href="articles/gpu-temp-guide.html"        class="footer-link">GPU Temperatures</a>
+          <a href="articles/cpu-temperature-guide.html" class="footer-link">CPU Temperatures</a>
+          <a href="articles/laptop-temps-guide.html"    class="footer-link">Laptop Thermals</a>
+          <a href="articles/gpu-damage-temps.html"      class="footer-link">GPU Damage Temps</a>
+          <a href="articles/is-75c-safe.html"           class="footer-link">Is 75°C Safe?</a>
+          <a href="about.html"                          class="footer-link" style="margin-top:0.75rem; color:var(--accent);">About TempCore</a>
+        </div>
+
       </div>
-      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
-        &copy; 2026 TempCore. Temperature ranges and FPS estimates are general guidelines. Always verify with manufacturer specifications.
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 TempCore. Temperature ranges and FPS estimates are general guidelines. Always verify with manufacturer specifications.</span>
       </div>
+
     </div>
   </footer>
 
