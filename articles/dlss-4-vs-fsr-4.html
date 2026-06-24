@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DLSS 4 vs FSR 4 vs XeSS: Which AI Upscaling Should You Use in 2026? | TempCore</title>
+  <meta name="description" content="DLSS 4 vs FSR 4 vs XeSS comparison: image quality, performance, compatibility, and which AI upscaling tech to use on NVIDIA, AMD, and Intel GPUs in 2026.">
+  <meta name="keywords" content="DLSS 4 vs FSR 4, DLSS 4 vs FSR 4 2026, best AI upscaling 2026, DLSS 4 image quality, FSR 4 RDNA 4, XeSS vs DLSS, upscaling comparison">
+
+  <link rel="canonical" href="https://temp-core.com/articles/dlss-4-vs-fsr-4.html">
+
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="DLSS 4 vs FSR 4 vs XeSS: Which AI Upscaling Should You Use in 2026?">
+  <meta property="og:description" content="Image quality, performance, and compatibility breakdown for DLSS 4, FSR 4, and XeSS 2 — across NVIDIA, AMD, and Intel GPUs.">
+  <meta property="og:url"         content="https://temp-core.com/articles/dlss-4-vs-fsr-4.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "DLSS 4 vs FSR 4 vs XeSS: Which AI Upscaling Should You Use in 2026?",
+    "description": "Image quality, performance, and game compatibility comparison between DLSS 4, FSR 4, and XeSS 2 for NVIDIA, AMD, and Intel GPU owners.",
+    "url": "https://temp-core.com/articles/dlss-4-vs-fsr-4.html",
+    "author": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "publisher": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-06-19",
+    "dateModified": "2026-06-19"
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7024027991276235"
+       crossorigin="anonymous"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme');
+        if (!t) t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-bg">
+
+  <div id="tc-sidebar-mount"></div>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <!-- Article -->
+      <article class="md:col-span-2">
+
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#8888a0; margin-bottom:1.5rem; letter-spacing:0.03em;">
+          <a href="../index.html" style="color:#8888a0; text-decoration:none;">Home</a>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">GPU Guide</span>
+        </div>
+
+        <div class="article-tag mb-3" style="background:rgba(139,92,246,0.08); color:#a78bfa;">Trending · Upscaling Guide</div>
+        <h1 class="font-display mb-4" style="font-size:clamp(2rem, 5vw, 3.5rem); line-height:0.95; letter-spacing:0.01em;">
+          DLSS 4 vs FSR 4 vs XeSS: Which Should You Use in 2026?
+        </h1>
+        <p style="color:#8888a0; font-size:0.85rem; font-family:'JetBrains Mono',monospace; margin-bottom:2rem;">
+          Published June 2026 &nbsp;·&nbsp; By TempCore Editorial Team &nbsp;·&nbsp; 8 min read
+        </p>
+
+        <div class="callout" style="background:rgba(139,92,246,0.06); border-color:rgba(139,92,246,0.2); border-left-color:#a78bfa; margin-bottom:2rem;">
+          <strong style="color:var(--text);">Quick answer:</strong> <strong style="color:#a78bfa;">DLSS 4 is the best upscaling available</strong> in 2026 for image quality and Multi Frame Generation, but it only works on NVIDIA RTX cards. <strong>FSR 4</strong> is a massive leap for RDNA 4 AMD cards and now rivals DLSS 3 quality. <strong>XeSS 2</strong> is Intel Arc's excellent alternative and works on all GPUs as a fallback. Use whatever is supported natively in your game — they all beat native at lower resolutions.
+        </div>
+
+        <div class="article-body">
+
+          <h2>The Three Upscaling Technologies at a Glance</h2>
+
+          <table class="temp-table mb-6">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>DLSS 4</th>
+                <th>FSR 4</th>
+                <th>XeSS 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Developer</td><td>NVIDIA</td><td>AMD</td><td>Intel</td></tr>
+              <tr><td>GPU Requirement</td><td style="color:var(--hot);">RTX 20 series+</td><td style="color:var(--hot);">RDNA 4 only (RX 9000)</td><td style="color:var(--safe);">Any GPU (DP4a fallback)</td></tr>
+              <tr><td>ML Model</td><td>Transformer (4th gen)</td><td>Machine Learning (RDNA 4)</td><td>XMX / DP4a</td></tr>
+              <tr><td>Image Quality</td><td style="color:var(--safe);">Best overall</td><td style="color:var(--warm);">Close to DLSS 3</td><td style="color:var(--warm);">Very good on Arc</td></tr>
+              <tr><td>Frame Gen</td><td style="color:var(--safe);">Multi Frame Gen (up to 3x)</td><td>FSR 3 Frame Gen</td><td>XeSS Frame Gen</td></tr>
+              <tr><td>Game Support</td><td style="color:var(--safe);">500+ games</td><td style="color:var(--warm);">~80+ games (growing)</td><td style="color:var(--warm);">100+ games</td></tr>
+              <tr><td>Open Source?</td><td>No</td><td style="color:var(--safe);">Yes (FSR)</td><td style="color:var(--safe);">Partially</td></tr>
+            </tbody>
+          </table>
+
+          <h2>DLSS 4: The Quality Leader</h2>
+
+          <p>DLSS 4 uses NVIDIA's new Transformer model — a significant architecture shift from the CNN (Convolutional Neural Network) model used in DLSS 3 and earlier. The change is meaningful in practice:</p>
+
+          <ul>
+            <li><strong>Better motion stability</strong> — thin geometry like chain-link fences, foliage, and distant power lines stay solid as the camera moves. DLSS 3 used to shimmer on these.</li>
+            <li><strong>Sharper texture detail</strong> — the Transformer model reconstructs fine texture detail more accurately, especially at Quality and Balanced presets.</li>
+            <li><strong>Multi Frame Generation</strong> — exclusive to RTX 50 series, NVIDIA can now generate up to 3 AI frames per rendered frame, multiplying effective frame rates dramatically. An RTX 5070 rendering 60 FPS natively can output 240 FPS to the display.</li>
+          </ul>
+
+          <p>In a blind test conducted by ComputerBase across 6 games at 4K Quality preset, DLSS 4.5 received 48.2% of votes as the best-looking option — beating native rendering, FSR 4, and XeSS.</p>
+
+          <div class="callout" style="border-left-color:var(--warm);">
+            <strong style="color:var(--text);">Latency note:</strong> Multi Frame Generation adds latency since frames are generated ahead of display. Use NVIDIA Reflex (enabled by default in supported games) to counteract this. Without Reflex, MFG can feel floaty at high frame counts.
+          </div>
+
+          <h2>FSR 4: AMD's Major Leap — But Limited to RDNA 4</h2>
+
+          <p>FSR 4 is a complete rebuild over FSR 3 and is AMD's first machine-learning upscaler. The catch: <strong>FSR 4 only runs on RDNA 4 cards (RX 9070 XT, RX 9070, and future RDNA 4 products)</strong>. All other AMD GPUs continue using FSR 3.</p>
+
+          <p>Quality-wise, FSR 4 is genuinely competitive:</p>
+
+          <ul>
+            <li>Texture detail is sharper than FSR 3 and matches or exceeds DLSS 3 in many comparisons</li>
+            <li>Temporal stability is dramatically improved — ghosting and trailing artefacts that plagued FSR 3 are largely gone</li>
+            <li>At 4K Quality, FSR 4 and DLSS 4 are difficult to distinguish in side-by-side screenshots in many games</li>
+          </ul>
+
+          <p>The gap vs DLSS 4 remains on <strong>thin geometry stability</strong> (DLSS 4's Transformer model handles this better) and on <strong>extreme motion</strong> where DLSS 4 still leads. But for most gaming scenarios, FSR 4 is excellent and a genuine reason to consider the RX 9070 XT.</p>
+
+          <h2>FSR 3: The Fallback Everyone Has Access To</h2>
+
+          <p>For AMD users not on RDNA 4, FSR 3 remains available. It's not ML-based, so it doesn't match FSR 4 or DLSS 4 — but it's supported in a huge game library and works on every GPU (including NVIDIA and Intel). The Performance preset at 1080p feeding a 4K display is noticeably blurry, but Quality and Balanced at 1440p→4K are usable.</p>
+
+          <h2>XeSS 2: Intel's Underrated Upscaler</h2>
+
+          <p>XeSS 2 uses Intel's XMX AI acceleration on Arc GPUs, delivering quality that rivals DLSS 3 on Arc hardware. On non-Intel GPUs, it falls back to DP4a (shader-based), which is noticeably lower quality but still decent.</p>
+
+          <p>XeSS 2 is most compelling if you're on an Intel Arc B580 or B770 — where it's genuinely competitive with AMD's and NVIDIA's offerings. For non-Arc users, XeSS 2 is a good FSR 3 alternative when a game doesn't support FSR directly.</p>
+
+          <h2>Which Preset Should You Use?</h2>
+
+          <table class="temp-table mb-6">
+            <thead>
+              <tr>
+                <th>Preset</th>
+                <th>Render Resolution</th>
+                <th>Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--safe);">Quality</td>
+                <td>67% of output</td>
+                <td>Best image quality; primary choice for most people</td>
+              </tr>
+              <tr>
+                <td style="color:var(--warm);">Balanced</td>
+                <td>58% of output</td>
+                <td>More FPS, acceptable quality at high resolutions</td>
+              </tr>
+              <tr>
+                <td style="color:var(--hot);">Performance</td>
+                <td>50% of output</td>
+                <td>Only at 4K where native res is already high</td>
+              </tr>
+              <tr>
+                <td style="color:var(--critical);">Ultra Performance</td>
+                <td>33% of output</td>
+                <td>Avoid — significant quality loss, mostly for extreme FPS needs</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="callout" style="border-left-color:var(--safe);">
+            <strong style="color:var(--text);">Recommendation:</strong> Start with <strong>Quality preset</strong>. If your game feels smooth and looks good, stay there. Only drop to Balanced if you need more frames and notice the quality difference isn't a problem for your display size and viewing distance.
+          </div>
+
+          <h2>Which Upscaler Should You Enable?</h2>
+
+          <p>The decision tree is straightforward:</p>
+
+          <ul>
+            <li><strong>NVIDIA RTX 20–40 series</strong> → Enable DLSS 4 (Transformer model) whenever it's available. Fall back to FSR 3 in games without DLSS support.</li>
+            <li><strong>NVIDIA RTX 50 series</strong> → DLSS 4 + Multi Frame Generation. This is the best setup available for gaming in 2026.</li>
+            <li><strong>AMD RX 9000 series (RDNA 4)</strong> → FSR 4 where supported, FSR 3 everywhere else. XeSS 2 in games that don't have FSR 4 yet.</li>
+            <li><strong>AMD RX 6000 / 7000 series</strong> → FSR 3 is your primary option. It's solid at Quality preset.</li>
+            <li><strong>Intel Arc B580 / B770</strong> → XeSS 2 on Arc hardware is excellent. FSR 3 as a fallback.</li>
+            <li><strong>Any GPU in a DLSS game</strong> → DLSS is NVIDIA-only. FSR or XeSS won't activate in its place; they need separate game support.</li>
+          </ul>
+
+          <h2>The Bottom Line on Upscaling in 2026</h2>
+
+          <p>All three technologies have improved dramatically. In 2024, the gap between DLSS and FSR was wide enough to matter for many players. In 2026, the gap between FSR 4 and DLSS 4 is small enough that most people wouldn't notice at Quality preset on a typical gaming monitor.</p>
+
+          <p>The meaningful differences are: DLSS 4's Multi Frame Generation (RTX 50 series exclusive), DLSS 4's edge in extreme motion clarity, and FSR 4's VRAM efficiency edge. For the vast majority of gaming scenarios, pick whichever the game supports natively and set it to Quality preset — you won't go wrong.</p>
+
+        </div>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="md:col-span-1">
+        <div style="position:sticky; top:80px; display:flex; flex-direction:column; gap:1rem;">
+
+          <div class="card p-5" style="background:var(--surface2);">
+            <div class="font-display text-xl mb-2">Check GPU Temps</div>
+            <p style="color:#8888a0; font-size:0.82rem; line-height:1.6; margin-bottom:1rem;">
+              Upscaling increases GPU load. Check your GPU's TJ Max and see how your current temps compare.
+            </p>
+            <a href="../tools/gpu-temp-checker.html" class="btn-check" style="display:block; text-align:center; text-decoration:none; padding:0.75rem;">
+              GPU Temp Checker
+            </a>
+          </div>
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Upscaling at a Glance</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.79rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>Best quality</span><span style="color:var(--safe);">DLSS 4</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>Best on AMD</span><span style="color:var(--safe);">FSR 4 (RDNA 4)</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>Best on Intel Arc</span><span style="color:var(--safe);">XeSS 2</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>Most compatible</span><span style="color:var(--warm);">FSR 3</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>Best preset</span><span style="color:var(--safe);">Quality</span></div>
+              <div style="display:flex; justify-content:space-between; color:#b0b0c8;"><span>Frame Gen (RTX 50)</span><span style="color:var(--safe);">MFG up to 3x</span></div>
+            </div>
+          </div>
+
+          <a href="rtx-5070-vs-rx-9070-xt.html" class="card p-5 article-card">
+            <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Trending</div>
+            <h4 class="font-semibold text-sm article-title transition-colors" style="color:var(--text); line-height:1.4; margin-bottom:0.4rem;">RTX 5070 vs RX 9070 XT</h4>
+            <p style="color:#8888a0; font-size:0.78rem; line-height:1.5;">Which 1440p GPU should you buy right now?</p>
+            <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.5rem;">→ Read</div>
+          </a>
+
+          <a href="gpu-undervolting-guide.html" class="card p-5 article-card">
+            <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Guide</div>
+            <h4 class="font-semibold text-sm article-title transition-colors" style="color:var(--text); line-height:1.4; margin-bottom:0.4rem;">How to Undervolt Your GPU</h4>
+            <p style="color:#8888a0; font-size:0.78rem; line-height:1.5;">Lower temps, same FPS. Step-by-step guide.</p>
+            <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.5rem;">→ Read</div>
+          </a>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <div style="text-align:center; padding:0.75rem 1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; border-top:1px solid var(--border);">
+    Upscaling data sourced from TechSpot, XDA Developers, Tom's Hardware, and ComputerBase blind tests. Updated June 2026.
+  </div>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1">TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex flex-wrap gap-5">
+          <a href="../tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Temp</a>
+          <a href="../tools/fps-estimator.html" class="nav-link text-xs">FPS Estimator</a>
+          <a href="../index.html" class="nav-link text-xs" style="color:var(--accent);">Home</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. Technology information is subject to change as software updates are released.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/feedback.js"></script>
+  <script src="../js/layout.js"></script>
+
+</body>
+</html>

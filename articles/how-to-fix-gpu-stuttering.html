@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Fix GPU Stuttering: Micro-Stutter, Frame Drops & Hitches (2026) | TempCore</title>
+  <meta name="description" content="GPU stuttering fixes for 2026: micro-stutter, frame time spikes, hitches, and frame drops. Covers shader compilation, XMP/EXPO, thermal throttling, driver issues, and more.">
+  <meta name="keywords" content="fix GPU stuttering, micro stutter fix, frame drops gaming, GPU hitching fix, shader compilation stutter, XMP EXPO enable, GPU frame time spikes 2026">
+
+  <link rel="canonical" href="https://temp-core.com/articles/how-to-fix-gpu-stuttering.html">
+
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="How to Fix GPU Stuttering: Micro-Stutter, Frame Drops & Hitches (2026)">
+  <meta property="og:description" content="Step-by-step fixes for GPU stuttering: shader compilation, XMP/EXPO, thermals, driver issues, DPC latency, and VRR settings.">
+  <meta property="og:url"         content="https://temp-core.com/articles/how-to-fix-gpu-stuttering.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Fix GPU Stuttering: Micro-Stutter, Frame Drops & Hitches (2026)",
+    "description": "Step-by-step guide to diagnosing and fixing GPU stuttering, micro-stutter, frame time spikes, and hitches in PC games.",
+    "url": "https://temp-core.com/articles/how-to-fix-gpu-stuttering.html",
+    "author": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "publisher": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-06-19",
+    "dateModified": "2026-06-19"
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7024027991276235"
+       crossorigin="anonymous"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme');
+        if (!t) t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-bg">
+
+  <div id="tc-sidebar-mount"></div>
+
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-3 gap-10">
+
+      <!-- Article -->
+      <article class="md:col-span-2">
+
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#8888a0; margin-bottom:1.5rem; letter-spacing:0.03em;">
+          <a href="../index.html" style="color:#8888a0; text-decoration:none;">Home</a>
+          <span style="margin:0 0.5rem;">›</span>
+          <span style="color:var(--text);">Troubleshooting</span>
+        </div>
+
+        <div class="article-tag mb-3" style="background:rgba(239,68,68,0.08); color:var(--hot);">Troubleshooting Guide</div>
+        <h1 class="font-display mb-4" style="font-size:clamp(2rem, 5vw, 3.5rem); line-height:0.95; letter-spacing:0.01em;">
+          How to Fix GPU Stuttering: Micro-Stutter, Frame Drops &amp; Hitches
+        </h1>
+        <p style="color:#8888a0; font-size:0.85rem; font-family:'JetBrains Mono',monospace; margin-bottom:2rem;">
+          Published June 2026 &nbsp;·&nbsp; By TempCore Editorial Team &nbsp;·&nbsp; 10 min read
+        </p>
+
+        <div class="callout" style="background:rgba(239,68,68,0.06); border-color:rgba(239,68,68,0.2); border-left-color:var(--hot); margin-bottom:2rem;">
+          <strong style="color:var(--text);">Quick diagnosis:</strong> Start with the three highest-impact fixes — <strong>(1) clear your shader cache</strong>, <strong>(2) enable XMP/EXPO in BIOS</strong>, and <strong>(3) check GPU temps for thermal throttling</strong>. These three steps alone resolve the majority of stuttering complaints on modern gaming PCs.
+        </div>
+
+        <div class="article-body">
+
+          <h2>What Type of Stutter Do You Have?</h2>
+
+          <p>Not all stuttering is the same, and different causes have different fixes. Identifying the pattern narrows the culprit immediately:</p>
+
+          <table class="temp-table mb-6">
+            <thead>
+              <tr>
+                <th>Stutter Pattern</th>
+                <th>Most Likely Cause</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Hitches at regular intervals (every few seconds)</td>
+                <td>Shader compilation / DX12 pipeline cache</td>
+              </tr>
+              <tr>
+                <td>Stutter only in open-world games, near area transitions</td>
+                <td>Asset streaming, not enough RAM, or slow SSD</td>
+              </tr>
+              <tr>
+                <td>Gets worse the longer you play</td>
+                <td>Thermal throttling — GPU or CPU hitting temp limit</td>
+              </tr>
+              <tr>
+                <td>Random spikes even in simple scenes</td>
+                <td>Driver issue, high DPC latency, or background process</td>
+              </tr>
+              <tr>
+                <td>Everything stutters, GPU usage low (&lt;50%)</td>
+                <td>CPU bottleneck, RAM at wrong speed, or power plan</td>
+              </tr>
+              <tr>
+                <td>Stutter after a Windows or driver update</td>
+                <td>Shader cache invalidated, or bad driver</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Fix 1: Clear Your Shader Cache (Most Common Fix)</h2>
+
+          <p>In 2026, <strong>shader compilation stutter is the single most common cause of hitching</strong> in PC games — especially after a driver update or when launching a game for the first time. When the GPU encounters a shader it hasn't compiled yet, the CPU must finish the compilation before the GPU can render the frame. This causes a brief but noticeable freeze.</p>
+
+          <p><strong>The fix:</strong></p>
+          <ul>
+            <li><strong>NVIDIA:</strong> Open NVIDIA Control Panel → Manage 3D Settings → Shader Cache Size → Set to <strong>Unlimited</strong> (not 10GB). Then clear the existing cache: %localappdata%\NVIDIA\DXCache and %localappdata%\NVIDIA\GLCache.</li>
+            <li><strong>AMD:</strong> Open AMD Adrenalin → Settings → Graphics → Shader Cache → Enable and set size to Unlimited. Clear cache from the same settings menu.</li>
+            <li>After clearing, let the game run for 20–30 minutes. Shaders will recompile and future sessions will be smooth.</li>
+          </ul>
+
+          <div class="callout" style="border-left-color:var(--accent);">
+            <strong style="color:var(--text);">After a driver update?</strong> Always clear the shader cache. Driver updates invalidate old compiled shaders, causing a full recompile session when you next launch games — that's why games feel worse immediately after a "fresh" driver install.
+          </div>
+
+          <h2>Fix 2: Enable XMP or EXPO in BIOS (Free Performance)</h2>
+
+          <p>Your RAM ships running at its slowest safe default speed (usually 4800 MT/s for DDR5). Until you enable XMP (Intel) or EXPO (AMD AM5) in BIOS, you're losing real gaming performance and causing unnecessary CPU-side bottlenecking that shows up as micro-stutter.</p>
+
+          <p><strong>How to enable it:</strong></p>
+          <ul>
+            <li>Restart and enter BIOS (usually Delete, F2, or F12 on boot)</li>
+            <li>Find the RAM/DRAM settings — often under "Advanced" or "AI Tweaker"</li>
+            <li>Enable XMP (Intel platforms) or EXPO (AMD AM5)</li>
+            <li>Select the XMP/EXPO profile that matches your RAM's rated speed</li>
+            <li>Save and exit</li>
+          </ul>
+
+          <p>This is one of the most impactful free changes you can make. On AMD AM5, running DDR5 at 4800 MT/s instead of the rated 6000 MT/s can cause 10–15% lower gaming performance and noticeably worse 1% lows.</p>
+
+          <h2>Fix 3: Check for Thermal Throttling</h2>
+
+          <p>If stuttering gets <strong>worse the longer you play</strong>, or appears after 20–30 minutes of gaming, thermal throttling is the likely culprit. When your GPU or CPU hits its temperature limit (TJ Max), it automatically reduces clock speeds to protect itself — causing sudden frame rate drops.</p>
+
+          <p>Use HWiNFO64 to monitor in real-time during gaming:</p>
+          <ul>
+            <li><strong>GPU:</strong> Watch "GPU Temperature" and compare to your GPU's TJ Max. Also monitor "GPU Clock" — a sudden drop while temps are near TJ Max confirms throttling.</li>
+            <li><strong>CPU:</strong> Watch "CPU Package Temperature" and "CPU All Core Frequency". A 13th/14th gen Intel chip hitting 100°C while frequency drops is thermal throttling.</li>
+          </ul>
+
+          <p>If you're thermal throttling, the fixes are: clean dust from heatsinks, improve case airflow, adjust GPU fan curve in MSI Afterburner, or repaste the cooler if it's 3+ years old.</p>
+
+          <h2>Fix 4: Reinstall or Roll Back GPU Drivers</h2>
+
+          <p>Bad GPU driver releases happen. If stuttering appeared right after a driver update:</p>
+
+          <ul>
+            <li>Download <strong>Display Driver Uninstaller (DDU)</strong> — the standard tool for clean driver removal</li>
+            <li>Boot into Safe Mode and run DDU to fully remove the current driver</li>
+            <li>Install the previous stable driver version (NVIDIA: 572.x series were stable; AMD: 25.3.x)</li>
+            <li>Alternatively, install the latest and clear shader cache as in Fix 1</li>
+          </ul>
+
+          <p>Windows Update sometimes silently replaces GPU drivers with a generic "Microsoft Basic Display" version. Check Device Manager → Display Adapters → right-click your GPU → Properties → Driver tab. If the driver provider says "Microsoft" instead of NVIDIA or AMD, reinstall the manufacturer driver.</p>
+
+          <h2>Fix 5: Check and Reduce DPC Latency</h2>
+
+          <p>High DPC (Deferred Procedure Call) latency causes micro-stutter where a driver briefly monopolizes the CPU at the kernel level. This shows up as irregular frame time spikes even when average FPS looks fine.</p>
+
+          <p>Download <strong>LatencyMon</strong> (free) and run it while gaming or in the background. If it shows high latency spikes, the culprit is typically:</p>
+
+          <ul>
+            <li>A poorly optimized audio driver (Realtek HD Audio is a common offender — update it)</li>
+            <li>Xbox Game Bar / Game DVR running in the background (disable in Xbox app settings)</li>
+            <li>VBS (Virtualization Based Security) / Memory Integrity (check in Windows Security settings — this causes measurable overhead)</li>
+            <li>Capture software (OBS, GeForce Experience overlay) adding interrupt overhead</li>
+          </ul>
+
+          <h2>Fix 6: Set Power Plan to High Performance</h2>
+
+          <p>Windows' "Balanced" power plan throttles the CPU between tasks to save power. During gaming, this causes the CPU to ramp up and down, creating micro-stutter — especially during loading transitions and when new areas stream in.</p>
+
+          <ul>
+            <li>Open Control Panel → Power Options → Select <strong>High Performance</strong> or <strong>Ultimate Performance</strong></li>
+            <li>AMD users: use the <strong>AMD Ryzen Balanced</strong> plan instead of Windows Balanced — it's tuned for Ryzen's boost behavior</li>
+            <li>NVIDIA RTX users: In NVIDIA Control Panel → Manage 3D Settings → Power management mode → set to <strong>Prefer Maximum Performance</strong></li>
+          </ul>
+
+          <h2>Fix 7: Set the Shader Cache to Unlimited (GPU Control Panel)</h2>
+
+          <p>Different from clearing the cache — you also need to ensure the cache <em>size</em> isn't capped. A 1–2GB shader cache limit means the GPU keeps evicting old compiled shaders as new ones get added, causing recompilation stutters repeatedly over a long gaming session.</p>
+
+          <p>NVIDIA Control Panel → Manage 3D Settings → Shader Cache Size → Change from 10GB to <strong>Unlimited</strong>. AMD Adrenalin has the same setting. An unlimited cache means shaders are compiled once and stay there.</p>
+
+          <h2>Fix 8: Enable Variable Refresh Rate (VRR / G-Sync / FreeSync)</h2>
+
+          <p>Micro-stutter is dramatically reduced when using G-Sync or FreeSync. With VRR, the display syncs its refresh rate to your frame rate dynamically, eliminating the tearing and judder that comes from frame rate fluctuations. Even if your FPS swings between 80–110 FPS, a VRR display shows each frame the instant it's ready — no tearing, no judder.</p>
+
+          <ul>
+            <li><strong>NVIDIA + G-Sync:</strong> Enable G-Sync in NVIDIA Control Panel → Set up G-Sync. Cap your frame rate 3–5 FPS below your monitor's max refresh using RTSS or the in-game limiter.</li>
+            <li><strong>AMD + FreeSync:</strong> Enable FreeSync in AMD Adrenalin → Display. Use the in-game frame limiter to stay within the FreeSync range.</li>
+            <li>Even without a G-Sync/FreeSync monitor, enabling <strong>Fast Sync</strong> (NVIDIA) or <strong>Enhanced Sync</strong> (AMD) reduces judder compared to V-Sync.</li>
+          </ul>
+
+          <h2>Quick Checklist</h2>
+
+          <table class="temp-table mb-6">
+            <thead>
+              <tr>
+                <th>Fix</th>
+                <th>Impact</th>
+                <th>Time Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Clear shader cache + set to Unlimited</td>
+                <td style="color:var(--safe);">Very High</td>
+                <td>5 min</td>
+              </tr>
+              <tr>
+                <td>Enable XMP / EXPO in BIOS</td>
+                <td style="color:var(--safe);">High</td>
+                <td>5 min</td>
+              </tr>
+              <tr>
+                <td>Check for thermal throttling (HWiNFO)</td>
+                <td style="color:var(--safe);">High (if throttling)</td>
+                <td>10 min</td>
+              </tr>
+              <tr>
+                <td>Reinstall GPU driver with DDU</td>
+                <td style="color:var(--warm);">Medium–High</td>
+                <td>20 min</td>
+              </tr>
+              <tr>
+                <td>Set power plan to High Performance</td>
+                <td style="color:var(--warm);">Medium</td>
+                <td>2 min</td>
+              </tr>
+              <tr>
+                <td>Run LatencyMon, fix DPC issues</td>
+                <td style="color:var(--warm);">Medium</td>
+                <td>15–30 min</td>
+              </tr>
+              <tr>
+                <td>Enable VRR / G-Sync / FreeSync</td>
+                <td style="color:var(--safe);">High (if applicable)</td>
+                <td>5 min</td>
+              </tr>
+              <tr>
+                <td>Disable Xbox Game Bar / DVR</td>
+                <td style="color:var(--warm);">Low–Medium</td>
+                <td>2 min</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="md:col-span-1">
+        <div style="position:sticky; top:80px; display:flex; flex-direction:column; gap:1rem;">
+
+          <div class="card p-5" style="background:var(--surface2);">
+            <div class="font-display text-xl mb-2">Check GPU Temperature</div>
+            <p style="color:#8888a0; font-size:0.82rem; line-height:1.6; margin-bottom:1rem;">
+              Thermal throttling causes stuttering. Check if your GPU is hitting its temperature limit.
+            </p>
+            <a href="../tools/gpu-temp-checker.html" class="btn-check" style="display:block; text-align:center; text-decoration:none; padding:0.75rem;">
+              GPU Temp Checker
+            </a>
+          </div>
+
+          <div class="card p-5">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Stutter Checklist</div>
+            <div style="font-size:0.8rem; display:flex; flex-direction:column; gap:0.5rem; color:#b0b0c8; font-family:'JetBrains Mono',monospace;">
+              <div>☐ Shader cache cleared</div>
+              <div>☐ XMP/EXPO enabled</div>
+              <div>☐ GPU below TJ Max</div>
+              <div>☐ Driver reinstalled</div>
+              <div>☐ Power plan = High Perf</div>
+              <div>☐ VRR enabled</div>
+              <div>☐ Game Bar disabled</div>
+            </div>
+          </div>
+
+          <a href="gpu-temp-guide.html" class="card p-5 article-card">
+            <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Guide</div>
+            <h4 class="font-semibold text-sm article-title transition-colors" style="color:var(--text); line-height:1.4; margin-bottom:0.4rem;">What Is a Good GPU Temperature?</h4>
+            <p style="color:#8888a0; font-size:0.78rem; line-height:1.5;">Safe, warm, and dangerous temps for every GPU generation.</p>
+            <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.5rem;">→ Read</div>
+          </a>
+
+          <a href="gpu-undervolting-guide.html" class="card p-5 article-card">
+            <div class="article-tag mb-2" style="background:rgba(34,212,126,0.08); color:var(--safe);">Guide</div>
+            <h4 class="font-semibold text-sm article-title transition-colors" style="color:var(--text); line-height:1.4; margin-bottom:0.4rem;">How to Undervolt Your GPU</h4>
+            <p style="color:#8888a0; font-size:0.78rem; line-height:1.5;">Lower temps and less thermal throttling with a GPU undervolt.</p>
+            <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.5rem;">→ Read</div>
+          </a>
+
+          <a href="how-to-stress-test-pc.html" class="card p-5 article-card">
+            <div class="article-tag mb-2" style="background:rgba(239,68,68,0.08); color:var(--hot);">Essential</div>
+            <h4 class="font-semibold text-sm article-title transition-colors" style="color:var(--text); line-height:1.4; margin-bottom:0.4rem;">How to Stress Test Your PC</h4>
+            <p style="color:#8888a0; font-size:0.78rem; line-height:1.5;">Find instability before it causes crashes during gaming.</p>
+            <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.5rem;">→ Read</div>
+          </a>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <div style="text-align:center; padding:0.75rem 1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#555568; border-top:1px solid var(--border);">
+    Information sourced from NVIDIA GeForce Forums, AMD Community, IQonDigital, and PC Game Check. Updated June 2026.
+  </div>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1">TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex flex-wrap gap-5">
+          <a href="../tools/gpu-temp-checker.html" class="nav-link text-xs">GPU Temp</a>
+          <a href="../tools/ssd-health-checker.html" class="nav-link text-xs">SSD Health</a>
+          <a href="../index.html" class="nav-link text-xs" style="color:var(--accent);">Home</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. Troubleshooting steps are general guidance. Results vary by system configuration.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/feedback.js"></script>
+  <script src="../js/layout.js"></script>
+
+</body>
+</html>

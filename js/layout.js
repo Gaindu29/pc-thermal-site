@@ -37,9 +37,13 @@
     {
       label: 'Trending',
       items: [
-        { href: P + 'articles/rtx-5060-8gb-vram.html',  label: 'RTX 5060 8GB VRAM', icon: 'zap'      },
-        { href: P + 'articles/amd-vs-intel-2026.html',   label: 'AMD vs Intel 2026', icon: 'cpu'      },
-        { href: P + 'articles/ddr5-vs-ddr4-2026.html',   label: 'DDR5 vs DDR4 2026', icon: 'database' }
+        { href: P + 'articles/rtx-5070-vs-rx-9070-xt.html', label: 'RTX 5070 vs RX 9070 XT', icon: 'zap'      },
+        { href: P + 'articles/16gb-vs-32gb-ram-gaming.html', label: '16GB vs 32GB RAM',        icon: 'database' },
+        { href: P + 'articles/dlss-4-vs-fsr-4.html',         label: 'DLSS 4 vs FSR 4',         icon: 'monitor'  },
+        { href: P + 'articles/how-to-fix-gpu-stuttering.html',label: 'Fix GPU Stuttering',      icon: 'alert'    },
+        { href: P + 'articles/rtx-5060-8gb-vram.html',       label: 'RTX 5060 8GB VRAM',       icon: 'zap'      },
+        { href: P + 'articles/amd-vs-intel-2026.html',        label: 'AMD vs Intel 2026',       icon: 'cpu'      },
+        { href: P + 'articles/ddr5-vs-ddr4-2026.html',        label: 'DDR5 vs DDR4 2026',       icon: 'database' }
       ]
     },
     {
