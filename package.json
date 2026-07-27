@@ -1,0 +1,13 @@
+{
+  "name": "tempcore",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TempCore – free PC hardware tools and guides (static site).",
+  "scripts": {
+    "build:css": "tailwindcss -c tailwind.config.js -i css/tailwind-input.css -o css/tailwind.css --minify",
+    "watch:css": "tailwindcss -c tailwind.config.js -i css/tailwind-input.css -o css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

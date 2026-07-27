@@ -749,7 +749,7 @@ function pcb_render(result) {
     '</div>' +
 
     /* Disclaimer */
-    '<p style="margin-top:1rem; font-family:\'JetBrains Mono\',monospace; font-size:0.65rem; color:#555568; line-height:1.6;">PC Builder is in <strong style="color:#8888a0;">BETA</strong>. Component picks are algorithmic suggestions, not personalized advice. Budget excludes peripherals (monitor, keyboard, mouse, headset). As an Amazon Associate, TempCore earns from qualifying purchases.</p>';
+    '<p style="margin-top:1rem; font-family:\'JetBrains Mono\',monospace; font-size:0.65rem; color:#555568; line-height:1.6;">PC Builder is in <strong style="color:#8888a0;">BETA</strong>. Component picks are algorithmic suggestions, not personalized advice. Budget excludes peripherals (monitor, keyboard, mouse, headset).</p>';
 
   resultBox.className = "result-box safe show";
   resultBox.innerHTML = html;

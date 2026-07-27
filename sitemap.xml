@@ -41,6 +41,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://temp-core.com/tools/gpu-power-connector-checker.html</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://temp-core.com/tools/ssd-health-checker.html</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>

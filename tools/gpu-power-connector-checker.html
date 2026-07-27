@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPU Power Connector & 12VHPWR Cable Checker | TempCore</title>
+  <meta name="description" content="Free GPU power connector checker. Find out if your graphics card uses 12VHPWR, 12V-2x6, or 8-pin PCIe, how many cables you need, whether your PSU has the right native cable, and how to avoid 12VHPWR melting.">
+  <meta name="keywords" content="12VHPWR checker, 12V-2x6, GPU power connector, RTX 4090 melting, RTX 5090 power cable, how many 8-pin PCIe, ATX 3.1 PSU, GPU PSU compatibility">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4Z7ZHHT3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z4Z7ZHHT3Z');
+  </script>
+
+  <meta name="google-adsense-account" content="ca-pub-7024027991276235">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7024027991276235"
+       crossorigin="anonymous"></script>
+
+  <link rel="canonical" href="https://temp-core.com/tools/gpu-power-connector-checker.html">
+
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="TempCore">
+  <meta property="og:title"       content="GPU Power Connector & 12VHPWR Cable Checker | TempCore">
+  <meta property="og:description" content="Find out which power connector your GPU uses (12VHPWR / 12V-2x6 / 8-pin), how many cables you need, and how to avoid the 12VHPWR melting problem.">
+  <meta property="og:url"         content="https://temp-core.com/tools/gpu-power-connector-checker.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "GPU Power Connector & Cable Checker",
+    "url": "https://temp-core.com/tools/gpu-power-connector-checker.html",
+    "description": "Check which power connector your GPU uses (12VHPWR, 12V-2x6, or 8-pin PCIe), how many cables it needs, whether your PSU has the right native cable, and how to avoid 12VHPWR melting.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web Browser",
+    "author": { "@type": "Organization", "name": "TempCore", "url": "https://temp-core.com" },
+    "datePublished": "2026-07-27",
+    "dateModified": "2026-07-27",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/tailwind.css">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('tc_theme'); if (!t) {
+          t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        var s = localStorage.getItem('tc_sidebar') || 'collapsed';
+        document.documentElement.setAttribute('data-sidebar', s);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-sidebar', 'collapsed');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .field-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8888a0;
+      margin-bottom: 0.5rem;
+    }
+    .field-hint {
+      font-size: 0.72rem;
+      color: #555568;
+      margin-top: 0.35rem;
+      line-height: 1.5;
+    }
+    select option, select optgroup { background: #141418; }
+    .info-strip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      font-size: 0.8rem;
+      color: #8888a0;
+      line-height: 1.6;
+    }
+    @media (min-width: 768px) {
+      .sticky-inputs { position: sticky; top: 80px; }
+    }
+    .conn-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+    .conn-strip-segment {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.55rem 0.5rem;
+      gap: 0.2rem;
+    }
+    .conn-strip-segment + .conn-strip-segment { border-left: 1px solid var(--border); }
+  </style>
+</head>
+<body class="bg-bg">
+
+  <div id="tc-sidebar-mount"></div>
+
+  <!-- PAGE HEADER -->
+  <section style="padding:3rem 0 1.5rem; border-bottom:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <a href="../index.html" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#8888a0; text-decoration:none; letter-spacing:0.05em;">&#8592; Back to Home</a>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-3">
+        <div>
+          <div class="section-label">Tool</div>
+          <h1 class="font-display mt-1" style="font-size:clamp(2.5rem,7vw,5rem); line-height:0.92;">
+            Power Connector<br><span style="color:var(--accent);">& Cable Checker</span>
+          </h1>
+          <p style="color:#8888a0; margin-top:0.75rem; font-size:0.9rem; line-height:1.6; max-width:480px;">
+            Pick your GPU and PSU to see exactly which power connector your card uses, how many cables to plug in, whether you need an adapter, and how to avoid the 12VHPWR melting problem.
+          </p>
+        </div>
+        <!-- Connector legend -->
+        <div class="conn-strip" style="min-width:280px;">
+          <div class="conn-strip-segment" style="background:rgba(94,176,166,0.06);">
+            <span style="color:var(--accent); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:0.72rem;">12V-2x6</span>
+            <span style="color:#8888a0; font-size:0.55rem; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; text-align:center;">RTX 50 &middot; ATX 3.1</span>
+          </div>
+          <div class="conn-strip-segment" style="background:rgba(232,149,0,0.06);">
+            <span style="color:var(--warm); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:0.72rem;">12VHPWR</span>
+            <span style="color:#8888a0; font-size:0.55rem; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; text-align:center;">RTX 40 &middot; ATX 3.0</span>
+          </div>
+          <div class="conn-strip-segment" style="background:rgba(16,196,126,0.05);">
+            <span style="color:var(--safe); font-weight:600; font-family:'JetBrains Mono',monospace; font-size:0.72rem;">8-pin</span>
+            <span style="color:#8888a0; font-size:0.55rem; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; text-align:center;">AMD &middot; older NVIDIA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-5 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+
+      <!-- INPUTS -->
+      <div class="md:col-span-2">
+        <div class="sticky-inputs flex flex-col gap-4">
+
+          <div class="card p-5">
+            <div class="section-label mb-4">Your Setup</div>
+
+            <!-- GPU -->
+            <div class="mb-4">
+              <label class="field-label" for="gp-gpu">Your GPU</label>
+              <select id="gp-gpu" class="input-field">
+                <option value="">&#8212; Select GPU &#8212;</option>
+              </select>
+              <div class="field-hint">Covers NVIDIA RTX 30/40/50, AMD RX 6000/7000/9000, and Intel Arc</div>
+            </div>
+
+            <!-- PSU wattage -->
+            <div class="mb-4">
+              <label class="field-label" for="gp-psu">PSU Wattage</label>
+              <select id="gp-psu" class="input-field">
+                <option value="">&#8212; Select wattage &#8212;</option>
+              </select>
+              <div class="field-hint">The rated output printed on your power supply's label</div>
+            </div>
+
+            <!-- PSU cable standard -->
+            <div class="mb-4">
+              <label class="field-label" for="gp-std">PSU Cable Type</label>
+              <select id="gp-std" class="input-field">
+                <option value="">&#8212; Select type &#8212;</option>
+              </select>
+              <div class="field-hint">ATX 3.1/3.0 PSUs include a native 16-pin cable; older ATX 2.x units do not</div>
+            </div>
+
+            <!-- CPU tier -->
+            <div class="mb-5">
+              <label class="field-label" for="gp-cpu">CPU Power Tier</label>
+              <select id="gp-cpu" class="input-field"></select>
+              <div class="field-hint">Used to refine the recommended PSU wattage for your whole system</div>
+            </div>
+
+            <!-- Error -->
+            <div id="gp-error" style="display:none; color:var(--critical); font-size:0.82rem; font-family:'JetBrains Mono',monospace; margin-bottom:0.75rem;"></div>
+
+            <!-- Submit -->
+            <button class="btn-check" onclick="checkGpuPower()" style="width:100%;">
+              Check Power &amp; Cables
+            </button>
+          </div>
+
+          <!-- Data sources -->
+          <div class="info-strip">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.4rem;">Data sources</div>
+            Board power (TGP) and recommended PSU wattage are from NVIDIA, AMD, and Intel official specs. Connector standards follow PCI-SIG (PCIe 5.0 12VHPWR, PCIe 5.1 12V-2x6) and Intel ATX 3.0 / 3.1. Founders Edition and AIB partner cards can differ - always check the plug on your specific card.
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+
+        <!-- Default state -->
+        <div id="gp-default" class="card p-10 flex flex-col items-center justify-center text-center" style="min-height:320px;">
+          <div style="margin-bottom:1rem; opacity:0.5;">
+            <svg width="52" height="52" viewBox="0 0 32 32" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L4 18h7l-1 12 9-16h-7z"/>
+            </svg>
+          </div>
+          <div class="font-display text-2xl mb-2" style="color:#445566;">Select Your GPU &amp; PSU</div>
+          <p style="color:#445566; font-size:0.85rem; max-width:320px; line-height:1.6;">
+            Get the exact connector type, cable count, adapter guidance, PSU wattage verdict, and 12VHPWR safety notes for your card.
+          </p>
+        </div>
+
+        <!-- Result -->
+        <div id="gp-result" class="result-box"></div>
+
+        <!-- Context cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mt-2">
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">12VHPWR vs 12V-2x6</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Both are 16-pin connectors rated to <strong style="color:var(--text);">600W</strong>. The original <strong style="color:var(--text);">12VHPWR</strong> (RTX 40, 3090 Ti) had melting reports tied to partial seating. The revised <strong style="color:var(--text);">12V-2x6</strong> (RTX 50) shortens the four sense pins and lengthens the conductor terminals so a not-fully-seated plug simply won't power on.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Why full seating matters</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">A 600W connector carries up to ~50A across six 12V pins. If the plug is even slightly loose, current crowds onto fewer pins, resistance rises, and the plastic can melt. Push until it <strong style="color:var(--text);">clicks</strong> and keep the cable straight for the first 35mm.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Native cable vs adapter</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">If your PSU is ATX 3.0/3.1 it ships with a single native 16-pin cable - always prefer it over the multi-8-pin adapter bundled with the GPU. On an older ATX 2.x PSU you must use that adapter; upgrading to an ATX 3.1 unit removes the extra failure point.</p>
+          </div>
+          <div class="card p-4">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Transient spikes &amp; ATX 3.x</div>
+            <p style="font-size:0.82rem; color:#8888a0; line-height:1.65;">Modern GPUs draw brief spikes far above their rated TGP - an RTX 4090 can hit ~600W for microseconds. ATX 3.0/3.1 PSUs are certified to handle up to 200% excursions, which is why they're recommended for high-end cards even when the average draw looks modest.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related tools -->
+    <div style="margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border);">
+      <div class="section-label">Related Tools &amp; Guides</div>
+      <div class="grid sm:grid-cols-3 gap-4 mt-4">
+        <a href="../tools/psu-calculator.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,170,0,0.08); color:var(--warm);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">PSU Wattage Calculator</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Size the exact PSU wattage for your full CPU + GPU build.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Calculate PSU</div>
+        </a>
+        <a href="../tools/gpu-temp-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(255,100,34,0.08); color:var(--hot);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">GPU Temperature Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">Is your GPU running too hot? Check against official TJ Max limits.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Check temps</div>
+        </a>
+        <a href="../tools/bottleneck-checker.html" class="card p-5 article-card">
+          <div class="article-tag mb-2" style="background:rgba(0,200,255,0.08); color:var(--accent);">Tool</div>
+          <h3 class="font-semibold text-sm mb-1 article-title transition-colors" style="color:var(--text); line-height:1.4;">Bottleneck Checker</h3>
+          <p style="color:#8888a0; font-size:0.8rem; line-height:1.55;">See whether your CPU and GPU are well matched for your resolution.</p>
+          <div style="color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:0.72rem; margin-top:0.6rem;">&#8594; Check balance</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Recommended cables / PSUs -->
+  <section style="padding:3rem 0; border-top:1px solid var(--border);">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="section-label mb-2">Recommended Cables &amp; ATX 3.1 PSUs</div>
+      <p style="color:#8888a0; font-size:0.85rem; margin-bottom:1.5rem; max-width:520px; line-height:1.65;">If the checker flagged an adapter or a borderline PSU, these are the safe upgrades. A native 12V-2x6 cable or an ATX 3.1 PSU removes the most common failure point on high-end cards.</p>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;">Native 12V-2x6 Cables</div>
+          <a href="https://www.amazon.com/s?k=cablemod+12VHPWR+12V-2x6+cable&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='#b0b0c8'">CableMod 12V-2x6 (match your PSU) <span style="font-size:0.7rem;color:#555568;">&#8599;</span></a>
+          <a href="https://www.amazon.com/s?k=corsair+600w+PCIe+5.1+12V-2x6+cable&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='#b0b0c8'">Corsair 600W PCIe 5.1 cable <span style="font-size:0.7rem;color:#555568;">&#8599;</span></a>
+          <p style="font-size:0.72rem;color:#555568;margin-top:0.6rem;line-height:1.5;">Only use a cable made for <strong>your exact PSU brand</strong> - pinouts differ between vendors.</p>
+        </div>
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:0.75rem;">ATX 3.1 PSU (750-850W)</div>
+          <a href="https://www.amazon.com/s?k=Corsair+RM850x+ATX+3.1&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='#b0b0c8'">Corsair RM850x (ATX 3.1) <span style="font-size:0.7rem;color:#555568;">&#8599;</span></a>
+          <a href="https://www.amazon.com/s?k=be+quiet+Pure+Power+12+M+850W+ATX+3.1&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--warm)'" onmouseout="this.style.color='#b0b0c8'">be quiet! Pure Power 12 M 850W <span style="font-size:0.7rem;color:#555568;">&#8599;</span></a>
+          <p style="font-size:0.72rem;color:#555568;margin-top:0.6rem;line-height:1.5;">Ideal for RTX 5070 Ti / 5080, RX 9070 XT, and similar mid-to-high cards.</p>
+        </div>
+        <div class="card p-5">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--safe);margin-bottom:0.75rem;">ATX 3.1 PSU (1000W+)</div>
+          <a href="https://www.amazon.com/s?k=Corsair+RM1000x+ATX+3.1&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--safe)'" onmouseout="this.style.color='#b0b0c8'">Corsair RM1000x (ATX 3.1) <span style="font-size:0.7rem;color:#555568;">&#8599;</span></a>
+          <a href="https://www.amazon.com/s?k=Seasonic+Vertex+GX-1000+ATX+3.0&tag=tempcore-20" target="_blank" rel="nofollow noopener" style="display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);text-decoration:none;color:#b0b0c8;font-size:0.82rem;" onmouseover="this.style.color='var(--safe)'" onmouseout="this.style.color='#b0b0c8'">Seasonic Vertex GX-1000 <span style="font-size:0.7rem;color:#555568;">&#8599;</span></a>
+          <p style="font-size:0.72rem;color:#555568;margin-top:0.6rem;line-height:1.5;">Required headroom for RTX 4090 / 5090-class cards and their transients.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="nav-logo mb-1">TempCore</div>
+          <p style="color:#555568; font-size:0.78rem; font-family:'JetBrains Mono',monospace;">Free PC hardware tools for gamers</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="../tools/psu-calculator.html" class="nav-link text-xs">PSU Calc</a>
+          <a href="../tools/cpu-cooler-checker.html" class="nav-link text-xs">CPU Cooler</a>
+          <a href="../index.html" class="nav-link text-xs">All Tools</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:1.5rem; padding-top:1.5rem; color:#555568; font-size:0.72rem; font-family:'JetBrains Mono',monospace;">
+        &copy; 2026 TempCore. Board power and PSU figures are manufacturer specifications. Always verify the connector on your specific card - Founders Edition and AIB models can differ.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/gpu-power.js"></script>
+  <script src="../js/feedback.js"></script>
+  <script src="../js/layout.js"></script>
+
+</body>
+</html>

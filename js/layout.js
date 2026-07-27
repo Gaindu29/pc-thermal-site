@@ -29,6 +29,7 @@
     { href: P + 'tools/gpu-temp-checker.html',     label: 'GPU Temp',       desc: 'TJ Max for 60+ GPU models',      icon: 'thermometer' },
     { href: P + 'tools/cpu-cooler-checker.html',   label: 'CPU Cooler',     desc: 'Cooler vs CPU TDP match',        icon: 'wind'        },
     { href: P + 'tools/psu-calculator.html',       label: 'PSU Calculator', desc: 'Exact wattage sizing',           icon: 'bolt'        },
+    { href: P + 'tools/gpu-power-connector-checker.html', label: 'Power Connector', desc: '12VHPWR & PSU cable checker', icon: 'zap'   },
     { href: P + 'tools/ssd-health-checker.html',   label: 'SSD Health',     desc: 'Temp + lifespan estimator',      icon: 'database'    },
     { href: P + 'tools/fps-estimator.html',        label: 'FPS Estimator',  desc: 'GPU benchmark FPS ranges',       icon: 'monitor'     }
   ];
